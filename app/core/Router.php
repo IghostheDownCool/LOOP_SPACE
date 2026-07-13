@@ -14,7 +14,9 @@ $routes = [
 
     'cadastro' => CadastroController::class,
 
-    'login' => LoginController::class
+    'login' => LoginController::class,
+
+    'logout' => LogoutController::class
 
 ];
 

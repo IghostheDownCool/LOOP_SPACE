@@ -7,5 +7,13 @@
     <p>Bem-vindo, <?= htmlspecialchars($_SESSION['usuario_nome']) ?>!</p>
 
 <?php endif; ?>
+<p>
 
+    <a href="/LOOP_SPACE/public/logout">
+
+        Sair
+
+    </a>
+
+</p>
 <?php require_once __DIR__ . '/layouts/footer.php'; ?>

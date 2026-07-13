@@ -1,15 +1,7 @@
 <?php
 
-class Album
+class Album extends Model
 {
-    private PDO $pdo;
-
-    public function __construct()
-    {
-        $database = new Database();
-
-        $this->pdo = $database->connect();
-    }
 
     public function listar(): array
     {

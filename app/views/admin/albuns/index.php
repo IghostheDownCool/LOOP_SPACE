@@ -3,6 +3,12 @@
 <h1>Álbuns</h1>
 
 <p>
+    <a href="<?= BASE_URL ?>/admin/albuns/cadastrar">
+        Novo Álbum
+    </a>
+</p>
+
+<p>
     <a href="<?= BASE_URL ?>/admin">
         Voltar ao Painel
     </a>

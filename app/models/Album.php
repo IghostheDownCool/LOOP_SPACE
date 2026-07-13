@@ -29,4 +29,72 @@ class Album
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function cadastrar(string $titulo, int $artistaId, int $ano): bool
+    {
+        $sql = "
+            INSERT INTO albuns
+            (titulo, artista_id, ano)
+            VALUES
+            (:titulo, :artista_id, :ano)
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':titulo' => $titulo,
+            ':artista_id' => $artistaId,
+            ':ano' => $ano
+        ]);
+    }
+
+    public function buscarPorId(int $id): array|false
+    {
+        $sql = "SELECT * FROM albuns WHERE id = :id";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute([
+            ':id' => $id
+        ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function atualizar(
+        int $id,
+        string $titulo,
+        int $artistaId,
+        int $ano
+    ): bool {
+
+        $sql = "
+            UPDATE albuns
+            SET
+                titulo = :titulo,
+                artista_id = :artista_id,
+                ano = :ano
+            WHERE id = :id
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':id' => $id,
+            ':titulo' => $titulo,
+            ':artista_id' => $artistaId,
+            ':ano' => $ano
+        ]);
+    }
+
+    public function excluir(int $id): bool
+    {
+        $sql = "DELETE FROM albuns WHERE id = :id";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':id' => $id
+        ]);
+    }
 }

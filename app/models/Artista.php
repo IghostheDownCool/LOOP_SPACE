@@ -22,7 +22,7 @@ class Artista
     
     public function buscarPorId(int $id): array|false
 {
-    $sql = "SELECT * FROM artistas WHERE id = :id";
+    $sql = "SELECT * FROM artistas ORDER BY nome ASC";
 
     $stmt = $this->pdo->prepare($sql);
 

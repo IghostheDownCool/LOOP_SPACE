@@ -12,6 +12,12 @@
 </a>
 
 <p>
+    <a href="<?= BASE_URL ?>/player">
+        🎵 Ouvir músicas
+    </a>
+</p>
+
+<p>
 
     <a href="/LOOP_SPACE/public/logout">
 

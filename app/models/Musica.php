@@ -12,28 +12,29 @@ class Musica
     }
 
     public function listar(): array
-    {
-        $sql = "
-            SELECT
-                musicas.*,
-                albuns.titulo AS album,
-                artistas.nome AS artista
-            FROM musicas
-            INNER JOIN albuns
-                ON albuns.id = musicas.album_id
-            INNER JOIN artistas
-                ON artistas.id = albuns.artista_id
-            ORDER BY artistas.nome ASC,
-                     albuns.titulo ASC,
-                     musicas.numero_faixa ASC
-        ";
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista
+        FROM musicas
+        INNER JOIN albuns
+            ON albuns.id = musicas.album_id
+        INNER JOIN artistas
+            ON artistas.id = albuns.artista_id
+        ORDER BY artistas.nome ASC,
+                 albuns.titulo ASC,
+                 musicas.numero_faixa ASC
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->pdo->prepare($sql);
 
-        $stmt->execute();
+    $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public function cadastrar(
     string $titulo,

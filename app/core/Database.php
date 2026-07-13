@@ -2,7 +2,6 @@
 /**
     Conexão com MySQL.
 */
-require_once __DIR__ . '/../app/core/Autoload.php';
 
 class Database
 {

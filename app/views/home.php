@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Loop Space</title>
-</head>
-<body>
+<?php require_once __DIR__ . '/layouts/header.php'; ?>
 
-    <h1>Loop Space</h1>
+<h1>Loop Space</h1>
 
-    <p>Primeira View carregada com sucesso!</p>
+<p>Página inicial.</p>
 
-</body>
-</html>
+<?php require_once __DIR__ . '/layouts/footer.php'; ?>

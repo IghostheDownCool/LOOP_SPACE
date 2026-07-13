@@ -3,30 +3,28 @@
 class Router
 {
     public function run()
-    {
-        $url = $_GET['url'] ?? '';
+{
+    $url = $_GET['url'] ?? '';
 
-        $url = trim($url, '/');
+    $url = trim($url, '/');
 
-        if ($url == '') {
+    $routes = [
 
-            $controller = new HomeController();
-            $controller->index();
+        '' => HomeController::class,
 
-            return;
-        }
+        'cadastro' => CadastroController::class
 
-        $controllerName = ucfirst($url) . "Controller";
+    ];
 
-        if (class_exists($controllerName)) {
+    if (isset($routes[$url])) {
 
-            $controller = new $controllerName();
+        $controller = new $routes[$url];
 
-            $controller->index();
+        $controller->index();
 
-        } else {
-
-            die("Página não encontrada.");
-        }
+        return;
     }
+
+    die("Página não encontrada.");
+}
 }

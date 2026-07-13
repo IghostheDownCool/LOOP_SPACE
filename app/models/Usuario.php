@@ -35,4 +35,16 @@ class Usuario
 
     return $stmt->fetch() !== false;
 }
+public function buscarPorEmailLogin(string $email)
+{
+    $sql = "SELECT * FROM usuarios WHERE email = :email LIMIT 1";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->execute([
+        ':email' => $email
+    ]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }

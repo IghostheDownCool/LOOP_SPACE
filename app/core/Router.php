@@ -8,13 +8,15 @@ class Router
 
     $url = trim($url, '/');
 
-    $routes = [
+$routes = [
 
-        '' => HomeController::class,
+    '' => HomeController::class,
 
-        'cadastro' => CadastroController::class
+    'cadastro' => CadastroController::class,
 
-    ];
+    'login' => LoginController::class
+
+];
 
     if (isset($routes[$url])) {
 

@@ -6,8 +6,7 @@ class Usuario
 
     public function __construct()
     {
-        $database = new Database();
-        $this->pdo = $database->connect();
+        $this->pdo = Database::connect();
     }
 
     public function cadastrar(string $nome, string $email, string $senha): bool

@@ -1,30 +1,26 @@
 <?php
 /**
-    Conexão com MySQL.
-*/
-
+  conexão com sql
+ */
 class Database
 {
-    private string $host = "localhost";
-    private string $dbname = "loop_space";
-    private string $user = "root";
-    private string $password = "aDon@2$4.Noda";
+    private static ?PDO $connection = null;
 
-    private ?PDO $connection = null;
-
-    public function connect(): PDO
+    public static function connect(): PDO
     {
-        if ($this->connection === null) {
+        if (self::$connection === null) {
 
             try {
 
-                $this->connection = new PDO(
-                    "mysql:host={$this->host};dbname={$this->dbname};charset=utf8",
-                    $this->user,
-                    $this->password
+                self::$connection = new PDO(
+                    "mysql:host=" . DB_HOST .
+                    ";dbname=" . DB_NAME .
+                    ";charset=utf8",
+                    DB_USER,
+                    DB_PASS
                 );
 
-                $this->connection->setAttribute(
+                self::$connection->setAttribute(
                     PDO::ATTR_ERRMODE,
                     PDO::ERRMODE_EXCEPTION
                 );
@@ -37,6 +33,6 @@ class Database
 
         }
 
-        return $this->connection;
+        return self::$connection;
     }
 }

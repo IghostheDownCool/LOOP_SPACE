@@ -8,27 +8,26 @@ class Router
 
     $url = trim($url, '/');
 
-$routes = [
+    $segments = explode('/', $url);
 
-    '' => HomeController::class,
+    $controllerName = !empty($segments[0])
+        ? ucfirst($segments[0]) . 'Controller'
+        : 'HomeController';
 
-    'cadastro' => CadastroController::class,
+    $method = $segments[1] ?? 'index';
 
-    'login' => LoginController::class,
+    $params = array_slice($segments, 2);
 
-    'logout' => LogoutController::class
-
-];
-
-    if (isset($routes[$url])) {
-
-        $controller = new $routes[$url];
-
-        $controller->index();
-
-        return;
+    if (!class_exists($controllerName)) {
+        die('Controller não encontrado.');
     }
 
-    die("Página não encontrada.");
+    $controller = new $controllerName();
+
+    if (!method_exists($controller, $method)) {
+        die('Método não encontrado.');
+    }
+
+    call_user_func_array([$controller, $method], $params);
 }
 }

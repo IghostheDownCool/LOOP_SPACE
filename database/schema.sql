@@ -25,11 +25,19 @@ CREATE TABLE artistas (
 
 CREATE TABLE albuns (
     id INT AUTO_INCREMENT PRIMARY KEY,
+
     artista_id INT NOT NULL,
+
     titulo VARCHAR(150) NOT NULL,
-    ano YEAR,
-    capa VARCHAR(255),
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    ano YEAR NULL,
+
+    capa VARCHAR(255) NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_album_artista
         FOREIGN KEY (artista_id)

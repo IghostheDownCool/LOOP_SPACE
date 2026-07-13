@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../layouts/header.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/header.php'; ?>
 
 <h1>Cadastrar Artista</h1>
 
@@ -17,19 +17,15 @@
     <br><br>
 
     <button type="submit">
-
         Salvar
-
     </button>
 
 </form>
 
 <br>
 
-<a href="<?= BASE_URL ?>/artistas">
-
+<a href="<?= BASE_URL ?>/admin/artistas">
     Voltar
-
 </a>
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

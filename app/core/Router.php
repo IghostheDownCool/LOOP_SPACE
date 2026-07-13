@@ -3,31 +3,58 @@
 class Router
 {
     public function run()
-{
-    $url = $_GET['url'] ?? '';
+    {
+        $url = $_GET['url'] ?? '';
 
-    $url = trim($url, '/');
+        $url = trim($url, '/');
 
-    $segments = explode('/', $url);
+        $segments = $url === '' ? [] : explode('/', $url);
 
-    $controllerName = !empty($segments[0])
-        ? ucfirst($segments[0]) . 'Controller'
-        : 'HomeController';
+        /*
+        ----------------------------------------------------------
+        | Área administrativa
+        ----------------------------------------------------------
+        */
+        if (isset($segments[0]) && $segments[0] === 'admin') {
 
-    $method = $segments[1] ?? 'index';
+            $controllerName = ucfirst($segments[1] ?? 'Home') . 'Controller';
 
-    $params = array_slice($segments, 2);
+            $controllerFile = __DIR__ . '/../controllers/admin/' . $controllerName . '.php';
 
-    if (!class_exists($controllerName)) {
-        die('Controller não encontrado.');
+            if (!file_exists($controllerFile)) {
+                die('Controller administrativo não encontrado.');
+            }
+
+            require_once $controllerFile;
+
+            $method = $segments[2] ?? 'index';
+
+            $params = array_slice($segments, 3);
+        }
+        /*
+        ----------------------------------------------------------
+        | Área pública
+        ----------------------------------------------------------
+        */
+        else {
+
+            $controllerName = ucfirst($segments[0] ?? 'Home') . 'Controller';
+
+            $method = $segments[1] ?? 'index';
+
+            $params = array_slice($segments, 2);
+        }
+
+        if (!class_exists($controllerName)) {
+            die('Controller não encontrado.');
+        }
+
+        $controller = new $controllerName();
+
+        if (!method_exists($controller, $method)) {
+            die('Método não encontrado.');
+        }
+
+        call_user_func_array([$controller, $method], $params);
     }
-
-    $controller = new $controllerName();
-
-    if (!method_exists($controller, $method)) {
-        die('Método não encontrado.');
-    }
-
-    call_user_func_array([$controller, $method], $params);
-}
 }

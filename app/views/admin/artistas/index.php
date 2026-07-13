@@ -1,9 +1,9 @@
-<?php require_once __DIR__ . '/../layouts/header.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/header.php'; ?>
 
 <h1>Artistas</h1>
 
 <p>
-    <a href="<?= BASE_URL ?>/artistas/cadastrar">
+    <a href="<?= BASE_URL ?>/admin/artistas/cadastrar">
         Novo Artista
     </a>
 </p>
@@ -32,16 +32,19 @@
 
             <td>
 
-                <a href="<?= BASE_URL ?>/artistas/editar/<?= $artista['id'] ?>">
-    Editar
-</a>
-|
-<a
-    href="<?= BASE_URL ?>/artistas/excluir/<?= $artista['id'] ?>"
-    onclick="return confirm('Deseja realmente excluir este artista?');"
->
-    Excluir
-</a>
+                <a href="<?= BASE_URL ?>/admin/artistas/editar/<?= $artista['id'] ?>">
+                    Editar
+                </a>
+
+                |
+
+                <a
+                    href="<?= BASE_URL ?>/admin/artistas/excluir/<?= $artista['id'] ?>"
+                    onclick="return confirm('Deseja realmente excluir este artista?');"
+                >
+                    Excluir
+                </a>
+
             </td>
 
         </tr>
@@ -60,4 +63,4 @@
 
 </a>
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

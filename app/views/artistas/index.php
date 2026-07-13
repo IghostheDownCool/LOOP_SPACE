@@ -32,9 +32,16 @@
 
             <td>
 
-                Editar |
-                Excluir
-
+                <a href="<?= BASE_URL ?>/artistas/editar/<?= $artista['id'] ?>">
+    Editar
+</a>
+|
+<a
+    href="<?= BASE_URL ?>/artistas/excluir/<?= $artista['id'] ?>"
+    onclick="return confirm('Deseja realmente excluir este artista?');"
+>
+    Excluir
+</a>
             </td>
 
         </tr>

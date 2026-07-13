@@ -5,7 +5,7 @@
 
 define('APP_NAME', 'Loop Space');
 
-define('URL_BASE', 'http://localhost/loop_space/public/');
+define('BASE_URL', '/LOOP_SPACE/public');
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'loop_space');

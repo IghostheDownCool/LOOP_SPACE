@@ -19,4 +19,15 @@ class Artista
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function cadastrar(string $nome): bool
+{
+    $sql = "INSERT INTO artistas (nome) VALUES (:nome)";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    return $stmt->execute([
+        ':nome' => $nome
+    ]);
+}
 }

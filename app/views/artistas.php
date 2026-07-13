@@ -2,6 +2,16 @@
 
 <h1>Artistas</h1>
 
+<p>
+
+    <a href="<?= BASE_URL ?>/artistas/cadastrar">
+
+        Novo Artista
+
+    </a>
+
+</p>
+
 <?php if (empty($artistas)): ?>
 
     <p>Nenhum artista cadastrado.</p>

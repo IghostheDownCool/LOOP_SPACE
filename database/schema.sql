@@ -113,3 +113,6 @@ CREATE TABLE favoritos (
         REFERENCES musicas(id)
         ON DELETE CASCADE
 );
+
+ALTER TABLE musicas
+MODIFY arquivo VARCHAR(255) DEFAULT NULL;

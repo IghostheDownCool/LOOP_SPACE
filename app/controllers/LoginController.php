@@ -28,12 +28,12 @@ class LoginController extends Controller
             }
 
             $_SESSION['usuario_id'] = $dadosUsuario['id'];
-$_SESSION['usuario_nome'] = $dadosUsuario['nome'];
+            $_SESSION['usuario_nome'] = $dadosUsuario['nome'];
 
-header('Location: /LOOP_SPACE/public/');
-exit;
+            header('Location: ' . BASE_URL);
+            exit;
         }
 
-        $this->view('login');
+        $this->view('login/index');
     }
 }

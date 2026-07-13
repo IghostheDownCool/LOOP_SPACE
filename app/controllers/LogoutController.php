@@ -8,7 +8,7 @@ class LogoutController extends Controller
 
         session_destroy();
 
-        header('Location: /LOOP_SPACE/public/login');
+        header('Location: /LOOP_SPACE/public/login/index');
         exit;
     }
 }

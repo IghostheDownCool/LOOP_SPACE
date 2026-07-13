@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/layouts/header.php'; ?>
+<?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <h1>Loop Space</h1>
 
@@ -16,4 +16,4 @@
     </a>
 
 </p>
-<?php require_once __DIR__ . '/layouts/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>

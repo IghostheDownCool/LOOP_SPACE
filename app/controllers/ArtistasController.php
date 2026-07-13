@@ -4,42 +4,36 @@ class ArtistasController extends Controller
 {
     public function index()
     {
-        if (!isset($_SESSION['usuario_id'])) {
-            header('Location: /LOOP_SPACE/public/login');
-            exit;
-        }
+        $this->requireLogin();
 
         $artista = new Artista();
 
         $artistas = $artista->listar();
 
-        $this->view('artistas', [
+        $this->view('artistas/index', [
             'artistas' => $artistas
         ]);
     }
-    
+
     public function cadastrar()
-{
-    if (!isset($_SESSION['usuario_id'])) {
-        header('Location: ' . BASE_URL . '/login');
-        exit;
-    }
+    {
+        $this->requireLogin();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $nome = trim($_POST['nome']);
+            $nome = trim($_POST['nome']);
 
-        if ($nome !== '') {
+            if ($nome !== '') {
 
-            $artista = new Artista();
+                $artista = new Artista();
 
-            $artista->cadastrar($nome);
+                $artista->cadastrar($nome);
 
-            header('Location: ' . BASE_URL . '/artistas');
-            exit;
+                header('Location: ' . BASE_URL . '/artistas');
+                exit;
+            }
         }
-    }
 
-    $this->view('artistas_cadastrar');
-}
+        $this->view('artistas/cadastrar');
+    }
 }

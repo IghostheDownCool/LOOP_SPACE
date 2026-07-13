@@ -4,12 +4,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if (!isset($_SESSION['usuario_id'])) {
+        $this->requireLogin();
 
-            header('Location: /LOOP_SPACE/public/login');
-            exit;
-        }
-
-        $this->view('home');
+        $this->view('home/index');
     }
 }

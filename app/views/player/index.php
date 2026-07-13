@@ -23,13 +23,14 @@
     <button
         class="musica-item"
         onclick="tocarMusica(
-            this,
-            '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo']) ?>',
-            '<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>',
-            '<?= htmlspecialchars($musica['artista'], ENT_QUOTES) ?>',
-            '<?= htmlspecialchars($musica['album'], ENT_QUOTES) ?>',
-            '<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa']) ?>'
-        )"
+    this,
+    <?= $musica['id'] ?>,
+    '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo']) ?>',
+    '<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>',
+    '<?= htmlspecialchars($musica['artista'], ENT_QUOTES) ?>',
+    '<?= htmlspecialchars($musica['album'], ENT_QUOTES) ?>',
+    '<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa']) ?>'
+)"
     >
 
         <strong>

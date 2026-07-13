@@ -133,4 +133,19 @@ class Musica
             ':id' => $id
         ]);
     }
+    
+    public function incrementarReproducoes(int $id): bool
+{
+    $sql = "
+        UPDATE musicas
+        SET reproducoes = reproducoes + 1
+        WHERE id = :id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    return $stmt->execute([
+        ':id' => $id
+    ]);
+}
 }

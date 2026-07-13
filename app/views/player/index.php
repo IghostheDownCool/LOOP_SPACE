@@ -8,9 +8,9 @@
 
 <?php else: ?>
 
-<div style="display:flex; gap:40px;">
+<div class="player-container">
 
-    <div style="width:300px;">
+    <div class="player-playlist">
 
         <h3>Músicas</h3>
 
@@ -18,7 +18,7 @@
 
             <?php foreach ($musicas as $musica): ?>
 
-                <li style="margin-bottom:10px;">
+                <li>
 
                     <button
                         onclick="tocarMusica(
@@ -42,14 +42,14 @@
 
     </div>
 
-    <div>
+    <div class="player-info">
 
         <img
-            id="capa"
-            src=""
-            width="250"
-            style="display:none;"
-        >
+    id="capa"
+    src=""
+    style="display:none;"
+    alt="Capa do álbum"
+>
 
         <h2 id="titulo">Escolha uma música</h2>
 
@@ -58,43 +58,13 @@
         <p id="album"></p>
 
         <audio
-            id="player"
-            controls
-            style="width:500px;"
-        >
-
-        </audio>
+    id="player"
+    controls
+>
 
     </div>
 
 </div>
-
-<script>
-
-function tocarMusica(audio, titulo, artista, album, capa)
-{
-    const player = document.getElementById('player');
-
-    player.src = audio;
-
-    player.play();
-
-    document.getElementById('titulo').innerText = titulo;
-
-    document.getElementById('artista').innerText =
-        'Artista: ' + artista;
-
-    document.getElementById('album').innerText =
-        'Álbum: ' + album;
-
-    const img = document.getElementById('capa');
-
-    img.src = capa;
-
-    img.style.display = 'block';
-}
-
-</script>
 
 <?php endif; ?>
 

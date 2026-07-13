@@ -1,0 +1,61 @@
+.player-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.player-playlist {
+    width: 300px;
+}
+
+.player-playlist h3 {
+    margin-bottom: 20px;
+}
+
+.player-playlist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.player-playlist li {
+    margin-bottom: 10px;
+}
+
+.player-playlist button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.2s;
+}
+
+.player-playlist button:hover {
+    transform: translateX(5px);
+}
+
+.player-info {
+    flex: 1;
+}
+
+.player-info img {
+    width: 280px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.player-info h2 {
+    margin: 10px 0;
+}
+
+.player-info p {
+    margin: 5px 0;
+}
+
+.player-info audio {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}

@@ -2,7 +2,7 @@
 
 <h1>Cadastrar Música</h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 
     <label>Título</label>
 
@@ -64,6 +64,18 @@
     >
 
     <br><br>
+    <label>Arquivo MP3</label>
+
+<br><br>
+
+<input
+    type="file"
+    name="arquivo"
+    accept=".mp3,audio/mpeg"
+    required
+>
+
+<br><br>
 
     <button type="submit">
         Salvar

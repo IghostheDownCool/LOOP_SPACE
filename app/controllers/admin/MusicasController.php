@@ -27,17 +27,46 @@ class MusicasController extends AdminController
             $numeroFaixa = (int) $_POST['numero_faixa'];
             $duracao = (int) $_POST['duracao'];
 
+            $arquivo = $_FILES['arquivo'] ?? null;
+
             if ($titulo !== '') {
 
-                $musica->cadastrar(
-                    $titulo,
-                    $albumId,
-                    $numeroFaixa,
-                    $duracao
-                );
+    if (!$arquivo || $arquivo['error'] !== UPLOAD_ERR_OK) {
 
-                $this->redirect('/admin/musicas');
-            }
+        die('Erro ao enviar o arquivo.');
+
+    }
+
+    $extensao = strtolower(pathinfo($arquivo['name'], PATHINFO_EXTENSION));
+
+    if ($extensao !== 'mp3') {
+
+        die('Somente arquivos MP3 são permitidos.');
+
+    }
+
+    $nomeArquivo = uniqid('musica_', true) . '.mp3';
+
+    $destino = __DIR__
+        . '/../../../public/uploads/musicas/'
+        . $nomeArquivo;
+
+    if (!move_uploaded_file($arquivo['tmp_name'], $destino)) {
+
+        die('Não foi possível salvar o arquivo.');
+
+    }
+
+    $musica->cadastrar(
+        $titulo,
+        $albumId,
+        $numeroFaixa,
+        $duracao,
+        $nomeArquivo
+    );
+
+    $this->redirect('/admin/musicas');
+}
         }
 
         $this->view('admin/musicas/cadastrar', [

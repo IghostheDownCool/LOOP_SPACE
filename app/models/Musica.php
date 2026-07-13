@@ -36,38 +36,42 @@ class Musica
     }
 
     public function cadastrar(
-        string $titulo,
-        int $albumId,
-        int $numeroFaixa,
-        int $duracao
-    ): bool {
+    string $titulo,
+    int $albumId,
+    int $numeroFaixa,
+    int $duracao,
+    string $arquivo
+): bool {
 
-        $sql = "
-            INSERT INTO musicas
-            (
-                album_id,
-                titulo,
-                numero_faixa,
-                duracao
-            )
-            VALUES
-            (
-                :album_id,
-                :titulo,
-                :numero_faixa,
-                :duracao
-            )
-        ";
+    $sql = "
+        INSERT INTO musicas
+        (
+            album_id,
+            titulo,
+            numero_faixa,
+            duracao,
+            arquivo
+        )
+        VALUES
+        (
+            :album_id,
+            :titulo,
+            :numero_faixa,
+            :duracao,
+            :arquivo
+        )
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->pdo->prepare($sql);
 
-        return $stmt->execute([
-            ':album_id' => $albumId,
-            ':titulo' => $titulo,
-            ':numero_faixa' => $numeroFaixa,
-            ':duracao' => $duracao
-        ]);
-    }
+    return $stmt->execute([
+        ':album_id' => $albumId,
+        ':titulo' => $titulo,
+        ':numero_faixa' => $numeroFaixa,
+        ':duracao' => $duracao,
+        ':arquivo' => $arquivo
+    ]);
+}
 
     public function buscarPorId(int $id): array|false
     {

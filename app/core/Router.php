@@ -17,7 +17,9 @@ class Router
         */
         if (isset($segments[0]) && $segments[0] === 'admin') {
 
-            $controllerName = ucfirst($segments[1] ?? 'Home') . 'Controller';
+            $controllerName = isset($segments[1])
+    ? ucfirst($segments[1]) . 'Controller'
+    : 'AdminHomeController';
 
             $controllerFile = __DIR__ . '/../controllers/admin/' . $controllerName . '.php';
 

@@ -7,6 +7,10 @@
     <p>Bem-vindo, <?= htmlspecialchars($_SESSION['usuario_nome']) ?>!</p>
 
 <?php endif; ?>
+<a href="<?= BASE_URL ?>/admin">
+    Painel Administrativo
+</a>
+
 <p>
 
     <a href="/LOOP_SPACE/public/logout">

@@ -1,5 +1,6 @@
 <?php
 
+// 1. Primeiro definimos a classe base (Pai)
 class AdminController extends Controller
 {
     protected string $titulo = 'Painel Administrativo';
@@ -15,3 +16,5 @@ class AdminController extends Controller
         exit;
     }
 }
+
+// 2. Depois definimos a classe filha que herda da classe base

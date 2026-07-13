@@ -27,8 +27,11 @@ class LoginController extends Controller
                 return;
             }
 
-            echo "Login realizado com sucesso!";
-            return;
+            $_SESSION['usuario_id'] = $dadosUsuario['id'];
+$_SESSION['usuario_nome'] = $dadosUsuario['nome'];
+
+header('Location: /LOOP_SPACE/public/');
+exit;
         }
 
         $this->view('login');

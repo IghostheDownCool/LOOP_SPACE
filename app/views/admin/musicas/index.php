@@ -29,6 +29,7 @@
         <th>Álbum</th>
         <th>Faixa</th>
         <th>Duração (s)</th>
+        <th>Ações</th>
     </tr>
 
     <?php foreach ($musicas as $musica): ?>
@@ -46,6 +47,23 @@
             <td><?= $musica['numero_faixa'] ?></td>
 
             <td><?= $musica['duracao'] ?></td>
+
+            <td>
+
+                <a href="<?= BASE_URL ?>/admin/musicas/editar/<?= $musica['id'] ?>">
+                    Editar
+                </a>
+
+                |
+
+                <a
+                    href="<?= BASE_URL ?>/admin/musicas/excluir/<?= $musica['id'] ?>"
+                    onclick="return confirm('Deseja realmente excluir esta música?');"
+                >
+                    Excluir
+                </a>
+
+            </td>
 
         </tr>
 

@@ -83,3 +83,50 @@
 audio {
     margin-top: 20px;
 }
+
+.musica-item {
+    width: 100%;
+    background: #2b2b2b;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    transition: .2s;
+}
+
+.musica-item strong {
+    font-size: 16px;
+}
+
+.musica-item span {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #bbbbbb;
+}
+
+.musica-item:hover {
+    background: #1db954;
+}
+
+.musica-item:hover span {
+    color: white;
+}
+
+.musica-item.ativa {
+    background: #1db954;
+    color: white;
+}
+
+.musica-item.ativa span {
+    color: white;
+}
+
+.musica-item.ativa strong {
+    color: white;
+}

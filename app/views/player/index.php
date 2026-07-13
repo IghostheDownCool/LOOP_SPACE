@@ -20,21 +20,29 @@
 
                 <li>
 
-                    <button
-                        onclick="tocarMusica(
-                            '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo']) ?>',
-                            '<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>',
-                            '<?= htmlspecialchars($musica['artista'], ENT_QUOTES) ?>',
-                            '<?= htmlspecialchars($musica['album'], ENT_QUOTES) ?>',
-                            '<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa']) ?>'
-                        )"
-                    >
+    <button
+        class="musica-item"
+        onclick="tocarMusica(
+            this,
+            '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo']) ?>',
+            '<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>',
+            '<?= htmlspecialchars($musica['artista'], ENT_QUOTES) ?>',
+            '<?= htmlspecialchars($musica['album'], ENT_QUOTES) ?>',
+            '<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa']) ?>'
+        )"
+    >
 
-                        ▶ <?= htmlspecialchars($musica['titulo']) ?>
+        <strong>
+            ▶ <?= htmlspecialchars($musica['titulo']) ?>
+        </strong>
 
-                    </button>
+        <span>
+            <?= htmlspecialchars($musica['artista']) ?>
+        </span>
 
-                </li>
+    </button>
+
+</li>
 
             <?php endforeach; ?>
 

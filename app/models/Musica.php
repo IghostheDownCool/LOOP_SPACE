@@ -148,4 +148,27 @@ class Musica
         ':id' => $id
     ]);
 }
+public function topMusicas(): array
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            artistas.nome AS artista
+        FROM musicas
+        INNER JOIN albuns
+            ON albuns.id = musicas.album_id
+        INNER JOIN artistas
+            ON artistas.id = albuns.artista_id
+        ORDER BY reproducoes DESC,
+                 titulo ASC
+        LIMIT 10
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

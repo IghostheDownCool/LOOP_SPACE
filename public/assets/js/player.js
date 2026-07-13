@@ -10,6 +10,10 @@ function tocarMusica(botao, id, audio, titulo, artista, album, capa)
 
     player.src = audio;
 
+fetch('/LOOP_SPACE/public/player/reproduzir/' + id, {
+    method: 'POST'
+});
+
     player.play();
 
     document.getElementById('titulo').innerText = titulo;

@@ -38,6 +38,10 @@
 
         <a href="<?= BASE_URL ?>/admin">Painel</a>
 
+        <a href="<?= BASE_URL ?>/player/top">
+    Top Músicas
+</a>
+
         <a href="<?= BASE_URL ?>/logout">Sair</a>
 
     </nav>

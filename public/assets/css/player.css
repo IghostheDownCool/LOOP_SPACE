@@ -130,3 +130,7 @@ audio {
 .musica-item.ativa strong {
     color: white;
 }
+
+#busca {
+    margin-bottom: 20px;
+}

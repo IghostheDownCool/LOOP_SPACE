@@ -2,7 +2,7 @@
 
 <h1>Cadastrar Álbum</h1>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 
     <label>Título</label>
 
@@ -54,6 +54,18 @@
     >
 
     <br><br>
+
+    <label>Capa do Álbum</label>
+
+<br><br>
+
+<input
+    type="file"
+    name="capa"
+    accept=".jpg,.jpeg,.png,.webp"
+>
+
+<br><br>
 
     <button type="submit">
 

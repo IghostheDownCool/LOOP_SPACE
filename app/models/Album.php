@@ -22,22 +22,38 @@ class Album extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function cadastrar(string $titulo, int $artistaId, int $ano): bool
+    public function cadastrar(
+    string $titulo,
+    int $artistaId,
+    int $ano,
+    ?string $capa
+): bool
     {
         $sql = "
-            INSERT INTO albuns
-            (titulo, artista_id, ano)
-            VALUES
-            (:titulo, :artista_id, :ano)
-        ";
+    INSERT INTO albuns
+    (
+        titulo,
+        artista_id,
+        ano,
+        capa
+    )
+    VALUES
+    (
+        :titulo,
+        :artista_id,
+        :ano,
+        :capa
+    )
+";
 
         $stmt = $this->pdo->prepare($sql);
 
         return $stmt->execute([
-            ':titulo' => $titulo,
-            ':artista_id' => $artistaId,
-            ':ano' => $ano
-        ]);
+    ':titulo' => $titulo,
+    ':artista_id' => $artistaId,
+    ':ano' => $ano,
+    ':capa' => $capa
+]);
     }
 
     public function buscarPorId(int $id): array|false

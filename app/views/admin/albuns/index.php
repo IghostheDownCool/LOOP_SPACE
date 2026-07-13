@@ -23,12 +23,13 @@
 <table border="1" cellpadding="8" cellspacing="0">
 
     <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Artista</th>
-        <th>Ano</th>
-        <th>Ações</th>
-    </tr>
+    <th>ID</th>
+    <th>Capa</th>
+    <th>Título</th>
+    <th>Artista</th>
+    <th>Ano</th>
+    <th>Ações</th>
+</tr>
 
     <?php foreach ($albuns as $album): ?>
 
@@ -36,6 +37,23 @@
 
             <td><?= $album['id'] ?></td>
 
+            <td>
+
+<?php if (!empty($album['capa'])): ?>
+
+    <img
+        src="<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($album['capa']) ?>"
+        alt="Capa do álbum"
+        width="70"
+    >
+
+<?php else: ?>
+
+    Sem capa
+
+<?php endif; ?>
+
+</td>
             <td><?= htmlspecialchars($album['titulo']) ?></td>
 
             <td><?= htmlspecialchars($album['artista']) ?></td>

@@ -25,13 +25,46 @@ class AlbunsController extends AdminController
             $titulo = trim($_POST['titulo']);
             $artistaId = (int) $_POST['artista_id'];
             $ano = (int) $_POST['ano'];
+            $capa = $_FILES['capa'] ?? null;
 
             if ($titulo !== '') {
 
-                $album->cadastrar($titulo, $artistaId, $ano);
+    $nomeCapa = null;
 
-                $this->redirect('/admin/albuns');
-            }
+    if ($capa && $capa['error'] === UPLOAD_ERR_OK) {
+
+        $extensao = strtolower(pathinfo($capa['name'], PATHINFO_EXTENSION));
+
+        $permitidas = ['jpg', 'jpeg', 'png', 'webp'];
+
+        if (!in_array($extensao, $permitidas)) {
+
+            die('Formato de imagem inválido.');
+
+        }
+
+        $nomeCapa = uniqid('capa_', true) . '.' . $extensao;
+
+        $destino = __DIR__
+            . '/../../../public/uploads/capas/'
+            . $nomeCapa;
+
+        if (!move_uploaded_file($capa['tmp_name'], $destino)) {
+
+            die('Erro ao salvar a imagem.');
+
+        }
+    }
+
+    $album->cadastrar(
+        $titulo,
+        $artistaId,
+        $ano,
+        $nomeCapa
+    );
+
+    $this->redirect('/admin/albuns');
+}
         }
 
         $this->view('admin/albuns/cadastrar', [

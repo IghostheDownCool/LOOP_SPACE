@@ -229,6 +229,9 @@ audio, .player-info audio {
 
     background:#2d2d2d;
 
+    display:block;
+    
+    flex-shrink:0;
 }
 
 .player-center{
@@ -246,5 +249,73 @@ audio, .player-info audio {
     width:100%;
 
     max-width:600px;
+
+}
+
+/* ==========================
+   CONTROLES
+========================== */
+
+.player-center{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.player-controls{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+}
+
+.player-controls .btn{
+
+    min-width:55px;
+
+    min-height:55px;
+
+    padding:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.player-controls i{
+
+    font-size:22px;
+
+}
+
+/* Esconde o player nativo */
+
+#player{
+
+    display:none;
+
+}
+
+.player-right{
+
+    width:220px;
+
+    text-align:right;
+
+    color:#b3b3b3;
 
 }

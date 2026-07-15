@@ -70,31 +70,6 @@
 
     </div>
 
-    <div class="player-info">
-
-        <img
-            id="capa"
-            src=""
-            style="display:none;"
-            alt="Capa do álbum"
-        >
-
-        <h2 id="titulo">
-            Escolha uma música
-        </h2>
-
-        <p id="artista"></p>
-
-        <p id="album"></p>
-
-        <audio
-            id="player"
-            controls
-        >
-        </audio>
-
-    </div>
-
 </div>
 
 <?php endif; ?>

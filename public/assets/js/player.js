@@ -10,25 +10,21 @@ function tocarMusica(botao, id, audio, titulo, artista, album, capa)
 
     player.src = audio;
 
-fetch('/LOOP_SPACE/public/player/reproduzir/' + id, {
-    method: 'POST'
-});
+    fetch('/LOOP_SPACE/public/player/reproduzir/' + id, {
+        method: 'POST'
+    });
 
     player.play();
 
-    document.getElementById('titulo').innerText = titulo;
+    // Atualiza o player global
+    document.getElementById('gp-titulo').innerText = titulo;
 
-    document.getElementById('artista').innerText =
-        'Artista: ' + artista;
+    document.getElementById('gp-artista').innerText =
+        artista + ' • ' + album;
 
-    document.getElementById('album').innerText =
-        'Álbum: ' + album;
-
-    const img = document.getElementById('capa');
+    const img = document.getElementById('gp-capa');
 
     img.src = capa;
-
-    img.style.display = 'block';
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -172,3 +172,79 @@ audio, .player-info audio {
     outline: none;
     border-radius: 500px; /* Para sistemas que suportam arredondamento no player nativo */
 }
+
+/* ==========================
+   PLAYER GLOBAL
+========================== */
+
+.global-player{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    height:90px;
+
+    background:#181818;
+
+    border-top:1px solid #2d2d2d;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:15px 25px;
+
+    z-index:9999;
+
+}
+
+.player-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    width:300px;
+
+}
+
+.player-left img{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:8px;
+
+    object-fit:cover;
+
+    background:#2d2d2d;
+
+}
+
+.player-center{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.player-center audio{
+
+    width:100%;
+
+    max-width:600px;
+
+}

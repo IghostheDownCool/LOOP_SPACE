@@ -116,3 +116,34 @@ CREATE TABLE favoritos (
 
 ALTER TABLE musicas
 MODIFY arquivo VARCHAR(255) DEFAULT NULL;
+
+CREATE TABLE playlists (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_playlist_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE playlist_musicas (
+    playlist_id INT NOT NULL,
+    musica_id INT NOT NULL,
+
+    PRIMARY KEY (playlist_id, musica_id),
+
+    CONSTRAINT fk_pm_playlist
+        FOREIGN KEY (playlist_id)
+        REFERENCES playlists(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_pm_musica
+        FOREIGN KEY (musica_id)
+        REFERENCES musicas(id)
+        ON DELETE CASCADE
+);

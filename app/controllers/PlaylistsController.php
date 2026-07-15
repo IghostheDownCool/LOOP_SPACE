@@ -62,11 +62,35 @@ public function ver(int $id)
 $musica = new Musica();
 
 $todasMusicas = $musica->listar();
+$idsMusicas = $playlist->listarIdsMusicas($id);
 
 $this->view('playlists/ver', [
     'playlist' => $dadosPlaylist,
     'musicas' => $musicasPlaylist,
-    'todasMusicas' => $todasMusicas
+    'todasMusicas' => $todasMusicas,
+'idsMusicas' => $idsMusicas
 ]);
+}
+public function adicionarMusica(int $playlistId)
+{
+    $this->requireLogin();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $musicaId = (int) $_POST['musica_id'];
+
+        if ($musicaId > 0) {
+
+            $playlist = new Playlist();
+
+            $playlist->adicionarMusica(
+                $playlistId,
+                $musicaId
+            );
+        }
+    }
+
+    header('Location: ' . BASE_URL . '/playlists/ver/' . $playlistId);
+    exit;
 }
 }

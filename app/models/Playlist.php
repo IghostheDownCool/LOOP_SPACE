@@ -163,4 +163,40 @@ public function adicionarMusica(
         ':musica_id' => $musicaId
     ]);
 }
+public function listarIdsMusicas(int $playlistId): array
+{
+    $sql = "
+        SELECT musica_id
+        FROM playlist_musicas
+        WHERE playlist_id = :playlist_id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->execute([
+        ':playlist_id' => $playlistId
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+public function removerMusica(
+    int $playlistId,
+    int $musicaId
+): bool {
+
+    $sql = "
+        DELETE FROM playlist_musicas
+        WHERE
+            playlist_id = :playlist_id
+        AND
+            musica_id = :musica_id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    return $stmt->execute([
+        ':playlist_id' => $playlistId,
+        ':musica_id' => $musicaId
+    ]);
+}
 }

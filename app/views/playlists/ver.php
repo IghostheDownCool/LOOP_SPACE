@@ -12,6 +12,47 @@
 
 <hr>
 
+<h2>Adicionar Música</h2>
+
+<form method="POST" action="<?= BASE_URL ?>/playlists/adicionarMusica/<?= $playlist['id'] ?>">
+
+    <select
+        name="musica_id"
+        required
+    >
+
+        <option value="">
+            Selecione uma música
+        </option>
+
+        <?php foreach ($todasMusicas as $musica): ?>
+
+            <?php if (in_array($musica['id'], $idsMusicas)) continue; ?>
+
+            <option value="<?= $musica['id'] ?>">
+
+                <?= htmlspecialchars($musica['artista']) ?>
+
+                —
+
+                <?= htmlspecialchars($musica['titulo']) ?>
+
+            </option>
+
+        <?php endforeach; ?>
+
+    </select>
+
+    <button type="submit">
+
+        Adicionar
+
+    </button>
+
+</form>
+
+<hr>
+
 <h2>Músicas</h2>
 
 <?php if (empty($musicas)): ?>

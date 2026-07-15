@@ -1,0 +1,31 @@
+/* ==========================
+   FORMULÁRIOS
+========================== */
+
+.form-card{
+    background:#181818;
+    border:1px solid #2d2d2d;
+    border-radius:16px;
+    padding:30px;
+    max-width:700px;
+}
+
+.form-card .form-label{
+    color:#e0e0e0;
+    font-weight:600;
+}
+
+.form-card .form-control,
+.form-card .form-select{
+    background:#2a2a2a;
+    border:1px solid #444;
+    color:#fff;
+}
+
+.form-card .form-control:focus,
+.form-card .form-select:focus{
+    background:#2a2a2a;
+    color:#fff;
+    border-color:#1DB954;
+    box-shadow:0 0 0 .2rem rgba(29,185,84,.25);
+}

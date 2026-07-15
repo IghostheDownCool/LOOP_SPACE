@@ -1,0 +1,193 @@
+/* ==========================
+   LAYOUT
+========================== */
+
+html,
+body{
+    height:100%;
+}
+
+body{
+    background:#121212;
+    color:#fff;
+}
+
+/* ==========================
+   SIDEBAR
+========================== */
+
+.sidebar{
+
+    min-height:100vh;
+
+    background:#181818;
+
+    border-right:1px solid #2d2d2d;
+
+    padding:30px 20px;
+
+}
+
+.logo{
+
+    margin-bottom:40px;
+
+    text-align:center;
+
+}
+
+.logo h2{
+
+    color:#1DB954;
+
+    font-weight:bold;
+
+    margin:0;
+
+}
+
+/* ==========================
+   MENU
+========================== */
+
+.menu{
+
+    gap:8px;
+
+}
+
+.menu .nav-link{
+
+    color:#b3b3b3;
+
+    padding:12px 16px;
+
+    border-radius:10px;
+
+    transition:.2s;
+
+    font-size:16px;
+
+}
+
+.menu .nav-link i{
+
+    margin-right:10px;
+
+}
+
+.menu .nav-link:hover{
+
+    background:#282828;
+
+    color:#fff;
+
+}
+
+.menu .nav-link.active{
+
+    background:#1DB954;
+
+    color:white;
+
+}
+
+/* ==========================
+   CONTEÚDO
+========================== */
+
+.conteudo{
+
+    padding:40px;
+
+}
+
+/* ==========================
+   LOGO
+========================== */
+
+.logo-icon{
+
+    font-size:48px;
+
+    color:#1DB954;
+
+    display:block;
+
+    margin-bottom:10px;
+
+}
+
+.logo small{
+
+    color:#888;
+
+    display:block;
+
+    margin-top:6px;
+
+}
+
+/* ==========================
+   RODAPÉ DA SIDEBAR
+========================== */
+
+.sidebar{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.menu{
+
+    flex:1;
+
+}
+
+.sidebar-footer{
+
+    margin-top:30px;
+
+    padding-top:20px;
+
+    border-top:1px solid #2d2d2d;
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:13px;
+
+}
+
+/* ==========================
+   PAGE HEADER
+========================== */
+
+.page-header{
+
+    margin-bottom:35px;
+
+}
+
+.page-header h1{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+}
+
+.page-header p{
+
+    color:#999;
+
+    margin:0;
+
+    font-size:16px;
+
+}

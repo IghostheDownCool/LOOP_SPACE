@@ -147,3 +147,20 @@ CREATE TABLE playlist_musicas (
         REFERENCES musicas(id)
         ON DELETE CASCADE
 );
+
+CREATE TABLE curtidas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    musica_id INT NOT NULL,
+    data_curtida DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (musica_id)
+        REFERENCES musicas(id)
+        ON DELETE CASCADE,
+
+    UNIQUE(usuario_id, musica_id)
+);

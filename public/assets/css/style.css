@@ -201,3 +201,20 @@ select:focus {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.musica-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.favorito{
+    font-size:22px;
+    cursor:pointer;
+    transition:.2s;
+    user-select:none;
+}
+
+.favorito:hover{
+    transform:scale(1.2);
+}

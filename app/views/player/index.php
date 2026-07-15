@@ -44,13 +44,21 @@
                         )"
                     >
 
-                        <strong>
-                            ▶ <?= htmlspecialchars($musica['titulo']) ?>
-                        </strong>
+                        <div class="musica-topo">
 
-                        <span>
-                            <?= htmlspecialchars($musica['artista']) ?>
-                        </span>
+    <strong>
+        ▶ <?= htmlspecialchars($musica['titulo']) ?>
+    </strong>
+
+    <span class="favorito">
+        🤍
+    </span>
+
+</div>
+
+<span>
+    <?= htmlspecialchars($musica['artista']) ?>
+</span>
 
                     </button>
 

@@ -1,0 +1,92 @@
+/* ==========================
+    BOTÕES (Estilo Pílula)
+========================== */
+
+button,
+.btn {
+    display: inline-block;
+    background: #1ed760;
+    color: #ffffff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 500px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 33ms cubic-bezier(.3,0,0,1);
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Efeito padrão */
+
+button:hover,
+.btn:hover {
+    transform: scale(1.04);
+    text-decoration: none;
+}
+
+button:active,
+.btn:active {
+    transform: scale(1);
+    filter: brightness(0.9);
+}
+
+/* ==========================
+    VERDE
+========================== */
+
+.btn-verde {
+    background: #1db954;
+    color: #000;
+}
+
+.btn-verde:hover {
+    background: #1ed760;
+    color: #000;
+}
+
+/* ==========================
+    AZUL
+========================== */
+
+.btn-azul {
+    background: #3d91f4;
+    color: #fff;
+}
+
+.btn-azul:hover {
+    background: #5aa3f6;
+    color: #fff;
+}
+
+/* ==========================
+    VERMELHO
+========================== */
+
+.btn-vermelho {
+    background: #e91429;
+    color: #fff;
+}
+
+.btn-vermelho:hover {
+    background: #ff3048;
+    color: #fff;
+}
+
+/* ==========================
+    CINZA
+========================== */
+
+.btn-cinza {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #878787;
+}
+
+.btn-cinza:hover {
+    background: #3d91f4;   /* Azul no hover */
+    border-color: #3d91f4;
+    color: #ffffff;
+}

@@ -10,14 +10,17 @@ require __DIR__ . '/../components/page-header.php';
 
 ?>
 
-<p>
+<div class="mb-4">
+
     <a
-    href="<?= BASE_URL ?>/playlists/cadastrar"
-    class="btn btn-success"
->
-    + Nova Playlist
-</a>
-</p>
+        href="<?= BASE_URL ?>/playlists/criar"
+        class="btn btn-success"
+    >
+        <i class="bi bi-plus-circle"></i>
+        Nova Playlist
+    </a>
+
+</div>
 
 <?php if (empty($playlists)): ?>
 
@@ -25,7 +28,9 @@ require __DIR__ . '/../components/page-header.php';
 
 <?php else: ?>
 
-<table border="1" cellpadding="8">
+<div class="table-responsive">
+
+    <table class="table table-dark table-hover align-middle">
 
     <tr>
     <th>ID</th>
@@ -79,6 +84,7 @@ require __DIR__ . '/../components/page-header.php';
     <?php endforeach; ?>
 
 </table>
+    </div>
 
 <?php endif; ?>
 

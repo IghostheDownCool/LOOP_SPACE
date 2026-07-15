@@ -7,7 +7,7 @@
 
     <title>LOOP SPACE</title>
 
-    <link
+<link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
     rel="stylesheet"
 >
@@ -17,9 +17,9 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
 >
 
-    <link
+<link
     rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/style.css') ?>"
+    href="<?= BASE_URL ?>/assets/css/theme.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/theme.css') ?>"
 >
 
 <link
@@ -29,18 +29,33 @@
 
 <link
     rel="stylesheet"
+    href="<?= BASE_URL ?>/assets/css/buttons.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/buttons.css') ?>"
+>
+
+<link
+    rel="stylesheet"
     href="<?= BASE_URL ?>/assets/css/forms.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/forms.css') ?>"
 >
 
-    <link
-        rel="stylesheet"
-        href="<?= BASE_URL ?>/assets/css/admin.css"
-    >
+<link
+    rel="stylesheet"
+    href="<?= BASE_URL ?>/assets/css/tables.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/tables.css') ?>"
+>
 
-    <link
-        rel="stylesheet"
-        href="<?= BASE_URL ?>/assets/css/player.css"
-    >
+<link
+    rel="stylesheet"
+    href="<?= BASE_URL ?>/assets/css/player.css"
+>
+
+<link
+    rel="stylesheet"
+    href="<?= BASE_URL ?>/assets/css/admin.css"
+>
+
+<link
+    rel="stylesheet"
+    href="<?= BASE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/style.css') ?>"
+>
 
     
 

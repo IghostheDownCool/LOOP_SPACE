@@ -70,64 +70,7 @@ table tr:hover td {
     cursor: pointer;
 }
 
-/* ==========================
-    BOTÕES (Estilo Pílula)
-========================== */
-button, .btn {
-    display: inline-block;
-    background: #1db954;
-    color: #ffffff;
-    border: none;
-    padding: 14px 32px; /* Botões mais largos */
-    border-radius: 500px; /* Formato de pílula icônico */
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 33ms cubic-bezier(.3,0,0,1); /* Transição rápida do Spotify */
-    text-align: center;
-    text-decoration: none;
-}
 
-/* Efeito de zoom sutil e brilho no hover */
-button:hover, .btn:hover {
-    background-color: #1ed760;
-    transform: scale(1.04);
-}
-
-button:active, .btn:active {
-    transform: scale(1.0);
-    filter: brightness(0.9);
-}
-
-/* Variações de Botão ajustadas à paleta escura */
-.btn-verde {
-    background: #1db954;
-    color: #000000; /* Botão principal verde geralmente leva texto escuro */
-}
-
-.btn-azul {
-    background: #3d91f4;
-    color: #ffffff;
-}
-
-.btn-vermelho {
-    background: #e91429;
-    color: #ffffff;
-}
-
-/* Botão secundário (estilo outline/cinza escuro) */
-.btn-cinza {
-    background: transparent;
-    color: #ffffff;
-    border: 1px solid #878787;
-}
-
-.btn-cinza:hover {
-    background: transparent;
-    border-color: #ffffff;
-    transform: scale(1.04);
-}
 
 /* ==========================
     FORMULÁRIOS
@@ -159,43 +102,6 @@ select:focus {
     border-color: #ffffff; /* Borda branca ao focar */
 }
 
-/* ==========================
-    HEADER / TOPO
-========================== */
-.topo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #000000; /* Preto absoluto para o topo */
-    padding: 16px 32px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-
-.topo h1 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 1.5rem;
-}
-
-.topo nav {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-}
-
-.topo nav a {
-    color: #b3b3b3;
-    font-weight: 700;
-    font-size: 0.9rem;
-    text-decoration: none;
-}
-
-.topo nav a:hover {
-    color: #ffffff; /* Link do menu brilha em branco no hover */
-    text-decoration: none;
-    transform: scale(1.05);
-}
 
 .conteudo {
     max-width: 1200px;

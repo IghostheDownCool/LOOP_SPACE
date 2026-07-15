@@ -1,11 +1,19 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
-<h1>Minhas Playlists</h1>
+<?php
+
+$titulo = '📂 Minhas Playlists';
+
+$subtitulo = 'Crie e organize suas playlists.';
+
+require __DIR__ . '/../components/page-header.php';
+
+?>
 
 <p>
     <a
     href="<?= BASE_URL ?>/playlists/cadastrar"
-    class="btn btn-verde"
+    class="btn btn-success"
 >
     + Nova Playlist
 </a>
@@ -44,21 +52,21 @@
 
     <a
     href="<?= BASE_URL ?>/playlists/ver/<?= $playlist['id'] ?>"
-    class="btn btn-azul"
+    class="btn btn-primary"
 >
     Ver
 </a>
 
 <a
     href="<?= BASE_URL ?>/playlists/editar/<?= $playlist['id'] ?>"
-    class="btn btn-cinza"
+    class="btn btn-secondary"
 >
     Editar
 </a>
 
 <a
     href="<?= BASE_URL ?>/playlists/excluir/<?= $playlist['id'] ?>"
-    class="btn btn-vermelho"
+    class="btn btn-danger"
     onclick="return confirm('Deseja realmente excluir esta playlist?')"
 >
     Excluir

@@ -1,136 +1,174 @@
+/* ==========================
+    PLAYER CONTAINER (LAYOUT)
+========================== */
 .player-container {
     display: flex;
-    gap: 40px;
+    gap: 24px;
     align-items: flex-start;
+    background-color: #000000; /* Fundo preto absoluto de fundo */
+    padding: 24px;
+    border-radius: 12px;
 }
 
+/* ==========================
+    PLAYLIST LATERAL
+========================== */
 .player-playlist {
-    width: 300px;
+    width: 320px;
+    background: #121212;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
 }
 
 .player-playlist h3 {
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
 }
 
 .player-playlist ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .player-playlist li {
-    margin-bottom: 10px;
+    margin-bottom: 0; /* Espaçamento controlado pelo gap do ul */
 }
 
-.player-playlist button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    transition: 0.2s;
+/* Campo de busca acima da playlist */
+#busca {
+    margin-bottom: 16px;
+    background: #242424;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 10px 14px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.player-playlist button:hover {
-    transform: translateX(5px);
+#busca:focus {
+    background-color: #2a2a2a;
+    border-color: #878787;
+    outline: none;
 }
 
-.player-info {
-    flex: 1;
-}
-
-.player-info img {
-    width: 280px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.player-info h2 {
-    margin: 10px 0;
-}
-
-.player-info p {
-    margin: 5px 0;
-}
-
-.player-info audio {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
-}
-
-.player-info {
-    background: #1d1d1d;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,.4);
-}
-
-.player-playlist button {
-    background: #2a2a2a;
-    color: white;
-}
-
-.player-playlist button:hover {
-    background: #1db954;
-}
-
-.player-info img {
-    box-shadow: 0 0 15px rgba(0,0,0,.5);
-}
-
-audio {
-    margin-top: 20px;
-}
-
+/* ==========================
+    ITENS DA PLAYLIST (MÚSICAS)
+========================== */
 .musica-item {
     width: 100%;
-    background: #2b2b2b;
+    background: transparent; /* Itens integrados ao fundo por padrão */
     border: none;
-    border-radius: 10px;
-    padding: 15px;
-    color: white;
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: #b3b3b3;
     cursor: pointer;
-
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
-    transition: .2s;
+    transition: background-color 0.2s ease;
+    text-align: left;
 }
 
 .musica-item strong {
-    font-size: 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff; /* Título em destaque */
+    transition: color 0.2s ease;
 }
 
 .musica-item span {
-    margin-top: 5px;
-    font-size: 13px;
-    color: #bbbbbb;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: #a7a7a7;
+    transition: color 0.2s ease;
 }
 
+/* Hover refinado estilo Spotify (sem pintar tudo de verde) */
 .musica-item:hover {
-    background: #1db954;
+    background-color: #1a1a1a;
+}
+
+.musica-item:hover strong {
+    color: #ffffff;
 }
 
 .musica-item:hover span {
-    color: white;
+    color: #ffffff;
 }
 
+/* Música Ativa (Tocando agora) */
 .musica-item.ativa {
-    background: #1db954;
-    color: white;
-}
-
-.musica-item.ativa span {
-    color: white;
+    background-color: #2a2a2a;
 }
 
 .musica-item.ativa strong {
-    color: white;
+    color: #1db954; /* Apenas o título brilha em verde */
 }
 
-#busca {
-    margin-bottom: 20px;
+.musica-item.ativa span {
+    color: #b3b3b3;
+}
+
+/* ==========================
+    ÁREA DO PLAYER ATIVO
+========================== */
+.player-info {
+    flex: 1;
+    background: #181818; /* Cinza escuro do painel principal */
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Capa do Álbum */
+.player-info img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease;
+}
+
+.player-info img:hover {
+    transform: scale(1.02); /* Leve aproximação na imagem ao passar o mouse */
+}
+
+/* Detalhes da Música Tocando */
+.player-info h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.03em;
+}
+
+.player-info p {
+    font-size: 0.9rem;
+    color: #b3b3b3;
+    margin: 0 0 24px 0;
+}
+
+/* Tag de Áudio Nativa Simplificada */
+audio, .player-info audio {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 8px;
+    outline: none;
+    border-radius: 500px; /* Para sistemas que suportam arredondamento no player nativo */
 }

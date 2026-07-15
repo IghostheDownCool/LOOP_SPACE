@@ -93,4 +93,24 @@ public function adicionarMusica(int $playlistId)
     header('Location: ' . BASE_URL . '/playlists/ver/' . $playlistId);
     exit;
 }
+public function removerMusica(
+    int $playlistId,
+    int $musicaId
+)
+{
+    $this->requireLogin();
+
+    $playlist = new Playlist();
+
+    $playlist->removerMusica(
+        $playlistId,
+        $musicaId
+    );
+
+    header(
+        'Location: ' . BASE_URL . '/playlists/ver/' . $playlistId
+    );
+
+    exit;
+}
 }

@@ -67,11 +67,23 @@
 
     <li>
 
-        <?= htmlspecialchars($musica['titulo']) ?>
+        <strong>
+
+            <?= htmlspecialchars($musica['titulo']) ?>
+
+        </strong>
 
         -
 
         <?= htmlspecialchars($musica['artista']) ?>
+
+        <a
+            href="<?= BASE_URL ?>/playlists/removerMusica/<?= $playlist['id'] ?>/<?= $musica['id'] ?>"
+            onclick="return confirm('Deseja remover esta música da playlist?')"
+            style="margin-left:15px; color:red;"
+        >
+            Remover
+        </a>
 
     </li>
 

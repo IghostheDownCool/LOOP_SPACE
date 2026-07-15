@@ -116,3 +116,43 @@ form {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+/* ==========================
+   BOTÕES
+========================== */
+
+.btn{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.2s;
+    cursor:pointer;
+    border:none;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-verde{
+    background:#28a745;
+    color:white;
+}
+
+.btn-azul{
+    background:#007bff;
+    color:white;
+}
+
+.btn-vermelho{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-cinza{
+    background:#6c757d;
+    color:white;
+}
+

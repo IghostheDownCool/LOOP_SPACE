@@ -3,9 +3,12 @@
 <h1>Minhas Playlists</h1>
 
 <p>
-    <a href="<?= BASE_URL ?>/playlists/cadastrar">
-        Nova Playlist
-    </a>
+    <a
+    href="<?= BASE_URL ?>/playlists/cadastrar"
+    class="btn btn-verde"
+>
+    + Nova Playlist
+</a>
 </p>
 
 <?php if (empty($playlists)): ?>
@@ -39,24 +42,27 @@
 
             <td>
 
-    <a href="<?= BASE_URL ?>/playlists/ver/<?= $playlist['id'] ?>">
-        Ver músicas
-    </a>
-
-    |
-
-    <a href="<?= BASE_URL ?>/playlists/editar/<?= $playlist['id'] ?>">
-        Editar
-    </a>
-
-    |
-
     <a
-        href="<?= BASE_URL ?>/playlists/excluir/<?= $playlist['id'] ?>"
-        onclick="return confirm('Deseja realmente excluir esta playlist?')"
-    >
-        Excluir
-    </a>
+    href="<?= BASE_URL ?>/playlists/ver/<?= $playlist['id'] ?>"
+    class="btn btn-azul"
+>
+    Ver
+</a>
+
+<a
+    href="<?= BASE_URL ?>/playlists/editar/<?= $playlist['id'] ?>"
+    class="btn btn-cinza"
+>
+    Editar
+</a>
+
+<a
+    href="<?= BASE_URL ?>/playlists/excluir/<?= $playlist['id'] ?>"
+    class="btn btn-vermelho"
+    onclick="return confirm('Deseja realmente excluir esta playlist?')"
+>
+    Excluir
+</a>
 
 </td>
 

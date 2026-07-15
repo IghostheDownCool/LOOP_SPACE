@@ -8,9 +8,9 @@
     <title>LOOP SPACE</title>
 
     <link
-        rel="stylesheet"
-        href="<?= BASE_URL ?>/assets/css/style.css"
-    >
+    rel="stylesheet"
+    href="<?= BASE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/style.css') ?>"
+>
 
     <link
         rel="stylesheet"

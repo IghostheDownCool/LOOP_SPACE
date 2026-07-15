@@ -113,4 +113,63 @@ public function removerMusica(
 
     exit;
 }
+public function editar(int $id)
+{
+    $this->requireLogin();
+
+    $playlist = new Playlist();
+
+    $dadosPlaylist = $playlist->buscarPorId($id);
+
+    if (!$dadosPlaylist) {
+        die('Playlist não encontrada.');
+    }
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $nome = trim($_POST['nome']);
+
+        $publica = isset($_POST['publica']) ? 1 : 0;
+
+
+        if ($nome !== '') {
+
+            $playlist->atualizar(
+                $id,
+                $nome,
+                $publica
+            );
+
+
+            header(
+                'Location: ' . BASE_URL . '/playlists'
+            );
+
+            exit;
+        }
+    }
+
+
+    $this->view('playlists/editar', [
+        'playlist' => $dadosPlaylist
+    ]);
+}
+
+
+public function excluir(int $id)
+{
+    $this->requireLogin();
+
+    $playlist = new Playlist();
+
+    $playlist->excluir($id);
+
+
+    header(
+        'Location: ' . BASE_URL . '/playlists'
+    );
+
+    exit;
+}
 }

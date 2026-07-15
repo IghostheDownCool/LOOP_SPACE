@@ -199,4 +199,47 @@ public function removerMusica(
         ':musica_id' => $musicaId
     ]);
 }
+public function editar(int $id)
+{
+    $this->requireLogin();
+
+    $playlistModel = new Playlist();
+
+    $playlist = $playlistModel->buscarPorId($id);
+
+    if (!$playlist) {
+        die('Playlist não encontrada.');
+    }
+
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        $nome = trim($_POST['nome']);
+
+        $publica = isset($_POST['publica']) ? 1 : 0;
+
+
+        if ($nome !== '') {
+
+            $playlistModel->atualizar(
+                $id,
+                $nome,
+                $publica
+            );
+
+
+            header(
+                'Location: ' . BASE_URL . '/playlists'
+            );
+
+            exit;
+        }
+    }
+
+
+    $this->view('playlists/editar', [
+        'playlist' => $playlist
+    ]);
+}
+
 }

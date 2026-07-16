@@ -57,6 +57,10 @@
     href="<?= BASE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/style.css') ?>"
 >
 
+<link
+    rel="stylesheet"
+    href="<?= BASE_URL ?>/assets/css/music-card.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/music-card.css') ?>"
+>
     
 
 </head>
@@ -96,6 +100,11 @@
                 <a class="nav-link" href="<?= BASE_URL ?>/curtidas">
     <i class="bi bi-heart-fill"></i>
     Curtidas
+</a>
+
+<a class="nav-link" href="<?= BASE_URL ?>/historico">
+    <i class="bi bi-clock-history"></i>
+    Recentes
 </a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/playlists">

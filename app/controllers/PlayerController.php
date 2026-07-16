@@ -12,11 +12,20 @@ class PlayerController extends Controller
             'musicas' => $musicas
         ]);
     }
-    public function reproduzir(int $id)
+public function reproduzir(int $id)
 {
+    $this->requireLogin();
+
     $musica = new Musica();
 
     $musica->incrementarReproducoes($id);
+
+    $historico = new Historico();
+
+    $historico->registrar(
+        $_SESSION['usuario_id'],
+        $id
+    );
 
     http_response_code(200);
 

@@ -1,0 +1,19 @@
+.music-card{
+
+    padding:16px;
+
+    border-radius:12px;
+
+    background:#181818;
+
+    margin-bottom:10px;
+
+    transition:.2s;
+
+}
+
+.music-card:hover{
+
+    background:#282828;
+
+}

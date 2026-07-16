@@ -14,32 +14,7 @@
 
     <div class="list-group">
 
-        <?php foreach ($musicas as $musica): ?>
-
-            <a
-                href="<?= BASE_URL ?>/player"
-                class="list-group-item list-group-item-action"
-            >
-
-                <h5 class="mb-1">
-
-                    <?= htmlspecialchars($musica['titulo']) ?>
-
-                </h5>
-
-                <small>
-
-                    <?= htmlspecialchars($musica['artista']) ?>
-
-                    •
-
-                    <?= htmlspecialchars($musica['album']) ?>
-
-                </small>
-
-            </a>
-
-        <?php endforeach; ?>
+        <?php require __DIR__ . '/../components/music-card.php'; ?>
 
     </div>
 

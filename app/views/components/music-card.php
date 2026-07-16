@@ -25,13 +25,17 @@
     </div>
 
     <div class="music-info">
-        <h6><?= htmlspecialchars($musica['titulo']) ?></h6>
-        <small>
+    <h6><?= htmlspecialchars($musica['titulo']) ?></h6>
+    <small>
+        <a href="<?= BASE_URL ?>/artista/ver/<?= $musica['artista_id'] ?? 0 ?>" class="text-light text-decoration-none">
             <?= htmlspecialchars($musica['artista']) ?>
-            •
+        </a>
+        •
+        <a href="<?= BASE_URL ?>/album/ver/<?= $musica['album_id'] ?? 0 ?>" class="text-light text-decoration-none">
             <?= htmlspecialchars($musica['album']) ?>
-        </small>
-    </div>
+        </a>
+    </small>
+</div>
 
     <!-- Botão para abrir o modal de adicionar à playlist -->
     <div class="music-actions">

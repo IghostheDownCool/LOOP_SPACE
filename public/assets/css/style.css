@@ -124,3 +124,33 @@ select:focus {
 .favorito:hover{
     transform:scale(1.2);
 }
+
+/* 🔥 FORÇA O DROPDOWN DA PESQUISA */
+.search-bar-container {
+    position: relative !important;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    padding-top: 10px;
+}
+
+.search-results {
+    position: absolute !important;
+    top: 100% !important;          /* Fica imediatamente abaixo da barra */
+    left: 0 !important;
+    right: 0 !important;
+    background: #282828 !important;
+    border-radius: 0 0 12px 12px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7) !important;
+    max-height: 400px !important;
+    overflow-y: auto !important;
+    z-index: 9999 !important;
+    display: none !important;
+    padding: 5px 0 !important;
+    margin-top: 5px !important;    /* Pequeno espaçamento da barra */
+    width: 100% !important;
+}
+
+.search-results.show {
+    display: block !important;
+}
+

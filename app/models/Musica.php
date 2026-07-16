@@ -18,21 +18,19 @@ class Musica
             musicas.*,
             albuns.titulo AS album,
             albuns.capa,
-            artistas.nome AS artista
+            artistas.nome AS artista,
+            artistas.id AS artista_id,
+            albuns.id AS album_id
         FROM musicas
-        INNER JOIN albuns
-            ON albuns.id = musicas.album_id
-        INNER JOIN artistas
-            ON artistas.id = albuns.artista_id
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
         ORDER BY artistas.nome ASC,
                  albuns.titulo ASC,
                  musicas.numero_faixa ASC
     ";
 
     $stmt = $this->pdo->prepare($sql);
-
     $stmt->execute();
-
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -187,7 +185,9 @@ public function buscar(string $termo): array
             musicas.duracao,
             albuns.titulo AS album,
             albuns.capa,
-            artistas.nome AS artista
+            artistas.nome AS artista,
+            artistas.id AS artista_id,
+            albuns.id AS album_id
         FROM musicas
         INNER JOIN albuns ON albuns.id = musicas.album_id
         INNER JOIN artistas ON artistas.id = albuns.artista_id
@@ -201,7 +201,6 @@ public function buscar(string $termo): array
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute([':termo' => '%' . $termo . '%']);
-
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 }

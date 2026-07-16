@@ -1,87 +1,70 @@
-const btnPlay = document.getElementById('btn-play');
+// ==================================================
+// CONTROLES DO PLAYER - COMPLEMENTAR AO player.js
+// ==================================================
 
+// NOTA: As variáveis `audio`, `btnPlay`, `btnNext`, `btnPrev`
+// já são declaradas no player.js. Não as redeclare aqui!
+
+// --- Botão Play/Pause ---
 if (btnPlay) {
-
     btnPlay.addEventListener('click', function () {
-
-        if (!audioPlayer.src) {
+        if (!audio.src) {
             return;
         }
-
-        if (audioPlayer.paused) {
-
-            audioPlayer.play();
-
+        if (audio.paused) {
+            audio.play();
         } else {
-
-            audioPlayer.pause();
-
+            audio.pause();
         }
-
     });
-
 }
 
-audioPlayer.addEventListener('play', function () {
-
-    btnPlay.innerHTML =
-        '<i class="bi bi-pause-fill"></i>';
-
+// Atualiza ícone ao tocar/pausar (já feito no player.js, mas mantido para compatibilidade)
+audio.addEventListener('play', function () {
+    btnPlay.innerHTML = '<i class="bi bi-pause-fill"></i>';
 });
 
-audioPlayer.addEventListener('pause', function () {
-
-    btnPlay.innerHTML =
-        '<i class="bi bi-play-fill"></i>';
-
+audio.addEventListener('pause', function () {
+    btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
 });
 
-const btnNext = document.getElementById('btn-next');
-
+// --- Botão Próximo ---
 if (btnNext) {
-
     btnNext.addEventListener('click', function () {
-
-        const musicas = document.querySelectorAll('.musica-item');
-
-        const atual = document.querySelector('.musica-item.ativa');
-
-        if (!atual) {
-            return;
+        // Usa a função global do player.js (tocarProxima)
+        if (typeof tocarProxima === 'function') {
+            tocarProxima();
+        } else {
+            // Fallback para a lógica antiga (se não existir a função)
+            const musicas = document.querySelectorAll('.musica-item');
+            const atual = document.querySelector('.musica-item.ativa');
+            if (!atual) return;
+            const indice = Array.from(musicas).indexOf(atual);
+            if (typeof tocarPorIndice === 'function') {
+                tocarPorIndice(indice + 1);
+            }
         }
-
-        const indice = Array.from(musicas).indexOf(atual);
-
-        tocarPorIndice(indice + 1);
-
     });
-
 }
 
-const btnPrev = document.getElementById('btn-prev');
-
+// --- Botão Anterior ---
 if (btnPrev) {
-
     btnPrev.addEventListener('click', function () {
-
-        const musicas = document.querySelectorAll('.musica-item');
-
-        const atual = document.querySelector('.musica-item.ativa');
-
-        if (!atual) {
-            return;
+        if (typeof tocarAnterior === 'function') {
+            tocarAnterior();
+        } else {
+            const musicas = document.querySelectorAll('.musica-item');
+            const atual = document.querySelector('.musica-item.ativa');
+            if (!atual) return;
+            const indice = Array.from(musicas).indexOf(atual);
+            if (typeof tocarPorIndice === 'function') {
+                tocarPorIndice(indice - 1);
+            }
         }
-
-        const indice = Array.from(musicas).indexOf(atual);
-
-        tocarPorIndice(indice - 1);
-
     });
-
 }
 
-audioPlayer.addEventListener('ended', function () {
-
-    tocarProxima();
-
-});
+// --- Evento de fim da música (já tratado no player.js, então removido) ---
+// audio.addEventListener('ended', function () {
+//     tocarProxima();
+// });

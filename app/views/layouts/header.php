@@ -7,6 +7,8 @@
 
     <title>LOOP SPACE</title>
 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -141,21 +143,15 @@
 
         <main class="col-md-9 col-lg-10 conteudo">
 
-<main class="col-md-9 col-lg-10 conteudo">
-
     <!-- BARRA DE PESQUISA -->
-<div class="search-bar-container mb-4">
-    <div class="search-bar">
-        <i class="bi bi-search"></i>
-        <input
-            type="text"
-            id="search-input"
-            class="search-input"
-            placeholder="O que você quer ouvir? (música, artista, álbum...)"
-            autocomplete="off"
-        >
+    <div class="search-bar-container mb-4">
+        <div class="search-bar">
+            <i class="bi bi-search"></i>
+            <input type="text" id="search-input" class="search-input" placeholder="..." autocomplete="off">
+        </div>
+        <div id="search-results" class="search-results"></div>
     </div>
-    <div id="search-results" class="search-results"></div>
-</div>
+
+    <!-- O RESTANTE DO CONTEÚDO VIRÁ AQUI -->
 
     <!-- O RESTANTE DO CONTEÚDO VIRÁ AQUI -->

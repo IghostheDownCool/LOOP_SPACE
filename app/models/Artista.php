@@ -63,4 +63,57 @@ class Artista extends Model
             ':id' => $id
         ]);
     }
+
+    public function buscarCompleto(int $id): array|false
+{
+    $sql = "
+        SELECT
+            artistas.*,
+            COUNT(DISTINCT albuns.id) AS total_albuns,
+            COUNT(DISTINCT musicas.id) AS total_musicas
+        FROM artistas
+        LEFT JOIN albuns ON albuns.artista_id = artistas.id
+        LEFT JOIN musicas ON musicas.album_id = albuns.id
+        WHERE artistas.id = :id
+        GROUP BY artistas.id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function listarMusicas(int $artistaId): array
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista
+        FROM musicas
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE artistas.id = :artista_id
+        ORDER BY albuns.titulo, musicas.numero_faixa
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':artista_id' => $artistaId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function listarAlbuns(int $artistaId): array
+{
+    $sql = "
+        SELECT *
+        FROM albuns
+        WHERE artista_id = :artista_id
+        ORDER BY ano DESC, titulo
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':artista_id' => $artistaId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

@@ -105,4 +105,40 @@ class Album extends Model
             ':id' => $id
         ]);
     }
+
+    public function buscarCompleto(int $id): array|false
+{
+    $sql = "
+        SELECT
+            albuns.*,
+            artistas.nome AS artista
+        FROM albuns
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE albuns.id = :id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function listarMusicas(int $albumId): array
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista
+        FROM musicas
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE albuns.id = :album_id
+        ORDER BY musicas.numero_faixa
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':album_id' => $albumId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

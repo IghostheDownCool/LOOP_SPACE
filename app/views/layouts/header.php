@@ -143,6 +143,15 @@
 
         <main class="col-md-9 col-lg-10 conteudo">
 
+        <!-- Mensagens Flash -->
+<?php if (Flash::has()): ?>
+    <?php $flash = Flash::get(); ?>
+    <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
+        <?= htmlspecialchars($flash['message']) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+
     <!-- BARRA DE PESQUISA -->
     <div class="search-bar-container mb-4">
         <div class="search-bar">

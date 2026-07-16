@@ -3,28 +3,30 @@
 class Artista extends Model
 {
     public function listar(): array
-    {
-        $sql = "SELECT * FROM artistas ORDER BY nome ASC";
+{
+    $sql = "
+        SELECT id, nome, foto
+        FROM artistas
+        ORDER BY nome ASC
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public function buscarPorId(int $id): array|false
-    {
-        $sql = "SELECT * FROM artistas WHERE id = :id";
+{
+    $sql = "
+        SELECT id, nome, foto
+        FROM artistas
+        WHERE id = :id
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
-
-        $stmt->execute([
-            ':id' => $id
-        ]);
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
     public function cadastrar(string $nome): bool
     {

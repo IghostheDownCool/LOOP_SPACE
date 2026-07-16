@@ -158,23 +158,24 @@ public function topMusicas(): array
         SELECT
             musicas.*,
             albuns.titulo AS album,
-            artistas.nome AS artista
+            albuns.capa,
+            artistas.nome AS artista,
+            artistas.id AS artista_id,
+            albuns.id AS album_id
         FROM musicas
-        INNER JOIN albuns
-            ON albuns.id = musicas.album_id
-        INNER JOIN artistas
-            ON artistas.id = albuns.artista_id
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
         ORDER BY reproducoes DESC,
                  titulo ASC
         LIMIT 10
     ";
 
     $stmt = $this->pdo->prepare($sql);
-
     $stmt->execute();
-
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 public function buscar(string $termo): array
 {
     $sql = "

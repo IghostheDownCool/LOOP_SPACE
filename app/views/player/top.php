@@ -1,49 +1,27 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
-<h1>🏆 Top Músicas</h1>
+<div class="page-header">
+    <h1>
+        <i class="bi bi-fire" style="color: #ff6b6b;"></i>
+        Top Músicas
+    </h1>
+    <p class="text-muted">
+        As músicas mais ouvidas por todos os usuários
+    </p>
+</div>
 
 <?php if (empty($musicas)): ?>
-
-    <p>Nenhuma reprodução registrada.</p>
-
+    <div class="alert alert-secondary">
+        Nenhuma música encontrada.
+    </div>
 <?php else: ?>
-
-<table>
-
-    <tr>
-
-        <th>#</th>
-
-        <th>Música</th>
-
-        <th>Artista</th>
-
-        <th>Álbum</th>
-
-        <th>Reproduções</th>
-
-    </tr>
-
-    <?php foreach ($musicas as $indice => $musica): ?>
-
-        <tr>
-
-            <td><?= $indice + 1 ?></td>
-
-            <td><?= htmlspecialchars($musica['titulo']) ?></td>
-
-            <td><?= htmlspecialchars($musica['artista']) ?></td>
-
-            <td><?= htmlspecialchars($musica['album']) ?></td>
-
-            <td><?= $musica['reproducoes'] ?></td>
-
-        </tr>
-
-    <?php endforeach; ?>
-
-</table>
-
+    <div class="row">
+        <?php foreach ($musicas as $musica): ?>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <?php require __DIR__ . '/../components/music-card.php'; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
 <?php endif; ?>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

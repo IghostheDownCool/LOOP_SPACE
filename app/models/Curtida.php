@@ -75,4 +75,39 @@ class Curtida
 
         return (int)$stmt->fetch()['total'];
     }
+    public function listarCurtidas(int $usuarioId): array
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista
+
+        FROM curtidas
+
+        INNER JOIN musicas
+            ON musicas.id = curtidas.musica_id
+
+        INNER JOIN albuns
+            ON albuns.id = musicas.album_id
+
+        INNER JOIN artistas
+            ON artistas.id = albuns.artista_id
+
+        WHERE curtidas.usuario_id = ?
+
+        ORDER BY artistas.nome ASC,
+                 albuns.titulo ASC,
+                 musicas.numero_faixa ASC
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->execute([
+        $usuarioId
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

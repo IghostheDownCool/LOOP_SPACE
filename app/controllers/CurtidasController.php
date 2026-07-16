@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../models/Curtida.php';
-
 class CurtidasController extends Controller
 {
     public function curtir(int $musicaId): void
@@ -35,4 +33,18 @@ class CurtidasController extends Controller
 
         exit;
     }
+    public function index(): void
+{
+    $this->requireLogin();
+
+    $curtida = new Curtida();
+
+    $musicas = $curtida->listarCurtidas(
+        $_SESSION['usuario_id']
+    );
+
+    $this->view('curtidas/index', [
+        'musicas' => $musicas
+    ]);
+}
 }

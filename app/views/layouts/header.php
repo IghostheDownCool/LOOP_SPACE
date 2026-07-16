@@ -93,6 +93,11 @@
                     Player
                 </a>
 
+                <a class="nav-link" href="<?= BASE_URL ?>/curtidas">
+    <i class="bi bi-heart-fill"></i>
+    Curtidas
+</a>
+
                 <a class="nav-link" href="<?= BASE_URL ?>/playlists">
                     <i class="bi bi-collection-play-fill"></i>
                     Playlists

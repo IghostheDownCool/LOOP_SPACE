@@ -1,5 +1,11 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
+<?php
+
+$curtidaModel = new Curtida();
+
+?>
+
 <h1>Player de Música</h1>
 
 <?php if (empty($musicas)): ?>
@@ -50,9 +56,27 @@
         ▶ <?= htmlspecialchars($musica['titulo']) ?>
     </strong>
 
-    <span class="favorito">
-        🤍
-    </span>
+    <?php if ($curtidaModel->usuarioCurtiu($_SESSION['usuario_id'], $musica['id'])): ?>
+
+        <a
+            href="<?= BASE_URL ?>/curtidas/descurtir/<?= $musica['id'] ?>"
+            class="favorito"
+            title="Descurtir"
+        >
+            ❤️
+        </a>
+
+    <?php else: ?>
+
+        <a
+            href="<?= BASE_URL ?>/curtidas/curtir/<?= $musica['id'] ?>"
+            class="favorito"
+            title="Curtir"
+        >
+            🤍
+        </a>
+
+    <?php endif; ?>
 
 </div>
 
@@ -75,3 +99,4 @@
 <?php endif; ?>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+

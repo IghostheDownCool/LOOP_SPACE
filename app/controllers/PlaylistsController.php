@@ -172,4 +172,14 @@ public function excluir(int $id)
 
     exit;
 }
+public function listarJson(): void
+{
+    $this->requireLogin();
+
+    $playlist = new Playlist();
+    $playlists = $playlist->listar($_SESSION['usuario_id']);
+
+    header('Content-Type: application/json');
+    echo json_encode($playlists);
+}
 }

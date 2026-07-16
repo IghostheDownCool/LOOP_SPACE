@@ -518,3 +518,28 @@ audio, .player-info audio {
     cursor:pointer;
 
 }
+
+/* ==================================================
+   PLAYER GLOBAL - ANIMAÇÃO DE APARECER/SUMIR
+   ================================================== */
+
+#global-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #181818;
+    border-top: 1px solid #282828;
+    padding: 10px 20px;
+    z-index: 1050;
+    transform: translateY(100%);    /* Escondido para baixo */
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    pointer-events: none;           /* Bloqueia cliques quando escondido */
+}
+
+#global-player.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;           /* Permite cliques quando visível */
+}

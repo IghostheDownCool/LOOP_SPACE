@@ -1,23 +1,14 @@
-.music-card{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:16px;
-
-    background:#181818;
-
-    border-radius:12px;
-
-    padding:12px 16px;
-
-    margin-bottom:10px;
-
-    transition:.2s;
-
-    cursor:pointer;
-
+.music-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #181818;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    transition: .2s;
+    cursor: pointer;
+    height: 100%;  /* ← ADICIONE ESTA LINHA */
 }
 
 .music-card:hover{

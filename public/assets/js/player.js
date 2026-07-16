@@ -14,6 +14,7 @@ const capaImg = document.getElementById('gp-capa');
 const tituloEl = document.getElementById('gp-titulo');
 const artistaEl = document.getElementById('gp-artista');
 const volumeSlider = document.getElementById('volume');
+const playerElement = document.getElementById('global-player');
 
 // Estado do player
 let fila = [];
@@ -22,59 +23,79 @@ let musicaAtual = null;
 let isPlaying = false;
 
 // ==================================================
+// FUNÇÕES DE VISIBILIDADE DO PLAYER
+// ==================================================
+
+function mostrarPlayer() {
+    playerElement.classList.add('active');
+}
+
+function esconderPlayer() {
+    playerElement.classList.remove('active');
+}
+
+// ==================================================
 // FUNÇÕES DE CONTROLE
 // ==================================================
 
 function carregarMusica(musica) {
     if (!musica) return;
 
-    // Atualiza os dados na interface
-console.log('Dados recebidos em carregarMusica:', musica); // 🔍 LOG
-tituloEl.textContent = musica.titulo || 'Sem título';
-artistaEl.textContent = musica.artista || 'Artista desconhecido';
+    console.log('Dados recebidos em carregarMusica:', musica);
 
-// Verifica se o campo capa existe
-if (musica.capa) {
-    let caminhoCapa = BASE_URL + '/uploads/capas/' + musica.capa;
-    console.log('Caminho da capa:', caminhoCapa); // 🔍 LOG
-    capaImg.src = caminhoCapa;
-    capaImg.alt = musica.album || 'Capa';
-} else {
-    console.warn('Capa não encontrada para a música:', musica.id); // 🔍 LOG
-    capaImg.src = BASE_URL + '/assets/images/default-cover.png';
-    capaImg.alt = 'Capa padrão';
-}
+    // Atualiza título e artista
+    tituloEl.textContent = musica.titulo || 'Sem título';
+    artistaEl.textContent = musica.artista || 'Artista desconhecido';
+
+    // Verifica a capa
+    if (musica.capa) {
+        let caminhoCapa = BASE_URL + '/uploads/capas/' + musica.capa;
+        console.log('Caminho da capa:', caminhoCapa);
+        capaImg.src = caminhoCapa;
+        capaImg.alt = musica.album || 'Capa';
+    } else {
+        console.warn('Capa não encontrada para a música:', musica.id);
+        capaImg.src = BASE_URL + '/assets/images/default-cover.png';
+        capaImg.alt = 'Capa padrão';
+    }
 
     // Define a fonte do áudio
     audio.src = BASE_URL + '/uploads/musicas/' + musica.arquivo;
     audio.load();
 
-    // Atualiza a barra de progresso quando a música carregar
-    audio.addEventListener('loadedmetadata', function() {
-        tempoTotal.textContent = formatarTempo(audio.duration);
-        progressBar.max = audio.duration;
-        progressBar.value = 0;
-    });
+    // Remove event listeners antigos para evitar duplicação
+    audio.removeEventListener('loadedmetadata', atualizarDuracao);
+    audio.removeEventListener('timeupdate', atualizarProgresso);
+    audio.removeEventListener('ended', tocarProxima);
 
-    // Atualiza o progresso durante a reprodução
-    audio.addEventListener('timeupdate', function() {
-        progressBar.value = audio.currentTime;
-        tempoAtual.textContent = formatarTempo(audio.currentTime);
-    });
-
-    // Quando a música terminar, toca a próxima automaticamente
-    audio.addEventListener('ended', function() {
-        tocarProxima();
-    });
+    // Adiciona os listeners
+    audio.addEventListener('loadedmetadata', atualizarDuracao);
+    audio.addEventListener('timeupdate', atualizarProgresso);
+    audio.addEventListener('ended', tocarProxima);
 
     musicaAtual = musica;
-    isPlaying = false; // será setado para true no play
+    isPlaying = false;
     btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
+
+    // 🔥 MOSTRA O PLAYER
+    mostrarPlayer();
+}
+
+// Funções auxiliares para os event listeners
+function atualizarDuracao() {
+    tempoTotal.textContent = formatarTempo(audio.duration);
+    progressBar.max = audio.duration;
+    progressBar.value = 0;
+}
+
+function atualizarProgresso() {
+    progressBar.value = audio.currentTime;
+    tempoAtual.textContent = formatarTempo(audio.currentTime);
 }
 
 function tocarMusicaPorId(id) {
     console.log('tocarMusica chamada com ID:', id);
-    // Busca os dados da música via AJAX
+
     fetch(BASE_URL + '/player/dados/' + id)
         .then(response => {
             if (!response.ok) {
@@ -83,7 +104,7 @@ function tocarMusicaPorId(id) {
             return response.json();
         })
         .then(musica => {
-            // Incrementa reprodução no backend (opcional)
+            // Incrementa reprodução no backend
             fetch(BASE_URL + '/player/reproduzir/' + id, { method: 'POST' })
                 .catch(err => console.warn('Não foi possível registrar reprodução'));
 
@@ -93,6 +114,7 @@ function tocarMusicaPorId(id) {
         .catch(error => {
             console.error('Erro:', error);
             alert('Não foi possível carregar a música.');
+            esconderPlayer();
         });
 }
 
@@ -118,13 +140,19 @@ function togglePlay() {
 }
 
 function tocarProxima() {
-    if (fila.length === 0) return;
+    if (fila.length === 0) {
+        esconderPlayer();  // Se não houver fila, esconde o player
+        return;
+    }
     indiceAtual = (indiceAtual + 1) % fila.length;
     tocarMusicaPorId(fila[indiceAtual]);
 }
 
 function tocarAnterior() {
-    if (fila.length === 0) return;
+    if (fila.length === 0) {
+        esconderPlayer();
+        return;
+    }
     // Se já passou mais de 3 segundos, volta ao início da música
     if (audio.currentTime > 3) {
         audio.currentTime = 0;
@@ -138,21 +166,14 @@ function tocarAnterior() {
 // INICIALIZAÇÃO DOS EVENTOS
 // ==================================================
 
-// Botão Play/Pause
 btnPlay.addEventListener('click', togglePlay);
-
-// Botão Próximo
 btnNext.addEventListener('click', tocarProxima);
-
-// Botão Anterior
 btnPrev.addEventListener('click', tocarAnterior);
 
-// Barra de progresso (arrastar)
 progressBar.addEventListener('input', function() {
     audio.currentTime = parseFloat(this.value);
 });
 
-// Controle de volume (já existe no volume.js, mas podemos manter)
 volumeSlider.addEventListener('input', function() {
     audio.volume = this.value / 100;
 });
@@ -161,21 +182,12 @@ volumeSlider.addEventListener('input', function() {
 // FUNÇÃO PÚBLICA PARA SER CHAMADA PELOS BOTÕES DE PLAY
 // ==================================================
 
-// Esta função será chamada pelos botões "play" nas músicas
 function tocarMusica(botao, id, arquivo, titulo, artista, album, capa) {
-    // Opção 1: Se você quiser usar os parâmetros diretamente (sem AJAX)
-    // Nesse caso, você pode montar o objeto música manualmente.
-    // Mas é melhor usar o AJAX para garantir dados consistentes.
-
-    // Vamos usar a função que busca via AJAX:
     tocarMusicaPorId(id);
-
-    // Também atualizamos a fila (opcional)
-    // Se você quiser criar uma fila a partir da lista atual, veja abaixo.
 }
 
 // ==================================================
-// FUNÇÃO PARA DEFINIR A FILA (ex: quando entrar na página player)
+// FUNÇÃO PARA DEFINIR A FILA
 // ==================================================
 
 function definirFila(listaIds) {
@@ -184,7 +196,7 @@ function definirFila(listaIds) {
 }
 
 // ==================================================
-// FUNÇÃO DE FORMATAÇÃO DE TEMPO (já existente)
+// FUNÇÃO DE FORMATAÇÃO DE TEMPO
 // ==================================================
 
 function formatarTempo(segundos) {

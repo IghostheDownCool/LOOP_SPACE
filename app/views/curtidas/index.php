@@ -14,7 +14,9 @@
 
     <div class="list-group">
 
-        <?php require __DIR__ . '/../components/music-card.php'; ?>
+        <?php foreach ($musicas as $musica): ?>
+            <?php require __DIR__ . '/../components/music-card.php'; ?>
+        <?php endforeach; ?>
 
     </div>
 

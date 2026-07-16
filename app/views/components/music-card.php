@@ -1,34 +1,51 @@
-<?php
-
-/*
-|--------------------------------------------------------------------------
-| Componente de Música
-|--------------------------------------------------------------------------
-|
-| Variável esperada:
-| $musica
-|
-*/
-?>
-
 <div class="music-card">
 
-    <strong>
+<div class="music-play">
 
-        <?= htmlspecialchars($musica['titulo']) ?>
+    <button
+        class="btn-play-card"
+        onclick="event.stopPropagation(); tocarMusica(
+            this,
+            <?= $musica['id'] ?>,
+            '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo'], ENT_QUOTES) ?>',
+            '<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>',
+            '<?= htmlspecialchars($musica['artista'], ENT_QUOTES) ?>',
+            '<?= htmlspecialchars($musica['album'], ENT_QUOTES) ?>',
+            '<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa'], ENT_QUOTES) ?>'
+        )"
+    >
+        <i class="bi bi-play-fill"></i>
+    </button>
 
-    </strong>
+</div>
 
-    <br>
+    <div class="music-cover">
 
-    <small>
+        <img
+            src="<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa']) ?>"
+            alt="<?= htmlspecialchars($musica['album']) ?>"
+        >
 
-        <?= htmlspecialchars($musica['artista']) ?>
+    </div>
 
-        •
+    <div class="music-info">
 
-        <?= htmlspecialchars($musica['album']) ?>
+        <h6>
 
-    </small>
+            <?= htmlspecialchars($musica['titulo']) ?>
+
+        </h6>
+
+        <small>
+
+            <?= htmlspecialchars($musica['artista']) ?>
+
+            •
+
+            <?= htmlspecialchars($musica['album']) ?>
+
+        </small>
+
+    </div>
 
 </div>

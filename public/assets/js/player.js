@@ -25,6 +25,12 @@ function tocarMusica(botao, id, audio, titulo, artista, album, capa)
     btnPlay.innerHTML =
     '<i class="bi bi-pause-fill"></i>';
 
+barraProgresso.value = 0;
+
+tempoAtual.innerText = '0:00';
+
+tempoTotal.innerText = '0:00';
+    
     document.getElementById('gp-titulo').innerText = titulo;
     document.getElementById('gp-artista').innerText = artista + ' • ' + album;
 
@@ -117,3 +123,90 @@ function tocarPorIndice(indice)
 
     musicas[indice].click();
 }
+
+const btnNext = document.getElementById('btn-next');
+
+if (btnNext) {
+
+    btnNext.addEventListener('click', function () {
+
+        const musicas = document.querySelectorAll('.musica-item');
+
+        const atual = document.querySelector('.musica-item.ativa');
+
+        if (!atual) {
+            return;
+        }
+
+        const indice = Array.from(musicas).indexOf(atual);
+
+        tocarPorIndice(indice + 1);
+
+    });
+
+}
+
+const btnPrev = document.getElementById('btn-prev');
+
+if (btnPrev) {
+
+    btnPrev.addEventListener('click', function () {
+
+        const musicas = document.querySelectorAll('.musica-item');
+
+        const atual = document.querySelector('.musica-item.ativa');
+
+        if (!atual) {
+            return;
+        }
+
+        const indice = Array.from(musicas).indexOf(atual);
+
+        tocarPorIndice(indice - 1);
+
+    });
+
+}
+
+function formatarTempo(segundos)
+{
+    if (isNaN(segundos)) {
+        return '0:00';
+    }
+
+    const min = Math.floor(segundos / 60);
+
+    const seg = Math.floor(segundos % 60);
+
+    return min + ':' + String(seg).padStart(2, '0');
+}
+
+const barraProgresso = document.getElementById('barra-progresso');
+
+const tempoAtual = document.getElementById('tempo-atual');
+
+const tempoTotal = document.getElementById('tempo-total');
+
+audioPlayer.addEventListener('timeupdate', function () {
+
+    if (!audioPlayer.duration) {
+        return;
+    }
+
+    barraProgresso.max = Math.floor(audioPlayer.duration);
+
+    barraProgresso.value = Math.floor(audioPlayer.currentTime);
+
+    tempoAtual.innerText =
+        formatarTempo(audioPlayer.currentTime);
+
+    tempoTotal.innerText =
+        formatarTempo(audioPlayer.duration);
+
+});
+
+barraProgresso.addEventListener('input', function () {
+
+    audioPlayer.currentTime = barraProgresso.value;
+
+});

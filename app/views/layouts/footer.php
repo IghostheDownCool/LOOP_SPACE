@@ -48,6 +48,26 @@
 
         </div>
 
+        <div class="player-progress">
+
+    <span id="tempo-atual">
+        0:00
+    </span>
+
+    <input
+        type="range"
+        id="barra-progresso"
+        value="0"
+        min="0"
+        max="100"
+    >
+
+    <span id="tempo-total">
+        0:00
+    </span>
+
+</div>
+
     </div>
 
     <div class="player-right">

@@ -3,23 +3,21 @@
 class ArtistaController extends Controller
 {
     public function ver(int $id): void
-    {
-        $this->requireLogin();
+{
+    $this->requireLogin();
 
-        $artistaModel = new Artista();
-        $artista = $artistaModel->buscarCompleto($id);
+    $artistaModel = new Artista();
+    $artista = $artistaModel->buscarCompleto($id);
 
-        if (!$artista) {
-            die('Artista não encontrado.');
-        }
-
-        $musicas = $artistaModel->listarMusicas($id);
-        $albuns = $artistaModel->listarAlbuns($id);
-
-        $this->view('artistas/ver', [
-            'artista' => $artista,
-            'musicas' => $musicas,
-            'albuns' => $albuns
-        ]);
+    if (!$artista) {
+        die('Artista não encontrado.');
     }
+
+    $musicas = $artistaModel->listarMusicas($id);
+    $albuns = $artistaModel->listarAlbuns($id);
+
+    // TESTE: require direto (pula a função view)
+    require_once __DIR__ . '/../views/artistas/ver.php';
+    exit;
+}
 }

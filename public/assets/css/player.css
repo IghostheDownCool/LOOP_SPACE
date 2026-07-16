@@ -484,3 +484,37 @@ audio, .player-info audio {
     transform:scale(1.15);
 
 }
+
+/* ==========================
+   VOLUME
+========================== */
+
+.player-right{
+
+    width:220px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+}
+
+.player-right i{
+
+    color:#b3b3b3;
+
+    font-size:18px;
+
+}
+
+#volume{
+
+    width:120px;
+
+    cursor:pointer;
+
+}

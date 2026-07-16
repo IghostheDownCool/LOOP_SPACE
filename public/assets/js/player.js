@@ -210,3 +210,47 @@ barraProgresso.addEventListener('input', function () {
     audioPlayer.currentTime = barraProgresso.value;
 
 });
+
+function tocarProxima()
+{
+    const musicas = document.querySelectorAll('.musica-item');
+
+    const atual = document.querySelector('.musica-item.ativa');
+
+    if (!atual) {
+        return;
+    }
+
+    const indice = Array.from(musicas).indexOf(atual);
+
+    if (indice < musicas.length - 1) {
+
+        tocarPorIndice(indice + 1);
+
+    } else {
+
+        // Volta para a primeira música da lista
+        tocarPorIndice(0);
+
+    }
+}
+
+audioPlayer.addEventListener('ended', function () {
+
+    tocarProxima();
+
+});
+
+const volume = document.getElementById('volume');
+
+if (volume) {
+
+    audioPlayer.volume = 1;
+
+    volume.addEventListener('input', function () {
+
+        audioPlayer.volume = volume.value / 100;
+
+    });
+
+}

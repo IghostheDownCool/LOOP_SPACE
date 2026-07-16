@@ -75,21 +75,27 @@ class Musica
 }
 
     public function buscarPorId(int $id): array|false
-    {
-        $sql = "
-            SELECT *
-            FROM musicas
-            WHERE id = :id
-        ";
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista
+        FROM musicas
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE musicas.id = :id
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->pdo->prepare($sql);
 
-        $stmt->execute([
-            ':id' => $id
-        ]);
+    $stmt->execute([
+        ':id' => $id
+    ]);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
     public function atualizar(
         int $id,

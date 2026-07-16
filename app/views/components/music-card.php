@@ -4,7 +4,7 @@
 
     <button
         class="btn-play-card"
-        onclick="event.stopPropagation(); tocarMusica(
+        onclick="event.stopPropagation(); tocarMusicaPorId(<?= $musica['id'] ?>);"
             this,
             <?= $musica['id'] ?>,
             '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo'], ENT_QUOTES) ?>',

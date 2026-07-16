@@ -50,4 +50,20 @@ public function top()
         'musicas' => $musicas
     ]);
 }
+
+public function dados(int $id): void
+{
+    $this->requireLogin();
+
+    $musica = new Musica();
+    $dados = $musica->buscarPorId($id);
+
+    if (!$dados) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Música não encontrada']);
+        return;
+    }
+
+    echo json_encode($dados);
+}
 }

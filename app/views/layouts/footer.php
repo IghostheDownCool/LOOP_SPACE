@@ -84,7 +84,12 @@
 
 </div>
 
+
 </div>
+
+<script>
+    const BASE_URL = '<?= BASE_URL ?>';
+</script>
 
 <script src="<?= BASE_URL ?>/assets/js/player.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/player.js') ?>"></script>
 

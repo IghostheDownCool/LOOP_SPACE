@@ -204,4 +204,41 @@ public function buscar(string $termo): array
     $stmt->execute([':termo' => '%' . $termo . '%']);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function recomendarPorArtistas(array $artistasIds, int $limite = 10): array
+{
+    if (empty($artistasIds)) {
+        return [];
+    }
+
+    $placeholders = implode(',', array_fill(0, count($artistasIds), '?'));
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista,
+            artistas.id AS artista_id,
+            albuns.id AS album_id
+        FROM musicas
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE artistas.id IN ($placeholders)
+        ORDER BY RAND()
+        LIMIT ?
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    // Bind dos IDs dos artistas (todos como inteiros)
+    foreach ($artistasIds as $index => $id) {
+        $stmt->bindValue($index + 1, $id, PDO::PARAM_INT);
+    }
+
+    // Bind do limite como inteiro (posição após os IDs)
+    $stmt->bindValue(count($artistasIds) + 1, $limite, PDO::PARAM_INT);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

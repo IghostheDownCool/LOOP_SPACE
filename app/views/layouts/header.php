@@ -140,3 +140,22 @@
 </aside>
 
         <main class="col-md-9 col-lg-10 conteudo">
+
+<main class="col-md-9 col-lg-10 conteudo">
+
+    <!-- BARRA DE PESQUISA -->
+<div class="search-bar-container mb-4">
+    <div class="search-bar">
+        <i class="bi bi-search"></i>
+        <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="O que você quer ouvir? (música, artista, álbum...)"
+            autocomplete="off"
+        >
+    </div>
+    <div id="search-results" class="search-results"></div>
+</div>
+
+    <!-- O RESTANTE DO CONTEÚDO VIRÁ AQUI -->

@@ -177,4 +177,31 @@ public function topMusicas(): array
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function buscar(string $termo): array
+{
+    $sql = "
+        SELECT
+            musicas.id,
+            musicas.titulo,
+            musicas.arquivo,
+            musicas.duracao,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista
+        FROM musicas
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE
+            musicas.titulo LIKE :termo
+            OR artistas.nome LIKE :termo
+            OR albuns.titulo LIKE :termo
+        ORDER BY artistas.nome, albuns.titulo, musicas.numero_faixa
+        LIMIT 10
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':termo' => '%' . $termo . '%']);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

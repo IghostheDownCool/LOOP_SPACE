@@ -197,3 +197,76 @@ body{
     padding-bottom:110px;
 
 }
+
+/* ==================================================
+   BARRA DE PESQUISA - ALINHAMENTO VERTICAL PERFEITO
+   ================================================== */
+
+.search-bar-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    padding-top: 10px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;           /* Centraliza verticalmente todos os itens */
+    background: #282828;
+    border-radius: 50px;
+    padding: 0 20px;              /* Remove padding vertical, fica só horizontal */
+    border: 1px solid #404040;
+    transition: border-color 0.2s;
+    height: 56px;                 /* Altura fixa para manter consistência */
+    box-sizing: border-box;
+}
+
+.search-bar i {
+    color: #b3b3b3;
+    font-size: 1.2rem;
+    margin-right: 12px;
+    line-height: 1;               /* Remove espaçamento extra */
+    flex-shrink: 0;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+    padding: 0;                   /* Zera padding para não atrapalhar */
+    margin: 0;                    /* Zera margem */
+    height: 100%;                 /* Ocupa 100% da altura do container */
+    box-sizing: border-box;
+    line-height: 1.5;             /* Ajusta a altura da linha */
+    display: flex;
+    align-items: center;          /* Centraliza verticalmente o texto dentro do input */
+}
+
+/* Remove estilos padrão do Bootstrap que podem interferir */
+.search-input:focus {
+    box-shadow: none;
+    background: transparent;
+}
+
+/* Resultados da pesquisa (já estava) */
+.search-results {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: #282828;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    padding: 5px 0;
+}
+
+.search-results.show {
+    display: block;
+}

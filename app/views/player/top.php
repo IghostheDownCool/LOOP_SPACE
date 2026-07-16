@@ -25,3 +25,8 @@
 <?php endif; ?>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+
+<script>
+    const idsMusicas = <?= json_encode(array_column($musicas, 'id')) ?>;
+    definirFila(idsMusicas);
+</script>

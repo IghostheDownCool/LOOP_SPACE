@@ -38,7 +38,18 @@ function esconderPlayer() {
 // FUNÇÕES DE CONTROLE
 // ==================================================
 
-function carregarMusica(musica) {
+function atualizarDuracao() {
+    tempoTotal.textContent = formatarTempo(audio.duration);
+    progressBar.max = audio.duration;
+    progressBar.value = 0;
+}
+
+function atualizarProgresso() {
+    progressBar.value = audio.currentTime;
+    tempoAtual.textContent = formatarTempo(audio.currentTime);
+}
+
+async function carregarMusica(musica) {
     if (!musica) return;
 
     console.log('Dados recebidos em carregarMusica:', musica);
@@ -59,9 +70,23 @@ function carregarMusica(musica) {
         capaImg.alt = 'Capa padrão';
     }
 
-    // Define a fonte do áudio
+    // Pausa a música atual antes de trocar
+    if (!audio.paused) {
+        await audio.pause();
+    }
+
+    // Define a nova fonte
     audio.src = BASE_URL + '/uploads/musicas/' + musica.arquivo;
     audio.load();
+
+    // Espera o carregamento terminar
+    await new Promise((resolve) => {
+        if (audio.readyState >= 2) {
+            resolve();
+        } else {
+            audio.addEventListener('canplay', resolve, { once: true });
+        }
+    });
 
     // Remove event listeners antigos para evitar duplicação
     audio.removeEventListener('loadedmetadata', atualizarDuracao);
@@ -77,20 +102,8 @@ function carregarMusica(musica) {
     isPlaying = false;
     btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
 
-    // 🔥 MOSTRA O PLAYER
+    // Mostra o player
     mostrarPlayer();
-}
-
-// Funções auxiliares para os event listeners
-function atualizarDuracao() {
-    tempoTotal.textContent = formatarTempo(audio.duration);
-    progressBar.max = audio.duration;
-    progressBar.value = 0;
-}
-
-function atualizarProgresso() {
-    progressBar.value = audio.currentTime;
-    tempoAtual.textContent = formatarTempo(audio.currentTime);
 }
 
 function tocarMusicaPorId(id) {
@@ -103,13 +116,13 @@ function tocarMusicaPorId(id) {
             }
             return response.json();
         })
-        .then(musica => {
+        .then(async (musica) => {
             // Incrementa reprodução no backend
             fetch(BASE_URL + '/player/reproduzir/' + id, { method: 'POST' })
                 .catch(err => console.warn('Não foi possível registrar reprodução'));
 
-            carregarMusica(musica);
-            play();
+            await carregarMusica(musica);
+            await play();
         })
         .catch(error => {
             console.error('Erro:', error);
@@ -118,30 +131,43 @@ function tocarMusicaPorId(id) {
         });
 }
 
-function play() {
+async function play() {
     if (!musicaAtual) return;
-    audio.play();
-    isPlaying = true;
-    btnPlay.innerHTML = '<i class="bi bi-pause-fill"></i>';
+    try {
+        await audio.play();
+        // O evento 'play' vai atualizar o ícone e isPlaying
+    } catch (error) {
+        console.warn('Erro ao reproduzir:', error);
+        // Tenta novamente após um pequeno delay
+        setTimeout(async () => {
+            try {
+                await audio.play();
+            } catch (retryError) {
+                console.error('Falha ao reproduzir mesmo após tentar novamente:', retryError);
+            }
+        }, 300);
+    }
 }
 
 function pause() {
-    audio.pause();
-    isPlaying = false;
-    btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
+    audio.pause(); // O evento 'pause' vai atualizar o ícone e isPlaying
 }
 
 function togglePlay() {
-    if (isPlaying) {
-        pause();
-    } else {
+    if (audio.paused) {
         play();
+    } else {
+        pause();
     }
 }
 
 function tocarProxima() {
+    console.log('tocarProxima chamada. fila:', fila, 'indiceAtual:', indiceAtual);
     if (fila.length === 0) {
-        esconderPlayer();  // Se não houver fila, esconde o player
+        esconderPlayer();
+        audio.pause();
+        audio.currentTime = 0;
+        btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
         return;
     }
     indiceAtual = (indiceAtual + 1) % fila.length;
@@ -150,10 +176,9 @@ function tocarProxima() {
 
 function tocarAnterior() {
     if (fila.length === 0) {
-        esconderPlayer();
         return;
     }
-    // Se já passou mais de 3 segundos, volta ao início da música
+    // Se já passou mais de 3 segundos, volta ao início da música atual
     if (audio.currentTime > 3) {
         audio.currentTime = 0;
         return;
@@ -162,21 +187,10 @@ function tocarAnterior() {
     tocarMusicaPorId(fila[indiceAtual]);
 }
 
-// ==================================================
-// INICIALIZAÇÃO DOS EVENTOS
-// ==================================================
-
-btnPlay.addEventListener('click', togglePlay);
-btnNext.addEventListener('click', tocarProxima);
-btnPrev.addEventListener('click', tocarAnterior);
-
-progressBar.addEventListener('input', function() {
-    audio.currentTime = parseFloat(this.value);
-});
-
-volumeSlider.addEventListener('input', function() {
-    audio.volume = this.value / 100;
-});
+function definirFila(listaIds) {
+    fila = listaIds;
+    indiceAtual = 0;
+}
 
 // ==================================================
 // FUNÇÃO PÚBLICA PARA SER CHAMADA PELOS BOTÕES DE PLAY
@@ -184,15 +198,6 @@ volumeSlider.addEventListener('input', function() {
 
 function tocarMusica(botao, id, arquivo, titulo, artista, album, capa) {
     tocarMusicaPorId(id);
-}
-
-// ==================================================
-// FUNÇÃO PARA DEFINIR A FILA
-// ==================================================
-
-function definirFila(listaIds) {
-    fila = listaIds;
-    indiceAtual = 0;
 }
 
 // ==================================================
@@ -207,3 +212,37 @@ function formatarTempo(segundos) {
     const sec = Math.floor(segundos % 60);
     return min + ':' + String(sec).padStart(2, '0');
 }
+
+// ==================================================
+// INICIALIZAÇÃO DOS EVENTOS (APENAS UMA VEZ)
+// ==================================================
+
+// Sincroniza o estado com os eventos do áudio
+audio.addEventListener('play', function() {
+    isPlaying = true;
+    btnPlay.innerHTML = '<i class="bi bi-pause-fill"></i>';
+});
+
+audio.addEventListener('pause', function() {
+    isPlaying = false;
+    btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
+});
+
+// Botão Play/Pause
+btnPlay.addEventListener('click', togglePlay);
+
+// Botão Próximo
+btnNext.addEventListener('click', tocarProxima);
+
+// Botão Anterior
+btnPrev.addEventListener('click', tocarAnterior);
+
+// Barra de progresso
+progressBar.addEventListener('input', function() {
+    audio.currentTime = parseFloat(this.value);
+});
+
+// Volume
+volumeSlider.addEventListener('input', function() {
+    audio.volume = this.value / 100;
+});

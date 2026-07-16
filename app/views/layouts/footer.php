@@ -93,7 +93,7 @@
 
 <script src="<?= BASE_URL ?>/assets/js/player.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/player.js') ?>"></script>
 
-<script src="<?= BASE_URL ?>/assets/js/controls.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/controls.js') ?>"></script>
+<!-- <script src="<?= BASE_URL ?>/assets/js/controls.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/controls.js') ?>"></script> -->
 <!-- <script src="<?= BASE_URL ?>/assets/js/progress.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/progress.js') ?>"></script> -->
 
 <script src="<?= BASE_URL ?>/assets/js/volume.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/volume.js') ?>"></script>

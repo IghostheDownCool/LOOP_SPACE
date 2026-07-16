@@ -3,15 +3,21 @@
 class PlayerController extends Controller
 {
     public function index()
-    {
-        $musica = new Musica();
-
-        $musicas = $musica->listar();
-
-        $this->view('player/index', [
-            'musicas' => $musicas
-        ]);
+{
+    // Verifica se o usuário NÃO está logado
+    if (!isset($_SESSION['usuario_id'])) {
+        header('Location: /LOOP_SPACE/public/login');
+        exit;
     }
+
+    // 1° PASSO: Buscar as músicas do banco
+    $musica = new Musica();
+    $musicas = $musica->listar(); // aqui você define a variável
+
+    // 2° PASSO: Só agora passa para a view
+    $this->view('player/index', ['musicas' => $musicas]);
+}
+
 public function reproduzir(int $id)
 {
     $this->requireLogin();

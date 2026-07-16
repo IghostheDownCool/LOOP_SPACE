@@ -1,4 +1,0 @@
-HELPERS = FUNÇÕES AUXILIARES.
-
-EXEMPLO:
-verificarLogin()

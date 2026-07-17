@@ -788,3 +788,110 @@ section {
         font-size: 0.9rem;
     }
 }
+
+/* ==================================================
+   CORREÇÃO PARA ARTISTAS SEGUIDOS
+   ================================================== */
+
+/* 1. Força as linhas de artistas a não limitarem altura */
+.row-cols-2,
+.row-cols-md-3,
+.row-cols-lg-4,
+.row-cols-xl-5 {
+    align-items: flex-start !important;
+    height: auto !important;
+    min-height: auto !important;
+}
+
+/* 2. Corrige as colunas de artistas */
+.row-cols-2 > .col,
+.row-cols-md-3 > .col,
+.row-cols-lg-4 > .col,
+.row-cols-xl-5 > .col {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto !important;
+}
+
+/* 3. Corrige os cards de artistas */
+.artist-card {
+    height: auto !important;
+    min-height: auto !important;
+    flex: 0 0 auto !important;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.artist-card:hover {
+    transform: translateY(-4px);
+    border-color: #1db954;
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+/* 4. Corrige a imagem do artista */
+.artist-avatar {
+    width: 100%;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px 8px 0 0;
+    background: var(--bg-secondary);
+}
+
+/* 5. Corrige o corpo do card do artista */
+.artist-card .card-body {
+    flex: 0 0 auto !important;
+    padding: 8px 6px !important;
+    text-align: center;
+    min-height: auto !important;
+}
+
+/* 6. Corrige o nome do artista */
+.artist-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin: 0;
+    transition: color 0.3s;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 7. Remove qualquer altura fixa do link */
+.artist-card a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* 8. Responsividade para artistas */
+@media (max-width: 576px) {
+    .artist-name {
+        font-size: 0.75rem;
+    }
+    
+    .artist-card .text-muted {
+        font-size: 0.6rem;
+    }
+    
+    .artist-card .card-body {
+        padding: 4px 4px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .row-cols-2 {
+        --bs-gutter-x: 0.5rem;
+        --bs-gutter-y: 0.5rem;
+    }
+}

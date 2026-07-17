@@ -41,14 +41,14 @@ $musicasSeguidos = $artistaModel->getMusicasDosSeguidos($_SESSION['usuario_id'],
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
         <?php foreach ($seguidos as $seguido): ?>
             <div class="col">
-                <div class="card bg-card text-center h-100 artist-card">
-                    <a href="<?= BASE_URL ?>/artista/ver/<?= $seguido['id'] ?>" class="text-decoration-none">
+                <div class="card bg-card artist-card h-auto">
+                    <a href="<?= BASE_URL ?>/artista/ver/<?= $seguido['id'] ?>" class="text-decoration-none d-block">
                         <img
                             src="<?= BASE_URL ?>/uploads/artistas/<?= htmlspecialchars($seguido['foto'] ?? 'default-artist.png') ?>"
                             alt="<?= htmlspecialchars($seguido['nome']) ?>"
                             class="card-img-top artist-avatar"
                         >
-                        <div class="card-body py-2">
+                        <div class="card-body py-2 text-center">
                             <h6 class="artist-name"><?= htmlspecialchars($seguido['nome']) ?></h6>
                             <small class="text-muted"><?= $seguido['total_seguidores'] ?? 0 ?> seguidores</small>
                         </div>
@@ -66,7 +66,7 @@ $musicasSeguidos = $artistaModel->getMusicasDosSeguidos($_SESSION['usuario_id'],
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($musicasSeguidos as $musica): ?>
                 <div class="col">
-                    <div class="card bg-card h-100">
+                    <div class="card bg-card h-auto">
                         <?php require __DIR__ . '/../components/music-card.php'; ?>
                     </div>
                 </div>

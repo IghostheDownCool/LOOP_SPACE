@@ -221,4 +221,31 @@ public function getMusicasDosSeguidos(int $usuarioId, int $limite = 20): array
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function contar(): int
+{
+    $sql = "SELECT COUNT(*) as total FROM artistas";
+    $stmt = $this->pdo->query($sql);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+public function maisSeguidos(int $limite = 5): array
+{
+    $sql = "
+        SELECT
+            artistas.id,
+            artistas.nome,
+            artistas.foto,
+            COUNT(seguidores_artistas.id) AS total_seguidores
+        FROM artistas
+        LEFT JOIN seguidores_artistas ON seguidores_artistas.artista_id = artistas.id
+        GROUP BY artistas.id
+        ORDER BY total_seguidores DESC
+        LIMIT :limite
+    ";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

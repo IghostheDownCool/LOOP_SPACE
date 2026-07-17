@@ -46,4 +46,24 @@ public function buscarPorEmailLogin(string $email)
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+public function contar(): int
+{
+    $sql = "SELECT COUNT(*) as total FROM usuarios";
+    $stmt = $this->pdo->query($sql);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+public function ultimos(int $limite = 5): array
+{
+    $sql = "
+        SELECT id, nome, email, data_cadastro AS created_at
+        FROM usuarios
+        ORDER BY data_cadastro DESC
+        LIMIT :limite
+    ";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

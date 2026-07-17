@@ -241,4 +241,48 @@ public function recomendarPorArtistas(array $artistasIds, int $limite = 10): arr
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function contar(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM musicas";
+        $stmt = $this->pdo->query($sql);
+        return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    public function ultimas(int $limite = 5): array
+    {
+        $sql = "
+            SELECT
+                musicas.*,
+                albuns.titulo AS album,
+                artistas.nome AS artista
+            FROM musicas
+            INNER JOIN albuns ON albuns.id = musicas.album_id
+            INNER JOIN artistas ON artistas.id = albuns.artista_id
+            ORDER BY musicas.id DESC
+            LIMIT :limite
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function topMusicasLimitado(int $limite = 5): array
+    {
+        $sql = "
+            SELECT
+                musicas.titulo,
+                artistas.nome AS artista,
+                musicas.reproducoes
+            FROM musicas
+            INNER JOIN albuns ON albuns.id = musicas.album_id
+            INNER JOIN artistas ON artistas.id = albuns.artista_id
+            ORDER BY musicas.reproducoes DESC
+            LIMIT :limite
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

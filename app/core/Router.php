@@ -36,21 +36,28 @@ class Router
     }
 
     // ==================================================
-    // ÁREA ADMINISTRATIVA
-    // ==================================================
-    if (isset($segments[0]) && $segments[0] === 'admin') {
-        $controllerName = isset($segments[1]) ? ucfirst($segments[1]) . 'Controller' : 'AdminHomeController';
-        $controllerFile = __DIR__ . '/../controllers/admin/' . $controllerName . '.php';
-
-        if (!file_exists($controllerFile)) {
-            die('Controller administrativo não encontrado.');
-        }
-
-        require_once $controllerFile;
-
+// ÁREA ADMINISTRATIVA
+// ==================================================
+if (isset($segments[0]) && $segments[0] === 'admin') {
+    // Se a URL for apenas /admin ou /admin/ (vazio), usa DashboardController
+    if (!isset($segments[1]) || $segments[1] === '') {
+        $controllerName = 'DashboardController';
+        $method = 'index';
+        $params = [];
+    } else {
+        $controllerName = ucfirst($segments[1]) . 'Controller';
         $method = $segments[2] ?? 'index';
         $params = array_slice($segments, 3);
-    } 
+    }
+    
+    $controllerFile = __DIR__ . '/../controllers/admin/' . $controllerName . '.php';
+
+    if (!file_exists($controllerFile)) {
+        die('Controller administrativo não encontrado: ' . $controllerName);
+    }
+
+    require_once $controllerFile;
+}
     // ==================================================
     // ÁREA PÚBLICA
     // ==================================================

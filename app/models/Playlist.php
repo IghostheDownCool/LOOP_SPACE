@@ -262,4 +262,11 @@ public function buscarPorToken(string $token): array|false
     $stmt->execute([':token' => $token]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+public function contar(): int
+{
+    $sql = "SELECT COUNT(*) as total FROM playlists";
+    $stmt = $this->pdo->query($sql);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
 }

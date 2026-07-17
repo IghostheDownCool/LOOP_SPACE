@@ -141,4 +141,11 @@ public function listarMusicas(int $albumId): array
     $stmt->execute([':album_id' => $albumId]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function contar(): int
+{
+    $sql = "SELECT COUNT(*) as total FROM albuns";
+    $stmt = $this->pdo->query($sql);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
 }

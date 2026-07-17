@@ -110,4 +110,11 @@ class Curtida
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function contar(): int
+{
+    $sql = "SELECT COUNT(*) as total FROM curtidas";
+    $stmt = $this->pdo->query($sql);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
 }

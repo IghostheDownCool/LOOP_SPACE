@@ -1,0 +1,74 @@
+/* --- CORREÇÕES PARA FORMULÁRIOS ADMIN --- */
+.form-admin .form-control {
+    background: #282828 !important;
+    border: 1px solid #3e3e3e !important;
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-admin .form-control:focus {
+    border-color: #1db954 !important;
+    box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.25) !important;
+    background: #333 !important;
+}
+
+.form-admin select.form-control {
+    appearance: auto !important; /* Força a seta nativa */
+    background: #282828 !important;
+    cursor: pointer;
+}
+
+.form-admin select.form-control option {
+    background: #282828;
+    color: #fff;
+}
+
+.form-admin .form-group {
+    margin-bottom: 20px;
+}
+
+.form-admin label {
+    color: #e0e0e0;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-admin .form-text {
+    color: #888;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.form-admin .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #2d2d2d;
+}
+
+/* --- Ajuste para os campos de arquivo --- */
+.form-admin input[type="file"] {
+    padding: 8px 10px;
+    background: #1e1e1e;
+}
+
+.form-admin input[type="file"]::file-selector-button {
+    background: #1db954;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.form-admin input[type="file"]::file-selector-button:hover {
+    background: #1ed760;
+}

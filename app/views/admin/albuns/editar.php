@@ -1,87 +1,101 @@
 <?php require_once __DIR__ . '/../../layouts/header.php'; ?>
 
-<div class="page-header">
-    <h1>Editar Álbum</h1>
-    <p class="text-muted">Atualize as informações do álbum</p>
+<div class="admin-header">
+    <div>
+        <h1>Editar Álbum</h1>
+        <p class="subtitle">Atualize as informações do álbum</p>
+    </div>
+    <div class="actions">
+        <a href="<?= BASE_URL ?>/admin/albuns" class="btn btn-cinza">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
 </div>
 
-<div class="card bg-dark">
-    <div class="card-body">
+<div class="admin-card">
+    <form method="POST" enctype="multipart/form-data" class="form-admin">
 
         <?php if (!empty($album['capa'])): ?>
-            <div class="mb-3 text-center">
+            <div class="text-center mb-4">
                 <img
                     src="<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($album['capa']) ?>"
                     alt="<?= htmlspecialchars($album['titulo']) ?>"
-                    class="img-fluid"
+                    class="detail-cover"
                     style="max-width: 150px; border-radius: 8px;"
                 >
-                <p class="text-muted mt-2">Capa atual</p>
+                <p class="text-muted" style="font-size: 0.85rem;">Capa atual</p>
             </div>
         <?php endif; ?>
 
-        <form method="POST" enctype="multipart/form-data">
-
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título <span class="text-danger">*</span></label>
-                <input
-                    type="text"
-                    class="form-control bg-secondary text-light"
-                    id="titulo"
-                    name="titulo"
-                    value="<?= htmlspecialchars($album['titulo']) ?>"
-                    required
-                >
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="titulo">Título <span class="text-danger">*</span></label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="titulo"
+                        name="titulo"
+                        value="<?= htmlspecialchars($album['titulo']) ?>"
+                        required
+                        placeholder="Digite o título do álbum"
+                    >
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label for="artista_id" class="form-label">Artista <span class="text-danger">*</span></label>
-                <select class="form-control bg-secondary text-light" id="artista_id" name="artista_id" required>
-                    <option value="">Selecione um artista</option>
-                    <?php foreach ($artistas as $artista): ?>
-                        <option value="<?= $artista['id'] ?>" <?= $artista['id'] == $album['artista_id'] ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($artista['nome']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="ano">Ano</label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="ano"
+                        name="ano"
+                        value="<?= $album['ano'] ?? '' ?>"
+                        min="1900"
+                        max="<?= date('Y') ?>"
+                        placeholder="Ex: 2024"
+                    >
+                </div>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <label for="ano" class="form-label">Ano</label>
-                <input
-                    type="number"
-                    class="form-control bg-secondary text-light"
-                    id="ano"
-                    name="ano"
-                    min="1900"
-                    max="<?= date('Y') ?>"
-                    value="<?= $album['ano'] ?? '' ?>"
-                >
-            </div>
+        <div class="form-group">
+            <label for="artista_id">Artista <span class="text-danger">*</span></label>
+            <select class="form-control" id="artista_id" name="artista_id" required>
+                <option value="">Selecione um artista</option>
+                <?php foreach ($artistas as $artista): ?>
+                    <option value="<?= $artista['id'] ?>" <?= $artista['id'] == $album['artista_id'] ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($artista['nome']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-            <div class="mb-3">
-                <label for="capa" class="form-label">Nova Capa (opcional)</label>
-                <input
-                    type="file"
-                    class="form-control bg-secondary text-light"
-                    id="capa"
-                    name="capa"
-                    accept="image/jpeg,image/png,image/gif,image/webp"
-                >
-                <small class="text-muted">Deixe em branco para manter a capa atual.<br>Formatos: JPG, PNG, GIF, WEBP • Máx. 5MB</small>
-            </div>
+        <div class="form-group">
+            <label for="capa">Nova Capa (opcional)</label>
+            <input
+                type="file"
+                class="form-control"
+                id="capa"
+                name="capa"
+                accept="image/jpeg,image/png,image/gif,image/webp"
+            >
+            <small class="form-text">
+                Deixe em branco para manter a capa atual.<br>
+                Formatos: JPG, PNG, GIF, WEBP • Máx. 5MB
+            </small>
+        </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-verde">
-                    <i class="bi bi-check-circle"></i> Atualizar
-                </button>
-                <a href="<?= BASE_URL ?>/admin/albuns" class="btn btn-cinza">
-                    <i class="bi bi-arrow-left"></i> Voltar
-                </a>
-            </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-verde">
+                <i class="bi bi-check-circle"></i> Atualizar
+            </button>
+            <a href="<?= BASE_URL ?>/admin/albuns" class="btn btn-cinza">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
 
-        </form>
-    </div>
+    </form>
 </div>
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

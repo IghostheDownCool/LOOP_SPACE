@@ -1,72 +1,84 @@
 <?php require_once __DIR__ . '/../../layouts/header.php'; ?>
 
-<div class="page-header">
-    <h1>Novo Álbum</h1>
-    <p class="text-muted">Cadastre um novo álbum</p>
+<div class="admin-header">
+    <div>
+        <h1>Novo Álbum</h1>
+        <p class="subtitle">Cadastre um novo álbum</p>
+    </div>
+    <div class="actions">
+        <a href="<?= BASE_URL ?>/admin/albuns" class="btn btn-cinza">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
 </div>
 
-<div class="card bg-dark">
-    <div class="card-body">
-        <form method="POST" enctype="multipart/form-data">
+<div class="admin-card">
+    <form method="POST" enctype="multipart/form-data" class="form-admin">
 
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título <span class="text-danger">*</span></label>
-                <input
-                    type="text"
-                    class="form-control bg-secondary text-light"
-                    id="titulo"
-                    name="titulo"
-                    required
-                    placeholder="Digite o título do álbum"
-                >
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="titulo">Título <span class="text-danger">*</span></label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="titulo"
+                        name="titulo"
+                        required
+                        placeholder="Digite o título do álbum"
+                    >
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label for="artista_id" class="form-label">Artista <span class="text-danger">*</span></label>
-                <select class="form-control bg-secondary text-light" id="artista_id" name="artista_id" required>
-                    <option value="">Selecione um artista</option>
-                    <?php foreach ($artistas as $artista): ?>
-                        <option value="<?= $artista['id'] ?>"><?= htmlspecialchars($artista['nome']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="ano">Ano</label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="ano"
+                        name="ano"
+                        min="1900"
+                        max="<?= date('Y') ?>"
+                        placeholder="Ex: 2024"
+                    >
+                </div>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <label for="ano" class="form-label">Ano</label>
-                <input
-                    type="number"
-                    class="form-control bg-secondary text-light"
-                    id="ano"
-                    name="ano"
-                    min="1900"
-                    max="<?= date('Y') ?>"
-                    placeholder="Ex: 2024"
-                >
-            </div>
+        <div class="form-group">
+            <label for="artista_id">Artista <span class="text-danger">*</span></label>
+            <select class="form-control" id="artista_id" name="artista_id" required>
+                <option value="">Selecione um artista</option>
+                <?php foreach ($artistas as $artista): ?>
+                    <option value="<?= $artista['id'] ?>"><?= htmlspecialchars($artista['nome']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-            <div class="mb-3">
-                <label for="capa" class="form-label">Capa</label>
-                <input
-                    type="file"
-                    class="form-control bg-secondary text-light"
-                    id="capa"
-                    name="capa"
-                    accept="image/jpeg,image/png,image/gif,image/webp"
-                >
-                <small class="text-muted">Formatos: JPG, PNG, GIF, WEBP • Máx. 5MB</small>
-            </div>
+        <div class="form-group">
+            <label for="capa">Capa (opcional)</label>
+            <input
+                type="file"
+                class="form-control"
+                id="capa"
+                name="capa"
+                accept="image/jpeg,image/png,image/gif,image/webp"
+            >
+            <small class="form-text">
+                Formatos: JPG, PNG, GIF, WEBP • Máx. 5MB
+            </small>
+        </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-verde">
-                    <i class="bi bi-check-circle"></i> Salvar
-                </button>
-                <a href="<?= BASE_URL ?>/admin/albuns" class="btn btn-cinza">
-                    <i class="bi bi-arrow-left"></i> Voltar
-                </a>
-            </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-verde">
+                <i class="bi bi-check-circle"></i> Salvar
+            </button>
+            <a href="<?= BASE_URL ?>/admin/albuns" class="btn btn-cinza">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
 
-        </form>
-    </div>
+    </form>
 </div>
 
 <?php require_once __DIR__ . '/../../layouts/footer.php'; ?>

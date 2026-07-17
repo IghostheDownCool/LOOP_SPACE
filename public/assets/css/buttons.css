@@ -90,3 +90,34 @@ button:active,
     border-color: #3d91f4;
     color: #ffffff;
 }
+
+/* --- BOTÕES DA ÁREA ADMIN (compatibilidade) --- */
+.btn-verde {
+    background: #1db954;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-verde:hover {
+    background: #1ed760;
+    color: #fff;
+}
+
+.btn-cinza {
+    background: #3e3e3e;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-cinza:hover {
+    background: #4e4e4e;
+    color: #fff;
+}

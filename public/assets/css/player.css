@@ -606,3 +606,116 @@ audio, .player-info audio {
 .player-controls .btn-cinza:hover {
     color: #fff;
 }
+
+/* ==================================================
+   RESPONSIVIDADE DO PLAYER
+   ================================================== */
+
+@media (max-width: 768px) {
+    #global-player {
+        padding: 8px 12px;
+        height: auto;
+        min-height: 70px;
+    }
+
+    .player-controls .btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .player-left img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .player-left h6 {
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .player-left small {
+        font-size: 0.65rem;
+    }
+
+    .player-progress {
+        gap: 6px;
+    }
+
+    .player-progress span {
+        font-size: 0.7rem;
+        min-width: 30px;
+    }
+
+    .player-progress input[type="range"] {
+        width: 80px;
+    }
+
+    .player-right {
+        gap: 6px;
+    }
+
+    .player-right input[type="range"] {
+        width: 60px;
+    }
+}
+
+@media (max-width: 576px) {
+    #global-player {
+        padding: 6px 8px;
+        min-height: 60px;
+    }
+
+    .player-left {
+        gap: 8px;
+    }
+
+    .player-left img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .player-left h6 {
+        font-size: 0.7rem;
+        max-width: 80px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .player-left small {
+        font-size: 0.6rem;
+        max-width: 80px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: none;
+    }
+
+    .player-controls .btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
+    }
+
+    .player-progress {
+        gap: 4px;
+    }
+
+    .player-progress span {
+        font-size: 0.6rem;
+        min-width: 25px;
+    }
+
+    .player-progress input[type="range"] {
+        width: 50px;
+    }
+
+    .player-right {
+        gap: 4px;
+    }
+
+    .player-right input[type="range"] {
+        width: 40px;
+    }
+}

@@ -150,6 +150,11 @@
     <span id="notificacao-badge" class="badge bg-danger rounded-pill" style="display: none; font-size: 0.6rem; position: absolute; top: 2px; right: 2px;">0</span>
 </a>
 
+<a class="nav-link" href="<?= BASE_URL ?>/sobre">
+    <i class="bi bi-info-circle"></i>
+    Sobre
+</a>
+
                 <a class="nav-link" href="<?= BASE_URL ?>/logout">
                     <i class="bi bi-box-arrow-right"></i>
                     Sair

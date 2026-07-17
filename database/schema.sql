@@ -164,3 +164,20 @@ CREATE TABLE curtidas (
 
     UNIQUE(usuario_id, musica_id)
 );
+
+-- Índices para tabela musicas
+ALTER TABLE musicas ADD INDEX idx_album_id (album_id);
+ALTER TABLE musicas ADD INDEX idx_reproducoes (reproducoes);
+
+-- Índices para tabela historico
+ALTER TABLE historico ADD INDEX idx_usuario_musica (usuario_id, musica_id);
+ALTER TABLE historico ADD INDEX idx_criado_em (criado_em);
+
+-- Índices para tabela curtidas
+ALTER TABLE curtidas ADD INDEX idx_usuario_musica (usuario_id, musica_id);
+
+-- Índices para tabela playlist_musicas
+ALTER TABLE playlist_musicas ADD INDEX idx_playlist_musica (playlist_id, musica_id);
+
+-- Índices para tabela seguidores_artistas
+ALTER TABLE seguidores_artistas ADD INDEX idx_usuario_artista (usuario_id, artista_id);

@@ -204,6 +204,10 @@ async function carregarMusica(musica) {
 
 function tocarMusicaPorId(id) {
     console.log('tocarMusica chamada com ID:', id);
+    
+    // 🔥 MOSTRA LOADING NO BOTÃO PLAY
+    btnPlay.innerHTML = '<div class="spinner-border spinner-border-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>';
+    btnPlay.disabled = true;
 
     fetch(BASE_URL + '/player/dados/' + id)
         .then(response => {
@@ -221,9 +225,23 @@ function tocarMusicaPorId(id) {
             await play();
         })
         .catch(error => {
-            console.error('Erro:', error);
-            alert('Não foi possível carregar a música.');
-            esconderPlayer();
+    console.error('Erro:', error);
+    // 🔥 MENSAGEM AMIGÁVEL
+    const msg = document.createElement('div');
+    msg.className = 'alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+    msg.style.zIndex = '9999';
+    msg.innerHTML = `
+        <i class="bi bi-exclamation-triangle"></i>
+        Não foi possível carregar a música. Tente novamente.
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    document.body.appendChild(msg);
+    setTimeout(() => msg.remove(), 5000);
+    esconderPlayer();
+        })
+        .finally(() => {
+            // 🔥 RESTAURA O BOTÃO PLAY
+            btnPlay.disabled = false;
         });
 }
 
@@ -244,6 +262,7 @@ async function play() {
         }, 300);
     }
 }
+
 
 function pause() {
     audio.pause(); // O evento 'pause' vai atualizar o ícone e isPlaying
@@ -340,10 +359,13 @@ function carregarEstadoPlayer() {
             repeatMode = estado.repeatMode || 'none';
             filaOriginal = estado.filaOriginal || [];
             
-            // Restaura volume
+            // 🔥 CORREÇÃO: Restaura volume com delay para garantir que o áudio está carregado
             if (estado.volume !== undefined) {
-                audio.volume = estado.volume;
-                volumeSlider.value = estado.volume * 100;
+                setTimeout(function() {
+                    audio.volume = estado.volume;
+                    volumeSlider.value = estado.volume * 100;
+                    console.log('Volume restaurado para:', estado.volume);
+                }, 500);
             }
             
             // Atualiza UI dos botões

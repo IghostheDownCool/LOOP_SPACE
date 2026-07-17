@@ -138,11 +138,23 @@ function atualizarDuracao() {
     tempoTotal.textContent = formatarTempo(audio.duration);
     progressBar.max = audio.duration;
     progressBar.value = 0;
+    
+    // 🔥 RESETA A BARRA DE PROGRESSO
+    const bgColor = document.documentElement.getAttribute('data-theme') === 'light' ? '#d0d0d0' : '#4d4d4d';
+    progressBar.style.background = `linear-gradient(to right, #1db954 0%, #1db954 0%, ${bgColor} 0%, ${bgColor} 100%)`;
 }
 
 function atualizarProgresso() {
+    if (!audio.duration || isNaN(audio.duration)) return;
+    
+    const percentual = (audio.currentTime / audio.duration) * 100;
     progressBar.value = audio.currentTime;
     tempoAtual.textContent = formatarTempo(audio.currentTime);
+    
+    // 🔥 ATUALIZA A COR DA BARRA DE PROGRESSO
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const bgColor = isLight ? '#d0d0d0' : '#4d4d4d';
+    progressBar.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${percentual}%, ${bgColor} ${percentual}%, ${bgColor} 100%)`;
 }
 
 async function carregarMusica(musica) {
@@ -452,8 +464,21 @@ progressBar.addEventListener('input', function() {
 
 // Volume
 volumeSlider.addEventListener('input', function() {
-    audio.volume = this.value / 100;
+    const volumeValue = this.value / 100;
+    audio.volume = volumeValue;
     salvarEstadoPlayer();
+    
+    // 🔥 ATUALIZA A COR DA BARRA DE VOLUME
+    const percentual = this.value;
+    const bgColor = document.documentElement.getAttribute('data-theme') === 'light' ? '#d0d0d0' : '#4d4d4d';
+    this.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${percentual}%, ${bgColor} ${percentual}%, ${bgColor} 100%)`;
+});
+
+// Inicializa a cor do volume ao carregar
+document.addEventListener('DOMContentLoaded', function() {
+    const volumeValue = volumeSlider.value;
+    const bgColor = document.documentElement.getAttribute('data-theme') === 'light' ? '#d0d0d0' : '#4d4d4d';
+    volumeSlider.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${volumeValue}%, ${bgColor} ${volumeValue}%, ${bgColor} 100%)`;
 });
 
 // ==================================================

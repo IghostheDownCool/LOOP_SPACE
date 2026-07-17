@@ -182,4 +182,28 @@ public function listarJson(): void
     header('Content-Type: application/json');
     echo json_encode($playlists);
 }
+
+public function publica(string $token): void
+{
+    $playlistModel = new Playlist();
+    $playlist = $playlistModel->buscarPorToken($token);
+
+    if (!$playlist) {
+        die('Playlist não encontrada.');
+    }
+
+    // Se a playlist não for pública, redireciona para login
+    if (!$playlist['publica']) {
+        Flash::set('warning', 'Esta playlist é privada.');
+        header('Location: ' . BASE_URL . '/login');
+        exit;
+    }
+
+    $musicas = $playlistModel->listarMusicas($playlist['id']);
+
+    $this->view('playlists/publica', [
+        'playlist' => $playlist,
+        'musicas' => $musicas
+    ]);
+}
 }

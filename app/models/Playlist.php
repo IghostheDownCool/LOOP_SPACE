@@ -21,34 +21,39 @@ class Playlist extends Model
     }
 
     public function cadastrar(
-        int $usuarioId,
-        string $nome,
-        int $publica = 0
-    ): bool {
+    int $usuarioId,
+    string $nome,
+    int $publica = 0
+): bool {
+    // Gera um token único para compartilhamento
+    $token = bin2hex(random_bytes(16));
 
-        $sql = "
-            INSERT INTO playlists
-            (
-                usuario_id,
-                nome,
-                publica
-            )
-            VALUES
-            (
-                :usuario_id,
-                :nome,
-                :publica
-            )
-        ";
+    $sql = "
+        INSERT INTO playlists
+        (
+            usuario_id,
+            nome,
+            publica,
+            token
+        )
+        VALUES
+        (
+            :usuario_id,
+            :nome,
+            :publica,
+            :token
+        )
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->pdo->prepare($sql);
 
-        return $stmt->execute([
-            ':usuario_id' => $usuarioId,
-            ':nome' => $nome,
-            ':publica' => $publica
-        ]);
-    }
+    return $stmt->execute([
+        ':usuario_id' => $usuarioId,
+        ':nome' => $nome,
+        ':publica' => $publica,
+        ':token' => $token
+    ]);
+}
 
     public function buscarPorId(int $id): array|false
     {
@@ -242,4 +247,19 @@ public function editar(int $id)
     ]);
 }
 
+public function buscarPorToken(string $token): array|false
+{
+    $sql = "
+        SELECT
+            playlists.*,
+            usuarios.nome AS usuario_nome
+        FROM playlists
+        INNER JOIN usuarios ON usuarios.id = playlists.usuario_id
+        WHERE playlists.token = :token
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':token' => $token]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }

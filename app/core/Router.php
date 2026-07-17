@@ -58,6 +58,13 @@ class Router
         }
 
         call_user_func_array([$controller, $method], $params);
+        // Rota para playlist pública (deve vir antes da rota genérica)
+if (isset($segments[0]) && $segments[0] === 'playlists' && isset($segments[1]) && $segments[1] === 'publica') {
+    $controllerName = 'PlaylistsController';
+    $method = 'publica';
+    $params = array_slice($segments, 2);
+}
     }
+    
 }
 

@@ -1,5 +1,7 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
+<input type="hidden" name="token" value="<?= $playlist['token'] ?? '' ?>">
+
 <h1>Editar Playlist</h1>
 
 <form method="POST">
@@ -17,7 +19,8 @@
 
 
     <p>
-        <label>
+        <div class="mb-3">
+    <label>
             <input
                 type="checkbox"
                 name="publica"
@@ -26,6 +29,7 @@
 
             Pública
         </label>
+</div>
     </p>
 
 

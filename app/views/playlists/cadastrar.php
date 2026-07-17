@@ -18,6 +18,19 @@
 
     </p>
 
+<div class="mb-3 form-check">
+    <input
+        type="checkbox"
+        class="form-check-input"
+        id="publica"
+        name="publica"
+        value="1"
+    >
+    <label class="form-check-label" for="publica">
+        Playlist pública (qualquer pessoa pode visualizar)
+    </label>
+</div>
+
     <p>
 
         <label>

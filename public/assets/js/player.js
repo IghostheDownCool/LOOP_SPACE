@@ -211,12 +211,19 @@ function tocarMusicaPorId(id) {
 
     fetch(BASE_URL + '/player/dados/' + id)
         .then(response => {
+            console.log('Resposta da API:', response.status); // 🔍 LOG
             if (!response.ok) {
-                throw new Error('Erro ao carregar música');
+                // 🔥 Se for 404 ou erro do servidor, joga o erro para o catch
+                throw new Error('Erro ao carregar música: ' + response.status);
             }
             return response.json();
         })
         .then(async (musica) => {
+            // Verifica se a resposta contém erro
+            if (musica.error) {
+                throw new Error(musica.error);
+            }
+            
             // Incrementa reprodução no backend
             fetch(BASE_URL + '/player/reproduzir/' + id, { method: 'POST' })
                 .catch(err => console.warn('Não foi possível registrar reprodução'));
@@ -225,23 +232,18 @@ function tocarMusicaPorId(id) {
             await play();
         })
         .catch(error => {
-    console.error('Erro:', error);
-    // 🔥 MENSAGEM AMIGÁVEL
-    const msg = document.createElement('div');
-    msg.className = 'alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
-    msg.style.zIndex = '9999';
-    msg.innerHTML = `
-        <i class="bi bi-exclamation-triangle"></i>
-        Não foi possível carregar a música. Tente novamente.
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-    document.body.appendChild(msg);
-    setTimeout(() => msg.remove(), 5000);
-    esconderPlayer();
+            console.error('Erro:', error);
+            // 🔥 MENSAGEM AMIGÁVEL ESTILIZADA
+            mostrarMensagemErro('Não foi possível carregar a música. Tente novamente.');
+            esconderPlayer();
         })
         .finally(() => {
             // 🔥 RESTAURA O BOTÃO PLAY
             btnPlay.disabled = false;
+            // Se não tiver música carregada, volta ao ícone de play
+            if (!musicaAtual) {
+                btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
+            }
         });
 }
 
@@ -348,10 +350,12 @@ function salvarEstadoPlayer() {
         volume: audio.volume
     };
     sessionStorage.setItem('playerEstado', JSON.stringify(estado));
+    console.log('Estado salvo:', estado); // 🔍 LOG para debug
 }
 
 function carregarEstadoPlayer() {
     const saved = sessionStorage.getItem('playerEstado');
+    console.log('Estado carregado:', saved); // 🔍 LOG para debug
     if (saved) {
         try {
             const estado = JSON.parse(saved);
@@ -359,13 +363,11 @@ function carregarEstadoPlayer() {
             repeatMode = estado.repeatMode || 'none';
             filaOriginal = estado.filaOriginal || [];
             
-            // 🔥 CORREÇÃO: Restaura volume com delay para garantir que o áudio está carregado
-            if (estado.volume !== undefined) {
-                setTimeout(function() {
-                    audio.volume = estado.volume;
-                    volumeSlider.value = estado.volume * 100;
-                    console.log('Volume restaurado para:', estado.volume);
-                }, 500);
+            // 🔥 CORREÇÃO: Restaura volume imediatamente (sem setTimeout)
+            if (estado.volume !== undefined && !isNaN(estado.volume)) {
+                audio.volume = estado.volume;
+                volumeSlider.value = estado.volume * 100;
+                console.log('Volume restaurado para:', estado.volume);
             }
             
             // Atualiza UI dos botões
@@ -386,6 +388,37 @@ function carregarEstadoPlayer() {
             console.warn('Erro ao carregar estado do player:', e);
         }
     }
+}
+
+// ==================================================
+// FUNÇÃO PARA EXIBIR MENSAGENS DE ERRO ESTILIZADAS
+// ==================================================
+
+function mostrarMensagemErro(mensagem) {
+    // Remove alertas antigos
+    const alertasAntigos = document.querySelectorAll('.alerta-flutuante');
+    alertasAntigos.forEach(el => el.remove());
+    
+    const msg = document.createElement('div');
+    msg.className = 'alerta-flutuante alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+    msg.style.zIndex = '9999';
+    msg.style.minWidth = '300px';
+    msg.style.maxWidth = '90%';
+    msg.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+    msg.innerHTML = `
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        ${mensagem}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    document.body.appendChild(msg);
+    
+    // Remove automaticamente após 5 segundos
+    setTimeout(() => {
+        if (msg.parentNode) {
+            msg.classList.remove('show');
+            setTimeout(() => msg.remove(), 300);
+        }
+    }, 5000);
 }
 
 // ==================================================
@@ -429,6 +462,12 @@ volumeSlider.addEventListener('input', function() {
 
 const btnShuffle = document.getElementById('btn-shuffle');
 const btnRepeat = document.getElementById('btn-repeat');
+
+volumeSlider.addEventListener('input', function() {
+    audio.volume = this.value / 100;
+    console.log('Volume alterado para:', audio.volume); // 🔍 LOG
+    salvarEstadoPlayer();
+});
 
 if (btnShuffle) {
     btnShuffle.addEventListener('click', toggleShuffle);

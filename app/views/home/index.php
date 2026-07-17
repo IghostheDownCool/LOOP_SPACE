@@ -11,10 +11,12 @@
         <i class="bi bi-stars" style="color: #1db954;"></i>
         Recomendadas para você
     </h2>
-    <div class="row align-items-stretch">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <?php foreach ($recomendacoes as $musica): ?>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <?php require __DIR__ . '/../components/music-card.php'; ?>
+            <div class="col">
+                <div class="card bg-card h-100">
+                    <?php require __DIR__ . '/../components/music-card.php'; ?>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
@@ -36,19 +38,18 @@ $musicasSeguidos = $artistaModel->getMusicasDosSeguidos($_SESSION['usuario_id'],
         <i class="bi bi-people" style="color: #1db954;"></i>
         Artistas que você segue
     </h2>
-    <div class="row mb-4">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
         <?php foreach ($seguidos as $seguido): ?>
-            <div class="col-6 col-md-3 col-lg-2 mb-3">
-                <div class="card bg-dark text-center h-100">
+            <div class="col">
+                <div class="card bg-card text-center h-100 artist-card">
                     <a href="<?= BASE_URL ?>/artista/ver/<?= $seguido['id'] ?>" class="text-decoration-none">
                         <img
                             src="<?= BASE_URL ?>/uploads/artistas/<?= htmlspecialchars($seguido['foto'] ?? 'default-artist.png') ?>"
                             alt="<?= htmlspecialchars($seguido['nome']) ?>"
-                            class="card-img-top"
-                            style="aspect-ratio: 1; object-fit: cover; border-radius: 8px 8px 0 0;"
+                            class="card-img-top artist-avatar"
                         >
                         <div class="card-body py-2">
-                            <h6 class="text-light mb-0"><?= htmlspecialchars($seguido['nome']) ?></h6>
+                            <h6 class="artist-name"><?= htmlspecialchars($seguido['nome']) ?></h6>
                             <small class="text-muted"><?= $seguido['total_seguidores'] ?? 0 ?> seguidores</small>
                         </div>
                     </a>
@@ -58,14 +59,16 @@ $musicasSeguidos = $artistaModel->getMusicasDosSeguidos($_SESSION['usuario_id'],
     </div>
 
     <?php if (!empty($musicasSeguidos)): ?>
-        <h2 class="mt-4 mb-3">
+        <h2 class="mt-5 mb-3">
             <i class="bi bi-music-note-beamed" style="color: #ff6b6b;"></i>
             Músicas dos artistas que você segue
         </h2>
-        <div class="row align-items-stretch">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($musicasSeguidos as $musica): ?>
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <?php require __DIR__ . '/../components/music-card.php'; ?>
+                <div class="col">
+                    <div class="card bg-card h-100">
+                        <?php require __DIR__ . '/../components/music-card.php'; ?>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -83,30 +86,15 @@ $musicasSeguidos = $artistaModel->getMusicasDosSeguidos($_SESSION['usuario_id'],
         <i class="bi bi-fire" style="color: #ff6b6b;"></i>
         Mais ouvidas do momento
     </h2>
-    <div class="row align-items-stretch">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <?php foreach ($topMusicas as $musica): ?>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <?php require __DIR__ . '/../components/music-card.php'; ?>
+            <div class="col">
+                <div class="card bg-card h-100">
+                    <?php require __DIR__ . '/../components/music-card.php'; ?>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-
-<?php if (!empty($musicasDosSeguidos)): ?>
-    <h2 class="mt-5 mb-3">
-        <i class="bi bi-person-hearts" style="color: #ff6b6b;"></i>
-        Músicas de artistas que você segue
-    </h2>
-    <div class="row align-items-stretch">
-        <?php foreach ($musicasDosSeguidos as $musica): ?>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <?php require __DIR__ . '/../components/music-card.php'; ?>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php endif; ?>
-
-
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
-

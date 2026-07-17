@@ -1,21 +1,49 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ==================================================
+   CORES GLOBAIS COM VARIÁVEIS
+   ================================================== */
 
 body {
-    /* Fontes mais modernas e limpas próximas à Circular do Spotify */
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background 0.3s, color 0.3s;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #121212;
-    color: #b3b3b3; /* Cinza clássico do Spotify para textos secundários */
-    padding: 30px;
     -webkit-font-smoothing: antialiased;
+    padding: 30px;
 }
 
-/* Títulos sempre em branco puro para criar hierarquia */
+a {
+    color: var(--link-color);
+    transition: color 0.3s;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+    transition: color 0.3s;
+}
+
+.bg-dark {
+    background: var(--bg-card) !important;
+    transition: background 0.3s;
+}
+
+.text-light {
+    color: var(--text-primary) !important;
+    transition: color 0.3s;
+}
+
+/* ==================================================
+   TÍTULOS
+   ================================================== */
+
 h1, h2, h3 {
-    color: #ffffff;
+    color: var(--text-primary);
     font-weight: 700;
 }
 
@@ -24,31 +52,20 @@ h2 { margin-bottom: 12px; letter-spacing: -0.02em; }
 h3 { margin-bottom: 15px; }
 p { margin-bottom: 12px; line-height: 1.5; }
 
-a {
-    color: #1db954;
-    text-decoration: none;
-    font-weight: 700;
-    transition: color 0.2s ease;
-}
+/* ==================================================
+   TABELA (Estilo Playlist)
+   ================================================== */
 
-a:hover {
-    color: #1ed760; /* Verde mais brilhante no hover */
-    text-decoration: underline;
-}
-
-/* ==========================
-    TABELA (Estilo Playlist)
-========================== */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 25px;
-    background: transparent; /* Fundo transparente estilo tracklist */
+    background: transparent;
 }
 
 table th {
-    border-bottom: 1px solid #282828;
-    color: #b3b3b3;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -58,26 +75,24 @@ table th {
 
 table td {
     padding: 12px 16px;
-    color: #b3b3b3;
+    color: var(--text-secondary);
     font-size: 0.9rem;
-    border-bottom: 1px solid transparent; /* Remove bordas internas */
+    border-bottom: 1px solid transparent;
 }
 
-/* Efeito clássico de hover na linha da playlist */
 table tr:hover td {
-    background-color: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    background-color: var(--bg-card-hover);
+    color: var(--text-primary);
     cursor: pointer;
 }
 
+/* ==================================================
+   FORMULÁRIOS
+   ================================================== */
 
-
-/* ==========================
-    FORMULÁRIOS
-========================== */
 form {
     max-width: 500px;
-    background: #181818; /* Container escuro para o form */
+    background: var(--bg-card);
     padding: 24px;
     border-radius: 8px;
     margin-top: 20px;
@@ -87,10 +102,10 @@ input,
 select {
     width: 100%;
     padding: 14px;
-    border-radius: 4px; /* Inputs do Spotify costumam ter cantos mais retos */
-    border: 1px solid #727272;
-    background: #121212;
-    color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-input);
+    color: var(--text-primary);
     font-size: 0.9rem;
     margin-bottom: 16px;
     transition: border-color 0.2s ease;
@@ -99,33 +114,35 @@ select {
 input:focus,
 select:focus {
     outline: none;
-    border-color: #ffffff; /* Borda branca ao focar */
+    border-color: #1db954;
 }
-
 
 .conteudo {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.musica-topo{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.musica-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.favorito{
-    font-size:22px;
-    cursor:pointer;
-    transition:.2s;
-    user-select:none;
+.favorito {
+    font-size: 22px;
+    cursor: pointer;
+    transition: .2s;
+    user-select: none;
 }
 
-.favorito:hover{
-    transform:scale(1.2);
+.favorito:hover {
+    transform: scale(1.2);
 }
 
-/* 🔥 FORÇA O DROPDOWN DA PESQUISA */
+/* ==================================================
+   BARRA DE PESQUISA - CORRIGIDA
+   ================================================== */
+
 .search-bar-container {
     position: relative !important;
     max-width: 600px;
@@ -133,24 +150,641 @@ select:focus {
     padding-top: 10px;
 }
 
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: var(--bg-input);
+    border-radius: 50px;
+    padding: 0 20px;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.2s, background 0.3s;
+    height: 56px;
+    box-sizing: border-box;
+}
+
+.search-bar i {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-right: 12px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.search-input {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    font-size: 1rem;
+    width: 100%;
+    outline: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100%;
+    box-sizing: border-box;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    box-shadow: none !important;
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-input:focus {
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
 .search-results {
-    position: absolute !important;
-    top: 100% !important;          /* Fica imediatamente abaixo da barra */
-    left: 0 !important;
-    right: 0 !important;
-    background: #282828 !important;
-    border-radius: 0 0 12px 12px !important;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.7) !important;
-    max-height: 400px !important;
-    overflow-y: auto !important;
-    z-index: 9999 !important;
-    display: none !important;
-    padding: 5px 0 !important;
-    margin-top: 5px !important;    /* Pequeno espaçamento da barra */
-    width: 100% !important;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 20px var(--shadow-color);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 9999;
+    display: none;
+    padding: 5px 0;
 }
 
 .search-results.show {
-    display: block !important;
+    display: block;
 }
 
+.search-result-item {
+    display: flex !important;
+    align-items: center !important;
+    padding: 8px 15px !important;
+    color: var(--text-primary) !important;
+    cursor: pointer !important;
+    gap: 12px !important;
+    transition: background 0.15s !important;
+}
+
+.search-result-item:hover {
+    background: var(--bg-card-hover) !important;
+}
+
+.search-result-item img {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: cover !important;
+    border-radius: 4px !important;
+    flex-shrink: 0 !important;
+}
+
+.search-result-item .info {
+    flex: 1 !important;
+    overflow: hidden !important;
+}
+
+.search-result-item .titulo {
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    color: var(--text-primary);
+}
+
+.search-result-item .artista {
+    font-size: 0.85rem !important;
+    color: var(--text-secondary) !important;
+}
+
+.search-result-item .badge {
+    background: #1db954 !important;
+    color: #fff !important;
+    font-size: 0.7rem !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    flex-shrink: 0 !important;
+}
+
+.search-result-empty {
+    padding: 15px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* ==================================================
+   CORREÇÃO DE FUNDO PARA TODOS OS ELEMENTOS
+   ================================================== */
+
+body, 
+html {
+    background: var(--bg-primary) !important;
+    min-height: 100vh;
+}
+
+.container-fluid {
+    background: var(--bg-primary) !important;
+    min-height: 100vh;
+}
+
+.row {
+    background: transparent !important;
+}
+
+.col-md-9,
+.col-lg-10,
+.conteudo,
+main,
+section {
+    background: transparent !important;
+}
+
+.conteudo,
+.main-content,
+.page-content {
+    background: var(--bg-primary) !important;
+}
+
+.card.bg-dark,
+.card {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-content {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+}
+
+.search-results {
+    background: var(--bg-card) !important;
+}
+
+.alert {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* ==================================================
+   FUNDO DO MODAL PARA TEMA CLARO
+   ================================================== */
+
+[data-theme="light"] .modal-content {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .modal-header {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="light"] .modal-footer {
+    border-top-color: var(--border-color);
+}
+
+[data-theme="light"] .btn-close {
+    filter: invert(0);
+}
+
+[data-theme="dark"] .btn-close {
+    filter: invert(1);
+}
+
+/* ==================================================
+   AJUSTES PARA O TEMA CLARO
+   ================================================== */
+
+[data-theme="light"] .sidebar {
+    border-right: 1px solid var(--border-color);
+}
+
+[data-theme="light"] .search-bar {
+    background: var(--bg-input);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .search-input {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .search-input::placeholder {
+    color: var(--text-muted);
+}
+
+[data-theme="light"] .music-card {
+    background: var(--bg-card);
+}
+
+[data-theme="light"] .music-card:hover {
+    background: var(--bg-card-hover);
+}
+
+[data-theme="light"] .music-info h6 {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .music-info small {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .music-info a {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .music-info a:hover {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .list-group-item {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .list-group-item:hover {
+    background: var(--bg-card-hover);
+}
+
+[data-theme="light"] .list-group-item .text-muted {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="light"] .admin-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .card.bg-dark {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .card.bg-dark .text-muted {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="light"] .alert-secondary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .page-header h1 {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .page-header .subtitle,
+[data-theme="light"] .page-header .text-muted {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .sidebar-footer {
+    border-top-color: var(--border-color);
+    color: var(--text-muted);
+}
+
+[data-theme="light"] .menu .nav-link {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .menu .nav-link:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .menu .nav-link.active {
+    background: #1db954;
+    color: white;
+}
+
+[data-theme="light"] .logo h2 {
+    color: #1db954;
+}
+
+[data-theme="light"] .logo small {
+    color: var(--text-muted);
+}
+
+[data-theme="light"] .stat-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .stat-card .stat-number {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .stat-card .stat-label {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .list-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] .list-card .card-header {
+    background: var(--bg-header);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="light"] .list-card .card-header h5 {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .list-card .list-group-item {
+    border-color: var(--border-color);
+}
+
+[data-theme="light"] #global-player {
+    background: var(--player-bg);
+    border-top-color: var(--player-border);
+}
+
+[data-theme="light"] #global-player .text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* ==================================================
+   CARDS COM FUNDO DINÂMICO PARA TEMA
+   ================================================== */
+
+.bg-card {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.bg-card .text-muted {
+    color: var(--text-muted) !important;
+}
+
+.bg-card .text-primary {
+    color: var(--text-primary) !important;
+}
+
+.card.bg-card .card-body {
+    background: transparent !important;
+}
+
+/* Cards de artista seguido */
+.bg-card .card-img-top {
+    background: var(--bg-secondary);
+}
+
+/* Hover dos cards */
+.bg-card:hover {
+    background: var(--bg-card-hover) !important;
+    border-color: #1db954;
+    transition: all 0.2s ease;
+}
+
+/* ==================================================
+   CARDS DA HOME - CORREÇÃO DE ESTRUTURA
+   ================================================== */
+
+/* Cards de música */
+.bg-card {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-card:hover {
+    border-color: #1db954;
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+/* Cards de artista */
+.artist-card {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.artist-card:hover {
+    transform: translateY(-4px);
+    border-color: #1db954;
+    box-shadow: 0 4px 20px var(--shadow-color);
+}
+
+.artist-avatar {
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    width: 100%;
+}
+
+.artist-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin: 0;
+    transition: color 0.3s;
+}
+
+/* Garante que o conteúdo do card ocupe todo o espaço */
+.bg-card .music-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.bg-card .music-card .music-info {
+    flex: 1;
+}
+
+/* Responsividade para artistas */
+@media (max-width: 576px) {
+    .row-cols-2.row-cols-md-3.row-cols-lg-4.row-cols-xl-5 {
+        --bs-gutter-y: 1rem;
+    }
+    
+    .artist-name {
+        font-size: 0.8rem;
+    }
+    
+    .artist-card .text-muted {
+        font-size: 0.65rem;
+    }
+}
+
+/* ==================================================
+   CORREÇÃO DOS CARDS DA HOME
+   ================================================== */
+
+.row-cols-1 .col,
+.row-cols-md-2 .col,
+.row-cols-lg-3 .col {
+    display: flex;
+}
+
+.row-cols-1 .col .card,
+.row-cols-md-2 .col .card,
+.row-cols-lg-3 .col .card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-cols-1 .col .card .music-card,
+.row-cols-md-2 .col .card .music-card,
+.row-cols-lg-3 .col .card .music-card {
+    flex: 1;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+/* ==================================================
+   CORREÇÃO DEFINITIVA DOS CARDS DA HOME
+   ================================================== */
+
+/* 1. Impede que as linhas do Bootstrap limitem a altura */
+.row-cols-1,
+.row-cols-md-2,
+.row-cols-lg-3 {
+    align-items: flex-start !important;
+    height: auto !important;
+    min-height: auto !important;
+}
+
+/* 2. Corrige as colunas para não forçarem altura */
+.row-cols-1 > .col,
+.row-cols-md-2 > .col,
+.row-cols-lg-3 > .col {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto !important;
+}
+
+/* 3. Corrige os cards dentro das colunas */
+.row-cols-1 > .col .card,
+.row-cols-md-2 > .col .card,
+.row-cols-lg-3 > .col .card {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto !important;
+}
+
+/* 4. Corrige o music-card dentro do card - ESSENCIAL */
+.row-cols-1 .col .card .music-card,
+.row-cols-md-2 .col .card .music-card,
+.row-cols-lg-3 .col .card .music-card {
+    height: auto !important;
+    min-height: auto !important;
+    flex: 0 0 auto !important;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 5. Remove qualquer altura fixa do music-card */
+.music-card {
+    height: auto !important;
+    min-height: auto !important;
+    flex: 0 0 auto !important;
+}
+
+/* 6. Força a capa a manter a proporção */
+.music-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.music-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+/* 7. Garante que o texto não vaze */
+.music-info {
+    flex: 0 0 auto !important;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 8px;
+}
+
+.music-info h6 {
+    margin: 0;
+    color: var(--text-primary);
+    font-weight: 700;
+    transition: color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.music-info small {
+    color: var(--text-secondary);
+    transition: color 0.3s;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* 8. Botão de play posicionado absolutamente */
+.music-play {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+/* 9. Botão adicionar à playlist */
+.music-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.music-card:hover .music-actions {
+    opacity: 1;
+}
+
+/* 10. Responsividade */
+@media (max-width: 576px) {
+    .music-cover {
+        aspect-ratio: 1 / 1 !important;
+    }
+    
+    .music-card {
+        padding: 8px 10px;
+        gap: 10px;
+    }
+    
+    .music-info h6 {
+        font-size: 0.85rem;
+    }
+    
+    .music-info small {
+        font-size: 0.7rem;
+    }
+    
+    .btn-play-card {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+}

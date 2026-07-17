@@ -25,17 +25,17 @@
     </div>
 
     <div class="music-info">
-    <h6><?= htmlspecialchars($musica['titulo']) ?></h6>
-    <small>
-        <a href="<?= BASE_URL ?>/artista/ver/<?= $musica['artista_id'] ?? 0 ?>" class="text-light text-decoration-none">
-            <?= htmlspecialchars($musica['artista']) ?>
-        </a>
-        •
-        <a href="<?= BASE_URL ?>/album/ver/<?= $musica['album_id'] ?? 0 ?>" class="text-light text-decoration-none">
-            <?= htmlspecialchars($musica['album']) ?>
-        </a>
-    </small>
-</div>
+        <h6><?= htmlspecialchars($musica['titulo']) ?></h6>
+        <small>
+            <a href="<?= BASE_URL ?>/artista/ver/<?= $musica['artista_id'] ?? 0 ?>" class="music-link">
+                <?= htmlspecialchars($musica['artista']) ?>
+            </a>
+            •
+            <a href="<?= BASE_URL ?>/album/ver/<?= $musica['album_id'] ?? 0 ?>" class="music-link">
+                <?= htmlspecialchars($musica['album']) ?>
+            </a>
+        </small>
+    </div>
 
     <!-- Botão para abrir o modal de adicionar à playlist -->
     <div class="music-actions">
@@ -56,7 +56,7 @@
 <!-- MODAL - Lista de Playlists -->
 <div class="modal fade" id="modalPlaylists" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-dark text-light">
+        <div class="modal-content bg-card text-light">
             <div class="modal-header">
                 <h5 class="modal-title">
                     <i class="bi bi-collection-play-fill"></i>

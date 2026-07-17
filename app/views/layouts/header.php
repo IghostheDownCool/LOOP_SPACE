@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 
 <head>
 
@@ -154,6 +154,11 @@
     <i class="bi bi-info-circle"></i>
     Sobre
 </a>
+
+<button class="nav-link theme-toggle" id="theme-toggle" title="Alternar tema">
+    <i class="bi bi-moon-fill" id="theme-icon"></i>
+    <span style="margin-left: 8px;">Tema</span>
+</button>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/logout">
                     <i class="bi bi-box-arrow-right"></i>

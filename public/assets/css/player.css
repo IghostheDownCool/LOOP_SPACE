@@ -719,3 +719,56 @@ audio, .player-info audio {
         width: 40px;
     }
 }
+
+/* ==================================================
+   PLAYER - TEMA CLARO
+   ================================================== */
+
+[data-theme="light"] #global-player .btn-cinza {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] #global-player .btn-cinza:hover {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] #global-player .btn-verde {
+    background: #1db954;
+    color: #fff;
+}
+
+[data-theme="light"] #global-player .btn-verde:hover {
+    background: #1ed760;
+}
+
+[data-theme="light"] #global-player .player-controls .btn {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] #global-player h6 {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] #global-player small {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .player-progress input[type="range"] {
+    background: var(--border-color);
+}
+
+[data-theme="light"] .player-progress input[type="range"]::-webkit-slider-thumb {
+    background: #1db954;
+}
+
+[data-theme="light"] .player-right i {
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .player-right input[type="range"] {
+    background: var(--border-color);
+}
+
+[data-theme="light"] .player-right input[type="range"]::-webkit-slider-thumb {
+    background: #1db954;
+}

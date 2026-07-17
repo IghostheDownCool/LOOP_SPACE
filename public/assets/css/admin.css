@@ -1,4 +1,35 @@
 /* ==================================================
+   ADMIN - TEMA CLARO/ESCURO
+   ================================================== */
+
+.admin-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-card .card-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    transition: color 0.3s;
+}
+
+.admin-card .card-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    transition: color 0.3s;
+}
+
+/* ... resto do admin.css existente ... *//* 
+
+==================================================
    ADMIN - ESTILOS COMPLETOS
    ================================================== */
 

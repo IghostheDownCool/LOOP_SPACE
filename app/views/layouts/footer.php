@@ -114,6 +114,8 @@
 
 <script src="<?= BASE_URL ?>/assets/js/playlist-modal.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/playlist-modal.js') ?>"></script>
 
+<script src="<?= BASE_URL ?>/assets/js/theme.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/theme.js') ?>"></script>
+
 </body>
 
 </html>

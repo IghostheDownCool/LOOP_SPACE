@@ -1,65 +1,86 @@
 .music-card {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: 16px;
-    background: #181818;
+    background: var(--bg-card);
     border-radius: 12px;
     padding: 12px 16px;
     margin-bottom: 10px;
-    transition: .2s;
+    transition: background 0.3s, transform 0.2s;
     cursor: pointer;
-    height: 100%;  /* ← ADICIONE ESTA LINHA */
+    height: auto !important; /* FORÇA ALTURA AUTOMÁTICA */
+    min-height: auto !important;
+    flex: 0 0 auto !important;
+    position: relative;
 }
 
-.music-card:hover{
-
-    background:#282828;
-
+.music-card:hover {
+    background: var(--bg-card-hover);
+    transform: scale(1.01);
 }
 
-.music-cover img{
-
-    width:60px;
-
-    height:60px;
-
-    object-fit:cover;
-
-    border-radius:8px;
-
+/* Bloco corrigido e separado do hover do card */
+.music-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;    /* Garante que a área da capa seja um quadrado perfeito */
+    overflow: hidden;
+    border-radius: 6px;
 }
 
-.music-info{
-
-    flex:1;
-
+.music-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
-.music-info h6{
-
-    margin:0;
-
-    color:#fff;
-
-    font-weight:700;
-
+.music-info {
+    flex: 1;
+    width: 100%; /* Força os textos a respeitarem os limites do card */
 }
 
-.music-info small{
-
-    color:#b3b3b3;
-
+.music-info h6 {
+    margin: 0;
+    color: var(--text-primary);
+    font-weight: 700;
+    transition: color 0.3s;
+    /* Evita que títulos gigantes quebrem o card para baixo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.music-play{
-
-    display:flex;
-
-    align-items:center;
-
+.music-info small {
+    color: var(--text-secondary);
+    transition: color 0.3s;
+    display: block;
+    /* Evita que nomes de artistas gigantes quebrem o layout */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Botão de play no card */
+.music-info a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.music-info a:hover {
+    color: var(--text-primary);
+}
+
+.music-play {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
 /* Botão de play no card */
 .btn-play-card {
     width: 45px;
@@ -74,9 +95,9 @@
     justify-content: center;
     cursor: pointer;
     transition: transform 0.15s, background 0.15s;
-    padding: 0;                   /* Remove qualquer padding interno */
-    box-sizing: border-box;       /* Garante que largura/altura incluam borda e padding */
-    flex-shrink: 0;              /* Evita que o botão encolha */
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
     line-height: 1;
 }
 
@@ -88,4 +109,77 @@
 .btn-play-card i {
     margin: 0;
     line-height: 1;
+}
+
+/* Botão adicionar à playlist */
+.music-actions {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.music-card:hover .music-actions {
+    opacity: 1;
+}
+
+.btn-add-playlist {
+    color: var(--text-secondary);
+    background: var(--bg-card-hover);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: all 0.2s;
+}
+
+.btn-add-playlist:hover {
+    background: #1db954;
+    color: #fff;
+}
+
+/* ==================================================
+   LINKS DOS CARDS - ADAPTÁVEIS AO TEMA
+   ================================================== */
+
+.music-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.music-link:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+/* ==================================================
+   MODAL - ADAPTÁVEL AO TEMA
+   ================================================== */
+
+.modal-content.bg-card {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+}
+
+.modal-content.bg-card .modal-header {
+    border-bottom-color: var(--border-color);
+}
+
+.modal-content.bg-card .modal-footer {
+    border-top-color: var(--border-color);
+}
+
+.modal-content.bg-card .btn-close {
+    filter: var(--btn-close-filter, invert(1));
+}
+
+[data-theme="light"] .modal-content.bg-card .btn-close {
+    --btn-close-filter: invert(0);
+}
+
+[data-theme="dark"] .modal-content.bg-card .btn-close {
+    --btn-close-filter: invert(1);
 }

@@ -25,11 +25,20 @@
     --bg-card-hover: #f0f0f0;
     --bg-input: #f0f0f0;
     --bg-sidebar: #ffffff;
+    --bg-header: #f0f0f0;
     --text-primary: #121212;
     --text-secondary: #666666;
     --text-muted: #999999;
     --border-color: #dddddd;
     --shadow-color: rgba(0, 0, 0, 0.1);
+    --link-color: #1db954;
+    --link-hover: #1ed760;
+    
+    /* 🔥 ADICIONE ESTAS LINHAS PARA O PLAYER */
+    --player-bg: #ffffff;
+    --player-border: #dddddd;
+    --player-text-primary: #121212;
+    --player-text-secondary: #666666;
 }
 
 /* ==================================================

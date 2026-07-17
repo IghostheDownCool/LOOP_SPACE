@@ -517,6 +517,33 @@ audio, .player-info audio {
 
     cursor:pointer;
 
+    height:4px !important; /* FORÇA A ALTURA FINA */
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--text-muted);
+    border-radius: 2px;
+    outline: none;
+    transition: height 0.2s;
+}
+
+#volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1db954;
+    cursor: pointer;
+    border: none;
+}
+
+#volume::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1db954;
+    cursor: pointer;
+    border: none;
 }
 
 /* ==================================================
@@ -528,20 +555,20 @@ audio, .player-info audio {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: #181818;
-    border-top: 1px solid #282828;
+    background: var(--player-bg, #181818);
+    border-top: 1px solid var(--player-border, #282828);
     padding: 10px 20px;
     z-index: 1050;
-    transform: translateY(100%);    /* Escondido para baixo */
+    transform: translateY(100%);
     opacity: 0;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    pointer-events: none;           /* Bloqueia cliques quando escondido */
+    pointer-events: none;
 }
 
 #global-player.active {
     transform: translateY(0);
     opacity: 1;
-    pointer-events: auto;           /* Permite cliques quando visível */
+    pointer-events: auto;
 }
 
 /* Botões de shuffle e repeat */
@@ -745,8 +772,36 @@ audio, .player-info audio {
     color: var(--text-primary);
 }
 
-[data-theme="light"] #global-player h6 {
-    color: var(--text-primary);
+#global-player .player-left h6 {
+    color: var(--player-text-primary, #ffffff);
+}
+
+#global-player .player-left small {
+    color: var(--player-text-secondary, #b3b3b3);
+}
+
+#global-player .player-progress span {
+    color: var(--player-text-secondary, #b3b3b3);
+}
+
+#global-player .player-right i {
+    color: var(--player-text-secondary, #b3b3b3);
+}
+
+[data-theme="light"] #global-player .player-left h6 {
+    color: var(--player-text-primary, #121212);
+}
+
+[data-theme="light"] #global-player .player-left small {
+    color: var(--player-text-secondary, #666666);
+}
+
+[data-theme="light"] #global-player .player-progress span {
+    color: var(--player-text-secondary, #666666);
+}
+
+[data-theme="light"] #global-player .player-right i {
+    color: var(--player-text-secondary, #666666);
 }
 
 [data-theme="light"] #global-player small {

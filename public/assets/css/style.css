@@ -895,3 +895,127 @@ section {
         --bs-gutter-y: 0.5rem;
     }
 }
+
+/* ==================================================
+   PLAYER - LISTA DE MÚSICAS ADAPTÁVEL AO TEMA
+   ================================================== */
+
+.player-container {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px;
+    padding: 20px;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.player-playlist h3 {
+    color: var(--text-primary) !important;
+    transition: color 0.3s;
+}
+
+.player-playlist input[type="text"] {
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px;
+    padding: 10px 14px;
+    width: 100%;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.player-playlist input[type="text"]::placeholder {
+    color: var(--text-muted) !important;
+}
+
+.player-playlist input[type="text"]:focus {
+    border-color: #1db954 !important;
+    outline: none;
+}
+
+.player-playlist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.player-playlist ul li {
+    margin-bottom: 8px;
+}
+
+.musica-item {
+    width: 100%;
+    text-align: left;
+    background: var(--bg-secondary) !important;
+    border: 1px solid transparent !important;
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    cursor: pointer;
+    display: block;
+    color: var(--text-primary) !important;
+}
+
+.musica-item:hover {
+    background: var(--bg-card-hover) !important;
+    border-color: var(--border-color) !important;
+}
+
+.musica-item.ativa {
+    border-color: #1db954 !important;
+    background: var(--bg-card-hover) !important;
+}
+
+.musica-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.musica-topo strong {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    transition: color 0.3s;
+    flex: 1;
+}
+
+.musica-item span {
+    color: var(--text-secondary) !important;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+    display: block;
+    margin-top: 4px;
+}
+
+.favorito {
+    color: var(--text-secondary) !important;
+    font-size: 1.3rem;
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.favorito:hover {
+    transform: scale(1.2);
+    color: #1db954 !important;
+}
+
+/* Responsividade do player */
+@media (max-width: 576px) {
+    .player-container {
+        padding: 12px;
+    }
+    
+    .musica-item {
+        padding: 10px 12px;
+    }
+    
+    .musica-topo strong {
+        font-size: 0.9rem;
+    }
+    
+    .musica-item span {
+        font-size: 0.75rem;
+    }
+}

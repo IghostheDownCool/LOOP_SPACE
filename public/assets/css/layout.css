@@ -289,3 +289,130 @@ body {
     cursor: pointer;
     border: none;
 }
+
+/* ==================================================
+   PERFIL DO USUÁRIO NO MENU LATERAL
+   ================================================== */
+
+.user-profile {
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+    transition: border-color 0.3s;
+}
+
+.user-profile a {
+    color: var(--text-primary);
+    transition: color 0.3s;
+}
+
+.user-profile a:hover {
+    color: var(--link-color);
+}
+
+.user-profile .user-avatar {
+    flex-shrink: 0;
+}
+
+.user-profile .avatar-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s;
+}
+
+.user-profile a:hover .avatar-img {
+    border-color: #1db954;
+}
+
+.user-profile .avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-card-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: var(--text-muted);
+    border: 2px solid var(--border-color);
+    transition: border-color 0.3s;
+}
+
+.user-profile a:hover .avatar-placeholder {
+    border-color: #1db954;
+    color: var(--text-primary);
+}
+
+.user-profile .user-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.user-profile .user-name {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s;
+}
+
+.user-profile .user-email {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s;
+}
+
+.user-profile a:hover .user-name {
+    color: #1db954;
+}
+
+/* Tema claro */
+[data-theme="light"] .user-profile {
+    border-bottom-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .user-profile .user-name {
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .user-profile .user-email {
+    color: var(--text-muted, #999999);
+}
+
+[data-theme="light"] .user-profile .avatar-placeholder {
+    background: var(--bg-card-hover, #f0f0f0);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .user-profile .avatar-img {
+    border-color: var(--border-color, #dddddd);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .user-profile a {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .user-profile .user-info {
+        text-align: center;
+    }
+
+    .user-profile .user-email {
+        display: none;
+    }
+}

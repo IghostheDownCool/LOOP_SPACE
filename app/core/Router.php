@@ -35,6 +35,41 @@ if (isset($segments[0]) && $segments[0] === 'historico' && isset($segments[1]) &
     return;
 }
 
+// ==================================================
+// ROTAS PARA COMENTÁRIOS
+// ==================================================
+if (isset($segments[0]) && $segments[0] === 'comentarios') {
+    if (isset($segments[1]) && $segments[1] === 'adicionar') {
+        $controllerName = 'ComentariosController';
+        $method = 'adicionar';
+        $params = [];
+    } elseif (isset($segments[1]) && $segments[1] === 'excluir' && isset($segments[2])) {
+        $controllerName = 'ComentariosController';
+        $method = 'excluir';
+        $params = [(int) $segments[2]];
+    } else {
+        die('Rota de comentários inválida.');
+    }
+    
+    $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
+    if (!file_exists($controllerFile)) {
+        die('Controller não encontrado.');
+    }
+    require_once $controllerFile;
+    
+    if (!class_exists($controllerName)) {
+        die('Controller não encontrado.');
+    }
+    
+    $controller = new $controllerName();
+    if (!method_exists($controller, $method)) {
+        die('Método não encontrado.');
+    }
+    
+    call_user_func_array([$controller, $method], $params);
+    return;
+}
+
         // ==================================================
         // ROTA PARA PLAYLIST PÚBLICA
         // ==================================================

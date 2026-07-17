@@ -1019,3 +1019,53 @@ section {
         font-size: 0.75rem;
     }
 }
+
+/* ==================================================
+   COMENTÁRIOS - ESTILOS
+   ================================================== */
+
+.comentarios-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.comentarios-section h3 {
+    color: var(--text-primary);
+}
+
+.comentario-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    transition: background 0.2s;
+}
+
+.comentario-item:hover {
+    background: var(--bg-card-hover);
+}
+
+.comentario-item .text-primary {
+    color: var(--link-color) !important;
+}
+
+.comentario-item .text-light {
+    color: var(--text-primary) !important;
+}
+
+/* Tema claro */
+[data-theme="light"] .comentario-item {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .comentario-item:hover {
+    background: var(--bg-card-hover, #f0f0f0);
+}
+
+[data-theme="light"] .comentario-item .text-light {
+    color: var(--text-primary, #121212) !important;
+}
+
+[data-theme="light"] .comentario-item .text-primary {
+    color: #1db954 !important;
+}

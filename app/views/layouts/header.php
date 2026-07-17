@@ -97,15 +97,50 @@
 
         <aside class="col-md-3 col-lg-2 sidebar">
 
-            <div class="logo">
+            <!-- ==================================================
+                 PERFIL DO USUÁRIO (AVATAR + NOME)
+                 ================================================== -->
+            <?php
+            // Busca os dados do usuário logado
+            $usuarioModel = new Usuario();
+            if (isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id'])) {
+    $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+    if (!$usuario) {
+        // Usuário não existe, destruir sessão
+        session_unset();
+        session_destroy();
+        header('Location: /login');
+        exit;
+    }
+} else {
+    $usuario = null;
+}
+            ?>
 
-    <i class="bi bi-vinyl-fill logo-icon"></i>
+            <div class="user-profile mb-4 p-2">
+                <a href="<?= BASE_URL ?>/perfil" class="text-decoration-none d-flex align-items-center gap-3">
+                    <!-- Avatar -->
+                    <div class="user-avatar">
+                        <?php if (!empty($usuario['avatar'])): ?>
+                            <img
+                                src="<?= BASE_URL ?>/uploads/avatars/<?= htmlspecialchars($usuario['avatar']) ?>"
+                                alt="<?= htmlspecialchars($usuario['nome']) ?>"
+                                class="avatar-img"
+                            >
+                        <?php else: ?>
+                            <div class="avatar-placeholder">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
-    <h2>LOOP SPACE</h2>
-
-    <small>Music Streaming</small>
-
-</div>
+                    <!-- Nome do usuário -->
+                    <div class="user-info">
+                        <strong class="user-name"><?= htmlspecialchars($usuario['nome']) ?></strong>
+                        <small class="user-email"><?= htmlspecialchars($usuario['email']) ?></small>
+                    </div>
+                </a>
+            </div>
 
             <nav class="menu nav flex-column">
 

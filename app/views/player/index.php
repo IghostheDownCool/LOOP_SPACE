@@ -238,6 +238,57 @@ $curtidaModel = new Curtida();
 }
 
 /* ==================================================
+   COMENTÁRIOS - ESTILOS
+   ================================================== */
+
+.comentarios-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.comentarios-section h3 {
+    color: var(--text-primary);
+}
+
+.comentario-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    transition: background 0.2s;
+    border-radius: 8px;
+}
+
+.comentario-item:hover {
+    background: var(--bg-card-hover);
+}
+
+.comentario-item .text-primary {
+    color: var(--link-color) !important;
+}
+
+.comentario-item .text-light {
+    color: var(--text-primary) !important;
+}
+
+/* Tema claro */
+[data-theme="light"] .comentario-item {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .comentario-item:hover {
+    background: var(--bg-card-hover, #f0f0f0);
+}
+
+[data-theme="light"] .comentario-item .text-light {
+    color: var(--text-primary, #121212) !important;
+}
+
+[data-theme="light"] .comentario-item .text-primary {
+    color: #1db954 !important;
+}
+
+/* ==================================================
    TEMA CLARO - AJUSTES ESPECÍFICOS
    ================================================== */
 
@@ -437,6 +488,98 @@ $curtidaModel = new Curtida();
                     </div>
                 </div>
             <?php endforeach; ?>
+        </div>
+
+        <!-- ==================================================
+             SEÇÃO DE COMENTÁRIOS (ABAIXO DA LISTA DE MÚSICAS)
+             ================================================== -->
+        <div class="comentarios-section mt-5 pt-4">
+            <h3 class="mb-3">
+                <i class="bi bi-chat-dots" style="color: #1db954;"></i> 
+                Comentários
+            </h3>
+
+            <?php
+            // Busca comentários para a primeira música da lista
+            $musicaId = $musicas[0]['id'] ?? 0;
+            $comentarioModel = new Comentario();
+            $comentarios = $comentarioModel->listarPorMusica($musicaId);
+            $totalComentarios = $comentarioModel->contarPorMusica($musicaId);
+            ?>
+
+            <p class="text-muted mb-3">
+                <?= $totalComentarios ?> comentários
+            </p>
+
+            <!-- Formulário para adicionar comentário -->
+            <form method="POST" action="<?= BASE_URL ?>/comentarios/adicionar" class="mb-4">
+                <input type="hidden" name="musica_id" value="<?= $musicaId ?>">
+                <div class="d-flex gap-2">
+                    <input
+                        type="text"
+                        name="comentario"
+                        class="form-control bg-dark text-light border-secondary"
+                        placeholder="Deixe um comentário sobre a música..."
+                        required
+                        maxlength="500"
+                    >
+                    <button type="submit" class="btn btn-verde">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+                <small class="text-muted">Máximo 500 caracteres</small>
+            </form>
+
+            <!-- Lista de comentários -->
+            <?php if (empty($comentarios)): ?>
+                <div class="alert alert-secondary">
+                    Nenhum comentário ainda. Seja o primeiro a comentar!
+                </div>
+            <?php else: ?>
+                <div class="comentarios-list">
+                    <?php foreach ($comentarios as $comentario): ?>
+                        <div class="comentario-item d-flex gap-3 p-3 mb-2">
+                            <div class="comentario-avatar flex-shrink-0">
+                                <?php if (!empty($comentario['usuario_avatar'])): ?>
+                                    <img
+                                        src="<?= BASE_URL ?>/uploads/avatars/<?= htmlspecialchars($comentario['usuario_avatar']) ?>"
+                                        alt="<?= htmlspecialchars($comentario['usuario_nome']) ?>"
+                                        style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;"
+                                    >
+                                <?php else: ?>
+                                    <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                                        <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="comentario-content flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <strong class="text-primary"><?= htmlspecialchars($comentario['usuario_nome']) ?></strong>
+                                        <small class="text-muted ms-2">
+                                            <?= date('d/m/Y H:i', strtotime($comentario['criado_em'])) ?>
+                                        </small>
+                                    </div>
+                                    <?php if ($comentario['usuario_id'] == $_SESSION['usuario_id']): ?>
+                                        <a
+                                            href="<?= BASE_URL ?>/comentarios/excluir/<?= $comentario['id'] ?>"
+                                            class="text-danger text-decoration-none"
+                                            onclick="return confirm('Deseja excluir este comentário?')"
+                                            style="font-size: 0.8rem;"
+                                        >
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                                <p class="mb-0 mt-1 text-light">
+                                    <?= nl2br(htmlspecialchars($comentario['comentario'])) ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
 
         <?php endif; ?>

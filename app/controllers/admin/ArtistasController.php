@@ -18,6 +18,8 @@ class ArtistasController extends Controller
     {
         $this->requireLogin();
 
+
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = trim($_POST['nome']);
 
@@ -29,19 +31,19 @@ class ArtistasController extends Controller
             }
 
             // Upload da foto (opcional)
-$foto = null;
-if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-    $foto = UploadHelper::upload(
-        $_FILES['foto'],
-        __DIR__ . '/../../public/uploads/artistas/',
-        ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-        5242880 // 5MB
-    );
+            $foto = null;
+            if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+                $foto = UploadHelper::upload(
+                    $_FILES['foto'],
+                    __DIR__ . '/../../public/uploads/artistas/',
+                    ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+                    5242880 // 5MB
+                );
 
-    if (!$foto) {
-        Flash::set('warning', 'A foto não foi enviada.');
-    }
-}
+                if (!$foto) {
+                    Flash::set('warning', 'A foto não foi enviada.');
+                }
+            }
 
             $artista = new Artista();
             if ($artista->cadastrar($nome, $foto)) {

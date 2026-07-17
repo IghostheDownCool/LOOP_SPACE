@@ -10,4 +10,5 @@ abstract class Model
 
         $this->pdo = $database->connect();
     }
+    
 }

@@ -39,4 +39,18 @@
     </div>
 <?php endif; ?>
 
+<?php if (!empty($musicasDosSeguidos)): ?>
+    <h2 class="mt-5 mb-3">
+        <i class="bi bi-person-hearts" style="color: #ff6b6b;"></i>
+        Músicas de artistas que você segue
+    </h2>
+    <div class="row align-items-stretch">
+        <?php foreach ($musicasDosSeguidos as $musica): ?>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <?php require __DIR__ . '/../components/music-card.php'; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

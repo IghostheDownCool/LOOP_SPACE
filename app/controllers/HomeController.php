@@ -8,16 +8,16 @@ class HomeController extends Controller
 
     $usuarioId = $_SESSION['usuario_id'];
 
-    // Busca artistas mais ouvidos
+    // Busca artistas mais ouvidos do usuário
     $historico = new Historico();
     $artistas = $historico->artistasMaisOuvidos($usuarioId, 5);
-
-    // Busca recomendações com base nesses artistas
-    $musicaModel = new Musica();
     $artistasIds = array_column($artistas, 'id');
+
+    // Busca recomendações baseadas nos artistas mais ouvidos
+    $musicaModel = new Musica();
     $recomendacoes = $musicaModel->recomendarPorArtistas($artistasIds, 10);
 
-    // Busca as mais tocadas do momento
+    // Busca as músicas mais ouvidas do momento
     $topMusicas = $musicaModel->topMusicas();
 
     $this->view('home/index', [
@@ -25,4 +25,5 @@ class HomeController extends Controller
         'topMusicas' => $topMusicas
     ]);
 }
+
 }

@@ -15,6 +15,23 @@
         </p>
     </div>
 
+    <div class="text-center">
+    <img ...>
+    <h1><?= htmlspecialchars($artista['nome']) ?></h1>
+    <p><?= $artista['total_albuns'] ?? 0 ?> álbuns • <?= $artista['total_musicas'] ?? 0 ?> músicas</p>
+
+    <!-- Botão Seguir -->
+    <button
+        id="btn-seguir"
+        class="btn <?= $estaSeguindo ? 'btn-verde' : 'btn-cinza' ?>"
+        data-artista-id="<?= $artista['id'] ?>"
+        onclick="toggleSeguir(this)"
+    >
+        <i class="bi <?= $estaSeguindo ? 'bi-check-circle' : 'bi-plus-circle' ?>"></i>
+        <?= $estaSeguindo ? 'Seguindo' : 'Seguir' ?>
+    </button>
+</div>
+
     <div class="col-md-9">
         <h2>Álbuns</h2>
         <div class="row">
@@ -55,3 +72,33 @@
 </div>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+
+<script>
+const BASE_URL = '<?= BASE_URL ?>';
+
+function toggleSeguir(btn) {
+    const artistaId = btn.getAttribute('data-artista-id');
+    const isSeguindo = btn.classList.contains('btn-verde');
+
+    const url = isSeguindo
+        ? BASE_URL + '/seguidor/deixarSeguir/' + artistaId
+        : BASE_URL + '/seguidor/seguir/' + artistaId;
+
+    fetch(url, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success !== undefined) {
+                if (data.seguindo) {
+                    btn.classList.remove('btn-cinza');
+                    btn.classList.add('btn-verde');
+                    btn.innerHTML = '<i class="bi bi-check-circle"></i> Seguindo';
+                } else {
+                    btn.classList.remove('btn-verde');
+                    btn.classList.add('btn-cinza');
+                    btn.innerHTML = '<i class="bi bi-plus-circle"></i> Seguir';
+                }
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+}
+</script>

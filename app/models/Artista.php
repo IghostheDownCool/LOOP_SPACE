@@ -28,31 +28,47 @@ class Artista extends Model
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-    public function cadastrar(string $nome): bool
-    {
-        $sql = "INSERT INTO artistas (nome)
-                VALUES (:nome)";
+    public function cadastrar(string $nome, ?string $foto = null): bool
+{
+    $sql = "
+        INSERT INTO artistas (nome, foto)
+        VALUES (:nome, :foto)
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->pdo->prepare($sql);
+    $result = $stmt->execute([
+        ':nome' => $nome,
+        ':foto' => $foto
+    ]);
 
-        return $stmt->execute([
-            ':nome' => $nome
-        ]);
-    }
+    // 🔍 DIAGNÓSTICO (SEM EXIT)
+    var_dump([
+        'sql' => $sql,
+        'nome' => $nome,
+        'foto' => $foto,
+        'result' => $result,
+        'error' => $stmt->errorInfo()
+    ]);
+    // NÃO USE exit AQUI!
 
-    public function atualizar(int $id, string $nome): bool
-    {
-        $sql = "UPDATE artistas
-                SET nome = :nome
-                WHERE id = :id";
+    return $result;
+}
 
-        $stmt = $this->pdo->prepare($sql);
+    public function atualizar(int $id, string $nome, ?string $foto = null): bool
+{
+    $sql = "
+        UPDATE artistas
+        SET nome = :nome, foto = :foto
+        WHERE id = :id
+    ";
 
-        return $stmt->execute([
-            ':id' => $id,
-            ':nome' => $nome
-        ]);
-    }
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([
+        ':id' => $id,
+        ':nome' => $nome,
+        ':foto' => $foto
+    ]);
+}
 
     public function excluir(int $id): bool
     {

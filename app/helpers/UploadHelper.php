@@ -3,7 +3,11 @@
 class UploadHelper
 {
     public static function upload(array $file, string $destino, array $extensoesPermitidas = ['jpg', 'jpeg', 'png', 'gif'], int $maxSize = 5242880): ?string
-    {
+{
+    // 🔥 CRIA A PASTA SE ELA NÃO EXISTIR
+    if (!is_dir($destino)) {
+        mkdir($destino, 0777, true);
+    }
         // Verifica se houve erro no upload
         if ($file['error'] !== UPLOAD_ERR_OK) {
             return null;

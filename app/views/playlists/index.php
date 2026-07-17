@@ -13,7 +13,7 @@ require __DIR__ . '/../components/page-header.php';
 <div class="mb-4">
 
     <a
-        href="<?= BASE_URL ?>/playlists/criar"
+        href="<?= BASE_URL ?>/playlists/cadastrar"
         class="btn btn-success"
     >
         <i class="bi bi-plus-circle"></i>

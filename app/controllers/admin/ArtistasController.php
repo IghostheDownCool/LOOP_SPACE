@@ -143,4 +143,5 @@ class ArtistasController extends Controller
         header('Location: ' . BASE_URL . '/admin/artistas');
         exit;
     }
+
 }

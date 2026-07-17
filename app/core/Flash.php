@@ -5,7 +5,7 @@ class Flash
     public static function set(string $type, string $message): void
     {
         $_SESSION['flash'] = [
-            'type' => $type,    // 'success', 'danger', 'warning', 'info'
+            'type' => $type,
             'message' => $message
         ];
     }

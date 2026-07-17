@@ -69,8 +69,6 @@
 
 <body>
 
-<body>
-
 <div class="container-fluid">
 
     <div class="row">
@@ -144,23 +142,21 @@
         <main class="col-md-9 col-lg-10 conteudo">
 
         <!-- Mensagens Flash -->
-<?php if (Flash::has()): ?>
-    <?php $flash = Flash::get(); ?>
-    <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
-        <?= htmlspecialchars($flash['message']) ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-<?php endif; ?>
+        <?php if (Flash::has()): ?>
+            <?php $flash = Flash::get(); ?>
+            <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
+                <?= htmlspecialchars($flash['message']) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif; ?>
 
-    <!-- BARRA DE PESQUISA -->
-    <div class="search-bar-container mb-4">
-        <div class="search-bar">
-            <i class="bi bi-search"></i>
-            <input type="text" id="search-input" class="search-input" placeholder="..." autocomplete="off">
+        <!-- BARRA DE PESQUISA -->
+        <div class="search-bar-container mb-4">
+            <div class="search-bar">
+                <i class="bi bi-search"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="O que você quer ouvir?" autocomplete="off">
+            </div>
+            <div id="search-results" class="search-results"></div>
         </div>
-        <div id="search-results" class="search-results"></div>
-    </div>
 
-    <!-- O RESTANTE DO CONTEÚDO VIRÁ AQUI -->
-
-    <!-- O RESTANTE DO CONTEÚDO VIRÁ AQUI -->
+        <!-- O RESTANTE DO CONTEÚDO VIRÁ AQUI -->

@@ -160,6 +160,11 @@
     <span style="margin-left: 8px;">Tema</span>
 </button>
 
+<a class="nav-link" href="<?= BASE_URL ?>/perfil">
+    <i class="bi bi-person-circle"></i>
+    Perfil
+</a>
+
                 <a class="nav-link" href="<?= BASE_URL ?>/logout">
                     <i class="bi bi-box-arrow-right"></i>
                     Sair

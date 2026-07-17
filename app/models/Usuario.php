@@ -66,4 +66,32 @@ public function ultimos(int $limite = 5): array
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function atualizarAvatar(int $usuarioId, ?string $avatar): bool
+{
+    $sql = "
+        UPDATE usuarios
+        SET avatar = :avatar
+        WHERE id = :id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([
+        ':id' => $usuarioId,
+        ':avatar' => $avatar
+    ]);
+}
+
+public function buscarPorId(int $id): array|false
+{
+    $sql = "
+        SELECT id, nome, email, avatar, data_cadastro
+        FROM usuarios
+        WHERE id = :id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }

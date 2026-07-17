@@ -135,23 +135,43 @@ function getAnteriorIndice() {
 // ==================================================
 
 function atualizarDuracao() {
+    // 🔥 VERIFICAÇÕES DE SEGURANÇA
+    if (!audio || !audio.duration || isNaN(audio.duration) || audio.duration === 0) {
+        tempoTotal.textContent = '0:00';
+        progressBar.max = 100;
+        progressBar.value = 0;
+        return;
+    }
+    
     tempoTotal.textContent = formatarTempo(audio.duration);
     progressBar.max = audio.duration;
     progressBar.value = 0;
     
-    // 🔥 RESETA A BARRA DE PROGRESSO
-    const bgColor = document.documentElement.getAttribute('data-theme') === 'light' ? '#d0d0d0' : '#4d4d4d';
+    // 🔥 RESETA A BARRA DE PROGRESSO CORRETAMENTE
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const bgColor = isLight ? '#d0d0d0' : '#4d4d4d';
     progressBar.style.background = `linear-gradient(to right, #1db954 0%, #1db954 0%, ${bgColor} 0%, ${bgColor} 100%)`;
 }
 
 function atualizarProgresso() {
-    if (!audio.duration || isNaN(audio.duration)) return;
+    // 🔥 VERIFICAÇÕES DE SEGURANÇA
+    if (!audio || !audio.duration || isNaN(audio.duration) || audio.duration === 0) {
+        return;
+    }
     
-    const percentual = (audio.currentTime / audio.duration) * 100;
+    if (isNaN(audio.currentTime)) {
+        return;
+    }
+    
+    const percentual = Math.min((audio.currentTime / audio.duration) * 100, 100);
+    
+    // Atualiza o valor do input
     progressBar.value = audio.currentTime;
+    
+    // Atualiza o texto do tempo
     tempoAtual.textContent = formatarTempo(audio.currentTime);
     
-    // 🔥 ATUALIZA A COR DA BARRA DE PROGRESSO
+    // 🔥 APLICA O GRADIENTE CORRETAMENTE
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     const bgColor = isLight ? '#d0d0d0' : '#4d4d4d';
     progressBar.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${percentual}%, ${bgColor} ${percentual}%, ${bgColor} 100%)`;
@@ -161,6 +181,12 @@ async function carregarMusica(musica) {
     if (!musica) return;
 
     console.log('Dados recebidos em carregarMusica:', musica);
+
+    audio.addEventListener('loadedmetadata', function() {
+    if (audio.duration && !isNaN(audio.duration) && audio.duration > 0) {
+        atualizarDuracao();
+    }
+});
 
     // Atualiza título e artista
     tituloEl.textContent = musica.titulo || 'Sem título';
@@ -212,6 +238,23 @@ async function carregarMusica(musica) {
 
     // Mostra o player
     mostrarPlayer();
+
+    async function carregarMusica(musica) {
+    if (!musica) return;
+
+    console.log('Dados recebidos em carregarMusica:', musica);
+
+    // 🔥 REGISTRA NO HISTÓRICO QUANDO A MÚSICA É CARREGADA
+    if (musica.id) {
+        registrarHistorico(musica.id);
+    }
+
+    // Atualiza título e artista
+    tituloEl.textContent = musica.titulo || 'Sem título';
+    artistaEl.textContent = musica.artista || 'Artista desconhecido';
+
+    // ... resto do código existente ...
+}
 }
 
 function tocarMusicaPorId(id) {
@@ -434,6 +477,32 @@ function mostrarMensagemErro(mensagem) {
 }
 
 // ==================================================
+// FUNÇÃO PARA REGISTRAR HISTÓRICO
+// ==================================================
+
+function registrarHistorico(musicaId) {
+    console.log('📝 Registrando histórico para música:', musicaId);
+    
+    fetch(BASE_URL + '/historico/registrar/' + musicaId, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        console.log('📝 Resposta do histórico:', response.status);
+        if (!response.ok) {
+            console.warn('Erro ao registrar histórico:', response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('📝 Dados retornados:', data);
+    })
+    .catch(err => console.warn('Erro ao registrar histórico:', err));
+}
+
+// ==================================================
 // INICIALIZAÇÃO DOS EVENTOS (APENAS UMA VEZ)
 // ==================================================
 
@@ -459,7 +528,19 @@ btnPrev.addEventListener('click', tocarAnterior);
 
 // Barra de progresso
 progressBar.addEventListener('input', function() {
+    if (!audio || !audio.duration || isNaN(audio.duration) || audio.duration === 0) {
+        return;
+    }
+    
+    const percentual = Math.min((this.value / audio.duration) * 100, 100);
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const bgColor = isLight ? '#d0d0d0' : '#4d4d4d';
+    
+    // Atualiza a posição da música
     audio.currentTime = parseFloat(this.value);
+    
+    // Atualiza a cor da barra enquanto arrasta
+    this.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${percentual}%, ${bgColor} ${percentual}%, ${bgColor} 100%)`;
 });
 
 // Volume

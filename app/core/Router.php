@@ -9,6 +9,33 @@ class Router
         $segments = $url === '' ? [] : explode('/', $url);
 
         // ==================================================
+// ROTA PARA REGISTRAR HISTÓRICO
+// ==================================================
+if (isset($segments[0]) && $segments[0] === 'historico' && isset($segments[1]) && $segments[1] === 'registrar') {
+    $controllerName = 'HistoricoController';
+    $method = 'registrar';
+    $params = isset($segments[2]) ? [$segments[2]] : [];
+    
+    $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
+    if (!file_exists($controllerFile)) {
+        die('Controller não encontrado.');
+    }
+    require_once $controllerFile;
+    
+    if (!class_exists($controllerName)) {
+        die('Controller não encontrado.');
+    }
+    
+    $controller = new $controllerName();
+    if (!method_exists($controller, $method)) {
+        die('Método não encontrado.');
+    }
+    
+    call_user_func_array([$controller, $method], $params);
+    return;
+}
+
+        // ==================================================
         // ROTA PARA PLAYLIST PÚBLICA
         // ==================================================
         if (isset($segments[0]) && $segments[0] === 'playlists' && isset($segments[1]) && $segments[1] === 'publica') {

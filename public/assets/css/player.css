@@ -387,24 +387,27 @@ audio, .player-info audio {
    BARRA DE PROGRESSO - ESTILO SPOTIFY (CORRIGIDO)
    ================================================== */
 
+/* ==================================================
+   BARRA DE PROGRESSO - CORREÇÃO DO ALINHAMENTO
+   ================================================== */
+
 #barra-progresso {
     -webkit-appearance: none !important;
     appearance: none !important;
     width: 100%;
     height: 4px !important;
     border-radius: 2px;
-    cursor: pointer;
+    background: #4d4d4d;
     outline: none;
+    cursor: pointer;
     border: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    background: #4d4d4d;
-    transition: height 0.2s ease;
+    box-sizing: border-box;
     position: relative;
-    flex-shrink: 0;
 }
 
-/* Remove bordas e estilos padrão */
+/* Track - a linha da barra */
 #barra-progresso::-webkit-slider-runnable-track {
     -webkit-appearance: none !important;
     appearance: none !important;
@@ -413,7 +416,6 @@ audio, .player-info audio {
     border-radius: 2px;
     background: transparent !important;
     border: none !important;
-    box-shadow: none !important;
 }
 
 #barra-progresso::-moz-range-track {
@@ -424,10 +426,9 @@ audio, .player-info audio {
     border-radius: 2px;
     background: transparent !important;
     border: none !important;
-    box-shadow: none !important;
 }
 
-/* Thumb personalizado - escondido por padrão */
+/* Thumb - a bolinha arrastável (CORRIGIDA) */
 #barra-progresso::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     appearance: none !important;
@@ -436,14 +437,12 @@ audio, .player-info audio {
     border-radius: 50% !important;
     background: #ffffff !important;
     cursor: pointer !important;
-    margin-top: -5px !important;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    margin-top: -5px !important; /* Ajuste fino para centralizar */
     border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 2;
+    transition: transform 0.15s ease;
 }
 
 #barra-progresso::-moz-range-thumb {
@@ -455,11 +454,27 @@ audio, .player-info audio {
     background: #ffffff !important;
     cursor: pointer !important;
     border: none !important;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.2s ease, transform 0.2s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.15s ease;
 }
+
+/* Efeito hover na bolinha */
+#barra-progresso::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+#barra-progresso::-moz-range-thumb:hover {
+    transform: scale(1.15);
+}
+
+/* ==================================================
+   CORREÇÃO DO PREENCHIMENTO VERDE (via JavaScript)
+   ================================================== */
+
+/* A barra verde é aplicada via JS com linear-gradient */
+/* Certifique-se de que a função atualizarProgresso() está correta */
 
 /* Mostra o thumb no hover do container pai */
 #global-player:hover #barra-progresso::-webkit-slider-thumb {

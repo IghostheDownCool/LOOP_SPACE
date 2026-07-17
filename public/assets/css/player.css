@@ -543,3 +543,66 @@ audio, .player-info audio {
     opacity: 1;
     pointer-events: auto;           /* Permite cliques quando visível */
 }
+
+/* Botões de shuffle e repeat */
+.btn-shuffle-active {
+    color: #1db954 !important;
+}
+
+.btn-repeat-active {
+    color: #1db954 !important;
+}
+
+.btn-repeat-one-active {
+    color: #1db954 !important;
+    position: relative;
+}
+
+.btn-repeat-one-active::after {
+    content: '1';
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    font-size: 0.5rem;
+    background: #1db954;
+    color: #000;
+    border-radius: 50%;
+    padding: 0 3px;
+    font-weight: bold;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player-controls .btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: all 0.2s;
+}
+
+.player-controls .btn-verde {
+    background: #1db954;
+    color: #fff;
+}
+
+.player-controls .btn-verde:hover {
+    background: #1ed760;
+    transform: scale(1.05);
+}
+
+.player-controls .btn-cinza {
+    background: transparent;
+    color: #b3b3b3;
+}
+
+.player-controls .btn-cinza:hover {
+    color: #fff;
+}

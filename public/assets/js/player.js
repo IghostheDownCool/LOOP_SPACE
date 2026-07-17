@@ -23,6 +23,14 @@ let musicaAtual = null;
 let isPlaying = false;
 
 // ==================================================
+// ESTADOS DO PLAYER AVANÇADO
+// ==================================================
+
+let shuffle = false;
+let repeatMode = 'none'; // 'none', 'one', 'all'
+let filaOriginal = [];
+
+// ==================================================
 // FUNÇÕES DE VISIBILIDADE DO PLAYER
 // ==================================================
 
@@ -32,6 +40,94 @@ function mostrarPlayer() {
 
 function esconderPlayer() {
     playerElement.classList.remove('active');
+}
+
+// ==================================================
+// FUNÇÕES DE SHUFFLE E REPETIÇÃO
+// ==================================================
+
+function toggleShuffle() {
+    shuffle = !shuffle;
+    const btn = document.getElementById('btn-shuffle');
+    btn.classList.toggle('btn-shuffle-active', shuffle);
+    
+    if (shuffle) {
+        // Embaralha a fila
+        if (filaOriginal.length === 0) {
+            filaOriginal = [...fila];
+        }
+        const shuffled = [...fila];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        fila = shuffled;
+    } else {
+        // Restaura a fila original
+        if (filaOriginal.length > 0) {
+            fila = [...filaOriginal];
+            filaOriginal = [];
+        }
+        // Encontra o índice da música atual na fila restaurada
+        if (musicaAtual) {
+            indiceAtual = fila.indexOf(musicaAtual.id);
+            if (indiceAtual === -1) indiceAtual = 0;
+        }
+    }
+    salvarEstadoPlayer();
+}
+
+function toggleRepeat() {
+    const btn = document.getElementById('btn-repeat');
+    const icon = btn.querySelector('i');
+    
+    if (repeatMode === 'none') {
+        repeatMode = 'all';
+        btn.classList.add('btn-repeat-active');
+        icon.className = 'bi bi-arrow-repeat';
+    } else if (repeatMode === 'all') {
+        repeatMode = 'one';
+        btn.classList.add('btn-repeat-one-active');
+        btn.classList.remove('btn-repeat-active');
+        icon.className = 'bi bi-arrow-repeat';
+    } else {
+        repeatMode = 'none';
+        btn.classList.remove('btn-repeat-one-active');
+        btn.classList.remove('btn-repeat-active');
+        icon.className = 'bi bi-arrow-repeat';
+    }
+    salvarEstadoPlayer();
+}
+
+function getProximoIndice() {
+    if (fila.length === 0) return -1;
+    
+    if (repeatMode === 'one') {
+        return indiceAtual;
+    }
+    
+    if (repeatMode === 'all') {
+        return (indiceAtual + 1) % fila.length;
+    }
+    
+    // none
+    if (indiceAtual < fila.length - 1) {
+        return indiceAtual + 1;
+    }
+    return -1;
+}
+
+function getAnteriorIndice() {
+    if (fila.length === 0) return -1;
+    
+    if (repeatMode === 'one') {
+        return indiceAtual;
+    }
+    
+    if (indiceAtual > 0) {
+        return indiceAtual - 1;
+    }
+    return -1;
 }
 
 // ==================================================
@@ -163,14 +259,15 @@ function togglePlay() {
 
 function tocarProxima() {
     console.log('tocarProxima chamada. fila:', fila, 'indiceAtual:', indiceAtual);
-    if (fila.length === 0) {
+    const proximo = getProximoIndice();
+    if (proximo === -1) {
         esconderPlayer();
         audio.pause();
         audio.currentTime = 0;
         btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
         return;
     }
-    indiceAtual = (indiceAtual + 1) % fila.length;
+    indiceAtual = proximo;
     tocarMusicaPorId(fila[indiceAtual]);
 }
 
@@ -178,18 +275,25 @@ function tocarAnterior() {
     if (fila.length === 0) {
         return;
     }
-    // Se já passou mais de 3 segundos, volta ao início da música atual
-    if (audio.currentTime > 3) {
+    const anterior = getAnteriorIndice();
+    if (anterior === -1) {
         audio.currentTime = 0;
         return;
     }
-    indiceAtual = (indiceAtual - 1 + fila.length) % fila.length;
+    // Se já passou mais de 3 segundos, volta ao início da música atual
+    if (audio.currentTime > 3 && repeatMode !== 'one') {
+        audio.currentTime = 0;
+        return;
+    }
+    indiceAtual = anterior;
     tocarMusicaPorId(fila[indiceAtual]);
 }
 
 function definirFila(listaIds) {
-    fila = listaIds;
+    filaOriginal = [...listaIds];
+    fila = [...listaIds];
     indiceAtual = 0;
+    salvarEstadoPlayer();
 }
 
 // ==================================================
@@ -211,6 +315,55 @@ function formatarTempo(segundos) {
     const min = Math.floor(segundos / 60);
     const sec = Math.floor(segundos % 60);
     return min + ':' + String(sec).padStart(2, '0');
+}
+
+// ==================================================
+// PERSISTÊNCIA DO ESTADO
+// ==================================================
+
+function salvarEstadoPlayer() {
+    const estado = {
+        shuffle: shuffle,
+        repeatMode: repeatMode,
+        filaOriginal: filaOriginal,
+        volume: audio.volume
+    };
+    sessionStorage.setItem('playerEstado', JSON.stringify(estado));
+}
+
+function carregarEstadoPlayer() {
+    const saved = sessionStorage.getItem('playerEstado');
+    if (saved) {
+        try {
+            const estado = JSON.parse(saved);
+            shuffle = estado.shuffle || false;
+            repeatMode = estado.repeatMode || 'none';
+            filaOriginal = estado.filaOriginal || [];
+            
+            // Restaura volume
+            if (estado.volume !== undefined) {
+                audio.volume = estado.volume;
+                volumeSlider.value = estado.volume * 100;
+            }
+            
+            // Atualiza UI dos botões
+            const btnShuffle = document.getElementById('btn-shuffle');
+            if (btnShuffle && shuffle) {
+                btnShuffle.classList.add('btn-shuffle-active');
+            }
+            
+            const btnRepeat = document.getElementById('btn-repeat');
+            if (btnRepeat) {
+                if (repeatMode === 'one') {
+                    btnRepeat.classList.add('btn-repeat-one-active');
+                } else if (repeatMode === 'all') {
+                    btnRepeat.classList.add('btn-repeat-active');
+                }
+            }
+        } catch (e) {
+            console.warn('Erro ao carregar estado do player:', e);
+        }
+    }
 }
 
 // ==================================================
@@ -245,4 +398,25 @@ progressBar.addEventListener('input', function() {
 // Volume
 volumeSlider.addEventListener('input', function() {
     audio.volume = this.value / 100;
+    salvarEstadoPlayer();
+});
+
+// ==================================================
+// EVENT LISTENERS PARA SHUFFLE E REPETIÇÃO
+// ==================================================
+
+const btnShuffle = document.getElementById('btn-shuffle');
+const btnRepeat = document.getElementById('btn-repeat');
+
+if (btnShuffle) {
+    btnShuffle.addEventListener('click', toggleShuffle);
+}
+
+if (btnRepeat) {
+    btnRepeat.addEventListener('click', toggleRepeat);
+}
+
+// Carrega o estado salvo ao iniciar
+document.addEventListener('DOMContentLoaded', function() {
+    carregarEstadoPlayer();
 });

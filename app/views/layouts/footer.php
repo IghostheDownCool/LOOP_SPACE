@@ -32,7 +32,11 @@
 
         <audio id="player"></audio>
 
+        <!-- Novos controles com botões de Aleatório e Repetir incluídos -->
         <div class="player-controls">
+            <button id="btn-shuffle" class="btn btn-cinza" title="Aleatório">
+                <i class="bi bi-shuffle"></i>
+            </button>
 
             <button id="btn-prev" class="btn btn-cinza">
                 <i class="bi bi-skip-start-fill"></i>
@@ -46,10 +50,14 @@
                 <i class="bi bi-skip-end-fill"></i>
             </button>
 
+            <button id="btn-repeat" class="btn btn-cinza" title="Repetir">
+                <i class="bi bi-arrow-repeat"></i>
+            </button>
         </div>
 
         <div class="player-progress">
 
+        
     <span id="tempo-atual">
         0:00
     </span>

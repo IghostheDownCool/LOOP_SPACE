@@ -248,4 +248,16 @@ public function maisSeguidos(int $limite = 5): array
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+public function listarSeguidores(int $artistaId): array
+{
+    $sql = "
+        SELECT usuario_id
+        FROM seguidores_artistas
+        WHERE artista_id = :artista_id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':artista_id' => $artistaId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

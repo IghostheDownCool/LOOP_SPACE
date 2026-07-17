@@ -55,6 +55,22 @@ class MusicasController extends AdminController
 
         die('Não foi possível salvar o arquivo.');
 
+        // Após salvar a música
+if ($musicaModel->cadastrar(...)) {
+    // Notificar seguidores do artista
+    $artistaModel = new Artista();
+    $seguidores = $artistaModel->listarSeguidores($artistaId);
+
+    $notificacaoModel = new Notificacao();
+    foreach ($seguidores as $seguidor) {
+        $notificacaoModel->criar(
+            $seguidor['usuario_id'],
+            'nova_musica',
+            "O artista {$artistaNome} lançou uma nova música: {$titulo}",
+            "/artista/ver/{$artistaId}"
+        );
+    }
+}
     }
 
     $musica->cadastrar(

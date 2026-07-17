@@ -67,6 +67,28 @@
 
 </head>
 
+<script>
+    function atualizarNotificacoes() {
+        fetch('<?= BASE_URL ?>/notificacoes/contar')
+            .then(response => response.json())
+            .then(data => {
+                const badge = document.getElementById('notificacao-badge');
+                if (data.total > 0) {
+                    badge.textContent = data.total > 99 ? '99+' : data.total;
+                    badge.style.display = 'inline-block';
+                } else {
+                    badge.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Erro ao buscar notificações:', error));
+    }
+
+    // Atualiza a cada 30 segundos
+    setInterval(atualizarNotificacoes, 30000);
+    // Atualiza ao carregar a página
+    document.addEventListener('DOMContentLoaded', atualizarNotificacoes);
+</script>
+
 <body>
 
 <div class="container-fluid">
@@ -121,6 +143,12 @@
                     <i class="bi bi-speedometer2"></i>
                     Painel
                 </a>
+
+                <a class="nav-link position-relative" href="<?= BASE_URL ?>/notificacoes">
+    <i class="bi bi-bell"></i>
+    Notificações
+    <span id="notificacao-badge" class="badge bg-danger rounded-pill" style="display: none; font-size: 0.6rem; position: absolute; top: 2px; right: 2px;">0</span>
+</a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/logout">
                     <i class="bi bi-box-arrow-right"></i>

@@ -149,6 +149,11 @@
                     Início
                 </a>
 
+                <a class="nav-link" href="<?= BASE_URL ?>/artistas">
+    <i class="bi bi-person"></i>
+    Artistas
+</a>
+
                 <a class="nav-link" href="<?= BASE_URL ?>/player">
                     <i class="bi bi-music-note-list"></i>
                     Player

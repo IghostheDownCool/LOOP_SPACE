@@ -5,9 +5,15 @@ class Artista extends Model
     public function listar(): array
 {
     $sql = "
-        SELECT id, nome, foto
+        SELECT
+            artistas.*,
+            (
+                SELECT COUNT(*) 
+                FROM albuns 
+                WHERE albuns.artista_id = artistas.id
+            ) AS total_albuns
         FROM artistas
-        ORDER BY nome ASC
+        ORDER BY artistas.nome ASC
     ";
 
     $stmt = $this->pdo->prepare($sql);
@@ -87,11 +93,18 @@ class Artista extends Model
     $sql = "
         SELECT
             artistas.*,
-            COUNT(DISTINCT albuns.id) AS total_albuns,
-            COUNT(DISTINCT musicas.id) AS total_musicas
+            (
+                SELECT COUNT(*) 
+                FROM albuns 
+                WHERE albuns.artista_id = artistas.id
+            ) AS total_albuns,
+            (
+                SELECT COUNT(*) 
+                FROM musicas 
+                INNER JOIN albuns ON albuns.id = musicas.album_id
+                WHERE albuns.artista_id = artistas.id
+            ) AS total_musicas
         FROM artistas
-        LEFT JOIN albuns ON albuns.artista_id = artistas.id
-        LEFT JOIN musicas ON musicas.album_id = albuns.id
         WHERE artistas.id = :id
         GROUP BY artistas.id
     ";

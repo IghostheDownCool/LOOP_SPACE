@@ -196,6 +196,8 @@
         <p>Gerencie suas informações pessoais</p>
     </div>
 
+    
+
     <!-- =============================================
          INFORMAÇÕES DO USUÁRIO
          ============================================= -->
@@ -233,6 +235,41 @@
             <span class="value"><?= date('d/m/Y', strtotime($usuario['data_cadastro'] ?? 'now')) ?></span>
         </div>
     </div>
+
+    <!-- =============================================
+     ESTATÍSTICAS DO USUÁRIO
+     ============================================= -->
+<div class="profile-card">
+    <h3><i class="bi bi-graph-up"></i> Estatísticas</h3>
+    
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-icon"><i class="bi bi-clock-history"></i></div>
+            <div class="stat-value"><?= $tempoFormatado ?></div>
+            <div class="stat-label">Tempo ouvido</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon"><i class="bi bi-music-note"></i></div>
+            <div class="stat-value"><?= $totalMusicasOuvidas ?></div>
+            <div class="stat-label">Músicas ouvidas</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon"><i class="bi bi-heart-fill" style="color: #ff6b6b;"></i></div>
+            <div class="stat-value"><?= $totalCurtidas ?></div>
+            <div class="stat-label">Músicas curtidas</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon"><i class="bi bi-collection-play-fill" style="color: #1db954;"></i></div>
+            <div class="stat-value"><?= $totalPlaylists ?></div>
+            <div class="stat-label">Playlists criadas</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-icon"><i class="bi bi-people-fill" style="color: #ffd700;"></i></div>
+            <div class="stat-value"><?= $totalArtistasSeguidos ?></div>
+            <div class="stat-label">Artistas seguidos</div>
+        </div>
+    </div>
+</div>
 
     <!-- =============================================
          ALTERAR NOME
@@ -301,32 +338,6 @@
     </div>
 </div>
 
-<!-- =============================================
-     ESTATÍSTICAS DO USUÁRIO
-     ============================================= -->
-<div class="profile-card">
-    <h3><i class="bi bi-graph-up"></i> Estatísticas</h3>
-    
-    <div class="profile-info-row">
-        <span class="label">⏱️ Tempo total ouvido</span>
-        <span class="value"><?= $tempoFormatado ?></span>
-    </div>
-    <div class="profile-info-row">
-        <span class="label">🎵 Músicas ouvidas</span>
-        <span class="value"><?= count($usuario['historico'] ?? []) ?></span>
-    </div>
-    <div class="profile-info-row">
-        <span class="label">❤️ Músicas curtidas</span>
-        <span class="value"><?= (new Curtida())->contarPorUsuario($_SESSION['usuario_id']) ?></span>
-    </div>
-    <div class="profile-info-row">
-        <span class="label">📂 Playlists criadas</span>
-        <span class="value"><?= (new Playlist())->contarPorUsuario($_SESSION['usuario_id']) ?></span>
-    </div>
-    <div class="profile-info-row">
-        <span class="label">👥 Artistas seguidos</span>
-        <span class="value"><?= (new Artista())->contarSeguidos($_SESSION['usuario_id']) ?></span>
-    </div>
-</div>
+
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

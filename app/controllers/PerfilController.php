@@ -6,17 +6,26 @@ class PerfilController extends Controller
 {
     $this->requireLogin();
 
+    $usuarioId = $_SESSION['usuario_id'];
+
     $usuarioModel = new Usuario();
-    $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+    $usuario = $usuarioModel->buscarPorId($usuarioId);
 
-    // 🔥 Calcula o tempo total ouvido
+    // 🔥 Busca todas as estatísticas
     $historicoModel = new Historico();
-    $totalSegundos = $historicoModel->tempoTotalOuvido($_SESSION['usuario_id']);
+    $curtidaModel = new Curtida();
+    $playlistModel = new Playlist();
+    $artistaModel = new Artista();
 
-    // 🔥 Formata o tempo
+    $totalSegundos = $historicoModel->tempoTotalOuvido($usuarioId);
+    $totalMusicasOuvidas = $historicoModel->contarMusicasOuvidas($usuarioId);
+    $totalCurtidas = $curtidaModel->contarPorUsuario($usuarioId);
+    $totalPlaylists = $playlistModel->contarPorUsuario($usuarioId);
+    $totalArtistasSeguidos = $artistaModel->contarSeguidos($usuarioId);
+
+    // Formata o tempo
     $horas = floor($totalSegundos / 3600);
     $minutos = floor(($totalSegundos % 3600) / 60);
-    
     $tempoFormatado = '';
     if ($horas > 0) {
         $tempoFormatado .= $horas . 'h ';
@@ -27,8 +36,10 @@ class PerfilController extends Controller
         'usuario' => $usuario,
         'totalSegundos' => $totalSegundos,
         'tempoFormatado' => $tempoFormatado,
-        'horas' => $horas,
-        'minutos' => $minutos
+        'totalMusicasOuvidas' => $totalMusicasOuvidas,
+        'totalCurtidas' => $totalCurtidas,
+        'totalPlaylists' => $totalPlaylists,
+        'totalArtistasSeguidos' => $totalArtistasSeguidos
     ]);
 }
 

@@ -93,4 +93,12 @@ public function tempoTotalOuvido(int $usuarioId): int
     
     return (int) ($result['total_segundos'] ?? 0);
 }
+
+public function contarMusicasOuvidas(int $usuarioId): int
+{
+    $sql = "SELECT COUNT(*) as total FROM historico WHERE usuario_id = :usuario_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':usuario_id' => $usuarioId]);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
 }

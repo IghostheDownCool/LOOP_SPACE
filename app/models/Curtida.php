@@ -126,4 +126,6 @@ public function contarPorUsuario(int $usuarioId): int
     return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
+
+
 }

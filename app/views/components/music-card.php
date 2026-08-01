@@ -56,6 +56,12 @@
 
 </div>
 
+<?php if (!empty($musica['genero'])): ?>
+    <p class="album">
+        <?= htmlspecialchars($musica['genero']) ?>
+    </p>
+<?php endif; ?>
+
 <!-- MODAL - Lista de Playlists -->
 <div class="modal fade" id="modalPlaylists" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">

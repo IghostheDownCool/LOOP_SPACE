@@ -154,6 +154,11 @@
     Artistas
 </a>
 
+<a class="nav-link" href="<?= BASE_URL ?>/generos">
+    <i class="bi bi-tags"></i>
+    Gêneros
+</a>
+
                 <a class="nav-link" href="<?= BASE_URL ?>/player">
                     <i class="bi bi-music-note-list"></i>
                     Player

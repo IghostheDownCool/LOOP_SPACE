@@ -80,7 +80,8 @@ if ($musicaModel->cadastrar(...)) {
         $albumId,
         $numeroFaixa,
         $duracao,
-        $nomeArquivo
+        $nomeArquivo,
+        $genero
     );
 
     $this->redirect('/admin/musicas');
@@ -104,6 +105,8 @@ if ($musicaModel->cadastrar(...)) {
         $albumId = (int) $_POST['album_id'];
         $numeroFaixa = (int) $_POST['numero_faixa'];
         $duracao = (int) $_POST['duracao'];
+        $genero = trim($_POST['genero'] ?? '');
+        $genero = trim($_POST['genero'] ?? '');
 
         if ($titulo !== '') {
 
@@ -112,7 +115,8 @@ if ($musicaModel->cadastrar(...)) {
                 $titulo,
                 $albumId,
                 $numeroFaixa,
-                $duracao
+                $duracao,
+                $genero
             );
 
             $this->redirect('/admin/musicas');

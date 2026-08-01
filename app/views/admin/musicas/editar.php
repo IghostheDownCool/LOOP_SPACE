@@ -65,6 +65,19 @@
 
     <br><br>
 
+<div class="mb-3">
+    <label for="genero" class="form-label">Gênero</label>
+    <input
+        type="text"
+        class="form-control"
+        id="genero"
+        name="genero"
+        placeholder="Ex: Rock, Pop, MPB, Eletrônica..."
+        value="<?= $musica['genero'] ?? '' ?>"
+    >
+    <small class="text-muted">Deixe em branco se não quiser definir um gênero.</small>
+</div>
+
     <input
         type="number"
         name="duracao"

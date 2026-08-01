@@ -39,7 +39,8 @@ class Musica
     int $albumId,
     int $numeroFaixa,
     int $duracao,
-    string $arquivo
+    string $arquivo,
+    ?string $genero = null
 ): bool {
 
     $sql = "
@@ -49,7 +50,8 @@ class Musica
             titulo,
             numero_faixa,
             duracao,
-            arquivo
+            arquivo,
+            genero
         )
         VALUES
         (
@@ -57,7 +59,8 @@ class Musica
             :titulo,
             :numero_faixa,
             :duracao,
-            :arquivo
+            :arquivo,
+            :genero
         )
     ";
 
@@ -68,7 +71,8 @@ class Musica
         ':titulo' => $titulo,
         ':numero_faixa' => $numeroFaixa,
         ':duracao' => $duracao,
-        ':arquivo' => $arquivo
+        ':arquivo' => $arquivo,
+        ':genero' => $genero
     ]);
 }
 
@@ -96,33 +100,36 @@ class Musica
 }
 
     public function atualizar(
-        int $id,
-        string $titulo,
-        int $albumId,
-        int $numeroFaixa,
-        int $duracao
-    ): bool {
+    int $id,
+    string $titulo,
+    int $albumId,
+    int $numeroFaixa,
+    int $duracao,
+    ?string $genero = null
+): bool {
 
-        $sql = "
-            UPDATE musicas
-            SET
-                album_id = :album_id,
-                titulo = :titulo,
-                numero_faixa = :numero_faixa,
-                duracao = :duracao
-            WHERE id = :id
-        ";
+    $sql = "
+        UPDATE musicas
+        SET
+            album_id = :album_id,
+            titulo = :titulo,
+            numero_faixa = :numero_faixa,
+            duracao = :duracao,
+            genero = :genero
+        WHERE id = :id
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->pdo->prepare($sql);
 
-        return $stmt->execute([
-            ':id' => $id,
-            ':album_id' => $albumId,
-            ':titulo' => $titulo,
-            ':numero_faixa' => $numeroFaixa,
-            ':duracao' => $duracao
-        ]);
-    }
+    return $stmt->execute([
+        ':id' => $id,
+        ':album_id' => $albumId,
+        ':titulo' => $titulo,
+        ':numero_faixa' => $numeroFaixa,
+        ':duracao' => $duracao,
+        ':genero' => $genero
+    ]);
+}
 
     public function excluir(int $id): bool
     {
@@ -285,4 +292,41 @@ public function contar(): int
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function listarPorGenero(string $genero): array
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista,
+            artistas.id AS artista_id,
+            albuns.id AS album_id
+        FROM musicas
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE musicas.genero = :genero
+        ORDER BY artistas.nome ASC,
+                 albuns.titulo ASC,
+                 musicas.numero_faixa ASC
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':genero' => $genero]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function listarGeneros(): array
+{
+    $sql = "
+        SELECT DISTINCT genero
+        FROM musicas
+        WHERE genero IS NOT NULL AND genero != ''
+        ORDER BY genero ASC
+    ";
+
+    $stmt = $this->pdo->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
 }

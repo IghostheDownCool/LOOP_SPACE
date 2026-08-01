@@ -115,6 +115,33 @@ if (isset($segments[0]) && $segments[0] === 'perfil') {
     return;
 }
 
+// ==================================================
+// ROTA PARA ARTISTAS SEGUIDOS
+// ==================================================
+if (isset($segments[0]) && $segments[0] === 'seguindo') {
+    $controllerName = 'SeguindoController';
+    $method = $segments[1] ?? 'index';
+    $params = array_slice($segments, 2);
+    
+    $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
+    if (!file_exists($controllerFile)) {
+        die('Controller não encontrado.');
+    }
+    require_once $controllerFile;
+    
+    if (!class_exists($controllerName)) {
+        die('Controller não encontrado.');
+    }
+    
+    $controller = new $controllerName();
+    if (!method_exists($controller, $method)) {
+        die('Método não encontrado.');
+    }
+    
+    call_user_func_array([$controller, $method], $params);
+    return;
+}
+
         // ==================================================
         // ROTA PARA PLAYLIST PÚBLICA
         // ==================================================

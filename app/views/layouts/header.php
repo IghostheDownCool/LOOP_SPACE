@@ -174,6 +174,11 @@
                     Top Músicas
                 </a>
 
+                <a class="nav-link" href="<?= BASE_URL ?>/seguindo">
+    <i class="bi bi-people"></i>
+    Seguindo
+</a>
+
                 <?php if (isset($_SESSION['usuario_id'])): ?>
     <?php
     $usuarioModel = new Usuario();

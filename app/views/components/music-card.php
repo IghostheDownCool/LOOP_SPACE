@@ -43,15 +43,16 @@
     <!-- Botão para abrir o modal de adicionar à playlist -->
     <div class="music-actions">
         <button
-            class="btn btn-sm btn-outline-light btn-add-playlist"
-            data-musica-id="<?= $musica['id'] ?>"
-            data-musica-titulo="<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>"
-            data-bs-toggle="modal"
-            data-bs-target="#modalPlaylists"
-            onclick="event.stopPropagation();"
-        >
-            <i class="bi bi-plus-circle"></i>
-        </button>
+    class="btn-add-playlist"
+    data-musica-id="<?= $musica['id'] ?>"
+    data-musica-titulo="<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>"
+    data-bs-toggle="modal"
+    data-bs-target="#modalPlaylists"
+    onclick="event.stopPropagation();"
+    style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; background: var(--bg-card-hover); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; padding: 0; flex-shrink: 0;"
+>
+    <i class="bi bi-plus-circle" style="font-size: 1rem;"></i>
+</button>
     </div>
 
 </div>

@@ -206,4 +206,9 @@ public function publica(string $token): void
         'musicas' => $musicas
     ]);
 }
+
+public function criar(): void
+{
+    $this->cadastrar();
+}
 }

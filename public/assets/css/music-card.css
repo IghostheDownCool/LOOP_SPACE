@@ -183,3 +183,30 @@
 [data-theme="dark"] .modal-content.bg-card .btn-close {
     --btn-close-filter: invert(1);
 }
+
+.btn-add-playlist {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    background: var(--bg-card-hover) !important;
+    color: var(--text-secondary) !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.btn-add-playlist:hover {
+    background: #1db954 !important;
+    color: #fff !important;
+}
+
+.btn-add-playlist i {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+}

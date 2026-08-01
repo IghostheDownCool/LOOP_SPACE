@@ -1322,3 +1322,40 @@ section {
         font-size: 1.2rem;
     }
 }
+
+/* ==================================================
+   FILTRO POR GÊNERO
+   ================================================== */
+
+.genero-filtro .btn {
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.genero-filtro .btn-verde {
+    background: #1db954;
+    color: #fff;
+    border-color: #1db954;
+}
+
+.genero-filtro .btn-verde:hover {
+    background: #1ed760;
+    border-color: #1ed760;
+}
+
+.genero-filtro .btn-cinza {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.genero-filtro .btn-cinza:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+    border-color: #1db954;
+}

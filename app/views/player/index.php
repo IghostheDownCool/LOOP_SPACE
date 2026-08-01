@@ -439,6 +439,20 @@ $curtidaModel = new Curtida();
             </div>
         <?php else: ?>
 
+            <!-- Filtro por Gênero -->
+<?php if (!empty($generos)): ?>
+    <div class="genero-filtro mb-4 d-flex flex-wrap gap-2">
+        <a href="<?= BASE_URL ?>/player" class="btn <?= empty($generoAtual) ? 'btn-verde' : 'btn-cinza' ?>">
+            Todos
+        </a>
+        <?php foreach ($generos as $g): ?>
+            <a href="<?= BASE_URL ?>/player/genero/<?= urlencode($g) ?>" class="btn <?= $generoAtual === $g ? 'btn-verde' : 'btn-cinza' ?>">
+                <?= htmlspecialchars($g) ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
         <div class="musicas-grid" id="player-list">
             <?php foreach ($musicas as $musica): ?>
                 <div

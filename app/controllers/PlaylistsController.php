@@ -51,6 +51,17 @@ public function ver(int $id)
 
     $dadosPlaylist = $playlist->buscarPorId($id);
 
+        // 🔥 SALVAR NO HISTÓRICO DE NAVEGAÇÃO
+    $historicoNav = new HistoricoNavegacao();
+    $historicoNav->salvar(
+        $_SESSION['usuario_id'],
+        'playlist',
+        $playlist['id'],
+        $playlist['nome'],
+        '/playlists/ver/' . $playlist['id'],
+        null
+    );
+
     if (!$dadosPlaylist) {
 
         die('Playlist não encontrada.');

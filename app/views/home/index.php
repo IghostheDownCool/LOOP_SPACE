@@ -5,6 +5,51 @@
     <p class="text-muted">Aqui estão algumas sugestões para você.</p>
 </div>
 
+<!-- Seção: Continuar Navegando -->
+<?php if (!empty($historicoNavegacao)): ?>
+    <h2 class="mt-4 mb-3">
+        <i class="bi bi-clock-history" style="color: #1db954;"></i>
+        Continuar navegando
+    </h2>
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3 mb-4">
+        <?php foreach ($historicoNavegacao as $item): ?>
+            <div class="col">
+                <a href="<?= BASE_URL . $item['link'] ?>" class="text-decoration-none">
+                    <div class="card bg-card text-center h-100">
+                        <?php if ($item['imagem']): ?>
+                            <img
+                                src="<?= BASE_URL ?>/uploads/<?= $item['tipo'] === 'artista' ? 'artistas' : 'capas' ?>/<?= htmlspecialchars($item['imagem']) ?>"
+                                alt="<?= htmlspecialchars($item['titulo']) ?>"
+                                class="card-img-top"
+                                style="aspect-ratio: 1; object-fit: cover;"
+                                onerror="this.src='<?= BASE_URL ?>/assets/images/default-cover.png'"
+                            >
+                        <?php else: ?>
+                            <div class="card-img-top d-flex align-items-center justify-content-center" style="aspect-ratio: 1; background: var(--bg-secondary);">
+                                <?php if ($item['tipo'] === 'playlist'): ?>
+                                    <i class="bi bi-collection-play" style="font-size: 2.5rem; color: #1db954;"></i>
+                                <?php elseif ($item['tipo'] === 'genero'): ?>
+                                    <i class="bi bi-tag" style="font-size: 2.5rem; color: #ffd700;"></i>
+                                <?php else: ?>
+                                    <i class="bi bi-music-note" style="font-size: 2.5rem; color: var(--text-muted);"></i>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="card-body py-2">
+                            <h6 class="text-primary mb-0" style="font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <?= htmlspecialchars($item['titulo']) ?>
+                            </h6>
+                            <small class="text-muted" style="font-size: 0.65rem; text-transform: capitalize;">
+                                <?= $item['tipo'] === 'artista' ? 'Artista' : ($item['tipo'] === 'album' ? 'Álbum' : ($item['tipo'] === 'playlist' ? 'Playlist' : 'Gênero')) ?>
+                            </small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
 <!-- Seção de Recomendações -->
 <?php if (!empty($recomendacoes)): ?>
     <h2 class="mt-4 mb-3">

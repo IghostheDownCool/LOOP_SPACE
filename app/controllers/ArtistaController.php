@@ -9,6 +9,17 @@ class ArtistaController extends Controller
         $artistaModel = new Artista();
         $artista = $artistaModel->buscarCompleto($id);
 
+            // 🔥 SALVAR NO HISTÓRICO DE NAVEGAÇÃO
+    $historicoNav = new HistoricoNavegacao();
+    $historicoNav->salvar(
+        $_SESSION['usuario_id'],
+        'artista',
+        $artista['id'],
+        $artista['nome'],
+        '/artista/ver/' . $artista['id'],
+        $artista['foto'] ?? null
+    );
+
         if (!$artista) {
             die('Artista não encontrado.');
         }

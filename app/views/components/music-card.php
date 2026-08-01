@@ -58,9 +58,11 @@
 </div>
 
 <?php if (!empty($musica['genero'])): ?>
-    <p class="album">
-        <?= htmlspecialchars($musica['genero']) ?>
+    <?php if (!empty($musica['genero'])): ?>
+    <p class="genero">
+        <i class="bi bi-tag"></i> <?= htmlspecialchars($musica['genero']) ?>
     </p>
+<?php endif; ?>
 <?php endif; ?>
 
 <!-- MODAL - Lista de Playlists -->

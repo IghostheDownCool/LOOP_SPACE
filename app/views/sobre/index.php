@@ -1,68 +1,273 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
-<div class="page-header">
-    <h1><i class="bi bi-info-circle text-success"></i> Sobre o Loop Space</h1>
-    <p class="text-muted">Um projeto de streaming de música inspirado no Spotify</p>
-</div>
+<style>
+/* ==================================================
+   PÁGINA SOBRE
+   ================================================== */
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="card bg-dark text-light">
-            <div class="card-body">
-                <h5>🎵 O que é o Loop Space?</h5>
-                <p>
-                    O Loop Space é um projeto de estudo desenvolvido em PHP puro, com arquitetura MVC,
-                    que simula um serviço de streaming de música. O projeto foi criado com o objetivo
-                    de praticar conceitos de programação web, banco de dados e boas práticas de desenvolvimento.
-                </p>
+.sobre-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
 
-                <h5 class="mt-4">🛠️ Tecnologias utilizadas</h5>
-                <ul>
-                    <li><strong>Backend:</strong> PHP 8+ (puro, sem frameworks)</li>
-                    <li><strong>Banco de Dados:</strong> MySQL com PDO</li>
-                    <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript Vanilla</li>
-                    <li><strong>CSS Framework:</strong> Bootstrap 5</li>
-                    <li><strong>Ícones:</strong> Bootstrap Icons</li>
-                    <li><strong>Servidor Local:</strong> XAMPP</li>
-                </ul>
+.sobre-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
 
-                <h5 class="mt-4">📋 Funcionalidades</h5>
-                <ul>
-                    <li>✅ Player global com controles (play/pause, próximo, anterior)</li>
-                    <li>✅ Modos shuffle e repeat</li>
-                    <li>✅ Criação e gerenciamento de playlists</li>
-                    <li>✅ Barra de pesquisa global</li>
-                    <li>✅ Páginas de artista e álbum</li>
-                    <li>✅ Sistema de curtidas e histórico</li>
-                    <li>✅ Recomendações personalizadas</li>
-                    <li>✅ Seguir artistas</li>
-                    <li>✅ Compartilhar playlists</li>
-                    <li>✅ Área administrativa com dashboard</li>
-                    <li>✅ Sistema de notificações</li>
-                </ul>
-            </div>
+.sobre-header h1 {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.sobre-header .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin: 8px 0 0 0;
+}
+
+.sobre-header .version {
+    display: inline-block;
+    background: var(--bg-card-hover);
+    color: var(--text-muted);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-top: 8px;
+}
+
+/* Cards de estatísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: #1db954;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.stat-card .stat-icon {
+    font-size: 1.8rem;
+    color: #1db954;
+    margin-bottom: 4px;
+}
+
+.stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.stat-card .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Seção de informações */
+.sobre-info {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+}
+
+.sobre-info h2 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sobre-info h2 i {
+    color: #1db954;
+}
+
+.sobre-info p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 12px 0;
+}
+
+.sobre-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.sobre-info ul li {
+    color: var(--text-secondary);
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.sobre-info ul li i {
+    color: #1db954;
+    font-size: 1rem;
+    width: 20px;
+}
+
+/* Tema claro */
+[data-theme="light"] .stat-card {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .stat-card .stat-number {
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .sobre-info {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .sobre-info ul li {
+    border-bottom-color: #eeeeee;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .sobre-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .stat-card .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .sobre-info ul {
+        grid-template-columns: 1fr;
+    }
+
+    .sobre-info {
+        padding: 20px;
+    }
+}
+</style>
+
+<div class="sobre-container">
+    <!-- Cabeçalho -->
+    <div class="sobre-header">
+        <h1>🎵 Loop Space</h1>
+        <p class="subtitle">Uma plataforma de streaming de música inspirada no Spotify</p>
+        <span class="version">📌 Versão 2.0</span>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-music-note"></i></div>
+            <div class="stat-number"><?= number_format($totalMusicas, 0, ',', '.') ?></div>
+            <div class="stat-label">Músicas</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-person"></i></div>
+            <div class="stat-number"><?= number_format($totalArtistas, 0, ',', '.') ?></div>
+            <div class="stat-label">Artistas</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-collection"></i></div>
+            <div class="stat-number"><?= number_format($totalAlbuns, 0, ',', '.') ?></div>
+            <div class="stat-label">Álbuns</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-collection-play"></i></div>
+            <div class="stat-number"><?= number_format($totalPlaylists, 0, ',', '.') ?></div>
+            <div class="stat-label">Playlists</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-people"></i></div>
+            <div class="stat-number"><?= number_format($totalUsuarios, 0, ',', '.') ?></div>
+            <div class="stat-label">Usuários</div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card bg-dark text-light">
-            <div class="card-body">
-                <h5>📊 Estatísticas</h5>
-                <p>
-                    <i class="bi bi-people"></i> <?= (new Usuario())->contar() ?> usuários<br>
-                    <i class="bi bi-music-note"></i> <?= (new Musica())->contar() ?> músicas<br>
-                    <i class="bi bi-person"></i> <?= (new Artista())->contar() ?> artistas<br>
-                    <i class="bi bi-collection"></i> <?= (new Album())->contar() ?> álbuns<br>
-                    <i class="bi bi-collection-play"></i> <?= (new Playlist())->contar() ?> playlists
-                </p>
-                <hr>
-                <p class="text-muted small">
-                    <strong>Versão:</strong> 2.0<br>
-                    <strong>Desenvolvido por:</strong> Estudante de PHP<br>
-                    <strong>Repositório:</strong> <a href="#" class="text-success">GitHub</a>
-                </p>
-            </div>
-        </div>
+    <!-- Sobre o projeto -->
+    <div class="sobre-info">
+        <h2><i class="bi bi-info-circle"></i> Sobre o Projeto</h2>
+        <p>
+            O <strong>Loop Space</strong> é um projeto de estudo desenvolvido em <strong>PHP puro</strong> 
+            com arquitetura <strong>MVC</strong>, que simula um serviço de streaming de música. 
+            O projeto foi criado com o objetivo de praticar conceitos de programação web, 
+            banco de dados e boas práticas de desenvolvimento.
+        </p>
+    </div>
+
+    <!-- Tecnologias -->
+    <div class="sobre-info">
+        <h2><i class="bi bi-code-square"></i> Tecnologias Utilizadas</h2>
+        <ul>
+            <li><i class="bi bi-check-circle-fill"></i> PHP 8+ (puro, sem frameworks)</li>
+            <li><i class="bi bi-check-circle-fill"></i> MySQL com PDO</li>
+            <li><i class="bi bi-check-circle-fill"></i> HTML5, CSS3, JavaScript Vanilla</li>
+            <li><i class="bi bi-check-circle-fill"></i> Bootstrap 5</li>
+            <li><i class="bi bi-check-circle-fill"></i> Bootstrap Icons</li>
+            <li><i class="bi bi-check-circle-fill"></i> XAMPP (servidor local)</li>
+        </ul>
+    </div>
+
+    <!-- Funcionalidades -->
+    <div class="sobre-info">
+        <h2><i class="bi bi-list-check"></i> Funcionalidades</h2>
+        <ul>
+            <li><i class="bi bi-check-circle-fill"></i> Player global com controles</li>
+            <li><i class="bi bi-check-circle-fill"></i> Modos shuffle e repeat</li>
+            <li><i class="bi bi-check-circle-fill"></i> Criação e gerenciamento de playlists</li>
+            <li><i class="bi bi-check-circle-fill"></i> Barra de pesquisa global</li>
+            <li><i class="bi bi-check-circle-fill"></i> Páginas de artista e álbum</li>
+            <li><i class="bi bi-check-circle-fill"></i> Sistema de curtidas e histórico</li>
+            <li><i class="bi bi-check-circle-fill"></i> Recomendações personalizadas</li>
+            <li><i class="bi bi-check-circle-fill"></i> Seguir artistas</li>
+            <li><i class="bi bi-check-circle-fill"></i> Compartilhar playlists</li>
+            <li><i class="bi bi-check-circle-fill"></i> Área administrativa com dashboard</li>
+            <li><i class="bi bi-check-circle-fill"></i> Sistema de notificações</li>
+            <li><i class="bi bi-check-circle-fill"></i> Modo escuro/claro</li>
+            <li><i class="bi bi-check-circle-fill"></i> Upload de avatar</li>
+            <li><i class="bi bi-check-circle-fill"></i> Sistema de comentários</li>
+        </ul>
+    </div>
+
+    <!-- Créditos -->
+    <div class="sobre-info">
+        <h2><i class="bi bi-heart-fill" style="color: #ff6b6b;"></i> Créditos</h2>
+        <p>
+            <strong>Desenvolvido por:</strong> Estudante de PHP<br>
+            <strong>Projeto:</strong> Loop Space - Streaming de Música<br>
+            <strong>Inspirado em:</strong> Spotify
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 12px;">
+            📅 Última atualização: <?= date('d/m/Y') ?>
+        </p>
     </div>
 </div>
 

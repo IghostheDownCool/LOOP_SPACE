@@ -1,4 +1,4 @@
-<div class="music-card">
+<div class="music-card" data-musica-id="<?= $musica['id'] ?>">
 
     <div class="music-play">
         <button
@@ -25,7 +25,10 @@
     </div>
 
     <div class="music-info">
-        <h6><?= htmlspecialchars($musica['titulo']) ?></h6>
+        <<h6>
+    <?= htmlspecialchars($musica['titulo']) ?>
+    <span class="tocando-indicador">▶</span>
+</h6>
         <small>
             <a href="<?= BASE_URL ?>/artista/ver/<?= $musica['artista_id'] ?? 0 ?>" class="music-link">
                 <?= htmlspecialchars($musica['artista']) ?>
@@ -70,3 +73,4 @@
         </div>
     </div>
 </div>
+

@@ -301,4 +301,32 @@
     </div>
 </div>
 
+<!-- =============================================
+     ESTATÍSTICAS DO USUÁRIO
+     ============================================= -->
+<div class="profile-card">
+    <h3><i class="bi bi-graph-up"></i> Estatísticas</h3>
+    
+    <div class="profile-info-row">
+        <span class="label">⏱️ Tempo total ouvido</span>
+        <span class="value"><?= $tempoFormatado ?></span>
+    </div>
+    <div class="profile-info-row">
+        <span class="label">🎵 Músicas ouvidas</span>
+        <span class="value"><?= count($usuario['historico'] ?? []) ?></span>
+    </div>
+    <div class="profile-info-row">
+        <span class="label">❤️ Músicas curtidas</span>
+        <span class="value"><?= (new Curtida())->contarPorUsuario($_SESSION['usuario_id']) ?></span>
+    </div>
+    <div class="profile-info-row">
+        <span class="label">📂 Playlists criadas</span>
+        <span class="value"><?= (new Playlist())->contarPorUsuario($_SESSION['usuario_id']) ?></span>
+    </div>
+    <div class="profile-info-row">
+        <span class="label">👥 Artistas seguidos</span>
+        <span class="value"><?= (new Artista())->contarSeguidos($_SESSION['usuario_id']) ?></span>
+    </div>
+</div>
+
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

@@ -269,4 +269,12 @@ public function contar(): int
     $stmt = $this->pdo->query($sql);
     return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
+
+public function contarPorUsuario(int $usuarioId): int
+{
+    $sql = "SELECT COUNT(*) as total FROM playlists WHERE usuario_id = :usuario_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':usuario_id' => $usuarioId]);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
 }

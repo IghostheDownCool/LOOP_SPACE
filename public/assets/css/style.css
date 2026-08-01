@@ -1069,3 +1069,179 @@ section {
 [data-theme="light"] .comentario-item .text-primary {
     color: #1db954 !important;
 }
+
+/* ==================================================
+   BOTÃO VOLTAR AO TOPO - CORRIGIDO
+   ================================================== */
+
+.btn-topo {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    max-width: 48px !important;
+    max-height: 48px !important;
+    border-radius: 50% !important;
+    background: #1db954;
+    color: #fff;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(29, 185, 84, 0.4);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 999;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
+
+.btn-topo.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.btn-topo:hover {
+    background: #1ed760;
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 6px 24px rgba(29, 185, 84, 0.5);
+}
+
+.btn-topo:active {
+    transform: scale(0.95);
+}
+
+.btn-topo i {
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 1.5rem !important;
+}
+
+/* Tema claro */
+[data-theme="light"] .btn-topo {
+    background: #1db954;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(29, 185, 84, 0.3);
+}
+
+[data-theme="light"] .btn-topo:hover {
+    background: #1ed760;
+    box-shadow: 0 6px 24px rgba(29, 185, 84, 0.4);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .btn-topo {
+        bottom: 80px !important;
+        right: 16px !important;
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+        min-height: 42px !important;
+        max-width: 42px !important;
+        max-height: 42px !important;
+        font-size: 1.2rem !important;
+    }
+    
+    .btn-topo i {
+        font-size: 1.2rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-topo {
+        bottom: 72px !important;
+        right: 12px !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        max-width: 38px !important;
+        max-height: 38px !important;
+        font-size: 1rem !important;
+    }
+    
+    .btn-topo i {
+        font-size: 1rem !important;
+    }
+}
+
+/* ==================================================
+   INDICADOR "TOCANDO AGORA"
+   ================================================== */
+
+.musica-card-modern.tocando-agora {
+    border-color: #1db954 !important;
+    background: var(--bg-card-hover) !important;
+    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+}
+
+.musica-card-modern.tocando-agora .titulo {
+    color: #1db954 !important;
+}
+
+.musica-card-modern .tocando-indicador {
+    display: none;
+    color: #1db954;
+    font-size: 0.8rem;
+    margin-left: 4px;
+}
+
+.musica-card-modern.tocando-agora .tocando-indicador {
+    display: inline;
+}
+
+/* Animação de pulso para o indicador */
+@keyframes pulse-indicador {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.musica-card-modern.tocando-agora .tocando-indicador {
+    animation: pulse-indicador 1.5s ease-in-out infinite;
+}
+
+/* Para a lista de curtidas */
+.curtida-item.tocando-agora {
+    border-color: #1db954 !important;
+    background: var(--bg-card-hover) !important;
+    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+}
+
+.curtida-item.tocando-agora .titulo {
+    color: #1db954 !important;
+}
+
+/* Para o histórico */
+.historico-item.tocando-agora {
+    border-color: #1db954 !important;
+    background: var(--bg-card-hover) !important;
+    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+}
+
+.historico-item.tocando-agora .titulo {
+    color: #1db954 !important;
+}
+
+/* Para o top músicas */
+.top-item.tocando-agora {
+    border-color: #1db954 !important;
+    background: var(--bg-card-hover) !important;
+    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+}
+
+.top-item.tocando-agora .titulo {
+    color: #1db954 !important;
+}

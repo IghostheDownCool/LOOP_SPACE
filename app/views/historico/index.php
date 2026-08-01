@@ -204,7 +204,7 @@
 
 <div class="historico-list">
     <?php foreach ($historico as $musica): ?>
-        <div class="historico-item">
+        <div class="historico-item" data-musica-id="<?= $musica['id'] ?>">
             <img
                 src="<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa'] ?? 'default-cover.png') ?>"
                 alt="<?= htmlspecialchars($musica['album']) ?>"
@@ -213,7 +213,10 @@
             >
 
             <div class="historico-info">
-                <p class="titulo"><?= htmlspecialchars($musica['titulo']) ?></p>
+                <p class="titulo">
+    <?= htmlspecialchars($musica['titulo']) ?>
+    <span class="tocando-indicador">▶</span>
+</p>
                 <p class="artista"><?= htmlspecialchars($musica['artista']) ?></p>
                 <p class="album"><?= htmlspecialchars($musica['album']) ?></p>
             </div>

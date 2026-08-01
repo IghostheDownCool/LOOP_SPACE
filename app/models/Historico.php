@@ -77,4 +77,20 @@ public function listar(int $usuarioId): array
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function tempoTotalOuvido(int $usuarioId): int
+{
+    $sql = "
+        SELECT SUM(musicas.duracao) as total_segundos
+        FROM historico
+        INNER JOIN musicas ON musicas.id = historico.musica_id
+        WHERE historico.usuario_id = :usuario_id
+    ";
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':usuario_id' => $usuarioId]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    return (int) ($result['total_segundos'] ?? 0);
+}
 }

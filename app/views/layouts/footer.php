@@ -116,6 +116,15 @@
 
 <script src="<?= BASE_URL ?>/assets/js/theme.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/theme.js') ?>"></script>
 
+<!-- ==================================================
+     BOTÃO VOLTAR AO TOPO
+     ================================================== -->
+<button id="btn-topo" class="btn-topo" title="Voltar ao topo">
+    <i class="bi bi-chevron-up"></i>
+</button>
+
+<script src="<?= BASE_URL ?>/assets/js/scroll.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/scroll.js') ?>"></script>
+
 </body>
 
 </html>

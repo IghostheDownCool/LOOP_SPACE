@@ -298,7 +298,7 @@
             $badgeClass = '';
         }
         ?>
-        <div class="top-item">
+        <div class="top-item" data-musica-id="<?= $musica['id'] ?>">
             <div class="top-position <?= $badgeClass ?>">
                 <?= $badge ?>
             </div>
@@ -311,7 +311,10 @@
             >
 
             <div class="top-info">
-                <p class="titulo"><?= htmlspecialchars($musica['titulo']) ?></p>
+                <p class="titulo">
+    <?= htmlspecialchars($musica['titulo']) ?>
+    <span class="tocando-indicador">▶</span>
+</p>
                 <p class="artista"><?= htmlspecialchars($musica['artista']) ?></p>
                 <p class="album"><?= htmlspecialchars($musica['album']) ?></p>
             </div>

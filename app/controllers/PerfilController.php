@@ -9,8 +9,26 @@ class PerfilController extends Controller
     $usuarioModel = new Usuario();
     $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
 
+    // 🔥 Calcula o tempo total ouvido
+    $historicoModel = new Historico();
+    $totalSegundos = $historicoModel->tempoTotalOuvido($_SESSION['usuario_id']);
+
+    // 🔥 Formata o tempo
+    $horas = floor($totalSegundos / 3600);
+    $minutos = floor(($totalSegundos % 3600) / 60);
+    
+    $tempoFormatado = '';
+    if ($horas > 0) {
+        $tempoFormatado .= $horas . 'h ';
+    }
+    $tempoFormatado .= $minutos . 'min';
+
     $this->view('perfil/index', [
-        'usuario' => $usuario
+        'usuario' => $usuario,
+        'totalSegundos' => $totalSegundos,
+        'tempoFormatado' => $tempoFormatado,
+        'horas' => $horas,
+        'minutos' => $minutos
     ]);
 }
 

@@ -260,4 +260,12 @@ public function listarSeguidores(int $artistaId): array
     $stmt->execute([':artista_id' => $artistaId]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function contarSeguidos(int $usuarioId): int
+{
+    $sql = "SELECT COUNT(*) as total FROM seguidores_artistas WHERE usuario_id = :usuario_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':usuario_id' => $usuarioId]);
+    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
 }

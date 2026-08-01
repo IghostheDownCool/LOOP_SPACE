@@ -3,18 +3,18 @@
 class PerfilController extends Controller
 {
     public function index(): void
-    {
-        $this->requireLogin();
+{
+    $this->requireLogin();
 
-        $usuarioModel = new Usuario();
-        $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+    $usuarioModel = new Usuario();
+    $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
 
-        $this->view('perfil/index', [
-            'usuario' => $usuario
-        ]);
-    }
+    $this->view('perfil/index', [
+        'usuario' => $usuario
+    ]);
+}
 
-    public function atualizarAvatar(): void
+public function atualizarNome(): void
 {
     $this->requireLogin();
 
@@ -23,41 +23,71 @@ class PerfilController extends Controller
         exit;
     }
 
-    $usuarioId = $_SESSION['usuario_id'];
+    $nome = trim($_POST['nome'] ?? '');
 
-    // Verifica se o arquivo foi enviado
-    if (!isset($_FILES['avatar']) || $_FILES['avatar']['error'] !== UPLOAD_ERR_OK) {
-        Flash::set('danger', 'Nenhum arquivo foi enviado ou ocorreu um erro.');
+    if (empty($nome)) {
+        Flash::set('danger', 'O nome é obrigatório.');
         header('Location: ' . BASE_URL . '/perfil');
         exit;
     }
 
-    // Upload do avatar
-    $avatar = UploadHelper::upload(
-        $_FILES['avatar'],
-        __DIR__ . '/../../public/uploads/avatars/',
-        ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-        2097152 // 2MB
-    );
-
-    if (!$avatar) {
-        Flash::set('danger', 'Erro ao enviar avatar. Verifique o formato (JPG, PNG, GIF, WEBP) e o tamanho (máx. 2MB).');
-        header('Location: ' . BASE_URL . '/perfil');
-        exit;
-    }
-
-    // Remove avatar antigo se existir
     $usuarioModel = new Usuario();
-    $usuario = $usuarioModel->buscarPorId($usuarioId);
-    if ($usuario['avatar'] && file_exists(__DIR__ . '/../../public/uploads/avatars/' . $usuario['avatar'])) {
-        unlink(__DIR__ . '/../../public/uploads/avatars/' . $usuario['avatar']);
+    if ($usuarioModel->atualizarNome($_SESSION['usuario_id'], $nome)) {
+        $_SESSION['usuario_nome'] = $nome;
+        Flash::set('success', 'Nome atualizado com sucesso!');
+    } else {
+        Flash::set('danger', 'Erro ao atualizar nome.');
     }
 
-    // Atualiza o banco
-    if ($usuarioModel->atualizarAvatar($usuarioId, $avatar)) {
-        Flash::set('success', 'Avatar atualizado com sucesso!');
+    header('Location: ' . BASE_URL . '/perfil');
+    exit;
+}
+
+public function atualizarSenha(): void
+{
+    $this->requireLogin();
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    $senhaAtual = $_POST['senha_atual'] ?? '';
+    $novaSenha = $_POST['nova_senha'] ?? '';
+    $confirmarSenha = $_POST['confirmar_senha'] ?? '';
+
+    if (empty($senhaAtual) || empty($novaSenha) || empty($confirmarSenha)) {
+        Flash::set('danger', 'Preencha todos os campos de senha.');
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    if ($novaSenha !== $confirmarSenha) {
+        Flash::set('danger', 'As senhas não coincidem.');
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    if (strlen($novaSenha) < 6) {
+        Flash::set('danger', 'A nova senha deve ter pelo menos 6 caracteres.');
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    $usuarioModel = new Usuario();
+    $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+
+    if (!password_verify($senhaAtual, $usuario['senha'])) {
+        Flash::set('danger', 'Senha atual incorreta.');
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    $novaSenhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+    if ($usuarioModel->atualizarSenha($_SESSION['usuario_id'], $novaSenhaHash)) {
+        Flash::set('success', 'Senha atualizada com sucesso!');
     } else {
-        Flash::set('danger', 'Erro ao atualizar avatar.');
+        Flash::set('danger', 'Erro ao atualizar senha.');
     }
 
     header('Location: ' . BASE_URL . '/perfil');

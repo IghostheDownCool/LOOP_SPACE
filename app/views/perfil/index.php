@@ -2,11 +2,11 @@
 
 <style>
 /* ==================================================
-   PERFIL - AVATAR E CONFIGURAÇÕES
+   PERFIL - MINHA CONTA
    ================================================== */
 
 .profile-container {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px 0;
 }
@@ -30,28 +30,38 @@
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 30px;
-    text-align: center;
+    margin-bottom: 20px;
 }
 
+.profile-card h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Avatar */
 .profile-avatar-wrapper {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.profile-avatar-wrapper img {
-    width: 150px;
-    height: 150px;
+.profile-avatar-wrapper .avatar-large {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #1db954;
     background: var(--bg-secondary);
 }
 
-.profile-avatar-wrapper .avatar-placeholder {
-    width: 150px;
-    height: 150px;
+.profile-avatar-wrapper .avatar-placeholder-large {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     background: var(--bg-secondary);
     border: 4px solid var(--border-color);
@@ -62,109 +72,74 @@
     color: var(--text-muted);
 }
 
-.profile-name {
-    color: var(--text-primary);
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0 0 4px 0;
+/* Formulários */
+.profile-form .form-group {
+    margin-bottom: 16px;
 }
 
-.profile-email {
+.profile-form label {
+    display: block;
     color: var(--text-secondary);
-    margin-bottom: 20px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
 }
 
-.profile-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-}
-
-.profile-form .file-input-wrapper {
-    position: relative;
+.profile-form .form-control {
     width: 100%;
-    max-width: 300px;
-}
-
-.profile-form input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 2px dashed var(--border-color);
+    padding: 10px 14px;
     border-radius: 8px;
+    border: 1px solid var(--border-color);
     background: var(--bg-input);
     color: var(--text-primary);
-    cursor: pointer;
     transition: border-color 0.2s;
 }
 
-.profile-form input[type="file"]:hover {
+.profile-form .form-control:focus {
+    outline: none;
     border-color: #1db954;
 }
 
-.profile-form .btn-upload {
+.profile-form .form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.profile-form .btn-submit {
     background: #1db954;
     color: #fff;
     border: none;
-    padding: 12px 32px;
+    padding: 10px 24px;
     border-radius: 50px;
     font-weight: 600;
-    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.profile-form .btn-upload:hover {
+.profile-form .btn-submit:hover {
     background: #1ed760;
     transform: scale(1.02);
 }
 
-.profile-form .btn-upload:disabled {
-    opacity: 0.5;
+.profile-form .btn-submit:disabled {
+    opacity: 0.6;
     cursor: not-allowed;
 }
 
-.profile-actions {
+.profile-info-row {
     display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 8px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color-light);
 }
 
-.profile-actions .btn-remover {
-    background: transparent;
-    color: #dc3545;
-    border: 1px solid #dc3545;
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-weight: 500;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
+.profile-info-row .label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
-.profile-actions .btn-remover:hover {
-    background: #dc3545;
-    color: #fff;
-}
-
-.profile-actions .btn-voltar {
-    background: var(--bg-card-hover);
+.profile-info-row .value {
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
-    padding: 8px 20px;
-    border-radius: 50px;
     font-weight: 500;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-}
-
-.profile-actions .btn-voltar:hover {
-    background: var(--border-color);
 }
 
 /* Tema claro */
@@ -173,17 +148,21 @@
     border-color: var(--border-color, #dddddd);
 }
 
-[data-theme="light"] .profile-name {
+[data-theme="light"] .profile-card h3 {
+    border-bottom-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .profile-form .form-control {
+    background: var(--bg-input, #f0f0f0);
+    border-color: var(--border-color, #dddddd);
     color: var(--text-primary, #121212);
 }
 
-[data-theme="light"] .profile-email {
-    color: var(--text-secondary, #666666);
+[data-theme="light"] .profile-info-row {
+    border-bottom-color: var(--border-color-light, #eeeeee);
 }
 
-[data-theme="light"] .profile-form input[type="file"] {
-    background: var(--bg-input, #f0f0f0);
-    border-color: var(--border-color, #dddddd);
+[data-theme="light"] .profile-info-row .value {
     color: var(--text-primary, #121212);
 }
 
@@ -193,117 +172,133 @@
         padding: 20px;
     }
 
-    .profile-avatar-wrapper {
-        width: 120px;
-        height: 120px;
+    .profile-avatar-wrapper .avatar-large {
+        width: 100px;
+        height: 100px;
     }
 
-    .profile-avatar-wrapper img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .profile-avatar-wrapper .avatar-placeholder {
-        width: 120px;
-        height: 120px;
+    .profile-avatar-wrapper .avatar-placeholder-large {
+        width: 100px;
+        height: 100px;
         font-size: 3rem;
     }
 
-    .profile-name {
-        font-size: 1.2rem;
-    }
-
-    .profile-actions {
+    .profile-info-row {
         flex-direction: column;
-        align-items: center;
-    }
-
-    .profile-actions .btn-remover,
-    .profile-actions .btn-voltar {
-        width: 100%;
-        text-align: center;
+        gap: 4px;
     }
 }
 </style>
 
 <div class="profile-container">
     <div class="profile-header">
-        <h1>👤 Meu Perfil</h1>
-        <p>Gerencie suas informações e avatar</p>
+        <h1>👤 Minha Conta</h1>
+        <p>Gerencie suas informações pessoais</p>
     </div>
 
+    <!-- =============================================
+         INFORMAÇÕES DO USUÁRIO
+         ============================================= -->
     <div class="profile-card">
-        <!-- Avatar -->
+        <h3><i class="bi bi-person"></i> Informações Pessoais</h3>
+
         <div class="profile-avatar-wrapper">
             <?php if (!empty($usuario['avatar'])): ?>
                 <img
                     src="<?= BASE_URL ?>/uploads/avatars/<?= htmlspecialchars($usuario['avatar']) ?>"
                     alt="<?= htmlspecialchars($usuario['nome']) ?>"
+                    class="avatar-large"
                     onerror="this.src='<?= BASE_URL ?>/assets/images/default-avatar.png'"
                 >
             <?php else: ?>
-                <div class="avatar-placeholder">
-                    <i class="bi bi-person-circle"></i>
+                <div class="avatar-placeholder-large">
+                    <i class="bi bi-person-fill"></i>
                 </div>
             <?php endif; ?>
+            <small class="text-muted mt-2">
+                <a href="<?= BASE_URL ?>/perfil" class="text-decoration-none">Alterar avatar</a>
+            </small>
         </div>
 
-        <h2 class="profile-name"><?= htmlspecialchars($usuario['nome']) ?></h2>
-        <p class="profile-email"><?= htmlspecialchars($usuario['email']) ?></p>
-
-        <!-- Formulário de upload -->
-        <form
-            class="profile-form"
-            method="POST"
-            action="<?= BASE_URL ?>/perfil/atualizarAvatar"
-            enctype="multipart/form-data"
-        >
-            <div class="file-input-wrapper">
-                <input
-                    type="file"
-                    name="avatar"
-                    id="avatar"
-                    accept="image/jpeg,image/png,image/gif,image/webp"
-                    required
-                >
-                <small style="color: var(--text-muted); display: block; margin-top: 4px; font-size: 0.75rem;">
-                    Formatos: JPG, PNG, GIF, WEBP • Máx. 2MB
-                </small>
-            </div>
-
-            <button type="submit" class="btn-upload" id="btn-upload">
-                <i class="bi bi-cloud-upload"></i> Atualizar Avatar
-            </button>
-        </form>
-
-        <!-- Ações -->
-        <div class="profile-actions">
-            <?php if (!empty($usuario['avatar'])): ?>
-                <a
-                    href="<?= BASE_URL ?>/perfil/removerAvatar"
-                    class="btn-remover"
-                    onclick="return confirm('Deseja realmente remover seu avatar?')"
-                >
-                    <i class="bi bi-trash"></i> Remover Avatar
-                </a>
-            <?php endif; ?>
-            <a href="<?= BASE_URL ?>" class="btn-voltar">
-                <i class="bi bi-arrow-left"></i> Voltar
-            </a>
+        <div class="profile-info-row">
+            <span class="label">Nome</span>
+            <span class="value"><?= htmlspecialchars($usuario['nome']) ?></span>
+        </div>
+        <div class="profile-info-row">
+            <span class="label">E-mail</span>
+            <span class="value"><?= htmlspecialchars($usuario['email']) ?></span>
+        </div>
+        <div class="profile-info-row">
+            <span class="label">Cadastro</span>
+            <span class="value"><?= date('d/m/Y', strtotime($usuario['data_cadastro'] ?? 'now')) ?></span>
         </div>
     </div>
-</div>
 
-<script>
-    // Mostra o nome do arquivo selecionado
-    document.getElementById('avatar').addEventListener('change', function() {
-        const btn = document.getElementById('btn-upload');
-        if (this.files.length > 0) {
-            btn.innerHTML = '<i class="bi bi-check-circle"></i> Enviar ' + this.files[0].name;
-        } else {
-            btn.innerHTML = '<i class="bi bi-cloud-upload"></i> Atualizar Avatar';
-        }
-    });
-</script>
+    <!-- =============================================
+         ALTERAR NOME
+         ============================================= -->
+    <div class="profile-card">
+        <h3><i class="bi bi-pencil"></i> Alterar Nome</h3>
+        <form method="POST" action="<?= BASE_URL ?>/perfil/atualizarNome" class="profile-form">
+            <div class="form-group">
+                <label for="nome">Novo nome</label>
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    class="form-control"
+                    value="<?= htmlspecialchars($usuario['nome']) ?>"
+                    required
+                >
+            </div>
+            <button type="submit" class="btn-submit">Atualizar Nome</button>
+        </form>
+    </div>
+
+    <!-- =============================================
+         ALTERAR SENHA
+         ============================================= -->
+    <div class="profile-card">
+        <h3><i class="bi bi-lock"></i> Alterar Senha</h3>
+        <form method="POST" action="<?= BASE_URL ?>/perfil/atualizarSenha" class="profile-form">
+            <div class="form-group">
+                <label for="senha_atual">Senha atual</label>
+                <input
+                    type="password"
+                    id="senha_atual"
+                    name="senha_atual"
+                    class="form-control"
+                    placeholder="Digite sua senha atual"
+                    required
+                >
+            </div>
+            <div class="form-group">
+                <label for="nova_senha">Nova senha</label>
+                <input
+                    type="password"
+                    id="nova_senha"
+                    name="nova_senha"
+                    class="form-control"
+                    placeholder="Digite a nova senha (mín. 6 caracteres)"
+                    required
+                    minlength="6"
+                >
+            </div>
+            <div class="form-group">
+                <label for="confirmar_senha">Confirmar nova senha</label>
+                <input
+                    type="password"
+                    id="confirmar_senha"
+                    name="confirmar_senha"
+                    class="form-control"
+                    placeholder="Confirme a nova senha"
+                    required
+                    minlength="6"
+                >
+            </div>
+            <button type="submit" class="btn-submit">Atualizar Senha</button>
+        </form>
+    </div>
+</div>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

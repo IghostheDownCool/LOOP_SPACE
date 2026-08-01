@@ -9,19 +9,24 @@ class Usuario
         $this->pdo = Database::connect();
     }
 
-    public function cadastrar(string $nome, string $email, string $senha): bool
-    {
-        $sql = "INSERT INTO usuarios (nome, email, senha)
-                VALUES (:nome, :email, :senha)";
+    public function cadastrar(string $nome, string $email, string $senha): int|false
+{
+    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+    
+    $sql = "
+        INSERT INTO usuarios (nome, email, senha)
+        VALUES (:nome, :email, :senha)
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+        ':nome' => $nome,
+        ':email' => $email,
+        ':senha' => $senhaHash
+    ]);
 
-        return $stmt->execute([
-            ':nome' => $nome,
-            ':email' => $email,
-            ':senha' => $senha
-        ]);
-    }
+    return $this->pdo->lastInsertId();
+}
     public function buscarPorEmail(string $email): bool
 {
     $sql = "SELECT id FROM usuarios WHERE email = :email LIMIT 1";
@@ -85,7 +90,7 @@ public function atualizarAvatar(int $usuarioId, ?string $avatar): bool
 public function buscarPorId(int $id): array|false
 {
     $sql = "
-        SELECT id, nome, email, avatar, data_cadastro
+        SELECT id, nome, email, avatar, senha, data_cadastro
         FROM usuarios
         WHERE id = :id
     ";
@@ -93,5 +98,25 @@ public function buscarPorId(int $id): array|false
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute([':id' => $id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function atualizarNome(int $usuarioId, string $nome): bool
+{
+    $sql = "UPDATE usuarios SET nome = :nome WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([
+        ':id' => $usuarioId,
+        ':nome' => $nome
+    ]);
+}
+
+public function atualizarSenha(int $usuarioId, string $senha): bool
+{
+    $sql = "UPDATE usuarios SET senha = :senha WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([
+        ':id' => $usuarioId,
+        ':senha' => $senha
+    ]);
 }
 }

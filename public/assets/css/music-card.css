@@ -9,7 +9,7 @@
     margin-bottom: 10px;
     transition: background 0.3s, transform 0.2s;
     cursor: pointer;
-    height: auto !important; /* FORÇA ALTURA AUTOMÁTICA */
+    height: auto !important;
     min-height: auto !important;
     flex: 0 0 auto !important;
     position: relative;
@@ -24,7 +24,7 @@
 .music-cover {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;    /* Garante que a área da capa seja um quadrado perfeito */
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: 6px;
 }
@@ -38,7 +38,7 @@
 
 .music-info {
     flex: 1;
-    width: 100%; /* Força os textos a respeitarem os limites do card */
+    width: 100%;
 }
 
 .music-info h6 {
@@ -46,7 +46,6 @@
     color: var(--text-primary);
     font-weight: 700;
     transition: color 0.3s;
-    /* Evita que títulos gigantes quebrem o card para baixo */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -56,7 +55,6 @@
     color: var(--text-secondary);
     transition: color 0.3s;
     display: block;
-    /* Evita que nomes de artistas gigantes quebrem o layout */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -81,14 +79,14 @@
     align-items: center;
 }
 
-/* Botão de play no card */
+/* Botão de play no card - CIANO #00C2A0 */
 .btn-play-card {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background: #1db954;
+    background: #00C2A0;
     border: none;
-    color: #fff;
+    color: #121212;
     font-size: 1.2rem;
     display: flex;
     align-items: center;
@@ -102,7 +100,7 @@
 }
 
 .btn-play-card:hover {
-    background: #1ed760;
+    background: #33D4B8;
     transform: scale(1.05);
 }
 
@@ -135,8 +133,8 @@
 }
 
 .btn-add-playlist:hover {
-    background: #1db954;
-    color: #fff;
+    background: #00C2A0;
+    color: #121212;
 }
 
 /* ==================================================
@@ -201,6 +199,10 @@
     --btn-close-filter: invert(1);
 }
 
+/* ==================================================
+   BOTÃO ADICIONAR À PLAYLIST - FORÇADO
+   ================================================== */
+
 .btn-add-playlist {
     width: 30px !important;
     height: 30px !important;
@@ -218,12 +220,31 @@
 }
 
 .btn-add-playlist:hover {
-    background: #1db954 !important;
-    color: #fff !important;
+    background: #00C2A0 !important;
+    color: #121212 !important;
 }
 
 .btn-add-playlist i {
     font-size: 1rem !important;
     line-height: 1 !important;
     margin: 0 !important;
+}
+
+/* ==================================================
+   TEMA CLARO - AJUSTES
+   ================================================== */
+
+[data-theme="light"] .btn-play-card {
+    background: #00A88A;
+    color: #ffffff;
+}
+
+[data-theme="light"] .btn-play-card:hover {
+    background: #00C2A0;
+    color: #121212;
+}
+
+[data-theme="light"] .btn-add-playlist:hover {
+    background: #00A88A !important;
+    color: #ffffff !important;
 }

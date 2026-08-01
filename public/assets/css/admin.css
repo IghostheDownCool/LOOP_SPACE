@@ -1,113 +1,77 @@
 /* ==================================================
-   ADMIN - TEMA CLARO/ESCURO
-   ================================================== */
-
-.admin-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px var(--shadow-color);
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-
-.admin-card .card-title {
-    color: var(--text-primary);
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin-bottom: 16px;
-    transition: color 0.3s;
-}
-
-.admin-card .card-subtitle {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-    transition: color 0.3s;
-}
-
-/* ... resto do admin.css existente ... *//* 
-
-==================================================
-   ADMIN - ESTILOS COMPLETOS
+   ADMIN - ESTILOS COMPLETOS (VERDE-MENTA #00C2A0)
    ================================================== */
 
 /* --- CARDS DE ESTATÍSTICAS --- */
 .stat-card {
-    background: #181818;
-    border: 1px solid #2d2d2d;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 20px;
-    transition: transform 0.2s, border-color 0.2s;
+    transition: transform 0.2s, border-color 0.2s, background 0.3s;
     height: 100%;
 }
 
 .stat-card:hover {
     transform: translateY(-4px);
-    border-color: #1db954;
+    border-color: #00C2A0;
 }
 
 .stat-card .stat-icon {
     font-size: 2rem;
-    color: #1db954;
+    color: #00C2A0;
     margin-bottom: 10px;
 }
 
 .stat-card .stat-number {
     font-size: 2.2rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .stat-card .stat-label {
-    color: #b3b3b3;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     margin-top: 4px;
 }
 
 /* --- CARDS DE LISTAS --- */
 .list-card {
-    background: #181818;
-    border: 1px solid #2d2d2d;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
 }
 
 .list-card .card-header {
-    background: #1e1e1e;
-    border-bottom: 1px solid #2d2d2d;
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border-color);
     padding: 12px 20px;
 }
 
 .list-card .card-header h5 {
-    color: #fff;
+    color: var(--text-primary);
     margin: 0;
     font-weight: 600;
 }
 
 .list-card .list-group-item {
     background: transparent;
-    border-color: #2d2d2d;
-    color: #e0e0e0;
+    border-color: var(--border-color);
+    color: var(--text-secondary);
     padding: 12px 20px;
     transition: background 0.15s;
 }
 
 .list-card .list-group-item:hover {
-    background: #282828;
-}
-
-.list-card .list-group-item .badge {
-    font-size: 0.75rem;
-    padding: 4px 12px;
+    background: var(--bg-card-hover);
 }
 
 /* --- BADGES --- */
 .badge-primary {
-    background: #1db954;
-    color: #fff;
+    background: #00C2A0;
+    color: #121212;
 }
 
 .badge-secondary {
@@ -130,6 +94,62 @@
     color: #fff;
 }
 
+/* --- ADMIN CARD --- */
+.admin-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-card .card-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+}
+
+.admin-card .card-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+/* --- FORMULÁRIOS ADMIN --- */
+.form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 700px;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.form-card .form-label {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.form-card .form-control,
+.form-card .form-select {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.form-card .form-control:focus,
+.form-card .form-select:focus {
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border-color: #00C2A0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 194, 160, 0.25);
+    outline: none;
+}
+
 /* --- TÍTULOS DA PÁGINA --- */
 .admin-header {
     margin-bottom: 30px;
@@ -138,14 +158,136 @@
 .admin-header h1 {
     font-size: 28px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .admin-header .subtitle {
-    color: #b3b3b3;
+    color: var(--text-secondary);
     font-size: 16px;
     margin: 4px 0 0 0;
+}
+
+/* --- DASHBOARD ACTIONS --- */
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-actions .btn-admin {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-actions .btn-admin:hover {
+    background: var(--bg-card-hover);
+    border-color: #00C2A0;
+    transform: translateY(-2px);
+}
+
+.admin-actions .btn-admin.primary {
+    background: #00C2A0;
+    color: #121212;
+    border-color: #00C2A0;
+}
+
+.admin-actions .btn-admin.primary:hover {
+    background: #33D4B8;
+    border-color: #33D4B8;
+}
+
+/* --- QUICK ACTIONS --- */
+.quick-action {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.2s;
+    text-align: center;
+    display: block;
+}
+
+.quick-action:hover {
+    border-color: #00C2A0;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.quick-action .qa-icon {
+    font-size: 2rem;
+    color: #00C2A0;
+    margin-bottom: 8px;
+}
+
+.quick-action .qa-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.quick-action .qa-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 4px 0 0 0;
+}
+
+.quick-action .qa-badge {
+    display: inline-block;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    margin-top: 8px;
+}
+
+/* --- TABELAS ADMIN --- */
+.table-admin {
+    background: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-admin thead th {
+    background: var(--bg-header);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.table-admin tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.table-admin tbody tr:hover {
+    background: var(--bg-card-hover);
+}
+
+.table-admin .thumbnail {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--bg-secondary);
 }
 
 /* --- RESPONSIVIDADE --- */
@@ -157,4 +299,155 @@
     .stat-card .stat-icon {
         font-size: 1.5rem;
     }
+
+    .admin-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .admin-actions .btn-admin {
+        justify-content: center;
+    }
+}
+
+/* ==================================================
+   ADMIN - TEMA CLARO
+   ================================================== */
+
+[data-theme="light"] .stat-card {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .stat-card .stat-number {
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .stat-card .stat-label {
+    color: var(--text-secondary, #666666);
+}
+
+[data-theme="light"] .list-card {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .list-card .card-header {
+    background: var(--bg-header, #f0f0f0);
+    border-bottom-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .list-card .card-header h5 {
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .list-card .list-group-item {
+    color: var(--text-secondary, #666666);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .list-card .list-group-item:hover {
+    background: var(--bg-card-hover, #f0f0f0);
+}
+
+[data-theme="light"] .badge-primary {
+    background: #00A88A;
+    color: #ffffff;
+}
+
+[data-theme="light"] .admin-header h1 {
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .admin-header .subtitle {
+    color: var(--text-secondary, #666666);
+}
+
+[data-theme="light"] .admin-card {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .admin-card .card-title {
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .admin-card .card-subtitle {
+    color: var(--text-secondary, #666666);
+}
+
+[data-theme="light"] .form-card {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .form-card .form-label {
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .form-card .form-control,
+[data-theme="light"] .form-card .form-select {
+    background: var(--bg-input, #f0f0f0);
+    border-color: var(--border-color, #dddddd);
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .form-card .form-control:focus,
+[data-theme="light"] .form-card .form-select:focus {
+    background: var(--bg-input, #f0f0f0);
+    color: var(--text-primary, #121212);
+    border-color: #00A88A;
+    box-shadow: 0 0 0 0.2rem rgba(0, 168, 138, 0.25);
+}
+
+[data-theme="light"] .quick-action {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .quick-action .qa-desc {
+    color: var(--text-muted, #999999);
+}
+
+[data-theme="light"] .quick-action .qa-badge {
+    background: var(--bg-secondary, #f0f0f0);
+    color: var(--text-muted, #999999);
+}
+
+[data-theme="light"] .admin-actions .btn-admin {
+    background: var(--bg-card, #ffffff);
+    border-color: var(--border-color, #dddddd);
+    color: var(--text-primary, #121212);
+}
+
+[data-theme="light"] .admin-actions .btn-admin:hover {
+    background: var(--bg-card-hover, #f0f0f0);
+}
+
+[data-theme="light"] .admin-actions .btn-admin.primary {
+    background: #00A88A;
+    color: #ffffff;
+    border-color: #00A88A;
+}
+
+[data-theme="light"] .admin-actions .btn-admin.primary:hover {
+    background: #00C2A0;
+    color: #121212;
+    border-color: #00C2A0;
+}
+
+[data-theme="light"] .table-admin thead th {
+    background: var(--bg-header, #f0f0f0);
+    border-bottom-color: var(--border-color, #dddddd);
+    color: var(--text-secondary, #666666);
+}
+
+[data-theme="light"] .table-admin tbody td {
+    color: var(--text-secondary, #666666);
+    border-bottom-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .table-admin tbody tr:hover {
+    background: var(--bg-card-hover, #f0f0f0);
 }

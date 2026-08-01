@@ -123,8 +123,6 @@
     <i class="bi bi-chevron-up"></i>
 </button>
 
-<script src="<?= BASE_URL ?>/assets/js/scroll.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/scroll.js') ?>"></script>
-
 </body>
 
 </html>

@@ -1,24 +1,34 @@
 /* ==================================================
-   TEMA - FALLBACK (CASO AS VARIÁVEIS NÃO CARREGUEM)
+   TEMA - CIANO/VERDE-ÁGUA (SEM ALTERAR FUNDOS)
    ================================================== */
 
 :root {
+    /* 🔥 FUNDOS ORIGINAIS - NÃO ALTERADOS */
     --bg-primary: #121212;
     --bg-secondary: #181818;
     --bg-card: #181818;
     --bg-card-hover: #282828;
     --bg-input: #282828;
     --bg-sidebar: #181818;
+    --bg-header: #181818;
     --text-primary: #ffffff;
     --text-secondary: #b3b3b3;
     --text-muted: #888888;
     --border-color: #2d2d2d;
     --shadow-color: rgba(0, 0, 0, 0.3);
-    --link-color: #1db954;
-    --link-hover: #1ed760;
+    
+    /* 🔥 CORES DE DESTAQUE - CIANO #00C2A0 */
+    --link-color: #00C2A0;
+    --link-hover: #33D4B8;
+    
+    --player-bg: #181818;
+    --player-border: #282828;
+    --player-text-primary: #ffffff;
+    --player-text-secondary: #b3b3b3;
 }
 
 [data-theme="light"] {
+    /* 🔥 FUNDOS ORIGINAIS - NÃO ALTERADOS */
     --bg-primary: #f5f5f5;
     --bg-secondary: #ffffff;
     --bg-card: #ffffff;
@@ -31,10 +41,11 @@
     --text-muted: #999999;
     --border-color: #dddddd;
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --link-color: #1db954;
-    --link-hover: #1ed760;
     
-    /* 🔥 ADICIONE ESTAS LINHAS PARA O PLAYER */
+    /* 🔥 CORES DE DESTAQUE - CIANO #00C2A0 */
+    --link-color: #00A88A;
+    --link-hover: #00C2A0;
+    
     --player-bg: #ffffff;
     --player-border: #dddddd;
     --player-text-primary: #121212;
@@ -64,10 +75,10 @@
 }
 
 .theme-toggle:hover {
-    border-color: #1db954;
+    border-color: #00C2A0;
     color: var(--text-primary);
     transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(29, 185, 84, 0.15);
+    box-shadow: 0 0 24px rgba(0, 194, 160, 0.2);
 }
 
 .theme-toggle:active {

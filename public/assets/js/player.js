@@ -236,7 +236,6 @@ async function carregarMusica(musica) {
     isPlaying = false;
     btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
 
-    
     // Mostra o player
     mostrarPlayer();
 
@@ -254,36 +253,8 @@ async function carregarMusica(musica) {
     tituloEl.textContent = musica.titulo || 'Sem título';
     artistaEl.textContent = musica.artista || 'Artista desconhecido';
 
-        musicaAtual = musica;
-    isPlaying = false;
-    btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
-
-    // 🔥 ATUALIZA O INDICADOR "TOCANDO AGORA"
-    console.log('🔍 Chamando atualizarTocandoAgora para música:', musica.id);
-atualizarTocandoAgora(musica.id);
-
-    // Mostra o player
-    mostrarPlayer();
+    // ... resto do código existente ...
 }
-}
-
-function atualizarTocandoAgora(musicaId) {
-    console.log('🔍 atualizarTocandoAgora chamado com ID:', musicaId);
-    
-    // Remove a classe de todos os cards
-    document.querySelectorAll('.musica-card-modern, .curtida-item, .historico-item, .top-item, .music-card').forEach(item => {
-        item.classList.remove('tocando-agora');
-    });
-
-    if (!musicaId) return;
-
-    // Adiciona a classe ao card correspondente
-    document.querySelectorAll('.musica-card-modern, .curtida-item, .historico-item, .top-item, .music-card').forEach(item => {
-        const dataId = item.getAttribute('data-musica-id');
-        if (dataId && parseInt(dataId) === musicaId) {
-            item.classList.add('tocando-agora');
-        }
-    });
 }
 
 function tocarMusicaPorId(id) {
@@ -529,42 +500,6 @@ function registrarHistorico(musicaId) {
         console.log('📝 Dados retornados:', data);
     })
     .catch(err => console.warn('Erro ao registrar histórico:', err));
-}
-
-// ==================================================
-// INDICADOR "TOCANDO AGORA"
-// ==================================================
-
-function atualizarTocandoAgora(musicaId) {
-    console.log('🔍 atualizarTocandoAgora chamado com ID:', musicaId);
-    
-    // Remove a classe de todos os cards
-    const todosCards = document.querySelectorAll('.musica-card-modern, .curtida-item, .historico-item, .top-item, .music-card');
-    console.log('🔍 Cards encontrados:', todosCards.length);
-    
-    todosCards.forEach(item => {
-        item.classList.remove('tocando-agora');
-    });
-
-    if (!musicaId) {
-        console.log('🔍 Sem musicaId, removendo todos os destaques');
-        return;
-    }
-
-    // Adiciona a classe ao card correspondente
-    let encontrado = false;
-    todosCards.forEach(item => {
-        const dataId = item.getAttribute('data-musica-id');
-        if (dataId && parseInt(dataId) === musicaId) {
-            item.classList.add('tocando-agora');
-            encontrado = true;
-            console.log('🔍 Card encontrado e destacado:', item);
-        }
-    });
-    
-    if (!encontrado) {
-        console.log('🔍 Nenhum card encontrado com data-musica-id =', musicaId);
-    }
 }
 
 // ==================================================

@@ -5,8 +5,8 @@
 button,
 .btn {
     display: inline-block;
-    background: #1ed760;
-    color: #ffffff;
+    background: #00C2A0;
+    color: #121212;
     border: none;
     padding: 14px 32px;
     border-radius: 500px;
@@ -20,7 +20,6 @@ button,
 }
 
 /* Efeito padrão */
-
 button:hover,
 .btn:hover {
     transform: scale(1.04);
@@ -34,17 +33,27 @@ button:active,
 }
 
 /* ==========================
-    VERDE
+    CIANO / VERDE-ÁGUA
 ========================== */
 
 .btn-verde {
-    background: #1db954;
-    color: #000;
+    background: #00C2A0;
+    color: #121212;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 500px;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
 .btn-verde:hover {
-    background: #1ed760;
-    color: #000;
+    background: #33D4B8;
+    color: #121212;
+    transform: scale(1.02);
+}
+
+.btn-verde:active {
+    transform: scale(0.98);
 }
 
 /* ==========================
@@ -76,25 +85,33 @@ button:active,
 }
 
 /* ==========================
-    CINZA
+    CINZA (secundário)
 ========================== */
 
 .btn-cinza {
     background: transparent;
-    color: #ffffff;
-    border: 1px solid #878787;
+    color: var(--text-secondary, #b3b3b3);
+    border: 1px solid var(--border-color, #878787);
+    padding: 8px 20px;
+    border-radius: 500px;
+    font-weight: 500;
+    transition: all 0.2s;
 }
 
 .btn-cinza:hover {
-    background: #3d91f4;   /* Azul no hover */
-    border-color: #3d91f4;
-    color: #ffffff;
+    background: rgba(0, 194, 160, 0.08);
+    border-color: #00C2A0;
+    color: #00C2A0;
 }
 
-/* --- BOTÕES DA ÁREA ADMIN (compatibilidade) --- */
-.btn-verde {
-    background: #1db954;
-    color: #fff;
+/* ==========================
+    BOTÕES DA ÁREA ADMIN (compatibilidade)
+========================== */
+
+/* Versão admin do botão ciano */
+.btn-verde-admin {
+    background: #00C2A0;
+    color: #121212;
     border: none;
     padding: 8px 20px;
     border-radius: 6px;
@@ -102,12 +119,13 @@ button:active,
     transition: all 0.2s;
 }
 
-.btn-verde:hover {
-    background: #1ed760;
-    color: #fff;
+.btn-verde-admin:hover {
+    background: #33D4B8;
+    color: #121212;
 }
 
-.btn-cinza {
+/* Versão admin do botão cinza */
+.btn-cinza-admin {
     background: #3e3e3e;
     color: #fff;
     border: none;
@@ -117,7 +135,32 @@ button:active,
     transition: all 0.2s;
 }
 
-.btn-cinza:hover {
+.btn-cinza-admin:hover {
     background: #4e4e4e;
     color: #fff;
+}
+
+/* ==========================
+    TEMA CLARO - AJUSTES
+========================== */
+
+[data-theme="light"] .btn-verde {
+    background: #00A88A;
+    color: #ffffff;
+}
+
+[data-theme="light"] .btn-verde:hover {
+    background: #00C2A0;
+    color: #121212;
+}
+
+[data-theme="light"] .btn-cinza {
+    color: var(--text-secondary, #666666);
+    border-color: var(--border-color, #dddddd);
+}
+
+[data-theme="light"] .btn-cinza:hover {
+    background: rgba(0, 168, 138, 0.08);
+    border-color: #00A88A;
+    color: #00A88A;
 }

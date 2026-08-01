@@ -114,7 +114,8 @@ select {
 input:focus,
 select:focus {
     outline: none;
-    border-color: #1db954;
+    border-color: #00C2A0;
+    box-shadow: 0 0 0 3px rgba(0, 194, 160, 0.15);
 }
 
 .conteudo {
@@ -137,6 +138,7 @@ select:focus {
 
 .favorito:hover {
     transform: scale(1.2);
+    color: #00C2A0 !important;
 }
 
 /* ==================================================
@@ -157,9 +159,14 @@ select:focus {
     border-radius: 50px;
     padding: 0 20px;
     border: 1px solid var(--border-color);
-    transition: border-color 0.2s, background 0.3s;
+    transition: border-color 0.2s, background 0.3s, box-shadow 0.3s;
     height: 56px;
     box-sizing: border-box;
+}
+
+.search-bar:focus-within {
+    border-color: #00C2A0;
+    box-shadow: 0 0 0 3px rgba(0, 194, 160, 0.1);
 }
 
 .search-bar i {
@@ -256,12 +263,13 @@ select:focus {
 }
 
 .search-result-item .badge {
-    background: #1db954 !important;
-    color: #fff !important;
+    background: #00C2A0 !important;
+    color: #121212 !important;
     font-size: 0.7rem !important;
     padding: 2px 8px !important;
     border-radius: 12px !important;
     flex-shrink: 0 !important;
+    font-weight: 600;
 }
 
 .search-result-empty {
@@ -447,17 +455,17 @@ section {
 }
 
 [data-theme="light"] .menu .nav-link:hover {
-    background: var(--bg-card-hover);
-    color: var(--text-primary);
+    background: rgba(0, 194, 160, 0.08);
+    color: #00C2A0;
 }
 
 [data-theme="light"] .menu .nav-link.active {
-    background: #1db954;
-    color: white;
+    background: #00C2A0;
+    color: #121212;
 }
 
 [data-theme="light"] .logo h2 {
-    color: #1db954;
+    color: #00C2A0;
 }
 
 [data-theme="light"] .logo small {
@@ -536,7 +544,7 @@ section {
 /* Hover dos cards */
 .bg-card:hover {
     background: var(--bg-card-hover) !important;
-    border-color: #1db954;
+    border-color: #00C2A0;
     transition: all 0.2s ease;
 }
 
@@ -557,8 +565,8 @@ section {
 }
 
 .bg-card:hover {
-    border-color: #1db954;
-    box-shadow: 0 4px 20px var(--shadow-color);
+    border-color: #00C2A0;
+    box-shadow: 0 4px 20px rgba(0, 194, 160, 0.15);
 }
 
 /* Cards de artista */
@@ -569,8 +577,8 @@ section {
 
 .artist-card:hover {
     transform: translateY(-4px);
-    border-color: #1db954;
-    box-shadow: 0 4px 20px var(--shadow-color);
+    border-color: #00C2A0;
+    box-shadow: 0 4px 20px rgba(0, 194, 160, 0.15);
 }
 
 .artist-avatar {
@@ -832,8 +840,8 @@ section {
 
 .artist-card:hover {
     transform: translateY(-4px);
-    border-color: #1db954;
-    box-shadow: 0 4px 20px var(--shadow-color);
+    border-color: #00C2A0;
+    box-shadow: 0 4px 20px rgba(0, 194, 160, 0.15);
 }
 
 /* 4. Corrige a imagem do artista */
@@ -928,8 +936,9 @@ section {
 }
 
 .player-playlist input[type="text"]:focus {
-    border-color: #1db954 !important;
+    border-color: #00C2A0 !important;
     outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 194, 160, 0.1);
 }
 
 .player-playlist ul {
@@ -961,7 +970,7 @@ section {
 }
 
 .musica-item.ativa {
-    border-color: #1db954 !important;
+    border-color: #00C2A0 !important;
     background: var(--bg-card-hover) !important;
 }
 
@@ -998,7 +1007,7 @@ section {
 
 .favorito:hover {
     transform: scale(1.2);
-    color: #1db954 !important;
+    color: #00C2A0 !important;
 }
 
 /* Responsividade do player */
@@ -1045,7 +1054,7 @@ section {
 }
 
 .comentario-item .text-primary {
-    color: var(--link-color) !important;
+    color: #00C2A0 !important;
 }
 
 .comentario-item .text-light {
@@ -1067,7 +1076,7 @@ section {
 }
 
 [data-theme="light"] .comentario-item .text-primary {
-    color: #1db954 !important;
+    color: #00C2A0 !important;
 }
 
 /* ==================================================
@@ -1085,12 +1094,12 @@ section {
     max-width: 48px !important;
     max-height: 48px !important;
     border-radius: 50% !important;
-    background: #1db954;
-    color: #fff;
+    background: #00C2A0;
+    color: #121212;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(29, 185, 84, 0.4);
+    box-shadow: 0 4px 16px rgba(0, 194, 160, 0.4);
     transition: all 0.3s ease;
     opacity: 0;
     visibility: hidden;
@@ -1113,9 +1122,9 @@ section {
 }
 
 .btn-topo:hover {
-    background: #1ed760;
+    background: #33D4B8;
     transform: scale(1.08) translateY(-2px);
-    box-shadow: 0 6px 24px rgba(29, 185, 84, 0.5);
+    box-shadow: 0 6px 24px rgba(0, 194, 160, 0.5);
 }
 
 .btn-topo:active {
@@ -1131,14 +1140,15 @@ section {
 
 /* Tema claro */
 [data-theme="light"] .btn-topo {
-    background: #1db954;
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(29, 185, 84, 0.3);
+    background: #00A88A;
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 168, 138, 0.3);
 }
 
 [data-theme="light"] .btn-topo:hover {
-    background: #1ed760;
-    box-shadow: 0 6px 24px rgba(29, 185, 84, 0.4);
+    background: #00C2A0;
+    color: #121212;
+    box-shadow: 0 6px 24px rgba(0, 194, 160, 0.4);
 }
 
 /* Responsividade */
@@ -1183,18 +1193,18 @@ section {
    ================================================== */
 
 .musica-card-modern.tocando-agora {
-    border-color: #1db954 !important;
+    border-color: #00C2A0 !important;
     background: var(--bg-card-hover) !important;
-    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+    box-shadow: 0 0 0 2px rgba(0, 194, 160, 0.3);
 }
 
 .musica-card-modern.tocando-agora .titulo {
-    color: #1db954 !important;
+    color: #00C2A0 !important;
 }
 
 .musica-card-modern .tocando-indicador {
     display: none;
-    color: #1db954;
+    color: #00C2A0;
     font-size: 0.8rem;
     margin-left: 4px;
 }
@@ -1215,35 +1225,35 @@ section {
 
 /* Para a lista de curtidas */
 .curtida-item.tocando-agora {
-    border-color: #1db954 !important;
+    border-color: #00C2A0 !important;
     background: var(--bg-card-hover) !important;
-    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+    box-shadow: 0 0 0 2px rgba(0, 194, 160, 0.3);
 }
 
 .curtida-item.tocando-agora .titulo {
-    color: #1db954 !important;
+    color: #00C2A0 !important;
 }
 
 /* Para o histórico */
 .historico-item.tocando-agora {
-    border-color: #1db954 !important;
+    border-color: #00C2A0 !important;
     background: var(--bg-card-hover) !important;
-    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+    box-shadow: 0 0 0 2px rgba(0, 194, 160, 0.3);
 }
 
 .historico-item.tocando-agora .titulo {
-    color: #1db954 !important;
+    color: #00C2A0 !important;
 }
 
 /* Para o top músicas */
 .top-item.tocando-agora {
-    border-color: #1db954 !important;
+    border-color: #00C2A0 !important;
     background: var(--bg-card-hover) !important;
-    box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3);
+    box-shadow: 0 0 0 2px rgba(0, 194, 160, 0.3);
 }
 
 .top-item.tocando-agora .titulo {
-    color: #1db954 !important;
+    color: #00C2A0 !important;
 }
 
 /* ==================================================
@@ -1267,7 +1277,7 @@ section {
 }
 
 .stat-item:hover {
-    border-color: var(--border-color);
+    border-color: #00C2A0;
     transform: translateY(-2px);
 }
 
@@ -1338,14 +1348,16 @@ section {
 }
 
 .genero-filtro .btn-verde {
-    background: #1db954;
-    color: #fff;
-    border-color: #1db954;
+    background: #00C2A0;
+    color: #121212;
+    border-color: #00C2A0;
+    font-weight: 600;
 }
 
 .genero-filtro .btn-verde:hover {
-    background: #1ed760;
-    border-color: #1ed760;
+    background: #33D4B8;
+    border-color: #33D4B8;
+    color: #121212;
 }
 
 .genero-filtro .btn-cinza {
@@ -1355,7 +1367,7 @@ section {
 }
 
 .genero-filtro .btn-cinza:hover {
-    background: var(--bg-card-hover);
-    color: var(--text-primary);
-    border-color: #1db954;
+    background: rgba(0, 194, 160, 0.08);
+    color: #00C2A0;
+    border-color: #00C2A0;
 }

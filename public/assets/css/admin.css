@@ -451,3 +451,260 @@
 [data-theme="light"] .table-admin tbody tr:hover {
     background: var(--bg-card-hover, #f0f0f0);
 }
+
+/* ==================================================
+   ADMIN - BOTÕES FORÇADOS (#00C2A0) - CORREÇÃO FINAL
+   ================================================== */
+
+/* Botões principais da área admin (Novo Artista, Novo Álbum, Nova Música) */
+a.btn-admin.primary,
+a.btn-success,
+a.btn-primary,
+a.btn-verde,
+button.btn-success,
+button.btn-primary,
+button.btn-verde,
+.btn-admin.primary,
+.btn-success,
+.btn-primary,
+.btn-verde {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+    border-color: #00C2A0 !important;
+}
+
+a.btn-admin.primary:hover,
+a.btn-success:hover,
+a.btn-primary:hover,
+a.btn-verde:hover,
+button.btn-success:hover,
+button.btn-primary:hover,
+button.btn-verde:hover,
+.btn-admin.primary:hover,
+.btn-success:hover,
+.btn-primary:hover,
+.btn-verde:hover {
+    background: #33D4B8 !important;
+    color: #121212 !important;
+    border-color: #33D4B8 !important;
+}
+
+/* Botões "Voltar", "Cancelar" - mantém o estilo original */
+a.btn-secondary,
+a.btn-cinza,
+button.btn-secondary,
+button.btn-cinza,
+.btn-secondary,
+.btn-cinza {
+    background: var(--bg-card-hover) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+a.btn-secondary:hover,
+a.btn-cinza:hover,
+button.btn-secondary:hover,
+button.btn-cinza:hover,
+.btn-secondary:hover,
+.btn-cinza:hover {
+    background: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Tema claro */
+[data-theme="light"] a.btn-admin.primary,
+[data-theme="light"] a.btn-success,
+[data-theme="light"] a.btn-primary,
+[data-theme="light"] a.btn-verde,
+[data-theme="light"] button.btn-success,
+[data-theme="light"] button.btn-primary,
+[data-theme="light"] button.btn-verde,
+[data-theme="light"] .btn-admin.primary,
+[data-theme="light"] .btn-success,
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-verde {
+    background: #00A88A !important;
+    color: #ffffff !important;
+    border-color: #00A88A !important;
+}
+
+[data-theme="light"] a.btn-admin.primary:hover,
+[data-theme="light"] a.btn-success:hover,
+[data-theme="light"] a.btn-primary:hover,
+[data-theme="light"] a.btn-verde:hover,
+[data-theme="light"] button.btn-success:hover,
+[data-theme="light"] button.btn-primary:hover,
+[data-theme="light"] button.btn-verde:hover,
+[data-theme="light"] .btn-admin.primary:hover,
+[data-theme="light"] .btn-success:hover,
+[data-theme="light"] .btn-primary:hover,
+[data-theme="light"] .btn-verde:hover {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+    border-color: #00C2A0 !important;
+}
+
+/* ==================================================
+   ADMIN - CORREÇÃO DE TODOS OS ELEMENTOS VERDES
+   ================================================== */
+
+/* Badges */
+.badge-primary,
+.badge-success,
+.badge.bg-success,
+.badge.bg-primary {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+}
+
+/* Links na área admin */
+.admin-area a,
+.admin-card a,
+.table-admin a {
+    color: #00C2A0 !important;
+}
+
+.admin-area a:hover,
+.admin-card a:hover,
+.table-admin a:hover {
+    color: #33D4B8 !important;
+}
+
+/* Bordas de hover */
+.admin-card:hover,
+.stat-card:hover,
+.list-card:hover,
+.quick-action:hover {
+    border-color: #00C2A0 !important;
+}
+
+/* Ícones */
+.qa-icon,
+.stat-icon,
+.playlist-icon {
+    color: #00C2A0 !important;
+}
+
+/* Inputs em foco */
+.form-control:focus,
+.form-select:focus,
+input:focus,
+select:focus {
+    border-color: #00C2A0 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 194, 160, 0.25) !important;
+}
+
+/* Botões dentro de tabelas */
+.table-admin .btn-primary,
+.table-admin .btn-success,
+.table-admin .btn-verde {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+    border: none !important;
+}
+
+.table-admin .btn-primary:hover,
+.table-admin .btn-success:hover,
+.table-admin .btn-verde:hover {
+    background: #33D4B8 !important;
+    color: #121212 !important;
+}
+
+/* Tema claro */
+[data-theme="light"] .badge-primary,
+[data-theme="light"] .badge-success,
+[data-theme="light"] .badge.bg-success,
+[data-theme="light"] .badge.bg-primary {
+    background: #00A88A !important;
+    color: #ffffff !important;
+}
+
+[data-theme="light"] .admin-area a,
+[data-theme="light"] .admin-card a,
+[data-theme="light"] .table-admin a {
+    color: #00A88A !important;
+}
+
+[data-theme="light"] .admin-area a:hover,
+[data-theme="light"] .admin-card a:hover,
+[data-theme="light"] .table-admin a:hover {
+    color: #00C2A0 !important;
+}
+
+[data-theme="light"] .table-admin .btn-primary,
+[data-theme="light"] .table-admin .btn-success,
+[data-theme="light"] .table-admin .btn-verde {
+    background: #00A88A !important;
+    color: #ffffff !important;
+}
+
+[data-theme="light"] .table-admin .btn-primary:hover,
+[data-theme="light"] .table-admin .btn-success:hover,
+[data-theme="light"] .table-admin .btn-verde:hover {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+}
+
+[data-theme="light"] .form-control:focus,
+[data-theme="light"] .form-select:focus,
+[data-theme="light"] input:focus,
+[data-theme="light"] select:focus {
+    border-color: #00A88A !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 168, 138, 0.25) !important;
+}
+/* ==================================================
+   DASHBOARD - CORREÇÃO COMPLETA
+   ================================================== */
+
+/* 1. Ícones das estatísticas */
+.stat-card .stat-icon i,
+.stat-card .stat-icon {
+    color: #00C2A0 !important;
+}
+
+/* 2. Badges das ações rápidas */
+.quick-action .qa-badge,
+.qa-badge {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+}
+
+/* 3. Ícones das ações rápidas */
+.quick-action .qa-icon i,
+.quick-action .qa-icon {
+    color: #00C2A0 !important;
+}
+
+/* 4. Badges de status na área admin */
+.badge.bg-success,
+.badge-success,
+.badge-primary,
+.badge.bg-primary {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+}
+
+/* 5. Tema claro - badges */
+[data-theme="light"] .badge.bg-success,
+[data-theme="light"] .badge-success,
+[data-theme="light"] .badge-primary,
+[data-theme="light"] .badge.bg-primary {
+    background: #00A88A !important;
+    color: #ffffff !important;
+}
+
+/* 6. Tema claro - ícones */
+[data-theme="light"] .stat-card .stat-icon i,
+[data-theme="light"] .stat-card .stat-icon {
+    color: #00A88A !important;
+}
+
+[data-theme="light"] .quick-action .qa-icon i,
+[data-theme="light"] .quick-action .qa-icon {
+    color: #00A88A !important;
+}
+
+[data-theme="light"] .quick-action .qa-badge {
+    background: #00A88A !important;
+    color: #ffffff !important;
+}

@@ -1371,3 +1371,143 @@ section {
     color: #00C2A0;
     border-color: #00C2A0;
 }
+
+/* ==================================================
+   CORREÇÃO FINAL - BOTÕES ADMIN #00C2A0
+   ================================================== */
+
+/* Força todos os botões com classes comuns na área admin */
+.btn-success,
+.btn-primary,
+.btn-verde,
+a.btn-success,
+a.btn-primary,
+a.btn-verde,
+button.btn-success,
+button.btn-primary,
+button.btn-verde {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+    border-color: #00C2A0 !important;
+}
+
+.btn-success:hover,
+.btn-primary:hover,
+.btn-verde:hover,
+a.btn-success:hover,
+a.btn-primary:hover,
+a.btn-verde:hover,
+button.btn-success:hover,
+button.btn-primary:hover,
+button.btn-verde:hover {
+    background: #33D4B8 !important;
+    color: #121212 !important;
+    border-color: #33D4B8 !important;
+}
+
+/* Tema claro */
+[data-theme="light"] .btn-success,
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-verde,
+[data-theme="light"] a.btn-success,
+[data-theme="light"] a.btn-primary,
+[data-theme="light"] a.btn-verde,
+[data-theme="light"] button.btn-success,
+[data-theme="light"] button.btn-primary,
+[data-theme="light"] button.btn-verde {
+    background: #00A88A !important;
+    color: #ffffff !important;
+    border-color: #00A88A !important;
+}
+
+[data-theme="light"] .btn-success:hover,
+[data-theme="light"] .btn-primary:hover,
+[data-theme="light"] .btn-verde:hover,
+[data-theme="light"] a.btn-success:hover,
+[data-theme="light"] a.btn-primary:hover,
+[data-theme="light"] a.btn-verde:hover,
+[data-theme="light"] button.btn-success:hover,
+[data-theme="light"] button.btn-primary:hover,
+[data-theme="light"] button.btn-verde:hover {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+    border-color: #00C2A0 !important;
+}
+
+/* ==================================================
+   CORREÇÃO FINAL - BOTÃO ADMIN btn-admin primary
+   ================================================== */
+
+.btn-admin.primary,
+a.btn-admin.primary,
+button.btn-admin.primary {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+    border: none !important;
+    border-color: #00C2A0 !important;
+}
+
+.btn-admin.primary:hover,
+a.btn-admin.primary:hover,
+button.btn-admin.primary:hover {
+    background: #33D4B8 !important;
+    color: #121212 !important;
+    border-color: #33D4B8 !important;
+}
+
+/* Tema claro */
+[data-theme="light"] .btn-admin.primary,
+[data-theme="light"] a.btn-admin.primary,
+[data-theme="light"] button.btn-admin.primary {
+    background: #00A88A !important;
+    color: #ffffff !important;
+    border-color: #00A88A !important;
+}
+
+[data-theme="light"] .btn-admin.primary:hover,
+[data-theme="light"] a.btn-admin.primary:hover,
+[data-theme="light"] button.btn-admin.primary:hover {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+    border-color: #00C2A0 !important;
+}
+
+/* ==================================================
+   DASHBOARD - ÍCONES E BADGES
+   ================================================== */
+
+/* Ícones verdes em geral */
+i.bi.bi-music-note,
+i.bi.bi-person,
+i.bi.bi-collection,
+i.bi.bi-collection-play,
+i.bi.bi-heart-fill,
+i.bi.bi-people,
+i.bi.bi-plus-circle,
+i.bi.bi-eye,
+i.bi.bi-pencil {
+    color: #00C2A0 !important;
+}
+
+[data-theme="light"] i.bi.bi-music-note,
+[data-theme="light"] i.bi.bi-person,
+[data-theme="light"] i.bi.bi-collection,
+[data-theme="light"] i.bi.bi-collection-play,
+[data-theme="light"] i.bi.bi-heart-fill,
+[data-theme="light"] i.bi.bi-people,
+[data-theme="light"] i.bi.bi-plus-circle,
+[data-theme="light"] i.bi.bi-eye,
+[data-theme="light"] i.bi.bi-pencil {
+    color: #00A88A !important;
+}
+
+/* Badges de contagem */
+.badge {
+    background: #00C2A0 !important;
+    color: #121212 !important;
+}
+
+[data-theme="light"] .badge {
+    background: #00A88A !important;
+    color: #ffffff !important;
+}

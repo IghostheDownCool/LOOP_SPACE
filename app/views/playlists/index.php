@@ -2,7 +2,7 @@
 
 <style>
 /* ==================================================
-   PLAYLISTS - LAYOUT MODERNO
+   PLAYLISTS - LAYOUT MODERNO (CIANO #00C2A0)
    ================================================== */
 
 .playlists-header {
@@ -21,8 +21,8 @@
 }
 
 .playlists-header .btn-criar {
-    background: #1db954;
-    color: #fff;
+    background: #00C2A0;
+    color: #121212;
     border: none;
     padding: 10px 20px;
     border-radius: 50px;
@@ -36,9 +36,9 @@
 }
 
 .playlists-header .btn-criar:hover {
-    background: #1ed760;
+    background: #33D4B8;
     transform: scale(1.02);
-    color: #fff;
+    color: #121212;
 }
 
 /* Grid de playlists */
@@ -65,14 +65,14 @@
 
 .playlist-card:hover {
     background: var(--bg-card-hover);
-    border-color: #1db954;
+    border-color: #00C2A0;
     transform: translateY(-4px);
     box-shadow: 0 8px 24px var(--shadow-color);
 }
 
 .playlist-card .playlist-icon {
     font-size: 3rem;
-    color: #1db954;
+    color: #00C2A0;
     margin-bottom: 12px;
     background: var(--bg-secondary);
     width: 80px;
@@ -110,8 +110,8 @@
 }
 
 .playlist-card .playlist-badge.publica {
-    background: rgba(29, 185, 84, 0.15);
-    color: #1db954;
+    background: rgba(0, 194, 160, 0.15);
+    color: #00C2A0;
 }
 
 .playlist-card .playlist-badge.privada {
@@ -138,12 +138,13 @@
 }
 
 .playlist-card .playlist-actions .btn-ver {
-    background: #1db954;
-    color: #fff;
+    background: #00C2A0;
+    color: #121212;
 }
 
 .playlist-card .playlist-actions .btn-ver:hover {
-    background: #1ed760;
+    background: #33D4B8;
+    color: #121212;
 }
 
 .playlist-card .playlist-actions .btn-editar {
@@ -185,6 +186,31 @@
 [data-theme="light"] .playlist-card .playlist-badge.privada {
     background: rgba(0, 0, 0, 0.05);
     color: #666;
+}
+
+[data-theme="light"] .playlists-header .btn-criar {
+    background: #00A88A;
+    color: #ffffff;
+}
+
+[data-theme="light"] .playlists-header .btn-criar:hover {
+    background: #00C2A0;
+    color: #121212;
+}
+
+[data-theme="light"] .playlist-card .playlist-actions .btn-ver {
+    background: #00A88A;
+    color: #ffffff;
+}
+
+[data-theme="light"] .playlist-card .playlist-actions .btn-ver:hover {
+    background: #00C2A0;
+    color: #121212;
+}
+
+[data-theme="light"] .playlist-card .playlist-badge.publica {
+    background: rgba(0, 168, 138, 0.15);
+    color: #00A88A;
 }
 
 /* Vazio */

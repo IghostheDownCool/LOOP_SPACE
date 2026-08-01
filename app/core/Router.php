@@ -151,6 +151,32 @@ if (isset($segments[0]) && $segments[0] === 'perfil') {
                 $controllerName = 'DashboardController';
                 $method = 'index';
                 $params = [];
+                // Dentro da área admin, após o tratamento de controller
+// Ou adicione esta rota específica antes do else
+
+if (isset($segments[0]) && $segments[0] === 'admin' && isset($segments[1]) && $segments[1] === 'usuarios') {
+    $controllerName = 'UsuariosController';
+    $method = $segments[2] ?? 'index';
+    $params = array_slice($segments, 3);
+    
+    $controllerFile = __DIR__ . '/../controllers/admin/' . $controllerName . '.php';
+    if (!file_exists($controllerFile)) {
+        die('Controller não encontrado.');
+    }
+    require_once $controllerFile;
+    
+    if (!class_exists($controllerName)) {
+        die('Controller não encontrado.');
+    }
+    
+    $controller = new $controllerName();
+    if (!method_exists($controller, $method)) {
+        die('Método não encontrado.');
+    }
+    
+    call_user_func_array([$controller, $method], $params);
+    return;
+}
             } else {
                 $controllerName = ucfirst($segments[1]) . 'Controller';
                 $method = $segments[2] ?? 'index';

@@ -135,4 +135,29 @@ public function definirComoAdmin(int $usuarioId): bool
     $stmt = $this->pdo->prepare($sql);
     return $stmt->execute([':id' => $usuarioId]);
 }
+
+public function listarTodos(): array
+{
+    $sql = "
+        SELECT id, nome, email, role, data_cadastro
+        FROM usuarios
+        ORDER BY data_cadastro DESC
+    ";
+    $stmt = $this->pdo->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function removerAdmin(int $usuarioId): bool
+{
+    $sql = "UPDATE usuarios SET role = 'user' WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([':id' => $usuarioId]);
+}
+
+public function excluir(int $usuarioId): bool
+{
+    $sql = "DELETE FROM usuarios WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([':id' => $usuarioId]);
+}
 }

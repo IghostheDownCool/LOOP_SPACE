@@ -4,6 +4,9 @@ class DashboardController extends Controller
 {
     public function index(): void
     {
+
+    AdminMiddleware::verificar();
+
         $this->requireLogin();
 
         // Instancia os models

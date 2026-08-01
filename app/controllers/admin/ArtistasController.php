@@ -4,6 +4,8 @@ class ArtistasController extends Controller
 {
     public function index()
     {
+
+    AdminMiddleware::verificar();
         $this->requireLogin();
 
         $artista = new Artista();

@@ -119,4 +119,20 @@ public function atualizarSenha(int $usuarioId, string $senha): bool
         ':senha' => $senha
     ]);
 }
+
+public function isAdmin(int $usuarioId): bool
+{
+    $sql = "SELECT role FROM usuarios WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id' => $usuarioId]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return ($result['role'] ?? 'user') === 'admin';
+}
+
+public function definirComoAdmin(int $usuarioId): bool
+{
+    $sql = "UPDATE usuarios SET role = 'admin' WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([':id' => $usuarioId]);
+}
 }

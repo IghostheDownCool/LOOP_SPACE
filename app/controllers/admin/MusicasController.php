@@ -4,6 +4,8 @@ class MusicasController extends AdminController
 {
     public function index()
     {
+
+    AdminMiddleware::verificar();
         $musica = new Musica();
 
         $musicas = $musica->listar();

@@ -174,10 +174,18 @@
                     Top Músicas
                 </a>
 
-                <a class="nav-link" href="<?= BASE_URL ?>/admin">
-                    <i class="bi bi-speedometer2"></i>
-                    Painel
-                </a>
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+    <?php
+    $usuarioModel = new Usuario();
+    $isAdmin = $usuarioModel->isAdmin($_SESSION['usuario_id']);
+    ?>
+    <?php if ($isAdmin): ?>
+        <a class="nav-link" href="<?= BASE_URL ?>/admin">
+            <i class="bi bi-speedometer2"></i>
+            Painel
+        </a>
+    <?php endif; ?>
+<?php endif; ?>
 
                 <a class="nav-link position-relative" href="<?= BASE_URL ?>/notificacoes">
     <i class="bi bi-bell"></i>

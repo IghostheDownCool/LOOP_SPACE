@@ -4,6 +4,8 @@ class AlbunsController extends AdminController
 {
     public function index()
     {
+
+    AdminMiddleware::verificar();
         $this->requireLogin();
 
         $album = new Album();

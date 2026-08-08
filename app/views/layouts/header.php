@@ -138,6 +138,14 @@
 
 <body>
 
+<?php
+// Se NÃO estiver logado, redireciona para a landing page
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: ' . BASE_URL);
+    exit;
+}
+?>
+
 <div class="container-fluid">
 
     <div class="row">

@@ -2,62 +2,64 @@
 
 class CadastroController extends Controller
 {
-    public function index()
+    public function index(): void
     {
-        $erros = [];
-        $old = [
-            'nome' => '',
-            'email' => ''
-        ];
+        if (isset($_SESSION['usuario_id'])) {
+            header('Location: ' . BASE_URL);
+            exit;
+        }
 
+        $this->view('cadastro/index');
+    }
+
+    public function cadastrar(): void
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nome = trim($_POST['nome'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $senha = $_POST['senha'] ?? '';
 
-            $nome = trim($_POST['nome']);
-            $email = trim($_POST['email']);
-            $senha = $_POST['senha'];
-
-            $old['nome'] = $nome;
-            $old['email'] = $email;
-
-            // Validação do nome
-            if (strlen($nome) < 3) {
-                $erros[] = "O nome deve possuir pelo menos 3 caracteres.";
+            if (empty($nome) || empty($email) || empty($senha)) {
+                Flash::set('danger', 'Preencha todos os campos.');
+                header('Location: ' . BASE_URL . '/cadastro');
+                exit;
             }
 
-            // Validação do e-mail
-            if (empty($email)) {
-                $erros[] = "O e-mail é obrigatório.";
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $erros[] = "Informe um e-mail válido.";
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                Flash::set('danger', 'E-mail inválido.');
+                header('Location: ' . BASE_URL . '/cadastro');
+                exit;
             }
 
-            // Validação da senha
             if (strlen($senha) < 6) {
-                $erros[] = "A senha deve possuir pelo menos 6 caracteres.";
+                Flash::set('danger', 'A senha deve ter pelo menos 6 caracteres.');
+                header('Location: ' . BASE_URL . '/cadastro');
+                exit;
             }
 
-            $usuario = new Usuario();
+            $usuarioModel = new Usuario();
 
-            // Verifica se o e-mail já existe
-            if ($usuario->buscarPorEmail($email)) {
-                $erros[] = "Este e-mail já está cadastrado.";
+            if ($usuarioModel->buscarPorEmail($email)) {
+                Flash::set('danger', 'Este e-mail já está cadastrado.');
+                header('Location: ' . BASE_URL . '/cadastro');
+                exit;
             }
 
-            if (empty($erros)) {
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            $usuarioId = $usuarioModel->cadastrar($nome, $email, $senhaHash);
 
-                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-                $usuario->cadastrar($nome, $email, $senhaHash);
-
-                echo "Usuário cadastrado com sucesso!";
-
-                return;
+            if ($usuarioId) {
+                Flash::set('success', 'Cadastro realizado com sucesso! Faça login.');
+                header('Location: ' . BASE_URL . '/login');
+                exit;
+            } else {
+                Flash::set('danger', 'Erro ao cadastrar. Tente novamente.');
+                header('Location: ' . BASE_URL . '/cadastro');
+                exit;
             }
         }
 
-        $this->view('cadastro/index', [
-            'erros' => $erros,
-            'old' => $old
-        ]);
+        header('Location: ' . BASE_URL . '/cadastro');
+        exit;
     }
 }

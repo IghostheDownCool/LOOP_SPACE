@@ -1,5 +1,6 @@
 <?php
 
+
 // 1. Primeiro definimos a classe base (Pai)
 class AdminController extends Controller
 {

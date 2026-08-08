@@ -99,7 +99,8 @@
         </div>
     <?php endif; ?>
 
-    <form method="POST">
+    <!-- CORREÇÃO: Adicionei o action apontando para /cadastro/cadastrar -->
+    <form method="POST" action="<?= BASE_URL ?>/cadastro/cadastrar">
         <div class="mb-3">
             <input type="text" name="nome" class="form-control" placeholder="Nome completo" required>
         </div>

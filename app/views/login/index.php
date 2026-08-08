@@ -99,7 +99,8 @@
         </div>
     <?php endif; ?>
 
-    <form method="POST">
+    <!-- CORREÇÃO: Adicionei o action apontando para /login/logar -->
+    <form method="POST" action="<?= BASE_URL ?>/login/logar">
         <div class="mb-3">
             <input type="email" name="email" class="form-control" placeholder="E-mail" required>
         </div>

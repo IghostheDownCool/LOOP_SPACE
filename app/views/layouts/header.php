@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>LOOP SPACE</title>
 
@@ -64,6 +65,282 @@
     href="<?= BASE_URL ?>/assets/css/music-card.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/music-card.css') ?>"
 >
 
+<!-- ==================================================
+     CSS RESPONSIVO ADICIONAL (NÃO QUEBRA O EXISTENTE)
+     ================================================== -->
+<style>
+    /* 🔥 MENU HAMBÚRGUER - SÓ APARECE EM MOBILE */
+    .hamburger-btn {
+        display: none;
+        background: transparent;
+        border: none;
+        color: var(--text-primary, #fff);
+        font-size: 1.8rem;
+        padding: 8px 12px;
+        cursor: pointer;
+        z-index: 1050;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: rgba(0,0,0,0.6);
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hamburger-btn:hover {
+        background: rgba(139, 92, 246, 0.3);
+    }
+
+    /* 🔥 OVERLAY PARA FECHAR O MENU */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        z-index: 1038;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    /* 🔥 RESPONSIVIDADE: Até 768px */
+    @media (max-width: 768px) {
+        .hamburger-btn {
+            display: block;
+        }
+
+        .sidebar {
+            position: fixed !important;
+            top: 0;
+            left: -280px;
+            width: 270px !important;
+            height: 100vh !important;
+            z-index: 1040 !important;
+            background: var(--bg-primary, #0a0a0a) !important;
+            border-right: 1px solid var(--border-color, #2a2a4a) !important;
+            transition: left 0.3s ease !important;
+            overflow-y: auto !important;
+            padding: 20px 16px !important;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.5) !important;
+        }
+
+        .sidebar.open {
+            left: 0 !important;
+        }
+
+        /* Esconde a sidebar no layout padrão */
+        .col-md-3.col-lg-2.sidebar {
+            flex: 0 0 auto !important;
+            width: 270px !important;
+        }
+
+        /* Ajusta o main para ocupar toda a largura */
+        .col-md-9.col-lg-10.conteudo {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+            margin-top: 60px !important;
+        }
+
+        /* Ajusta o container-fluid */
+        .container-fluid {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        /* Ajusta o row */
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        /* Ajusta a barra de pesquisa */
+        .search-bar-container {
+            max-width: 100% !important;
+            padding: 0 10px !important;
+        }
+
+        .search-bar {
+            height: 46px !important;
+            padding: 0 16px !important;
+        }
+
+        .search-input {
+            font-size: 0.9rem !important;
+        }
+
+        /* Ajusta os cards para 2 colunas em telas médias */
+        .row-cols-md-2 {
+            --bs-gutter-x: 0.75rem !important;
+        }
+
+        .row-cols-md-2 > .col {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+
+        /* Ajusta os cards de artista */
+        .row-cols-md-3 {
+            --bs-gutter-x: 0.75rem !important;
+        }
+
+        .row-cols-md-3 > .col {
+            flex: 0 0 33.333% !important;
+            max-width: 33.333% !important;
+        }
+    }
+
+    /* 🔥 RESPONSIVIDADE: Até 576px (mobile) */
+    @media (max-width: 576px) {
+        .sidebar {
+            width: 260px !important;
+            left: -270px !important;
+            padding: 16px 12px !important;
+        }
+
+        .sidebar.open {
+            left: 0 !important;
+        }
+
+        .col-md-9.col-lg-10.conteudo {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            margin-top: 56px !important;
+        }
+
+        .hamburger-btn {
+            font-size: 1.5rem;
+            padding: 6px 10px;
+            top: 8px;
+            left: 8px;
+        }
+
+        /* Cards em 1 coluna no mobile */
+        .row-cols-md-2 > .col {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+
+        .row-cols-md-3 > .col {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+
+        .row-cols-lg-3 > .col {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Cards de artista em 2 colunas no mobile */
+        .row-cols-md-3.row-cols-lg-4.row-cols-xl-5 > .col {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+
+        /* Ajusta o player */
+        .player-container {
+            padding: 12px !important;
+        }
+
+        /* Ajusta os títulos */
+        h1 { font-size: 1.4rem !important; }
+        h2 { font-size: 1.1rem !important; }
+        h3 { font-size: 1rem !important; }
+
+        /* Ajusta formulários */
+        form {
+            padding: 16px !important;
+        }
+
+        /* Ajusta botões */
+        .btn, .btn-primary, .btn-success {
+            padding: 10px 16px !important;
+            font-size: 0.9rem !important;
+            width: 100% !important;
+        }
+
+        /* Ajusta inputs */
+        input, select {
+            padding: 10px 12px !important;
+            font-size: 0.9rem !important;
+        }
+
+        /* Ajusta estatísticas */
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+        }
+
+        .stat-item {
+            padding: 12px 8px !important;
+        }
+
+        .stat-item .stat-value {
+            font-size: 1.3rem !important;
+        }
+
+        /* Ajusta comentários */
+        .comentario-item {
+            padding: 10px 12px !important;
+        }
+
+        /* Ajusta o perfil do usuário na sidebar (mobile) */
+        .user-profile .user-info {
+            display: block !important;
+        }
+
+        .user-profile .user-email {
+            font-size: 0.7rem !important;
+        }
+
+        /* Ajusta as abas de gênero */
+        .genero-filtro .btn {
+            padding: 4px 12px !important;
+            font-size: 0.7rem !important;
+        }
+    }
+
+    /* 🔥 RESPONSIVIDADE: Telas muito pequenas (até 400px) */
+    @media (max-width: 400px) {
+        .sidebar {
+            width: 220px !important;
+            left: -230px !important;
+        }
+
+        .sidebar.open {
+            left: 0 !important;
+        }
+
+        .row-cols-md-3.row-cols-lg-4.row-cols-xl-5 > .col {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+
+        .hamburger-btn {
+            font-size: 1.3rem;
+            padding: 4px 8px;
+        }
+
+        .music-card {
+            padding: 6px !important;
+        }
+
+        .music-info h6 {
+            font-size: 0.75rem !important;
+        }
+
+        .music-info small {
+            font-size: 0.6rem !important;
+        }
+    }
+</style>
+
 <script>
     // 🔥 FORÇA OS LINKS E ÍCONES DO MENU (SEM FORÇAR A COR DO TEXTO)
     (function() {
@@ -72,11 +349,9 @@
             var corIcone = isLight ? '#666666' : '#b3b3b3';
             var corActive = '#121212';
 
-            // Força os links (apenas fundo, NÃO a cor do texto)
             var links = document.querySelectorAll('.sidebar .menu a, .sidebar a, .menu a, .nav-link');
             links.forEach(function(link) {
                 if (!link.classList.contains('active')) {
-                    // NÃO FORÇA A COR DO TEXTO - DEIXA O CSS CONTROLAR
                     link.style.setProperty('background', 'transparent', 'important');
                     link.style.setProperty('background-color', 'transparent', 'important');
                 } else {
@@ -86,7 +361,6 @@
                 }
             });
 
-            // Força os ícones
             var icons = document.querySelectorAll('.sidebar .menu .nav-link i, .sidebar .menu a i, .menu .nav-link i, .menu a i');
             icons.forEach(function(icon) {
                 var parentLink = icon.closest('a');
@@ -98,18 +372,60 @@
             });
         }
 
-        // Executa imediatamente (se o DOM já estiver pronto)
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', forcarLinksCinza);
         } else {
             forcarLinksCinza();
         }
 
-        // Executa novamente após 500ms, 1000ms e 2000ms para garantir
         setTimeout(forcarLinksCinza, 500);
         setTimeout(forcarLinksCinza, 1000);
         setTimeout(forcarLinksCinza, 2000);
     })();
+
+    // ==================================================
+    // MENU HAMBÚRGUER - ABRIR/FECHAR
+    // ==================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        var hamburger = document.createElement('button');
+        hamburger.className = 'hamburger-btn';
+        hamburger.setAttribute('aria-label', 'Abrir menu');
+        hamburger.innerHTML = '<i class="bi bi-list"></i>';
+        document.body.prepend(hamburger);
+
+        var overlay = document.createElement('div');
+        overlay.className = 'sidebar-overlay';
+        document.body.prepend(overlay);
+
+        var sidebar = document.querySelector('.sidebar');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Fecha o menu ao clicar em um link
+        sidebar.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Fecha o menu ao redimensionar para desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
 </script>
 
 </head>
@@ -130,16 +446,13 @@
             .catch(error => console.error('Erro ao buscar notificações:', error));
     }
 
-    // Atualiza a cada 30 segundos
     setInterval(atualizarNotificacoes, 30000);
-    // Atualiza ao carregar a página
     document.addEventListener('DOMContentLoaded', atualizarNotificacoes);
 </script>
 
 <body>
 
 <?php
-// Se NÃO estiver logado, redireciona para a landing page
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: ' . BASE_URL);
     exit;
@@ -156,12 +469,10 @@ if (!isset($_SESSION['usuario_id'])) {
                  PERFIL DO USUÁRIO (AVATAR + NOME)
                  ================================================== -->
             <?php
-            // Busca os dados do usuário logado
             $usuarioModel = new Usuario();
             if (isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id'])) {
                 $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
                 if (!$usuario) {
-                    // Usuário não existe, destruir sessão
                     session_unset();
                     session_destroy();
                     header('Location: /login');
@@ -174,7 +485,6 @@ if (!isset($_SESSION['usuario_id'])) {
 
             <div class="user-profile mb-4 p-2">
                 <a href="<?= BASE_URL ?>/perfil" class="text-decoration-none d-flex align-items-center gap-3">
-                    <!-- Avatar -->
                     <div class="user-avatar">
                         <?php if (!empty($usuario['avatar'])): ?>
                             <img
@@ -188,8 +498,6 @@ if (!isset($_SESSION['usuario_id'])) {
                             </div>
                         <?php endif; ?>
                     </div>
-
-                    <!-- Nome do usuário -->
                     <div class="user-info">
                         <strong class="user-name"><?= htmlspecialchars($usuario['nome']) ?></strong>
                         <small class="user-email"><?= htmlspecialchars($usuario['email']) ?></small>

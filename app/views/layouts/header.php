@@ -63,7 +63,54 @@
     rel="stylesheet"
     href="<?= BASE_URL ?>/assets/css/music-card.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/music-card.css') ?>"
 >
-    
+
+<script>
+    // 🔥 FORÇA OS LINKS E ÍCONES DO MENU (SEM FORÇAR A COR DO TEXTO)
+    (function() {
+        function forcarLinksCinza() {
+            var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            var corIcone = isLight ? '#666666' : '#b3b3b3';
+            var corActive = '#121212';
+
+            // Força os links (apenas fundo, NÃO a cor do texto)
+            var links = document.querySelectorAll('.sidebar .menu a, .sidebar a, .menu a, .nav-link');
+            links.forEach(function(link) {
+                if (!link.classList.contains('active')) {
+                    // NÃO FORÇA A COR DO TEXTO - DEIXA O CSS CONTROLAR
+                    link.style.setProperty('background', 'transparent', 'important');
+                    link.style.setProperty('background-color', 'transparent', 'important');
+                } else {
+                    link.style.setProperty('color', corActive, 'important');
+                    link.style.setProperty('background', '#8B5CF6', 'important');
+                    link.style.setProperty('background-color', '#8B5CF6', 'important');
+                }
+            });
+
+            // Força os ícones
+            var icons = document.querySelectorAll('.sidebar .menu .nav-link i, .sidebar .menu a i, .menu .nav-link i, .menu a i');
+            icons.forEach(function(icon) {
+                var parentLink = icon.closest('a');
+                if (parentLink && parentLink.classList.contains('active')) {
+                    icon.style.setProperty('color', corActive, 'important');
+                } else {
+                    icon.style.setProperty('color', corIcone, 'important');
+                }
+            });
+        }
+
+        // Executa imediatamente (se o DOM já estiver pronto)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', forcarLinksCinza);
+        } else {
+            forcarLinksCinza();
+        }
+
+        // Executa novamente após 500ms, 1000ms e 2000ms para garantir
+        setTimeout(forcarLinksCinza, 500);
+        setTimeout(forcarLinksCinza, 1000);
+        setTimeout(forcarLinksCinza, 2000);
+    })();
+</script>
 
 </head>
 
@@ -104,17 +151,17 @@
             // Busca os dados do usuário logado
             $usuarioModel = new Usuario();
             if (isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id'])) {
-    $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
-    if (!$usuario) {
-        // Usuário não existe, destruir sessão
-        session_unset();
-        session_destroy();
-        header('Location: /login');
-        exit;
-    }
-} else {
-    $usuario = null;
-}
+                $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+                if (!$usuario) {
+                    // Usuário não existe, destruir sessão
+                    session_unset();
+                    session_destroy();
+                    header('Location: /login');
+                    exit;
+                }
+            } else {
+                $usuario = null;
+            }
             ?>
 
             <div class="user-profile mb-4 p-2">
@@ -150,14 +197,13 @@
                 </a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/artistas">
-    <i class="bi bi-person"></i>
-    Artistas
-</a>
+                    <i class="bi bi-person"></i> Artistas
+                </a>
 
-<a class="nav-link" href="<?= BASE_URL ?>/generos">
-    <i class="bi bi-tags"></i>
-    Gêneros
-</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/generos">
+                    <i class="bi bi-tags"></i>
+                    Gêneros
+                </a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/player">
                     <i class="bi bi-music-note-list"></i>
@@ -165,14 +211,13 @@
                 </a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/curtidas">
-    <i class="bi bi-heart-fill"></i>
-    Curtidas
-</a>
+                    <i class="bi bi-heart-fill"></i> Curtidas
+                </a>
 
-<a class="nav-link" href="<?= BASE_URL ?>/historico">
-    <i class="bi bi-clock-history"></i>
-    Recentes
-</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/historico">
+                    <i class="bi bi-clock-history"></i>
+                    Recentes
+                </a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/playlists">
                     <i class="bi bi-collection-play-fill"></i>
@@ -185,43 +230,42 @@
                 </a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/seguindo">
-    <i class="bi bi-people"></i>
-    Seguindo
-</a>
+                    <i class="bi bi-people"></i> Seguindo
+                </a>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
-    <?php
-    $usuarioModel = new Usuario();
-    $isAdmin = $usuarioModel->isAdmin($_SESSION['usuario_id']);
-    ?>
-    <?php if ($isAdmin): ?>
-        <a class="nav-link" href="<?= BASE_URL ?>/admin">
-            <i class="bi bi-speedometer2"></i>
-            Painel
-        </a>
-    <?php endif; ?>
-<?php endif; ?>
+                    <?php
+                    $usuarioModel = new Usuario();
+                    $isAdmin = $usuarioModel->isAdmin($_SESSION['usuario_id']);
+                    ?>
+                    <?php if ($isAdmin): ?>
+                        <a class="nav-link" href="<?= BASE_URL ?>/admin">
+                            <i class="bi bi-speedometer2"></i>
+                            Painel
+                        </a>
+                    <?php endif; ?>
+                <?php endif; ?>
 
                 <a class="nav-link position-relative" href="<?= BASE_URL ?>/notificacoes">
-    <i class="bi bi-bell"></i>
-    Notificações
-    <span id="notificacao-badge" class="badge bg-danger rounded-pill" style="display: none; font-size: 0.6rem; position: absolute; top: 2px; right: 2px;">0</span>
-</a>
+                    <i class="bi bi-bell"></i>
+                    Notificações
+                    <span id="notificacao-badge" class="badge bg-danger rounded-pill" style="display: none; font-size: 0.6rem; position: absolute; top: 2px; right: 2px;">0</span>
+                </a>
 
-<a class="nav-link" href="<?= BASE_URL ?>/sobre">
-    <i class="bi bi-info-circle"></i>
-    Sobre
-</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/sobre">
+                    <i class="bi bi-info-circle"></i>
+                    Sobre
+                </a>
 
-<button class="nav-link theme-toggle" id="theme-toggle" title="Alternar tema">
-    <i class="bi bi-moon-fill" id="theme-icon"></i>
-    <span style="margin-left: 8px;">Tema</span>
-</button>
+                <button class="nav-link theme-toggle" id="theme-toggle" title="Alternar tema">
+                    <i class="bi bi-moon-fill" id="theme-icon"></i>
+                    <span style="margin-left: 8px;">Tema</span>
+                </button>
 
-<a class="nav-link" href="<?= BASE_URL ?>/perfil">
-    <i class="bi bi-person-circle"></i>
-    Perfil
-</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/perfil">
+                    <i class="bi bi-person-circle"></i>
+                    Perfil
+                </a>
 
                 <a class="nav-link" href="<?= BASE_URL ?>/logout">
                     <i class="bi bi-box-arrow-right"></i>
@@ -230,15 +274,15 @@
 
             </nav>
 
-<div class="sidebar-footer">
+            <div class="sidebar-footer">
 
-    <small>
-        LOOP SPACE v1.0
-    </small>
+                <small>
+                    LOOP SPACE v1.0
+                </small>
 
-</div>
+            </div>
 
-</aside>
+        </aside>
 
         <main class="col-md-9 col-lg-10 conteudo">
 

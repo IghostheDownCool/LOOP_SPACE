@@ -79,12 +79,12 @@
     align-items: center;
 }
 
-/* Botão de play no card - CIANO #00C2A0 */
+/* Botão de play no card - ROXO #8B5CF6 */
 .btn-play-card {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background: #00C2A0;
+    background: #8B5CF6;
     border: none;
     color: #121212;
     font-size: 1.2rem;
@@ -100,7 +100,7 @@
 }
 
 .btn-play-card:hover {
-    background: #33D4B8;
+    background: #A78BFA;
     transform: scale(1.05);
 }
 
@@ -133,7 +133,7 @@
 }
 
 .btn-add-playlist:hover {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
 }
 
@@ -220,7 +220,7 @@
 }
 
 .btn-add-playlist:hover {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
 }
 
@@ -235,16 +235,16 @@
    ================================================== */
 
 [data-theme="light"] .btn-play-card {
-    background: #00A88A;
+    background: #7C3AED;
     color: #ffffff;
 }
 
 [data-theme="light"] .btn-play-card:hover {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
 }
 
 [data-theme="light"] .btn-add-playlist:hover {
-    background: #00A88A !important;
+    background: #7C3AED !important;
     color: #ffffff !important;
 }

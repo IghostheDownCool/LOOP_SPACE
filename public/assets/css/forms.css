@@ -29,8 +29,8 @@
 .form-card .form-select:focus{
     background: var(--bg-input);
     color: var(--text-primary);
-    border-color: #00C2A0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 194, 160, 0.25);
+    border-color: #8B5CF6;
+    box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
     outline: none;
 }
 
@@ -55,6 +55,6 @@
 [data-theme="light"] .form-card .form-select:focus {
     background: var(--bg-input, #f0f0f0);
     color: var(--text-primary, #121212);
-    border-color: #00A88A;
-    box-shadow: 0 0 0 0.2rem rgba(0, 168, 138, 0.25);
+    border-color: #7C3AED;
+    box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
 }

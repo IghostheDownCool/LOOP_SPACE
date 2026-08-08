@@ -46,8 +46,8 @@ $curtidaModel = new Curtida();
 }
 
 .menu .nav-link.active {
-    color: #ffffff !important;
-    background: #1db954 !important;
+    color: #121212 !important;
+    background: #8B5CF6 !important;
 }
 
 .search-input::placeholder {
@@ -135,7 +135,7 @@ $curtidaModel = new Curtida();
 
 .musica-card-modern:hover {
     background: var(--bg-card-hover, #282828);
-    border-color: #1db954;
+    border-color: #8B5CF6;
     transform: translateX(4px);
 }
 
@@ -188,9 +188,9 @@ $curtidaModel = new Curtida();
     width: 44px;
     height: 44px;
     border-radius: 50% !important;
-    background: #1db954;
+    background: #8B5CF6;
     border: none;
-    color: #fff;
+    color: #121212;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -200,13 +200,13 @@ $curtidaModel = new Curtida();
     flex-shrink: 0;
     padding: 0;
     line-height: 1;
-    box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
 .musica-card-modern .btn-play-small:hover {
-    background: #1ed760;
+    background: #A78BFA;
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
 }
 
 .musica-card-modern .btn-play-small:active {
@@ -263,7 +263,7 @@ $curtidaModel = new Curtida();
 }
 
 .comentario-item .text-primary {
-    color: var(--link-color) !important;
+    color: #8B5CF6 !important;
 }
 
 .comentario-item .text-light {
@@ -285,7 +285,7 @@ $curtidaModel = new Curtida();
 }
 
 [data-theme="light"] .comentario-item .text-primary {
-    color: #1db954 !important;
+    color: #8B5CF6 !important;
 }
 
 /* ==================================================
@@ -308,7 +308,7 @@ $curtidaModel = new Curtida();
 
 [data-theme="light"] .musica-card-modern:hover {
     background: var(--bg-card-hover, #f0f0f0) !important;
-    border-color: #1db954 !important;
+    border-color: #8B5CF6 !important;
 }
 
 [data-theme="light"] .musica-card-modern .musica-info .titulo {
@@ -425,6 +425,45 @@ $curtidaModel = new Curtida();
         border-top: 1px solid var(--border-color, #2a2a2a);
     }
 }
+
+/* ==================================================
+   FILTRO POR GÊNERO
+   ================================================== */
+
+.genero-filtro .btn {
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.genero-filtro .btn-verde {
+    background: #8B5CF6;
+    color: #121212;
+    border-color: #8B5CF6;
+    font-weight: 600;
+}
+
+.genero-filtro .btn-verde:hover {
+    background: #A78BFA;
+    border-color: #A78BFA;
+    color: #121212;
+}
+
+.genero-filtro .btn-cinza {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.genero-filtro .btn-cinza:hover {
+    background: rgba(139, 92, 246, 0.08);
+    color: #8B5CF6;
+    border-color: #8B5CF6;
+}
 </style>
 
 <div class="player-page">
@@ -509,7 +548,7 @@ $curtidaModel = new Curtida();
              ================================================== -->
         <div class="comentarios-section mt-5 pt-4">
             <h3 class="mb-3">
-                <i class="bi bi-chat-dots" style="color: #1db954;"></i> 
+                <i class="bi bi-chat-dots" style="color: #8B5CF6;"></i> 
                 Comentários
             </h3>
 

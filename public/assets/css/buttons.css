@@ -5,7 +5,7 @@
 button,
 .btn {
     display: inline-block;
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
     border: none;
     padding: 14px 32px;
@@ -33,11 +33,11 @@ button:active,
 }
 
 /* ==========================
-    CIANO / VERDE-ÁGUA
+    ROXO
 ========================== */
 
 .btn-verde {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
     border: none;
     padding: 8px 20px;
@@ -47,7 +47,7 @@ button:active,
 }
 
 .btn-verde:hover {
-    background: #33D4B8;
+    background: #A78BFA;
     color: #121212;
     transform: scale(1.02);
 }
@@ -99,18 +99,18 @@ button:active,
 }
 
 .btn-cinza:hover {
-    background: rgba(0, 194, 160, 0.08);
-    border-color: #00C2A0;
-    color: #00C2A0;
+    background: rgba(139, 92, 246, 0.12);
+    border-color: #8B5CF6;
+    color: #8B5CF6;
 }
 
 /* ==========================
     BOTÕES DA ÁREA ADMIN (compatibilidade)
 ========================== */
 
-/* Versão admin do botão ciano */
+/* Versão admin do botão roxo */
 .btn-verde-admin {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
     border: none;
     padding: 8px 20px;
@@ -120,7 +120,7 @@ button:active,
 }
 
 .btn-verde-admin:hover {
-    background: #33D4B8;
+    background: #A78BFA;
     color: #121212;
 }
 
@@ -145,12 +145,12 @@ button:active,
 ========================== */
 
 [data-theme="light"] .btn-verde {
-    background: #00A88A;
+    background: #7C3AED;
     color: #ffffff;
 }
 
 [data-theme="light"] .btn-verde:hover {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
 }
 
@@ -160,7 +160,7 @@ button:active,
 }
 
 [data-theme="light"] .btn-cinza:hover {
-    background: rgba(0, 168, 138, 0.08);
-    border-color: #00A88A;
-    color: #00A88A;
+    background: rgba(124, 58, 237, 0.08);
+    border-color: #7C3AED;
+    color: #7C3AED;
 }

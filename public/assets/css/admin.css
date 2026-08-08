@@ -1,67 +1,77 @@
 /* ==================================================
-   ADMIN - ESTILOS COMPLETOS (VERDE-MENTA #00C2A0)
+   ADMIN - ESTILOS COMPLETOS (ROXO #8B5CF6)
    ================================================== */
 
 /* --- CARDS DE ESTATÍSTICAS --- */
 .stat-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
-    transition: transform 0.2s, border-color 0.2s, background 0.3s;
+    border-radius: 16px;
+    padding: 24px 20px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
 }
 
 .stat-card:hover {
-    transform: translateY(-4px);
-    border-color: #00C2A0;
+    transform: translateY(-6px);
+    border-color: #8B5CF6;
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.15);
 }
 
 .stat-card .stat-icon {
-    font-size: 2rem;
-    color: #00C2A0;
-    margin-bottom: 10px;
+    font-size: 2.2rem;
+    color: #8B5CF6;
+    margin-bottom: 8px;
 }
 
 .stat-card .stat-number {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
+    line-height: 1.2;
 }
 
 .stat-card .stat-label {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-top: 4px;
+    font-weight: 500;
 }
 
 /* --- CARDS DE LISTAS --- */
 .list-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.list-card:hover {
+    border-color: #8B5CF6;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
 }
 
 .list-card .card-header {
     background: var(--bg-header);
     border-bottom: 1px solid var(--border-color);
-    padding: 12px 20px;
+    padding: 14px 24px;
 }
 
 .list-card .card-header h5 {
     color: var(--text-primary);
     margin: 0;
     font-weight: 600;
+    font-size: 1.05rem;
 }
 
 .list-card .list-group-item {
     background: transparent;
     border-color: var(--border-color);
     color: var(--text-secondary);
-    padding: 12px 20px;
-    transition: background 0.15s;
+    padding: 14px 24px;
+    transition: background 0.2s ease;
 }
 
 .list-card .list-group-item:hover {
@@ -70,39 +80,55 @@
 
 /* --- BADGES --- */
 .badge-primary {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-weight: 600;
 }
 
 .badge-secondary {
     background: #3e3e3e;
     color: #b3b3b3;
+    border-radius: 20px;
+    padding: 4px 12px;
 }
 
 .badge-success {
     background: #28a745;
     color: #fff;
+    border-radius: 20px;
+    padding: 4px 12px;
 }
 
 .badge-warning {
     background: #ffc107;
     color: #000;
+    border-radius: 20px;
+    padding: 4px 12px;
 }
 
 .badge-danger {
     background: #dc3545;
     color: #fff;
+    border-radius: 20px;
+    padding: 4px 12px;
 }
 
 /* --- ADMIN CARD --- */
 .admin-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px var(--shadow-color);
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-card:hover {
+    border-color: #8B5CF6;
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.1);
 }
 
 .admin-card .card-title {
@@ -123,14 +149,20 @@
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 30px;
+    padding: 32px;
     max-width: 700px;
-    transition: background 0.3s, border-color 0.3s;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card:hover {
+    border-color: #8B5CF6;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.08);
 }
 
 .form-card .form-label {
     color: var(--text-primary);
     font-weight: 600;
+    margin-bottom: 6px;
 }
 
 .form-card .form-control,
@@ -138,40 +170,44 @@
     background: var(--bg-input);
     border: 1px solid var(--border-color);
     color: var(--text-primary);
-    transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+    padding: 12px 16px;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-card .form-control:focus,
 .form-card .form-select:focus {
     background: var(--bg-input);
     color: var(--text-primary);
-    border-color: #00C2A0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 194, 160, 0.25);
+    border-color: #8B5CF6;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
     outline: none;
 }
 
 /* --- TÍTULOS DA PÁGINA --- */
 .admin-header {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 .admin-header h1 {
     font-size: 28px;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
     margin: 0;
+    letter-spacing: -0.02em;
 }
 
 .admin-header .subtitle {
     color: var(--text-secondary);
     font-size: 16px;
     margin: 4px 0 0 0;
+    font-weight: 400;
 }
 
 /* --- DASHBOARD ACTIONS --- */
 .admin-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
@@ -179,11 +215,11 @@
     background: var(--bg-card);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -191,43 +227,47 @@
 
 .admin-actions .btn-admin:hover {
     background: var(--bg-card-hover);
-    border-color: #00C2A0;
+    border-color: #8B5CF6;
     transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.1);
 }
 
 .admin-actions .btn-admin.primary {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
-    border-color: #00C2A0;
+    border-color: #8B5CF6;
+    font-weight: 600;
 }
 
 .admin-actions .btn-admin.primary:hover {
-    background: #33D4B8;
-    border-color: #33D4B8;
+    background: #A78BFA;
+    border-color: #A78BFA;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.25);
 }
 
 /* --- QUICK ACTIONS --- */
 .quick-action {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px 16px;
+    border-radius: 16px;
+    padding: 24px 16px;
     text-decoration: none;
     color: var(--text-primary);
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     text-align: center;
     display: block;
 }
 
 .quick-action:hover {
-    border-color: #00C2A0;
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px var(--shadow-color);
+    border-color: #8B5CF6;
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.15);
 }
 
 .quick-action .qa-icon {
-    font-size: 2rem;
-    color: #00C2A0;
+    font-size: 2.2rem;
+    color: #8B5CF6;
     margin-bottom: 8px;
 }
 
@@ -245,19 +285,21 @@
 
 .quick-action .qa-badge {
     display: inline-block;
-    background: var(--bg-secondary);
-    color: var(--text-muted);
-    padding: 2px 10px;
-    border-radius: 12px;
+    background: #8B5CF6;
+    color: #121212;
+    padding: 2px 12px;
+    border-radius: 20px;
     font-size: 0.7rem;
+    font-weight: 600;
     margin-top: 8px;
 }
 
 /* --- TABELAS ADMIN --- */
 .table-admin {
     background: var(--bg-card);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .table-admin thead th {
@@ -265,17 +307,21 @@
     color: var(--text-secondary);
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.5px;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border-bottom: 2px solid var(--border-color);
 }
 
 .table-admin tbody td {
-    padding: 12px 16px;
+    padding: 14px 18px;
     vertical-align: middle;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-secondary);
+}
+
+.table-admin tbody tr {
+    transition: background 0.2s ease;
 }
 
 .table-admin tbody tr:hover {
@@ -283,21 +329,21 @@
 }
 
 .table-admin .thumbnail {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--bg-secondary);
 }
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
     .stat-card .stat-number {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
     
     .stat-card .stat-icon {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
 
     .admin-actions {
@@ -307,6 +353,14 @@
 
     .admin-actions .btn-admin {
         justify-content: center;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .form-card {
+        padding: 20px;
     }
 }
 
@@ -351,7 +405,7 @@
 }
 
 [data-theme="light"] .badge-primary {
-    background: #00A88A;
+    background: #7C3AED;
     color: #ffffff;
 }
 
@@ -396,8 +450,8 @@
 [data-theme="light"] .form-card .form-select:focus {
     background: var(--bg-input, #f0f0f0);
     color: var(--text-primary, #121212);
-    border-color: #00A88A;
-    box-shadow: 0 0 0 0.2rem rgba(0, 168, 138, 0.25);
+    border-color: #7C3AED;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
 }
 
 [data-theme="light"] .quick-action {
@@ -411,8 +465,8 @@
 }
 
 [data-theme="light"] .quick-action .qa-badge {
-    background: var(--bg-secondary, #f0f0f0);
-    color: var(--text-muted, #999999);
+    background: #7C3AED;
+    color: #ffffff;
 }
 
 [data-theme="light"] .admin-actions .btn-admin {
@@ -426,15 +480,15 @@
 }
 
 [data-theme="light"] .admin-actions .btn-admin.primary {
-    background: #00A88A;
+    background: #7C3AED;
     color: #ffffff;
-    border-color: #00A88A;
+    border-color: #7C3AED;
 }
 
 [data-theme="light"] .admin-actions .btn-admin.primary:hover {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
-    border-color: #00C2A0;
+    border-color: #8B5CF6;
 }
 
 [data-theme="light"] .table-admin thead th {
@@ -453,7 +507,7 @@
 }
 
 /* ==================================================
-   ADMIN - BOTÕES FORÇADOS (#00C2A0) - CORREÇÃO FINAL
+   ADMIN - BOTÕES FORÇADOS (#8B5CF6)
    ================================================== */
 
 /* Botões principais da área admin (Novo Artista, Novo Álbum, Nova Música) */
@@ -468,9 +522,13 @@ button.btn-verde,
 .btn-success,
 .btn-primary,
 .btn-verde {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
-    border-color: #00C2A0 !important;
+    border-color: #8B5CF6 !important;
+    border-radius: 10px !important;
+    padding: 10px 24px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
 }
 
 a.btn-admin.primary:hover,
@@ -484,9 +542,11 @@ button.btn-verde:hover,
 .btn-success:hover,
 .btn-primary:hover,
 .btn-verde:hover {
-    background: #33D4B8 !important;
+    background: #A78BFA !important;
     color: #121212 !important;
-    border-color: #33D4B8 !important;
+    border-color: #A78BFA !important;
+    transform: scale(1.02) !important;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.25) !important;
 }
 
 /* Botões "Voltar", "Cancelar" - mantém o estilo original */
@@ -499,6 +559,10 @@ button.btn-cinza,
     background: var(--bg-card-hover) !important;
     color: var(--text-secondary) !important;
     border: 1px solid var(--border-color) !important;
+    border-radius: 10px !important;
+    padding: 10px 24px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
 }
 
 a.btn-secondary:hover,
@@ -509,6 +573,7 @@ button.btn-cinza:hover,
 .btn-cinza:hover {
     background: var(--border-color) !important;
     color: var(--text-primary) !important;
+    transform: scale(1.02) !important;
 }
 
 /* Tema claro */
@@ -523,9 +588,9 @@ button.btn-cinza:hover,
 [data-theme="light"] .btn-success,
 [data-theme="light"] .btn-primary,
 [data-theme="light"] .btn-verde {
-    background: #00A88A !important;
+    background: #7C3AED !important;
     color: #ffffff !important;
-    border-color: #00A88A !important;
+    border-color: #7C3AED !important;
 }
 
 [data-theme="light"] a.btn-admin.primary:hover,
@@ -539,13 +604,13 @@ button.btn-cinza:hover,
 [data-theme="light"] .btn-success:hover,
 [data-theme="light"] .btn-primary:hover,
 [data-theme="light"] .btn-verde:hover {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
-    border-color: #00C2A0 !important;
+    border-color: #8B5CF6 !important;
 }
 
 /* ==================================================
-   ADMIN - CORREÇÃO DE TODOS OS ELEMENTOS VERDES
+   ADMIN - CORREÇÃO DE TODOS OS ELEMENTOS
    ================================================== */
 
 /* Badges */
@@ -553,21 +618,25 @@ button.btn-cinza:hover,
 .badge-success,
 .badge.bg-success,
 .badge.bg-primary {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
+    border-radius: 20px !important;
+    padding: 4px 12px !important;
+    font-weight: 600 !important;
 }
 
 /* Links na área admin */
 .admin-area a,
 .admin-card a,
 .table-admin a {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
+    transition: color 0.2s ease !important;
 }
 
 .admin-area a:hover,
 .admin-card a:hover,
 .table-admin a:hover {
-    color: #33D4B8 !important;
+    color: #A78BFA !important;
 }
 
 /* Bordas de hover */
@@ -575,14 +644,14 @@ button.btn-cinza:hover,
 .stat-card:hover,
 .list-card:hover,
 .quick-action:hover {
-    border-color: #00C2A0 !important;
+    border-color: #8B5CF6 !important;
 }
 
 /* Ícones */
 .qa-icon,
 .stat-icon,
 .playlist-icon {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
 }
 
 /* Inputs em foco */
@@ -590,24 +659,30 @@ button.btn-cinza:hover,
 .form-select:focus,
 input:focus,
 select:focus {
-    border-color: #00C2A0 !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 194, 160, 0.25) !important;
+    border-color: #8B5CF6 !important;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15) !important;
 }
 
 /* Botões dentro de tabelas */
 .table-admin .btn-primary,
 .table-admin .btn-success,
 .table-admin .btn-verde {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
     border: none !important;
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
 }
 
 .table-admin .btn-primary:hover,
 .table-admin .btn-success:hover,
 .table-admin .btn-verde:hover {
-    background: #33D4B8 !important;
+    background: #A78BFA !important;
     color: #121212 !important;
+    transform: scale(1.05) !important;
 }
 
 /* Tema claro */
@@ -615,33 +690,33 @@ select:focus {
 [data-theme="light"] .badge-success,
 [data-theme="light"] .badge.bg-success,
 [data-theme="light"] .badge.bg-primary {
-    background: #00A88A !important;
+    background: #7C3AED !important;
     color: #ffffff !important;
 }
 
 [data-theme="light"] .admin-area a,
 [data-theme="light"] .admin-card a,
 [data-theme="light"] .table-admin a {
-    color: #00A88A !important;
+    color: #7C3AED !important;
 }
 
 [data-theme="light"] .admin-area a:hover,
 [data-theme="light"] .admin-card a:hover,
 [data-theme="light"] .table-admin a:hover {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
 }
 
 [data-theme="light"] .table-admin .btn-primary,
 [data-theme="light"] .table-admin .btn-success,
 [data-theme="light"] .table-admin .btn-verde {
-    background: #00A88A !important;
+    background: #7C3AED !important;
     color: #ffffff !important;
 }
 
 [data-theme="light"] .table-admin .btn-primary:hover,
 [data-theme="light"] .table-admin .btn-success:hover,
 [data-theme="light"] .table-admin .btn-verde:hover {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
 }
 
@@ -649,9 +724,10 @@ select:focus {
 [data-theme="light"] .form-select:focus,
 [data-theme="light"] input:focus,
 [data-theme="light"] select:focus {
-    border-color: #00A88A !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 168, 138, 0.25) !important;
+    border-color: #7C3AED !important;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12) !important;
 }
+
 /* ==================================================
    DASHBOARD - CORREÇÃO COMPLETA
    ================================================== */
@@ -659,20 +735,22 @@ select:focus {
 /* 1. Ícones das estatísticas */
 .stat-card .stat-icon i,
 .stat-card .stat-icon {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
 }
 
 /* 2. Badges das ações rápidas */
 .quick-action .qa-badge,
 .qa-badge {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
 }
 
 /* 3. Ícones das ações rápidas */
 .quick-action .qa-icon i,
 .quick-action .qa-icon {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
 }
 
 /* 4. Badges de status na área admin */
@@ -680,7 +758,7 @@ select:focus {
 .badge-success,
 .badge-primary,
 .badge.bg-primary {
-    background: #00C2A0 !important;
+    background: #8B5CF6 !important;
     color: #121212 !important;
 }
 
@@ -689,22 +767,22 @@ select:focus {
 [data-theme="light"] .badge-success,
 [data-theme="light"] .badge-primary,
 [data-theme="light"] .badge.bg-primary {
-    background: #00A88A !important;
+    background: #7C3AED !important;
     color: #ffffff !important;
 }
 
 /* 6. Tema claro - ícones */
 [data-theme="light"] .stat-card .stat-icon i,
 [data-theme="light"] .stat-card .stat-icon {
-    color: #00A88A !important;
+    color: #7C3AED !important;
 }
 
 [data-theme="light"] .quick-action .qa-icon i,
 [data-theme="light"] .quick-action .qa-icon {
-    color: #00A88A !important;
+    color: #7C3AED !important;
 }
 
 [data-theme="light"] .quick-action .qa-badge {
-    background: #00A88A !important;
+    background: #7C3AED !important;
     color: #ffffff !important;
 }

@@ -7,7 +7,7 @@
     align-items: flex-start;
     background-color: #000000;
     padding: 24px;
-    border-radius: 12px;
+    border-radius: 16px;
 }
 
 /* ==========================
@@ -17,7 +17,7 @@
     width: 320px;
     background: #121212;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
 }
@@ -47,7 +47,7 @@
     margin-bottom: 16px;
     background: #242424;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 10px 14px;
     color: #ffffff;
     font-size: 0.85rem;
@@ -56,8 +56,9 @@
 
 #busca:focus {
     background-color: #2a2a2a;
-    border-color: #00C2A0;
+    border-color: #8B5CF6;
     outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
 }
 
 /* ==========================
@@ -67,14 +68,14 @@
     width: 100%;
     background: transparent;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 12px 16px;
     color: #b3b3b3;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease;
     text-align: left;
 }
 
@@ -94,6 +95,7 @@
 
 .musica-item:hover {
     background-color: #1a1a1a;
+    transform: translateX(4px);
 }
 
 .musica-item:hover strong {
@@ -106,10 +108,11 @@
 
 .musica-item.ativa {
     background-color: #2a2a2a;
+    border-left: 3px solid #8B5CF6;
 }
 
 .musica-item.ativa strong {
-    color: #00C2A0;
+    color: #8B5CF6;
 }
 
 .musica-item.ativa span {
@@ -123,8 +126,8 @@
     flex: 1;
     background: #181818;
     padding: 32px;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -135,14 +138,15 @@
     width: 280px;
     height: 280px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 24px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .player-info img:hover {
     transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
 }
 
 .player-info h2 {
@@ -176,41 +180,50 @@ audio, .player-info audio {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 110px;
+    height: 100px;
     background: #181818;
     border-top: 1px solid #2b2b2b;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 25px;
+    padding: 12px 24px;
     z-index: 9999;
 }
 
 .player-left {
-    width: 320px;
+    width: 300px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 14px;
 }
 
 .player-left h6 {
     margin: 0;
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .player-left small {
     color: #b3b3b3;
-    font-size: 13px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .player-left img {
-    width: 72px;
-    height: 72px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 8px;
     background: #2d2d2d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .player-center {
@@ -219,6 +232,7 @@ audio, .player-info audio {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-width: 650px;
 }
 
 .player-center audio {
@@ -241,26 +255,43 @@ audio, .player-info audio {
 .player-controls {
     display: flex;
     align-items: center;
-    gap: 18px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
 .player-controls .btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.player-controls .btn:hover {
+    transform: scale(1.08);
 }
 
 .player-controls i {
-    font-size: 22px;
+    font-size: 1.2rem;
 }
 
 #btn-play {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
+    background: #8B5CF6;
+    color: #121212;
+    border: none;
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
+}
+
+#btn-play:hover {
+    background: #A78BFA;
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.45);
 }
 
 #player {
@@ -268,7 +299,7 @@ audio, .player-info audio {
 }
 
 .player-right {
-    width: 220px;
+    width: 200px;
     text-align: right;
     color: #b3b3b3;
 }
@@ -288,7 +319,7 @@ audio, .player-info audio {
 .player-progress span {
     width: 40px;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
     color: #b3b3b3;
     font-weight: 500;
 }
@@ -302,7 +333,7 @@ audio, .player-info audio {
     appearance: none !important;
     width: 100%;
     height: 4px !important;
-    border-radius: 2px;
+    border-radius: 4px;
     background: #4d4d4d;
     outline: none;
     cursor: pointer;
@@ -311,6 +342,11 @@ audio, .player-info audio {
     margin: 0 !important;
     box-sizing: border-box;
     position: relative;
+    transition: height 0.2s ease;
+}
+
+#barra-progresso:hover {
+    height: 6px !important;
 }
 
 #barra-progresso::-webkit-slider-runnable-track {
@@ -318,7 +354,7 @@ audio, .player-info audio {
     appearance: none !important;
     width: 100%;
     height: 4px !important;
-    border-radius: 2px;
+    border-radius: 4px;
     background: transparent !important;
     border: none !important;
 }
@@ -328,7 +364,7 @@ audio, .player-info audio {
     appearance: none !important;
     width: 100%;
     height: 4px !important;
-    border-radius: 2px;
+    border-radius: 4px;
     background: transparent !important;
     border: none !important;
 }
@@ -346,7 +382,7 @@ audio, .player-info audio {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 2;
-    transition: transform 0.15s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #barra-progresso::-moz-range-thumb {
@@ -361,15 +397,17 @@ audio, .player-info audio {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 2;
-    transition: transform 0.15s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #barra-progresso::-webkit-slider-thumb:hover {
     transform: scale(1.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
 #barra-progresso::-moz-range-thumb:hover {
     transform: scale(1.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
 #global-player:hover #barra-progresso::-webkit-slider-thumb {
@@ -391,7 +429,7 @@ audio, .player-info audio {
     appearance: none !important;
     width: 80px;
     height: 4px !important;
-    border-radius: 2px;
+    border-radius: 4px;
     cursor: pointer;
     outline: none;
     border: none !important;
@@ -402,12 +440,16 @@ audio, .player-info audio {
     flex-shrink: 0;
 }
 
+#volume:hover {
+    height: 6px !important;
+}
+
 #volume::-webkit-slider-runnable-track {
     -webkit-appearance: none !important;
     appearance: none !important;
     width: 100%;
     height: 4px !important;
-    border-radius: 2px;
+    border-radius: 4px;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -418,7 +460,7 @@ audio, .player-info audio {
     appearance: none !important;
     width: 100%;
     height: 4px !important;
-    border-radius: 2px;
+    border-radius: 4px;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -435,7 +477,7 @@ audio, .player-info audio {
     margin-top: -4px !important;
     opacity: 0;
     transform: scale(0.5);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     border: none !important;
     position: relative;
@@ -453,8 +495,18 @@ audio, .player-info audio {
     border: none !important;
     opacity: 0;
     transform: scale(0.5);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+#volume::-webkit-slider-thumb:hover {
+    transform: scale(1.15) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+#volume::-moz-range-thumb:hover {
+    transform: scale(1.15) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
 }
 
 #global-player:hover #volume::-webkit-slider-thumb {
@@ -478,11 +530,11 @@ audio, .player-info audio {
     width: 100%;
     background: var(--player-bg, #181818);
     border-top: 1px solid var(--player-border, #282828);
-    padding: 10px 20px;
+    padding: 12px 24px;
     z-index: 1050;
     transform: translateY(100%);
     opacity: 0;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
     pointer-events: none;
 }
 
@@ -492,17 +544,17 @@ audio, .player-info audio {
     pointer-events: auto;
 }
 
-/* Botões de shuffle e repeat - CIANO #00C2A0 */
+/* Botões de shuffle e repeat - ROXO #8B5CF6 */
 .btn-shuffle-active {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
 }
 
 .btn-repeat-active {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
 }
 
 .btn-repeat-one-active {
-    color: #00C2A0 !important;
+    color: #8B5CF6 !important;
     position: relative;
 }
 
@@ -512,7 +564,7 @@ audio, .player-info audio {
     top: -2px;
     right: -4px;
     font-size: 0.5rem;
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
     border-radius: 50%;
     padding: 0 3px;
@@ -526,25 +578,35 @@ audio, .player-info audio {
 }
 
 .player-controls .btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: transparent;
+    color: #b3b3b3;
 }
 
-/* Botão play - CIANO #00C2A0 */
+.player-controls .btn:hover {
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+/* Botão play - ROXO #8B5CF6 */
 .player-controls .btn-verde {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
 }
 
 .player-controls .btn-verde:hover {
-    background: #33D4B8;
-    transform: scale(1.05);
+    background: #A78BFA;
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.45);
 }
 
 .player-controls .btn-cinza {
@@ -553,7 +615,7 @@ audio, .player-info audio {
 }
 
 .player-controls .btn-cinza:hover {
-    color: #fff;
+    color: #ffffff;
 }
 
 /* ==================================================
@@ -562,29 +624,40 @@ audio, .player-info audio {
 
 @media (max-width: 768px) {
     #global-player {
-        padding: 8px 12px;
+        padding: 8px 16px;
         height: auto;
-        min-height: 70px;
+        min-height: 68px;
     }
 
     .player-controls .btn {
-        width: 32px;
-        height: 32px;
-        font-size: 0.9rem;
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    #btn-play {
+        width: 38px;
+        height: 38px;
     }
 
     .player-left img {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
     }
 
     .player-left h6 {
-        font-size: 0.8rem;
-        margin: 0;
+        font-size: 0.75rem;
+        max-width: 80px;
     }
 
     .player-left small {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
+        max-width: 80px;
+    }
+
+    .player-left {
+        width: 180px;
+        gap: 10px;
     }
 
     .player-progress {
@@ -592,8 +665,8 @@ audio, .player-info audio {
     }
 
     .player-progress span {
-        font-size: 0.7rem;
-        min-width: 30px;
+        font-size: 0.6rem;
+        min-width: 28px;
     }
 
     .player-progress input[type="range"] {
@@ -601,50 +674,51 @@ audio, .player-info audio {
     }
 
     .player-right {
+        width: 120px;
         gap: 6px;
     }
 
     .player-right input[type="range"] {
-        width: 60px;
+        width: 50px;
     }
 }
 
 @media (max-width: 576px) {
     #global-player {
-        padding: 6px 8px;
-        min-height: 60px;
+        padding: 6px 12px;
+        min-height: 56px;
     }
 
     .player-left {
         gap: 8px;
+        width: 130px;
     }
 
     .player-left img {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
     }
 
     .player-left h6 {
-        font-size: 0.7rem;
-        max-width: 80px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-size: 0.65rem;
+        max-width: 60px;
     }
 
     .player-left small {
-        font-size: 0.6rem;
-        max-width: 80px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-size: 0.5rem;
+        max-width: 60px;
         display: none;
     }
 
     .player-controls .btn {
-        width: 28px;
-        height: 28px;
-        font-size: 0.7rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.65rem;
+    }
+
+    #btn-play {
+        width: 32px;
+        height: 32px;
     }
 
     .player-progress {
@@ -652,20 +726,21 @@ audio, .player-info audio {
     }
 
     .player-progress span {
-        font-size: 0.6rem;
-        min-width: 25px;
+        font-size: 0.5rem;
+        min-width: 22px;
     }
 
     .player-progress input[type="range"] {
-        width: 50px;
+        width: 40px;
     }
 
     .player-right {
+        width: 80px;
         gap: 4px;
     }
 
     .player-right input[type="range"] {
-        width: 40px;
+        width: 30px;
     }
 }
 
@@ -682,12 +757,12 @@ audio, .player-info audio {
 }
 
 [data-theme="light"] #global-player .btn-verde {
-    background: #00A88A;
+    background: #7C3AED;
     color: #ffffff;
 }
 
 [data-theme="light"] #global-player .btn-verde:hover {
-    background: #00C2A0;
+    background: #8B5CF6;
     color: #121212;
 }
 
@@ -698,11 +773,11 @@ audio, .player-info audio {
 [data-theme="light"] #global-player .btn-shuffle-active,
 [data-theme="light"] #global-player .btn-repeat-active,
 [data-theme="light"] #global-player .btn-repeat-one-active {
-    color: #00A88A !important;
+    color: #7C3AED !important;
 }
 
 [data-theme="light"] #global-player .btn-repeat-one-active::after {
-    background: #00A88A;
+    background: #7C3AED;
     color: #ffffff;
 }
 
@@ -747,7 +822,7 @@ audio, .player-info audio {
 }
 
 [data-theme="light"] .player-progress input[type="range"]::-webkit-slider-thumb {
-    background: #00A88A;
+    background: #7C3AED;
 }
 
 [data-theme="light"] .player-right input[type="range"] {
@@ -755,7 +830,7 @@ audio, .player-info audio {
 }
 
 [data-theme="light"] .player-right input[type="range"]::-webkit-slider-thumb {
-    background: #00A88A;
+    background: #7C3AED;
 }
 
 /* ==================================================
@@ -764,10 +839,10 @@ audio, .player-info audio {
 
 [data-theme="light"] #barra-progresso::-webkit-slider-thumb,
 [data-theme="light"] #volume::-webkit-slider-thumb {
-    background: #00A88A !important;
+    background: #7C3AED !important;
 }
 
 [data-theme="light"] #barra-progresso::-moz-range-thumb,
 [data-theme="light"] #volume::-moz-range-thumb {
-    background: #00A88A !important;
+    background: #7C3AED !important;
 }

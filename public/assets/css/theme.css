@@ -1,5 +1,5 @@
 /* ==================================================
-   TEMA - CIANO/VERDE-ÁGUA (SEM ALTERAR FUNDOS)
+   TEMA - ROXO (SEM ALTERAR FUNDOS)
    ================================================== */
 
 :root {
@@ -17,9 +17,9 @@
     --border-color: #2d2d2d;
     --shadow-color: rgba(0, 0, 0, 0.3);
     
-    /* 🔥 CORES DE DESTAQUE - CIANO #00C2A0 */
-    --link-color: #00C2A0;
-    --link-hover: #33D4B8;
+    /* 🔥 CORES DE DESTAQUE - ROXO */
+    --link-color: #8B5CF6;
+    --link-hover: #A78BFA;
     
     --player-bg: #181818;
     --player-border: #282828;
@@ -42,9 +42,9 @@
     --border-color: #dddddd;
     --shadow-color: rgba(0, 0, 0, 0.1);
     
-    /* 🔥 CORES DE DESTAQUE - CIANO #00C2A0 */
-    --link-color: #00A88A;
-    --link-hover: #00C2A0;
+    /* 🔥 CORES DE DESTAQUE - ROXO */
+    --link-color: #7C3AED;
+    --link-hover: #8B5CF6;
     
     --player-bg: #ffffff;
     --player-border: #dddddd;
@@ -75,10 +75,10 @@
 }
 
 .theme-toggle:hover {
-    border-color: #00C2A0;
+    border-color: #8B5CF6;
     color: var(--text-primary);
     transform: scale(1.1);
-    box-shadow: 0 0 24px rgba(0, 194, 160, 0.2);
+    box-shadow: 0 0 24px rgba(139, 92, 246, 0.25);
 }
 
 .theme-toggle:active {

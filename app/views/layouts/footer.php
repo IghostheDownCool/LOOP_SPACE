@@ -116,6 +116,18 @@
 
 <script src="<?= BASE_URL ?>/assets/js/theme.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/theme.js') ?>"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Força os links com classe menu-link-cinza a ficarem cinza
+        document.querySelectorAll('.menu-link-cinza').forEach(function(link) {
+            if (!link.classList.contains('active')) {
+                link.style.color = '#b3b3b3';
+                link.style.background = 'transparent';
+            }
+        });
+    });
+</script>
+
 <!-- ==================================================
      BOTÃO VOLTAR AO TOPO
      ================================================== -->

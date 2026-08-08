@@ -73,9 +73,6 @@
 
 <!-- Seção de Artistas Seguidos -->
 <?php
-$artistaModel = new Artista();
-$seguidos = $artistaModel->listarSeguidos($_SESSION['usuario_id']);
-$musicasSeguidos = $artistaModel->getMusicasDosSeguidos($_SESSION['usuario_id'], 10);
 ?>
 
 <?php if (!empty($seguidos)): ?>

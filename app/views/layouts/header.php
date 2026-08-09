@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="dark" data-user-role="<?= isset($_SESSION['usuario_role']) ? $_SESSION['usuario_role'] : 'user' ?>">
 
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>LOOP SPACE</title>
+    <title>SONORA</title>
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩻</text></svg>">
 
@@ -66,9 +66,220 @@
 >
 
 <!-- ==================================================
+     CSS PARA TEMA ADMIN (VERMELHO)
+     ================================================== -->
+<style>
+    /* ==================================================
+       TEMA ADMIN - CORES VERMELHAS
+       ================================================== */
+    [data-user-role="admin"] {
+        --primary-color: #DC3545;
+        --primary-hover: #FF4757;
+        --primary-light: rgba(220, 53, 69, 0.15);
+        --primary-shadow: rgba(220, 53, 69, 0.35);
+    }
+
+    /* Botões */
+    [data-user-role="admin"] .btn-primary,
+    [data-user-role="admin"] .btn-success,
+    [data-user-role="admin"] .btn-verde,
+    [data-user-role="admin"] a.btn-success,
+    [data-user-role="admin"] a.btn-primary,
+    [data-user-role="admin"] a.btn-verde,
+    [data-user-role="admin"] button.btn-success,
+    [data-user-role="admin"] button.btn-primary,
+    [data-user-role="admin"] button.btn-verde,
+    [data-user-role="admin"] .btn-admin.primary,
+    [data-user-role="admin"] a.btn-admin.primary,
+    [data-user-role="admin"] button.btn-admin.primary {
+        background: #DC3545 !important;
+        color: #ffffff !important;
+        border-color: #DC3545 !important;
+    }
+
+    [data-user-role="admin"] .btn-primary:hover,
+    [data-user-role="admin"] .btn-success:hover,
+    [data-user-role="admin"] .btn-verde:hover,
+    [data-user-role="admin"] a.btn-success:hover,
+    [data-user-role="admin"] a.btn-primary:hover,
+    [data-user-role="admin"] a.btn-verde:hover,
+    [data-user-role="admin"] button.btn-success:hover,
+    [data-user-role="admin"] button.btn-primary:hover,
+    [data-user-role="admin"] button.btn-verde:hover,
+    [data-user-role="admin"] .btn-admin.primary:hover,
+    [data-user-role="admin"] a.btn-admin.primary:hover,
+    [data-user-role="admin"] button.btn-admin.primary:hover {
+        background: #FF4757 !important;
+        color: #ffffff !important;
+        border-color: #FF4757 !important;
+    }
+
+    /* Badges */
+    [data-user-role="admin"] .badge {
+        background: #DC3545 !important;
+        color: #ffffff !important;
+    }
+
+    /* Ícones */
+    [data-user-role="admin"] i.bi.bi-music-note,
+    [data-user-role="admin"] i.bi.bi-person,
+    [data-user-role="admin"] i.bi.bi-collection,
+    [data-user-role="admin"] i.bi.bi-collection-play,
+    [data-user-role="admin"] i.bi.bi-heart-fill,
+    [data-user-role="admin"] i.bi.bi-people,
+    [data-user-role="admin"] i.bi.bi-plus-circle,
+    [data-user-role="admin"] i.bi.bi-eye,
+    [data-user-role="admin"] i.bi.bi-pencil {
+        color: #DC3545 !important;
+    }
+
+    /* Menu ativo */
+    [data-user-role="admin"] .sidebar .menu .nav-link.active,
+    [data-user-role="admin"] .sidebar .menu a.active,
+    [data-user-role="admin"] .menu .nav-link.active,
+    [data-user-role="admin"] .menu a.active {
+        background: #DC3545 !important;
+        color: #ffffff !important;
+    }
+
+    [data-user-role="admin"] .sidebar .menu .nav-link.active i,
+    [data-user-role="admin"] .sidebar .menu a.active i,
+    [data-user-role="admin"] .menu .nav-link.active i,
+    [data-user-role="admin"] .menu a.active i {
+        color: #ffffff !important;
+    }
+
+    /* Links */
+    [data-user-role="admin"] a.text-primary,
+    [data-user-role="admin"] .text-primary {
+        color: #DC3545 !important;
+    }
+
+    [data-user-role="admin"] a.text-primary:hover {
+        color: #FF4757 !important;
+    }
+
+    /* Cards hover */
+    [data-user-role="admin"] .bg-card:hover {
+        border-color: #DC3545 !important;
+    }
+
+    /* Logo texto */
+    [data-user-role="admin"] .sidebar-logo .logo-text span {
+        color: #DC3545 !important;
+    }
+
+    /* Player */
+    [data-user-role="admin"] .player-controls .btn-verde {
+        background: #DC3545 !important;
+        color: #ffffff !important;
+    }
+
+    [data-user-role="admin"] .player-controls .btn-verde:hover {
+        background: #FF4757 !important;
+        color: #ffffff !important;
+    }
+
+    [data-user-role="admin"] #barra-progresso::-webkit-slider-thumb {
+        background: #DC3545 !important;
+    }
+
+    [data-user-role="admin"] #volume::-webkit-slider-thumb {
+        background: #DC3545 !important;
+    }
+
+    /* Botão topo */
+    [data-user-role="admin"] .btn-topo {
+        background: #DC3545 !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(220, 53, 69, 0.35) !important;
+    }
+
+    [data-user-role="admin"] .btn-topo:hover {
+        background: #FF4757 !important;
+        color: #ffffff !important;
+        box-shadow: 0 8px 30px rgba(220, 53, 69, 0.5) !important;
+    }
+
+    /* Focus */
+    [data-user-role="admin"] input:focus,
+    [data-user-role="admin"] select:focus {
+        border-color: #DC3545 !important;
+        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.15) !important;
+    }
+
+    [data-user-role="admin"] .search-bar:focus-within {
+        border-color: #DC3545 !important;
+        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.12) !important;
+    }
+
+    /* Menu hambúrguer admin */
+    [data-user-role="admin"] .hamburger-btn:hover {
+        background: rgba(220, 53, 69, 0.3) !important;
+    }
+
+    /* Tema claro - Admin */
+    [data-user-role="admin"][data-theme="light"] .btn-primary,
+    [data-user-role="admin"][data-theme="light"] .btn-success,
+    [data-user-role="admin"][data-theme="light"] .btn-verde {
+        background: #DC3545 !important;
+        color: #ffffff !important;
+        border-color: #DC3545 !important;
+    }
+
+    [data-user-role="admin"][data-theme="light"] .btn-primary:hover,
+    [data-user-role="admin"][data-theme="light"] .btn-success:hover,
+    [data-user-role="admin"][data-theme="light"] .btn-verde:hover {
+        background: #FF4757 !important;
+        color: #ffffff !important;
+        border-color: #FF4757 !important;
+    }
+</style>
+
+<!-- ==================================================
      CSS RESPONSIVO ADICIONAL (NÃO QUEBRA O EXISTENTE)
      ================================================== -->
 <style>
+    /* 🔥 LOGO NO TOPO DA SIDEBAR (TEXTO SIMPLES) */
+    .sidebar-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 0 20px 0;
+        border-bottom: 1px solid var(--border-color, #2a2a4a);
+        margin-bottom: 16px;
+    }
+
+    .sidebar-logo a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+    .sidebar-logo .logo-text {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--text-primary, #fff);
+        letter-spacing: -0.02em;
+    }
+
+    .sidebar-logo .logo-text span {
+        color: #8B5CF6;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar-logo .logo-text {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .sidebar-logo .logo-text {
+            font-size: 1rem;
+        }
+    }
+
     /* 🔥 MENU HAMBÚRGUER - SÓ APARECE EM MOBILE */
     .hamburger-btn {
         display: none;
@@ -342,12 +553,14 @@
 </style>
 
 <script>
-    // 🔥 FORÇA OS LINKS E ÍCONES DO MENU (SEM FORÇAR A COR DO TEXTO)
+    // 🔥 FORÇA OS LINKS E ÍCONES DO MENU
     (function() {
         function forcarLinksCinza() {
             var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            var isAdmin = document.documentElement.getAttribute('data-user-role') === 'admin';
             var corIcone = isLight ? '#666666' : '#b3b3b3';
-            var corActive = '#121212';
+            var corActive = isAdmin ? '#ffffff' : '#121212';
+            var corActiveBg = isAdmin ? '#DC3545' : '#8B5CF6';
 
             var links = document.querySelectorAll('.sidebar .menu a, .sidebar a, .menu a, .nav-link');
             links.forEach(function(link) {
@@ -356,8 +569,8 @@
                     link.style.setProperty('background-color', 'transparent', 'important');
                 } else {
                     link.style.setProperty('color', corActive, 'important');
-                    link.style.setProperty('background', '#8B5CF6', 'important');
-                    link.style.setProperty('background-color', '#8B5CF6', 'important');
+                    link.style.setProperty('background', corActiveBg, 'important');
+                    link.style.setProperty('background-color', corActiveBg, 'important');
                 }
             });
 
@@ -408,7 +621,6 @@
         hamburger.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
 
-        // Fecha o menu ao clicar em um link
         sidebar.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
@@ -417,7 +629,6 @@
             });
         });
 
-        // Fecha o menu ao redimensionar para desktop
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
                 sidebar.classList.remove('open');
@@ -464,6 +675,11 @@ if (!isset($_SESSION['usuario_id'])) {
     <div class="row">
 
         <aside class="col-md-3 col-lg-2 sidebar">
+
+            <!-- ==================================================
+                 LOGO NO TOPO DA SIDEBAR (TEXTO SIMPLES)
+                 ================================================== -->
+
 
             <!-- ==================================================
                  PERFIL DO USUÁRIO (AVATAR + NOME)

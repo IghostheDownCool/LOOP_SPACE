@@ -115,7 +115,7 @@
     <div class="logo-icon" style="font-size: 4rem; color: #8B5CF6;">
         <i class="bi bi-vinyl-fill"></i>
     </div>
-    <h1 class="landing-title">Loop Space</h1>
+    <h1 class="landing-title">SONORA</h1>
     <p class="landing-subtitle">
         Descubra, ouça e compartilhe músicas. Uma experiência completa de streaming.
     </p>
@@ -148,7 +148,7 @@
     </div>
 
     <div style="margin-top: 30px; color: #555; font-size: 0.8rem;">
-        &copy; <?= date('Y') ?> Loop Space. Todos os direitos reservados.
+        &copy; <?= date('Y') ?> SONORA. Todos os direitos reservados.
     </div>
 </div>
 

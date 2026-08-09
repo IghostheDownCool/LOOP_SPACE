@@ -86,7 +86,7 @@
 <div class="login-card">
     <div class="logo">
         <i class="bi bi-vinyl-fill" style="font-size: 2.5rem; color: #8B5CF6;"></i>
-        <h1>Loop Space</h1>
+        <h1>SONORA</h1>
         <small>Entre e ouça suas músicas</small>
     </div>
 

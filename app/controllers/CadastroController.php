@@ -18,7 +18,9 @@ class CadastroController extends Controller
             $nome = trim($_POST['nome'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $senha = $_POST['senha'] ?? '';
+            $tipo = $_POST['tipo'] ?? 'ouvinte'; // 'ouvinte' ou 'artista'
 
+            // Validações
             if (empty($nome) || empty($email) || empty($senha)) {
                 Flash::set('danger', 'Preencha todos os campos.');
                 header('Location: ' . BASE_URL . '/cadastro');
@@ -39,24 +41,46 @@ class CadastroController extends Controller
 
             $usuarioModel = new Usuario();
 
+            // Verifica se email já existe
             if ($usuarioModel->buscarPorEmail($email)) {
                 Flash::set('danger', 'Este e-mail já está cadastrado.');
                 header('Location: ' . BASE_URL . '/cadastro');
                 exit;
             }
 
+            // Hash da senha
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            
+            // Cadastra o usuário
             $usuarioId = $usuarioModel->cadastrar($nome, $email, $senhaHash);
 
-            if ($usuarioId) {
-                Flash::set('success', 'Cadastro realizado com sucesso! Faça login.');
-                header('Location: ' . BASE_URL . '/login');
-                exit;
-            } else {
+            if (!$usuarioId) {
                 Flash::set('danger', 'Erro ao cadastrar. Tente novamente.');
                 header('Location: ' . BASE_URL . '/cadastro');
                 exit;
             }
+
+            // ============================================
+            // SE ESCOLHEU SER ARTISTA, VINCULA
+            // ============================================
+            if ($tipo === 'artista') {
+                // Usa o próprio nome como nome artístico
+                $nomeArtista = $nome;
+                
+                // Cria o perfil de artista
+                $artistaCriado = $usuarioModel->vincularArtista($usuarioId, $nomeArtista);
+                
+                if ($artistaCriado) {
+                    Flash::set('success', 'Cadastro realizado com sucesso! Você agora é um artista. Faça login para começar a postar suas músicas.');
+                } else {
+                    Flash::set('warning', 'Cadastro realizado, mas houve um problema ao criar seu perfil de artista. Entre em contato com o suporte.');
+                }
+            } else {
+                Flash::set('success', 'Cadastro realizado com sucesso! Faça login para começar a ouvir.');
+            }
+
+            header('Location: ' . BASE_URL . '/login');
+            exit;
         }
 
         header('Location: ' . BASE_URL . '/cadastro');

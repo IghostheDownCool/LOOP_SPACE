@@ -178,8 +178,8 @@
 <div class="sobre-container">
     <!-- Cabeçalho -->
     <div class="sobre-header">
-        <h1>🎵 Loop Space</h1>
-        <p class="subtitle">Uma plataforma de streaming de música inspirada no Spotify</p>
+        <h1>SONORA</h1>
+        <p class="subtitle">...</p>
         <span class="version">📌 Versão 2.0</span>
     </div>
 
@@ -216,54 +216,22 @@
     <div class="sobre-info">
         <h2><i class="bi bi-info-circle"></i> Sobre o Projeto</h2>
         <p>
-            O <strong>Loop Space</strong> é um projeto de estudo desenvolvido em <strong>PHP puro</strong> 
+            O <strong>...</strong> é um projeto de estudo desenvolvido em <strong>PHP puro</strong> 
             com arquitetura <strong>MVC</strong>, que simula um serviço de streaming de música. 
             O projeto foi criado com o objetivo de praticar conceitos de programação web, 
             banco de dados e boas práticas de desenvolvimento.
         </p>
     </div>
 
-    <!-- Tecnologias -->
-    <div class="sobre-info">
-        <h2><i class="bi bi-code-square"></i> Tecnologias Utilizadas</h2>
-        <ul>
-            <li><i class="bi bi-check-circle-fill"></i> PHP 8+ (puro, sem frameworks)</li>
-            <li><i class="bi bi-check-circle-fill"></i> MySQL com PDO</li>
-            <li><i class="bi bi-check-circle-fill"></i> HTML5, CSS3, JavaScript Vanilla</li>
-            <li><i class="bi bi-check-circle-fill"></i> Bootstrap 5</li>
-            <li><i class="bi bi-check-circle-fill"></i> Bootstrap Icons</li>
-            <li><i class="bi bi-check-circle-fill"></i> XAMPP (servidor local)</li>
-        </ul>
-    </div>
-
-    <!-- Funcionalidades -->
-    <div class="sobre-info">
-        <h2><i class="bi bi-list-check"></i> Funcionalidades</h2>
-        <ul>
-            <li><i class="bi bi-check-circle-fill"></i> Player global com controles</li>
-            <li><i class="bi bi-check-circle-fill"></i> Modos shuffle e repeat</li>
-            <li><i class="bi bi-check-circle-fill"></i> Criação e gerenciamento de playlists</li>
-            <li><i class="bi bi-check-circle-fill"></i> Barra de pesquisa global</li>
-            <li><i class="bi bi-check-circle-fill"></i> Páginas de artista e álbum</li>
-            <li><i class="bi bi-check-circle-fill"></i> Sistema de curtidas e histórico</li>
-            <li><i class="bi bi-check-circle-fill"></i> Recomendações personalizadas</li>
-            <li><i class="bi bi-check-circle-fill"></i> Seguir artistas</li>
-            <li><i class="bi bi-check-circle-fill"></i> Compartilhar playlists</li>
-            <li><i class="bi bi-check-circle-fill"></i> Área administrativa com dashboard</li>
-            <li><i class="bi bi-check-circle-fill"></i> Sistema de notificações</li>
-            <li><i class="bi bi-check-circle-fill"></i> Modo escuro/claro</li>
-            <li><i class="bi bi-check-circle-fill"></i> Upload de avatar</li>
-            <li><i class="bi bi-check-circle-fill"></i> Sistema de comentários</li>
-        </ul>
-    </div>
+    
 
     <!-- Créditos -->
     <div class="sobre-info">
         <h2><i class="bi bi-heart-fill" style="color: #ff6b6b;"></i> Créditos</h2>
         <p>
-            <strong>Desenvolvido por:</strong> Estudante de PHP<br>
-            <strong>Projeto:</strong> Loop Space - Streaming de Música<br>
-            <strong>Inspirado em:</strong> Spotify
+            <strong>Desenvolvido por:</strong> ...<br>
+            <strong>Projeto:</strong> ...<br>
+            <strong>Inspirado em:</strong> ...
         </p>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 12px;">
             📅 Última atualização: <?= date('d/m/Y') ?>

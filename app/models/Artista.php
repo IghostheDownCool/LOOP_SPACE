@@ -281,4 +281,6 @@ public function contarSeguidos(int $usuarioId): int
     $stmt->execute([':usuario_id' => $usuarioId]);
     return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
+
+
 }

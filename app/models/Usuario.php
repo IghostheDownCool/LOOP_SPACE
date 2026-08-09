@@ -22,7 +22,7 @@ class Usuario
     $stmt->execute([
         ':nome' => $nome,
         ':email' => $email,
-        ':senha' => $senhaHash
+        ':senha' => $senha
     ]);
 
     return $this->pdo->lastInsertId();
@@ -160,4 +160,94 @@ public function excluir(int $usuarioId): bool
     $stmt = $this->pdo->prepare($sql);
     return $stmt->execute([':id' => $usuarioId]);
 }
+    /**
+     * Vincula um usuário a um artista (cria o perfil de artista)
+     */
+    public function vincularArtista(int $usuarioId, string $nomeArtista, ?string $foto = null): bool
+    {
+        try {
+            // Primeiro verifica se o usuário já é artista
+            $sqlCheck = "
+                SELECT artista_id 
+                FROM usuarios 
+                WHERE id = :usuario_id
+            ";
+            $stmtCheck = $this->pdo->prepare($sqlCheck);
+            $stmtCheck->execute([':usuario_id' => $usuarioId]);
+            $result = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+            
+            if ($result && !empty($result['artista_id'])) {
+                // Já é artista
+                return true;
+            }
+            
+            // Cria o artista
+            $sql = "
+                INSERT INTO artistas (nome, foto)
+                VALUES (:nome, :foto)
+            ";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute([
+                ':nome' => $nomeArtista,
+                ':foto' => $foto
+            ]);
+            
+            if (!$result) {
+                return false;
+            }
+            
+            $artistaId = $this->pdo->lastInsertId();
+            
+            // Atualiza o usuário com o ID do artista
+            $sqlUpdate = "
+                UPDATE usuarios
+                SET artista_id = :artista_id
+                WHERE id = :usuario_id
+            ";
+            
+            $stmtUpdate = $this->pdo->prepare($sqlUpdate);
+            return $stmtUpdate->execute([
+                ':artista_id' => $artistaId,
+                ':usuario_id' => $usuarioId
+            ]);
+            
+        } catch (PDOException $e) {
+            error_log('Erro ao vincular artista: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Verifica se um usuário é artista
+     */
+    public function isArtista(int $usuarioId): bool
+    {
+        $sql = "
+            SELECT artista_id 
+            FROM usuarios 
+            WHERE id = :id AND artista_id IS NOT NULL
+        ";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $usuarioId]);
+        return $stmt->fetch() !== false;
+    }
+
+    /**
+     * Busca o artista de um usuário
+     */
+    public function getArtistaDoUsuario(int $usuarioId): array|false
+    {
+        $sql = "
+            SELECT a.*
+            FROM artistas a
+            INNER JOIN usuarios u ON u.artista_id = a.id
+            WHERE u.id = :usuario_id
+        ";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':usuario_id' => $usuarioId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

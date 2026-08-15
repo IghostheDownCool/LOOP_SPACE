@@ -8,7 +8,7 @@ class LogoutController extends Controller
 
         session_destroy();
 
-        header('Location: /LOOP_SPACE/public/login/index');
+        header('Location: /sonora/public/login/index');
         exit;
     }
 }

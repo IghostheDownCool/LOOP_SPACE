@@ -19,7 +19,7 @@ function tocarMusicaPlaylist(botao, id, audio, titulo, artista, album, capa) {
     document.getElementById('btn-play').innerHTML = '<i class="bi bi-pause-fill"></i>';
 
     // Registra a reprodução no backend
-    fetch('/LOOP_SPACE/public/player/reproduzir/' + id, {
+    fetch('/sonora/public/player/reproduzir/' + id, {
         method: 'POST'
     });
 }

@@ -204,7 +204,7 @@
     <div class="admin-header">
         <div>
             <h1><i class="bi bi-speedometer2" style="color: #1db954;"></i> Dashboard</h1>
-            <p class="subtitle">Gerencie todo o conteúdo do Loop Space</p>
+            <p class="subtitle">Gerencie todo o conteúdo do Sonora</p>
         </div>
         <div class="admin-actions">
             <a href="<?= BASE_URL ?>/admin/artistas/cadastrar" class="btn-admin primary">

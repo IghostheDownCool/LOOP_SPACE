@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($playlist['nome']) ?> - Loop Space</title>
+    <title><?= htmlspecialchars($playlist['nome']) ?> - Sonora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
@@ -28,7 +28,7 @@
                     <?= count($musicas) ?> músicas
                 </p>
                 <a href="<?= BASE_URL ?>" class="btn btn-verde mt-3">
-                    <i class="bi bi-house"></i> Ir para o Loop Space
+                    <i class="bi bi-house"></i> Ir para o Sonora
                 </a>
             </div>
         </div>

@@ -809,7 +809,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <div class="sidebar-footer">
 
                 <small>
-                    LOOP SPACE v1.0
+                    Sonora v1.0
                 </small>
 
             </div>

@@ -7,7 +7,7 @@
 
 <!-- Seção: Continuar Navegando -->
 <?php if (!empty($historicoNavegacao)): ?>
-    <h2 class="mt-4 mb-3">
+    <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-clock-history" style="color: #1db954;"></i>
         Continuar navegando
     </h2>
@@ -52,7 +52,7 @@
 
 <!-- Seção de Recomendações -->
 <?php if (!empty($recomendacoes)): ?>
-    <h2 class="mt-4 mb-3">
+    <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-stars" style="color: #1db954;"></i>
         Recomendadas para você
     </h2>
@@ -66,7 +66,7 @@
         <?php endforeach; ?>
     </div>
 <?php else: ?>
-    <div class="alert alert-secondary">
+    <div class="alert alert-secondary" style="margin-top: 16px;">
         Você ainda não tem histórico suficiente para recomendações. Comece a ouvir algumas músicas!
     </div>
 <?php endif; ?>
@@ -76,7 +76,7 @@
 ?>
 
 <?php if (!empty($seguidos)): ?>
-    <h2 class="mt-5 mb-3">
+    <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-people" style="color: #1db954;"></i>
         Artistas que você segue
     </h2>
@@ -101,7 +101,7 @@
     </div>
 
     <?php if (!empty($musicasSeguidos)): ?>
-        <h2 class="mt-5 mb-3">
+        <h2 class="mb-3" style="margin-top: 24px !important;">
             <i class="bi bi-music-note-beamed" style="color: #ff6b6b;"></i>
             Músicas dos artistas que você segue
         </h2>
@@ -116,7 +116,7 @@
         </div>
     <?php endif; ?>
 <?php else: ?>
-    <div class="alert alert-secondary mt-4">
+    <div class="alert alert-secondary" style="margin-top: 16px;">
         Você ainda não segue nenhum artista.
         <a href="<?= BASE_URL ?>/player" class="text-success">Descubra novos artistas</a> e comece a seguir!
     </div>
@@ -124,7 +124,7 @@
 
 <!-- Seção de Top Músicas -->
 <?php if (!empty($topMusicas)): ?>
-    <h2 class="mt-5 mb-3">
+    <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-fire" style="color: #ff6b6b;"></i>
         Mais ouvidas do momento
     </h2>

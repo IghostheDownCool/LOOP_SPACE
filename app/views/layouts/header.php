@@ -10,642 +10,333 @@
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩻</text></svg>">
 
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet"
->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/theme.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/theme.css') ?>">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/buttons.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/buttons.css') ?>">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/forms.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/forms.css') ?>">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/tables.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/tables.css') ?>">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/player.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/artist.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/style.css') ?>">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/music-card.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/music-card.css') ?>">
 
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
->
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/theme.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/theme.css') ?>"
->
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/layout.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/layout.css') ?>"
->
-
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/buttons.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/buttons.css') ?>"
->
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/forms.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/forms.css') ?>"
->
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/tables.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/tables.css') ?>"
->
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/player.css"
->
-
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/artist.css?v=<?= time() ?>">
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/admin.css"
->
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/style.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/style.css') ?>"
->
-
-<link
-    rel="stylesheet"
-    href="<?= BASE_URL ?>/assets/css/music-card.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/music-card.css') ?>"
->
-
-<!-- ==================================================
-     CSS PARA TEMA ADMIN (VERMELHO)
-     ================================================== -->
 <style>
-
-/* 🔥 CORREÇÃO: Evita que o conteúdo fique com altura fixa */
-.container-fluid {
-    min-height: auto !important;
-    height: auto !important;
+/* ==================================================
+   CORES E TEMAS
+================================================== */
+:root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a2e;
+    --bg-card: #16213e;
+    --bg-card-hover: #1a2744;
+    --bg-sidebar: #0f0f1a;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --text-muted: #6b6b6b;
+    --border-color: #2a2a4a;
 }
 
-.row {
-    min-height: auto !important;
-    height: auto !important;
+[data-theme="light"] {
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0f0f0;
+    --bg-sidebar: #f8f8f8;
+    --text-primary: #121212;
+    --text-secondary: #555555;
+    --text-muted: #888888;
+    --border-color: #dddddd;
 }
 
-.conteudo {
-    min-height: auto !important;
-    height: auto !important;
+/* ==================================================
+   LAYOUT BASE
+================================================== */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
-main.col-md-9.col-lg-10.conteudo {
-    min-height: auto !important;
-    height: auto !important;
-}
-
-/* 🔥 CORREÇÃO: Garante que o rodapé não seja empurrado */
-#global-player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1035;
-}
-
-/* 🔥 CORREÇÃO: Espaço para o player */
 body {
     padding-bottom: 80px !important;
 }
 
-/* Ajuste para mobile */
-@media (max-width: 576px) {
-    body {
-        padding-bottom: 70px !important;
+/* ==================================================
+   LAYOUT - SIDEBAR DIREITA COM BOOTSTRAP
+================================================== */
+.container-fluid {
+    min-height: auto !important;
+    background: var(--bg-primary) !important;
+    padding: 0 !important;
+}
+
+.row {
+    min-height: auto !important;
+    margin: 0 !important;
+    display: flex !important;
+}
+
+/* ==================================================
+   SIDEBAR - DIREITA
+================================================== */
+.sidebar {
+    background: var(--bg-sidebar) !important;
+    border-left: 1px solid var(--border-color) !important;
+    padding: 20px 16px !important;
+    min-height: 100vh !important;
+    height: 100vh !important;
+    position: sticky !important;
+    top: 0 !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.sidebar .menu {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+}
+
+.sidebar .menu .nav-link {
+    color: #b3b3b3 !important;
+    padding: 10px 14px !important;
+    border-radius: 10px !important;
+    transition: all 0.2s ease !important;
+    font-size: 0.9rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: transparent !important;
+    border: none !important;
+    width: 100% !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+.sidebar .menu .nav-link:hover {
+    color: #ffffff !important;
+    background: rgba(139, 92, 246, 0.08) !important;
+}
+
+.sidebar .menu .nav-link.active {
+    color: #121212 !important;
+    background: #8B5CF6 !important;
+}
+
+.sidebar .menu .nav-link i {
+    font-size: 1.15rem !important;
+    width: 22px !important;
+    text-align: center !important;
+}
+
+.sidebar-footer {
+    margin-top: auto !important;
+    padding-top: 16px !important;
+    border-top: 1px solid var(--border-color) !important;
+    text-align: center !important;
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+}
+
+/* ==================================================
+   CONTEÚDO - ESQUERDA
+================================================== */
+.conteudo {
+    padding: 30px 40px !important;
+    background: var(--bg-primary) !important;
+    min-height: auto !important;
+}
+
+/* ==================================================
+   PERFIL DO USUÁRIO
+================================================== */
+.user-profile {
+    padding: 12px 8px 16px 8px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    margin-bottom: 16px !important;
+}
+
+.user-profile a {
+    color: var(--text-primary) !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.user-profile .avatar-img {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+.user-profile .avatar-placeholder {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: var(--bg-card-hover) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.4rem !important;
+    color: var(--text-muted) !important;
+}
+
+.user-profile .user-name {
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    font-size: 0.95rem !important;
+}
+
+.user-profile .user-email {
+    font-size: 0.7rem !important;
+    color: var(--text-muted) !important;
+    display: block !important;
+}
+
+/* ==================================================
+   MENU HAMBÚRGUER
+================================================== */
+.hamburger-btn {
+    display: none !important;
+    position: fixed !important;
+    top: 12px !important;
+    right: 12px !important;
+    z-index: 1060 !important;
+    background: rgba(0,0,0,0.7) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    font-size: 1.6rem !important;
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+}
+
+.sidebar-overlay {
+    display: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0,0,0,0.6) !important;
+    z-index: 1045 !important;
+}
+
+.sidebar-overlay.active {
+    display: block !important;
+}
+
+/* ==================================================
+   TEMA ADMIN
+================================================== */
+[data-user-role="admin"] .sidebar .menu .nav-link.active {
+    background: #DC3545 !important;
+    color: #ffffff !important;
+}
+
+[data-user-role="admin"] .btn-primary,
+[data-user-role="admin"] .btn-success,
+[data-user-role="admin"] .btn-verde {
+    background: #DC3545 !important;
+    color: #ffffff !important;
+    border-color: #DC3545 !important;
+}
+
+[data-user-role="admin"] .btn-primary:hover,
+[data-user-role="admin"] .btn-success:hover,
+[data-user-role="admin"] .btn-verde:hover {
+    background: #FF4757 !important;
+    color: #ffffff !important;
+    border-color: #FF4757 !important;
+}
+
+[data-user-role="admin"] .badge {
+    background: #DC3545 !important;
+    color: #ffffff !important;
+}
+
+/* ==================================================
+   RESPONSIVIDADE
+================================================== */
+@media (max-width: 992px) {
+    .conteudo {
+        padding: 20px 24px !important;
     }
 }
 
-    /* ==================================================
-       TEMA ADMIN - CORES VERMELHAS
-       ================================================== */
-    [data-user-role="admin"] {
-        --primary-color: #DC3545;
-        --primary-hover: #FF4757;
-        --primary-light: rgba(220, 53, 69, 0.15);
-        --primary-shadow: rgba(220, 53, 69, 0.35);
-    }
-
-    /* Botões */
-    [data-user-role="admin"] .btn-primary,
-    [data-user-role="admin"] .btn-success,
-    [data-user-role="admin"] .btn-verde,
-    [data-user-role="admin"] a.btn-success,
-    [data-user-role="admin"] a.btn-primary,
-    [data-user-role="admin"] a.btn-verde,
-    [data-user-role="admin"] button.btn-success,
-    [data-user-role="admin"] button.btn-primary,
-    [data-user-role="admin"] button.btn-verde,
-    [data-user-role="admin"] .btn-admin.primary,
-    [data-user-role="admin"] a.btn-admin.primary,
-    [data-user-role="admin"] button.btn-admin.primary {
-        background: #DC3545 !important;
-        color: #ffffff !important;
-        border-color: #DC3545 !important;
-    }
-
-    [data-user-role="admin"] .btn-primary:hover,
-    [data-user-role="admin"] .btn-success:hover,
-    [data-user-role="admin"] .btn-verde:hover,
-    [data-user-role="admin"] a.btn-success:hover,
-    [data-user-role="admin"] a.btn-primary:hover,
-    [data-user-role="admin"] a.btn-verde:hover,
-    [data-user-role="admin"] button.btn-success:hover,
-    [data-user-role="admin"] button.btn-primary:hover,
-    [data-user-role="admin"] button.btn-verde:hover,
-    [data-user-role="admin"] .btn-admin.primary:hover,
-    [data-user-role="admin"] a.btn-admin.primary:hover,
-    [data-user-role="admin"] button.btn-admin.primary:hover {
-        background: #FF4757 !important;
-        color: #ffffff !important;
-        border-color: #FF4757 !important;
-    }
-
-    /* Badges */
-    [data-user-role="admin"] .badge {
-        background: #DC3545 !important;
-        color: #ffffff !important;
-    }
-
-    /* Ícones */
-    [data-user-role="admin"] i.bi.bi-music-note,
-    [data-user-role="admin"] i.bi.bi-person,
-    [data-user-role="admin"] i.bi.bi-collection,
-    [data-user-role="admin"] i.bi.bi-collection-play,
-    [data-user-role="admin"] i.bi.bi-heart-fill,
-    [data-user-role="admin"] i.bi.bi-people,
-    [data-user-role="admin"] i.bi.bi-plus-circle,
-    [data-user-role="admin"] i.bi.bi-eye,
-    [data-user-role="admin"] i.bi.bi-pencil {
-        color: #DC3545 !important;
-    }
-
-    /* Menu ativo */
-    [data-user-role="admin"] .sidebar .menu .nav-link.active,
-    [data-user-role="admin"] .sidebar .menu a.active,
-    [data-user-role="admin"] .menu .nav-link.active,
-    [data-user-role="admin"] .menu a.active {
-        background: #DC3545 !important;
-        color: #ffffff !important;
-    }
-
-    [data-user-role="admin"] .sidebar .menu .nav-link.active i,
-    [data-user-role="admin"] .sidebar .menu a.active i,
-    [data-user-role="admin"] .menu .nav-link.active i,
-    [data-user-role="admin"] .menu a.active i {
-        color: #ffffff !important;
-    }
-
-    /* Links */
-    [data-user-role="admin"] a.text-primary,
-    [data-user-role="admin"] .text-primary {
-        color: #DC3545 !important;
-    }
-
-    [data-user-role="admin"] a.text-primary:hover {
-        color: #FF4757 !important;
-    }
-
-    /* Cards hover */
-    [data-user-role="admin"] .bg-card:hover {
-        border-color: #DC3545 !important;
-    }
-
-    /* Logo texto */
-    [data-user-role="admin"] .sidebar-logo .logo-text span {
-        color: #DC3545 !important;
-    }
-
-    /* Player */
-    [data-user-role="admin"] .player-controls .btn-verde {
-        background: #DC3545 !important;
-        color: #ffffff !important;
-    }
-
-    [data-user-role="admin"] .player-controls .btn-verde:hover {
-        background: #FF4757 !important;
-        color: #ffffff !important;
-    }
-
-    [data-user-role="admin"] #barra-progresso::-webkit-slider-thumb {
-        background: #DC3545 !important;
-    }
-
-    [data-user-role="admin"] #volume::-webkit-slider-thumb {
-        background: #DC3545 !important;
-    }
-
-    /* Botão topo */
-    [data-user-role="admin"] .btn-topo {
-        background: #DC3545 !important;
-        color: #ffffff !important;
-        box-shadow: 0 4px 20px rgba(220, 53, 69, 0.35) !important;
-    }
-
-    [data-user-role="admin"] .btn-topo:hover {
-        background: #FF4757 !important;
-        color: #ffffff !important;
-        box-shadow: 0 8px 30px rgba(220, 53, 69, 0.5) !important;
-    }
-
-    /* Focus */
-    [data-user-role="admin"] input:focus,
-    [data-user-role="admin"] select:focus {
-        border-color: #DC3545 !important;
-        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.15) !important;
-    }
-
-    [data-user-role="admin"] .search-bar:focus-within {
-        border-color: #DC3545 !important;
-        box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.12) !important;
-    }
-
-    /* Menu hambúrguer admin */
-    [data-user-role="admin"] .hamburger-btn:hover {
-        background: rgba(220, 53, 69, 0.3) !important;
-    }
-
-    /* Tema claro - Admin */
-    [data-user-role="admin"][data-theme="light"] .btn-primary,
-    [data-user-role="admin"][data-theme="light"] .btn-success,
-    [data-user-role="admin"][data-theme="light"] .btn-verde {
-        background: #DC3545 !important;
-        color: #ffffff !important;
-        border-color: #DC3545 !important;
-    }
-
-    [data-user-role="admin"][data-theme="light"] .btn-primary:hover,
-    [data-user-role="admin"][data-theme="light"] .btn-success:hover,
-    [data-user-role="admin"][data-theme="light"] .btn-verde:hover {
-        background: #FF4757 !important;
-        color: #ffffff !important;
-        border-color: #FF4757 !important;
-    }
-</style>
-
-<!-- ==================================================
-     CSS RESPONSIVO ADICIONAL (NÃO QUEBRA O EXISTENTE)
-     ================================================== -->
-<style>
-    /* 🔥 LOGO NO TOPO DA SIDEBAR (TEXTO SIMPLES) */
-    .sidebar-logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 16px 0 20px 0;
-        border-bottom: 1px solid var(--border-color, #2a2a4a);
-        margin-bottom: 16px;
-    }
-
-    .sidebar-logo a {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-    }
-
-    .sidebar-logo .logo-text {
-        font-size: 1.4rem;
-        font-weight: 800;
-        color: var(--text-primary, #fff);
-        letter-spacing: -0.02em;
-    }
-
-    .sidebar-logo .logo-text span {
-        color: #8B5CF6;
-    }
-
-    @media (max-width: 768px) {
-        .sidebar-logo .logo-text {
-            font-size: 1.2rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .sidebar-logo .logo-text {
-            font-size: 1rem;
-        }
-    }
-
-    /* 🔥 MENU HAMBÚRGUER - SÓ APARECE EM MOBILE */
+@media (max-width: 768px) {
     .hamburger-btn {
-        display: none;
-        background: transparent;
-        border: none;
-        color: var(--text-primary, #fff);
-        font-size: 1.8rem;
-        padding: 8px 12px;
-        cursor: pointer;
-        z-index: 1050;
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        background: rgba(0,0,0,0.6);
-        border-radius: 8px;
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(255,255,255,0.1);
+        display: block !important;
     }
 
-    .hamburger-btn:hover {
-        background: rgba(139, 92, 246, 0.3);
+    .row {
+        display: block !important;
+        min-height: auto !important;
     }
 
-    /* 🔥 OVERLAY PARA FECHAR O MENU */
-    .sidebar-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.6);
-        z-index: 1038;
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        right: -300px !important;
+        width: 280px !important;
+        height: 100vh !important;
+        z-index: 1050 !important;
+        border-left: 1px solid var(--border-color) !important;
+        transition: right 0.3s ease !important;
+        box-shadow: -4px 0 30px rgba(0,0,0,0.5) !important;
+        padding: 16px !important;
+        display: none !important;
     }
 
-    .sidebar-overlay.active {
-        display: block;
+    .sidebar.open {
+        right: 0 !important;
+        display: flex !important;
     }
 
-    /* 🔥 RESPONSIVIDADE: Até 768px */
-    @media (max-width: 768px) {
-        .hamburger-btn {
-            display: block;
-        }
+    .conteudo {
+        padding: 16px !important;
+        margin-top: 60px !important;
+        min-height: auto !important;
+    }
+}
 
-        .sidebar {
-            position: fixed !important;
-            top: 0;
-            left: -280px;
-            width: 270px !important;
-            height: 100vh !important;
-            z-index: 1040 !important;
-            background: var(--bg-primary, #0a0a0a) !important;
-            border-right: 1px solid var(--border-color, #2a2a4a) !important;
-            transition: left 0.3s ease !important;
-            overflow-y: auto !important;
-            padding: 20px 16px !important;
-            box-shadow: 4px 0 30px rgba(0,0,0,0.5) !important;
-        }
-
-        .sidebar.open {
-            left: 0 !important;
-        }
-
-        /* Esconde a sidebar no layout padrão */
-        .col-md-3.col-lg-2.sidebar {
-            flex: 0 0 auto !important;
-            width: 270px !important;
-        }
-
-        /* Ajusta o main para ocupar toda a largura */
-        .col-md-9.col-lg-10.conteudo {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
-            padding-left: 15px !important;
-            padding-right: 15px !important;
-            margin-top: 60px !important;
-        }
-
-        /* Ajusta o container-fluid */
-        .container-fluid {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-
-        /* Ajusta o row */
-        .row {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-
-        /* Ajusta a barra de pesquisa */
-        .search-bar-container {
-            max-width: 100% !important;
-            padding: 0 10px !important;
-        }
-
-        .search-bar {
-            height: 46px !important;
-            padding: 0 16px !important;
-        }
-
-        .search-input {
-            font-size: 0.9rem !important;
-        }
-
-        /* Ajusta os cards para 2 colunas em telas médias */
-        .row-cols-md-2 {
-            --bs-gutter-x: 0.75rem !important;
-        }
-
-        .row-cols-md-2 > .col {
-            flex: 0 0 50% !important;
-            max-width: 50% !important;
-        }
-
-        /* Ajusta os cards de artista */
-        .row-cols-md-3 {
-            --bs-gutter-x: 0.75rem !important;
-        }
-
-        .row-cols-md-3 > .col {
-            flex: 0 0 33.333% !important;
-            max-width: 33.333% !important;
-        }
+@media (max-width: 576px) {
+    .conteudo {
+        padding: 12px !important;
+        margin-top: 56px !important;
     }
 
-    /* 🔥 RESPONSIVIDADE: Até 576px (mobile) */
-    @media (max-width: 576px) {
-        .sidebar {
-            width: 260px !important;
-            left: -270px !important;
-            padding: 16px 12px !important;
-        }
-
-        .sidebar.open {
-            left: 0 !important;
-        }
-
-        .col-md-9.col-lg-10.conteudo {
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-            margin-top: 56px !important;
-        }
-
-        .hamburger-btn {
-            font-size: 1.5rem;
-            padding: 6px 10px;
-            top: 8px;
-            left: 8px;
-        }
-
-        /* Cards em 1 coluna no mobile */
-        .row-cols-md-2 > .col {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
-        }
-
-        .row-cols-md-3 > .col {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
-        }
-
-        .row-cols-lg-3 > .col {
-            flex: 0 0 100% !important;
-            max-width: 100% !important;
-        }
-
-        /* Cards de artista em 2 colunas no mobile */
-        .row-cols-md-3.row-cols-lg-4.row-cols-xl-5 > .col {
-            flex: 0 0 50% !important;
-            max-width: 50% !important;
-        }
-
-        /* Ajusta o player */
-        .player-container {
-            padding: 12px !important;
-        }
-
-        /* Ajusta os títulos */
-        h1 { font-size: 1.4rem !important; }
-        h2 { font-size: 1.1rem !important; }
-        h3 { font-size: 1rem !important; }
-
-        /* Ajusta formulários */
-        form {
-            padding: 16px !important;
-        }
-
-        /* Ajusta botões */
-        .btn, .btn-primary, .btn-success {
-            padding: 10px 16px !important;
-            font-size: 0.9rem !important;
-            width: 100% !important;
-        }
-
-        /* Ajusta inputs */
-        input, select {
-            padding: 10px 12px !important;
-            font-size: 0.9rem !important;
-        }
-
-        /* Ajusta estatísticas */
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 10px !important;
-        }
-
-        .stat-item {
-            padding: 12px 8px !important;
-        }
-
-        .stat-item .stat-value {
-            font-size: 1.3rem !important;
-        }
-
-        /* Ajusta comentários */
-        .comentario-item {
-            padding: 10px 12px !important;
-        }
-
-        /* Ajusta o perfil do usuário na sidebar (mobile) */
-        .user-profile .user-info {
-            display: block !important;
-        }
-
-        .user-profile .user-email {
-            font-size: 0.7rem !important;
-        }
-
-        /* Ajusta as abas de gênero */
-        .genero-filtro .btn {
-            padding: 4px 12px !important;
-            font-size: 0.7rem !important;
-        }
+    .sidebar {
+        width: 260px !important;
+        right: -280px !important;
+        padding: 12px 10px !important;
     }
 
-    /* 🔥 RESPONSIVIDADE: Telas muito pequenas (até 400px) */
-    @media (max-width: 400px) {
-        .sidebar {
-            width: 220px !important;
-            left: -230px !important;
-        }
-
-        .sidebar.open {
-            left: 0 !important;
-        }
-
-        .row-cols-md-3.row-cols-lg-4.row-cols-xl-5 > .col {
-            flex: 0 0 50% !important;
-            max-width: 50% !important;
-        }
-
-        .hamburger-btn {
-            font-size: 1.3rem;
-            padding: 4px 8px;
-        }
-
-        .music-card {
-            padding: 6px !important;
-        }
-
-        .music-info h6 {
-            font-size: 0.75rem !important;
-        }
-
-        .music-info small {
-            font-size: 0.6rem !important;
-        }
+    .hamburger-btn {
+        font-size: 1.4rem !important;
+        padding: 4px 10px !important;
+        top: 8px !important;
+        right: 8px !important;
     }
+
+    .sidebar .menu .nav-link {
+        font-size: 0.8rem !important;
+        padding: 8px 10px !important;
+    }
+}
 </style>
 
 <script>
-    // 🔥 FORÇA OS LINKS E ÍCONES DO MENU
-    (function() {
-        function forcarLinksCinza() {
-            var isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            var isAdmin = document.documentElement.getAttribute('data-user-role') === 'admin';
-            var corIcone = isLight ? '#666666' : '#b3b3b3';
-            var corActive = isAdmin ? '#ffffff' : '#121212';
-            var corActiveBg = isAdmin ? '#DC3545' : '#8B5CF6';
-
-            var links = document.querySelectorAll('.sidebar .menu a, .sidebar a, .menu a, .nav-link');
-            links.forEach(function(link) {
-                if (!link.classList.contains('active')) {
-                    link.style.setProperty('background', 'transparent', 'important');
-                    link.style.setProperty('background-color', 'transparent', 'important');
-                } else {
-                    link.style.setProperty('color', corActive, 'important');
-                    link.style.setProperty('background', corActiveBg, 'important');
-                    link.style.setProperty('background-color', corActiveBg, 'important');
-                }
-            });
-
-            var icons = document.querySelectorAll('.sidebar .menu .nav-link i, .sidebar .menu a i, .menu .nav-link i, .menu a i');
-            icons.forEach(function(icon) {
-                var parentLink = icon.closest('a');
-                if (parentLink && parentLink.classList.contains('active')) {
-                    icon.style.setProperty('color', corActive, 'important');
-                } else {
-                    icon.style.setProperty('color', corIcone, 'important');
-                }
-            });
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', forcarLinksCinza);
-        } else {
-            forcarLinksCinza();
-        }
-
-        setTimeout(forcarLinksCinza, 500);
-        setTimeout(forcarLinksCinza, 1000);
-        setTimeout(forcarLinksCinza, 2000);
-    })();
-
-    // ==================================================
-    // MENU HAMBÚRGUER - ABRIR/FECHAR
-    // ==================================================
+    // MENU HAMBÚRGUER
     document.addEventListener('DOMContentLoaded', function() {
         var hamburger = document.createElement('button');
         hamburger.className = 'hamburger-btn';
@@ -668,27 +359,26 @@ body {
         hamburger.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
 
-        sidebar.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    toggleMenu();
-                }
+        if (sidebar) {
+            sidebar.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        toggleMenu();
+                    }
+                });
             });
-        });
+        }
 
         window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+            if (window.innerWidth > 768 && sidebar && sidebar.classList.contains('open')) {
                 sidebar.classList.remove('open');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
     });
-</script>
 
-</head>
-
-<script>
+    // NOTIFICAÇÕES
     function atualizarNotificacoes() {
         fetch('<?= BASE_URL ?>/notificacoes/contar')
             .then(response => response.json())
@@ -708,6 +398,8 @@ body {
     document.addEventListener('DOMContentLoaded', atualizarNotificacoes);
 </script>
 
+</head>
+
 <body>
 
 <?php
@@ -717,170 +409,35 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 ?>
 
+<!-- ==================================================
+     LAYOUT PRINCIPAL
+     ================================================== -->
 <div class="container-fluid">
-
     <div class="row">
 
-        <aside class="col-md-3 col-lg-2 sidebar">
+        <!-- ==========================================
+             CONTEÚDO PRINCIPAL - ESQUERDA (9/12)
+             ========================================== -->
+        <div class="col-12 col-md-9 col-lg-10 conteudo">
 
-            <!-- ==================================================
-                 LOGO NO TOPO DA SIDEBAR (TEXTO SIMPLES)
-                 ================================================== -->
+            <!-- Mensagens Flash -->
+            <?php if (Flash::has()): ?>
+                <?php $flash = Flash::get(); ?>
+                <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
+                    <?= htmlspecialchars($flash['message']) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php endif; ?>
 
-
-            <!-- ==================================================
-                 PERFIL DO USUÁRIO (AVATAR + NOME)
-                 ================================================== -->
-            <?php
-            $usuarioModel = new Usuario();
-            if (isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id'])) {
-                $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
-                if (!$usuario) {
-                    session_unset();
-                    session_destroy();
-                    header('Location: /login');
-                    exit;
-                }
-            } else {
-                $usuario = null;
-            }
-            ?>
-
-            <div class="user-profile mb-4 p-2">
-                <a href="<?= BASE_URL ?>/perfil" class="text-decoration-none d-flex align-items-center gap-3">
-                    <div class="user-avatar">
-                        <?php if (!empty($usuario['avatar'])): ?>
-                            <img
-                                src="<?= BASE_URL ?>/uploads/avatars/<?= htmlspecialchars($usuario['avatar']) ?>"
-                                alt="<?= htmlspecialchars($usuario['nome']) ?>"
-                                class="avatar-img"
-                            >
-                        <?php else: ?>
-                            <div class="avatar-placeholder">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="user-info">
-                        <strong class="user-name"><?= htmlspecialchars($usuario['nome']) ?></strong>
-                        <small class="user-email"><?= htmlspecialchars($usuario['email']) ?></small>
-                    </div>
-                </a>
+            <!-- BARRA DE PESQUISA -->
+            <div class="search-bar-container mb-4">
+                <div class="search-bar">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="search-input" class="search-input" placeholder="O que você quer ouvir?" autocomplete="off">
+                </div>
+                <div id="search-results" class="search-results"></div>
             </div>
 
-            <nav class="menu nav flex-column">
-
-                <a class="nav-link" href="<?= BASE_URL ?>">
-                    <i class="bi bi-house-fill"></i>
-                    Início
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/artistas">
-                    <i class="bi bi-person"></i> Artistas
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/generos">
-                    <i class="bi bi-tags"></i>
-                    Gêneros
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/player">
-                    <i class="bi bi-music-note-list"></i>
-                    Player
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/curtidas">
-                    <i class="bi bi-heart-fill"></i> Curtidas
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/historico">
-                    <i class="bi bi-clock-history"></i>
-                    Recentes
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/playlists">
-                    <i class="bi bi-collection-play-fill"></i>
-                    Playlists
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/player/top">
-                    <i class="bi bi-fire"></i>
-                    Top Músicas
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/seguindo">
-                    <i class="bi bi-people"></i> Seguindo
-                </a>
-
-                <?php if (isset($_SESSION['usuario_id'])): ?>
-                    <?php
-                    $usuarioModel = new Usuario();
-                    $isAdmin = $usuarioModel->isAdmin($_SESSION['usuario_id']);
-                    ?>
-                    <?php if ($isAdmin): ?>
-                        <a class="nav-link" href="<?= BASE_URL ?>/admin">
-                            <i class="bi bi-speedometer2"></i>
-                            Painel
-                        </a>
-                    <?php endif; ?>
-                <?php endif; ?>
-
-                <a class="nav-link position-relative" href="<?= BASE_URL ?>/notificacoes">
-                    <i class="bi bi-bell"></i>
-                    Notificações
-                    <span id="notificacao-badge" class="badge bg-danger rounded-pill" style="display: none; font-size: 0.6rem; position: absolute; top: 2px; right: 2px;">0</span>
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/sobre">
-                    <i class="bi bi-info-circle"></i>
-                    Sobre
-                </a>
-
-                <button class="nav-link theme-toggle" id="theme-toggle" title="Alternar tema">
-                    <i class="bi bi-moon-fill" id="theme-icon"></i>
-                    <span style="margin-left: 8px;">Tema</span>
-                </button>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/perfil">
-                    <i class="bi bi-person-circle"></i>
-                    Perfil
-                </a>
-
-                <a class="nav-link" href="<?= BASE_URL ?>/logout">
-                    <i class="bi bi-box-arrow-right"></i>
-                    Sair
-                </a>
-
-            </nav>
-
-            <div class="sidebar-footer">
-
-                <small>
-                    Sonora v1.0
-                </small>
-
-            </div>
-
-        </aside>
-
-        <main class="col-md-9 col-lg-10 conteudo">
-
-        <!-- Mensagens Flash -->
-        <?php if (Flash::has()): ?>
-            <?php $flash = Flash::get(); ?>
-            <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
-                <?= htmlspecialchars($flash['message']) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        <?php endif; ?>
-
-        <!-- BARRA DE PESQUISA -->
-        <div class="search-bar-container mb-4">
-            <div class="search-bar">
-                <i class="bi bi-search"></i>
-                <input type="text" id="search-input" class="search-input" placeholder="O que você quer ouvir?" autocomplete="off">
-            </div>
-            <div id="search-results" class="search-results"></div>
-        </div>
-
-        <!-- O RESTANTE DO CONTEÚDO VIRÁ AQUI -->
+            <!-- ==========================================
+                 O CONTEÚDO DA PÁGINA VEM AQUI
+                 ========================================== -->

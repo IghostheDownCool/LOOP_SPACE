@@ -1,8 +1,84 @@
-</main>
+        </div><!-- FIM DO CONTEUDO (col-12 col-md-9 col-lg-10) -->
 
-    </div>
+        <!-- ==========================================
+             SIDEBAR - DIREITA (3/12)
+             ========================================== -->
+        <aside class="col-12 col-md-3 col-lg-2 sidebar">
 
-</div>
+            <!-- PERFIL DO USUÁRIO -->
+            <?php
+            $usuarioModel = new Usuario();
+            if (isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id'])) {
+                $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+                if (!$usuario) {
+                    session_unset();
+                    session_destroy();
+                    header('Location: /login');
+                    exit;
+                }
+            } else {
+                $usuario = null;
+            }
+            ?>
+
+            <div class="user-profile">
+                <a href="<?= BASE_URL ?>/perfil">
+                    <div class="user-avatar">
+                        <?php if (!empty($usuario['avatar'])): ?>
+                            <img src="<?= BASE_URL ?>/uploads/avatars/<?= htmlspecialchars($usuario['avatar']) ?>" alt="<?= htmlspecialchars($usuario['nome']) ?>" class="avatar-img">
+                        <?php else: ?>
+                            <div class="avatar-placeholder"><i class="bi bi-person-fill"></i></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name"><?= htmlspecialchars($usuario['nome']) ?></span>
+                        <span class="user-email"><?= htmlspecialchars($usuario['email']) ?></span>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="menu nav flex-column">
+                <a class="nav-link" href="<?= BASE_URL ?>"><i class="bi bi-house-fill"></i> Início</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/artistas"><i class="bi bi-person"></i> Artistas</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/generos"><i class="bi bi-tags"></i> Gêneros</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/player"><i class="bi bi-music-note-list"></i> Player</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/curtidas"><i class="bi bi-heart-fill"></i> Curtidas</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/historico"><i class="bi bi-clock-history"></i> Recentes</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/playlists"><i class="bi bi-collection-play-fill"></i> Playlists</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/player/top"><i class="bi bi-fire"></i> Top Músicas</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/seguindo"><i class="bi bi-people"></i> Seguindo</a>
+
+                <?php
+                $isAdmin = $usuarioModel->isAdmin($_SESSION['usuario_id']);
+                if ($isAdmin): ?>
+                    <a class="nav-link" href="<?= BASE_URL ?>/admin"><i class="bi bi-speedometer2"></i> Painel</a>
+                <?php endif; ?>
+
+                <?php
+                $isArtista = $usuarioModel->isArtista($_SESSION['usuario_id']);
+                if ($isArtista): ?>
+                    <a class="nav-link" href="<?= BASE_URL ?>/artista"><i class="bi bi-mic-fill"></i> Área do Artista</a>
+                <?php endif; ?>
+
+                <a class="nav-link position-relative" href="<?= BASE_URL ?>/notificacoes">
+                    <i class="bi bi-bell"></i> Notificações
+                    <span id="notificacao-badge" class="badge bg-danger rounded-pill" style="display: none; font-size: 0.6rem; position: absolute; top: 2px; right: 2px;">0</span>
+                </a>
+
+                <a class="nav-link" href="<?= BASE_URL ?>/sobre"><i class="bi bi-info-circle"></i> Sobre</a>
+                <button class="nav-link theme-toggle" id="theme-toggle"><i class="bi bi-moon-fill" id="theme-icon"></i> <span style="margin-left: 8px;">Tema</span></button>
+                <a class="nav-link" href="<?= BASE_URL ?>/perfil"><i class="bi bi-person-circle"></i> Perfil</a>
+                <a class="nav-link" href="<?= BASE_URL ?>/logout"><i class="bi bi-box-arrow-right"></i> Sair</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <small>Sonora v1.0</small>
+            </div>
+
+        </aside>
+
+    </div><!-- FIM DO ROW -->
+</div><!-- FIM DO CONTAINER -->
 
 <!-- ==================================================
      PLAYER GLOBAL - RESPONSIVO
@@ -107,8 +183,8 @@
         left: 0;
         right: 0;
         z-index: 1035;
-        background: var(--player-bg, #0f0f1a);
-        border-top: 1px solid var(--player-border, #2a2a4a);
+        background: var(--bg-sidebar, #0f0f1a);
+        border-top: 1px solid var(--border-color, #2a2a4a);
         padding: 12px 20px;
         display: flex;
         align-items: center;
@@ -326,8 +402,29 @@
     }
 
     /* ==================================================
+       TEMA ADMIN - PLAYER
+    ================================================== */
+    [data-user-role="admin"] .player-controls .btn-verde {
+        background: #DC3545 !important;
+        color: #ffffff !important;
+    }
+
+    [data-user-role="admin"] .player-controls .btn-verde:hover {
+        background: #FF4757 !important;
+        color: #ffffff !important;
+    }
+
+    [data-user-role="admin"] #barra-progresso::-webkit-slider-thumb {
+        background: #DC3545 !important;
+    }
+
+    [data-user-role="admin"] #volume::-webkit-slider-thumb {
+        background: #DC3545 !important;
+    }
+
+    /* ==================================================
        RESPONSIVIDADE DO PLAYER
-       ================================================== */
+    ================================================== */
 
     /* Tablet - até 768px */
     @media (max-width: 768px) {
@@ -394,7 +491,6 @@
             justify-content: center;
         }
 
-        /* Esconde a capa e informações no mobile */
         .player-left {
             display: none;
         }
@@ -422,7 +518,6 @@
             font-size: 1rem;
         }
 
-        /* Esconde shuffle e repeat no mobile para economizar espaço */
         .player-controls #btn-shuffle,
         .player-controls #btn-repeat {
             display: none;
@@ -452,11 +547,6 @@
             font-size: 1rem;
         }
 
-        #volume {
-            width: 50px;
-        }
-
-        /* Ajusta o botão de volume no mobile */
         #volume {
             width: 40px;
         }
@@ -496,38 +586,16 @@
 </script>
 
 <script src="<?= BASE_URL ?>/assets/js/player.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/player.js') ?>"></script>
-
 <script src="<?= BASE_URL ?>/assets/js/volume.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/volume.js') ?>"></script>
-
 <script src="<?= BASE_URL ?>/assets/js/playlist.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/playlist.js') ?>"></script>
-
 <script src="<?= BASE_URL ?>/assets/js/search.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/search.js') ?>"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="<?= BASE_URL ?>/assets/js/playlist-modal.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/playlist-modal.js') ?>"></script>
-
 <script src="<?= BASE_URL ?>/assets/js/theme.js?v=<?= filemtime(__DIR__ . '/../../../public/assets/js/theme.js') ?>"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Força os links com classe menu-link-cinza a ficarem cinza
-        document.querySelectorAll('.menu-link-cinza').forEach(function(link) {
-            if (!link.classList.contains('active')) {
-                link.style.color = '#b3b3b3';
-                link.style.background = 'transparent';
-            }
-        });
-    });
-</script>
-
-<!-- ==================================================
-     BOTÃO VOLTAR AO TOPO
-     ================================================== -->
 <button id="btn-topo" class="btn-topo" title="Voltar ao topo">
     <i class="bi bi-chevron-up"></i>
 </button>
 
 </body>
-
 </html>

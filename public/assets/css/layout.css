@@ -54,13 +54,13 @@ body {
 }
 
 /* ==========================
-   SIDEBAR
+   SIDEBAR (LADO DIREITO)
 ========================== */
 
 .sidebar {
     min-height: 100vh;
     background: var(--bg-sidebar);
-    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color); /* MUDOU: border-right → border-left */
     padding: 30px 20px;
     transition: background 0.3s, border-color 0.3s;
     position: sticky;
@@ -69,6 +69,8 @@ body {
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--border-color) transparent;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -88,27 +90,17 @@ body {
     background: var(--text-muted);
 }
 
-.logo {
-    margin-bottom: 40px;
-    text-align: center;
-    padding: 8px 0;
-}
+/* ==========================
+   CONTEÚDO (OCUPA O ESPAÇO RESTANTE)
+========================== */
 
-.logo h2 {
-    color: #8B5CF6;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: -0.02em;
-    font-size: 1.8rem;
-}
-
-.logo small {
-    color: var(--text-muted);
-    display: block;
-    margin-top: 6px;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-    transition: color 0.3s;
+.conteudo {
+    padding: 40px 48px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background 0.3s, color 0.3s;
+    min-height: 100vh;
+    flex: 1;
 }
 
 /* ==========================
@@ -119,6 +111,7 @@ body {
     gap: 2px;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 /* 🔥 CORREÇÃO: Estilo base para todos os links do menu */
@@ -150,7 +143,7 @@ body {
 .menu .nav-link:hover {
     color: #ffffff !important;
     background: rgba(139, 92, 246, 0.08) !important;
-    transform: translateX(4px);
+    transform: translateX(-4px); /* MUDOU: direção do hover */
 }
 
 .menu .nav-link:hover i {
@@ -172,80 +165,21 @@ body {
 .menu .nav-link.active::before {
     content: '';
     position: absolute;
-    left: 0;
+    right: 0; /* MUDOU: left → right */
     top: 50%;
     transform: translateY(-50%);
     width: 3px;
     height: 24px;
     background: #8B5CF6;
-    border-radius: 0 4px 4px 0;
-}
-
-/* 🔥 CORREÇÃO EXTREMA: Força os links problemáticos a ficarem cinza */
-.menu .nav-link[href*="/artistas"],
-.menu .nav-link[href*="/curtidas"],
-.menu .nav-link[href*="/seguindo"] {
-    color: #b3b3b3 !important;
-    background: transparent !important;
-}
-
-.menu .nav-link[href*="/artistas"]:hover,
-.menu .nav-link[href*="/curtidas"]:hover,
-.menu .nav-link[href*="/seguindo"]:hover {
-    color: #ffffff !important;
-    background: rgba(139, 92, 246, 0.08) !important;
-}
-
-.menu .nav-link[href*="/artistas"].active,
-.menu .nav-link[href*="/curtidas"].active,
-.menu .nav-link[href*="/seguindo"].active {
-    color: #121212 !important;
-    background: #8B5CF6 !important;
-}
-
-/* ==========================
-   CONTEÚDO
-========================== */
-
-.conteudo {
-    padding: 40px 48px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    transition: background 0.3s, color 0.3s;
-    min-height: 100vh;
-}
-
-/* ==========================
-   LOGO
-========================== */
-
-.logo-icon {
-    font-size: 48px;
-    color: #8B5CF6;
-    display: block;
-    margin-bottom: 10px;
-    transition: transform 0.3s ease;
-}
-
-.logo-icon:hover {
-    transform: scale(1.05) rotate(-5deg);
+    border-radius: 4px 0 0 4px; /* MUDOU: borda invertida */
 }
 
 /* ==========================
    RODAPÉ DA SIDEBAR
 ========================== */
 
-.sidebar {
-    display: flex;
-    flex-direction: column;
-}
-
-.menu {
-    flex: 1;
-}
-
 .sidebar-footer {
-    margin-top: 30px;
+    margin-top: auto;
     padding-top: 20px;
     border-top: 1px solid var(--border-color);
     text-align: center;
@@ -258,13 +192,6 @@ body {
 /* ==========================
    PAGE HEADER
 ========================== */
-
-.search-bar-container {
-    position: relative !important;
-    max-width: 600px;
-    margin: 0 auto 24px auto;
-    padding-top: 0;
-}
 
 .page-header {
     margin-bottom: 28px;
@@ -313,149 +240,8 @@ body {
 }
 
 /* ==========================
-   RESPONSIVIDADE
-========================== */
-
-@media (max-width: 992px) {
-    .conteudo {
-        padding: 28px 20px;
-    }
-
-    .sidebar {
-        padding: 20px 14px;
-    }
-}
-
-@media (max-width: 768px) {
-    .conteudo {
-        padding: 20px 16px;
-    }
-
-    .sidebar {
-        padding: 16px 12px;
-        height: auto;
-        min-height: 100vh;
-        position: relative;
-    }
-
-    .logo h2 {
-        font-size: 1.4rem;
-    }
-
-    .logo-icon {
-        font-size: 36px;
-    }
-
-    .page-header h1 {
-        font-size: 26px;
-    }
-}
-
-@media (max-width: 576px) {
-    .conteudo {
-        padding: 16px 12px;
-    }
-
-    .sidebar {
-        padding: 12px 8px;
-    }
-
-    .menu .nav-link {
-        padding: 8px 10px;
-        font-size: 0.8rem;
-        gap: 8px;
-    }
-
-    .menu .nav-link i {
-        font-size: 1rem;
-        width: 18px;
-    }
-
-    .page-header h1 {
-        font-size: 22px;
-    }
-
-    .logo h2 {
-        font-size: 1.2rem;
-    }
-
-    .logo-icon {
-        font-size: 30px;
-    }
-
-    .search-bar-container {
-        margin: 0 auto 16px auto;
-    }
-}
-
-/* ==================================================
-   CORREÇÃO DO MENU LATERAL - EVITA SOBREPOSIÇÃO
-   ================================================== */
-
-.sidebar {
-    padding-bottom: 100px !important;
-    overflow-y: auto;
-    max-height: 100vh;
-}
-
-.sidebar .menu {
-    padding-bottom: 20px;
-}
-
-.sidebar .menu .nav-link:last-child {
-    margin-bottom: 10px;
-}
-
-/* ==================================================
-   CONSISTÊNCIA ENTRE BARRAS DE PROGRESSO E VOLUME
-   ================================================== */
-
-#global-player .player-progress input[type="range"],
-#global-player .player-right input[type="range"] {
-    height: 4px !important;
-    background: var(--text-muted);
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
-    transition: height 0.2s;
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-#global-player .player-progress input[type="range"]::-webkit-slider-thumb,
-#global-player .player-right input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #8B5CF6;
-    cursor: pointer;
-    border: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 0 16px rgba(139, 92, 246, 0.3);
-}
-
-#global-player .player-progress input[type="range"]::-webkit-slider-thumb:hover,
-#global-player .player-right input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    box-shadow: 0 0 24px rgba(139, 92, 246, 0.5);
-}
-
-#global-player .player-progress input[type="range"]::-moz-range-thumb,
-#global-player .player-right input[type="range"]::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #8B5CF6;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 0 16px rgba(139, 92, 246, 0.3);
-}
-
-/* ==================================================
    PERFIL DO USUÁRIO NO MENU LATERAL
-   ================================================== */
+========================== */
 
 .user-profile {
     padding: 14px 8px 16px 8px;
@@ -545,7 +331,185 @@ body {
     color: #8B5CF6;
 }
 
-/* Tema claro */
+/* ==================================================
+   RESPONSIVIDADE
+================================================== */
+
+@media (max-width: 992px) {
+    .conteudo {
+        padding: 28px 20px;
+    }
+
+    .sidebar {
+        padding: 20px 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .conteudo {
+        padding: 20px 16px;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        margin-top: 60px !important;
+    }
+
+    .sidebar {
+        position: fixed !important;
+        top: 0;
+        right: -280px !important; /* MUDOU: left → right */
+        width: 270px !important;
+        height: 100vh !important;
+        z-index: 1040 !important;
+        background: var(--bg-primary, #0a0a0a) !important;
+        border-left: 1px solid var(--border-color, #2a2a4a) !important; /* MUDOU: border-right → border-left */
+        transition: right 0.3s ease !important; /* MUDOU: left → right */
+        overflow-y: auto !important;
+        padding: 20px 16px !important;
+        box-shadow: -4px 0 30px rgba(0,0,0,0.5) !important; /* MUDOU: direção da sombra */
+        min-height: 100vh !important;
+    }
+
+    .sidebar.open {
+        right: 0 !important; /* MUDOU: left → right */
+    }
+
+    .sidebar .menu .nav-link:hover {
+        transform: translateX(-4px); /* MUDOU: direção do hover */
+    }
+
+    .sidebar .menu .nav-link.active::before {
+        right: 0; /* MUDOU: left → right */
+        border-radius: 4px 0 0 4px; /* MUDOU: borda invertida */
+    }
+
+    .sidebar-footer {
+        margin-top: auto;
+    }
+
+    .user-profile a {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .user-profile .user-info {
+        text-align: center;
+    }
+
+    .user-profile .user-email {
+        display: none;
+    }
+
+    .user-profile .avatar-img,
+    .user-profile .avatar-placeholder {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .conteudo {
+        padding: 16px 12px;
+        margin-top: 56px !important;
+    }
+
+    .sidebar {
+        width: 260px !important;
+        right: -270px !important; /* MUDOU: left → right */
+        padding: 16px 12px !important;
+    }
+
+    .sidebar.open {
+        right: 0 !important; /* MUDOU: left → right */
+    }
+
+    .menu .nav-link {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+        gap: 8px;
+    }
+
+    .menu .nav-link i {
+        font-size: 1rem;
+        width: 18px;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+}
+
+/* ==================================================
+   CORREÇÃO DO MENU LATERAL - EVITA SOBREPOSIÇÃO
+   ================================================== */
+
+.sidebar {
+    padding-bottom: 100px !important;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.sidebar .menu {
+    padding-bottom: 20px;
+}
+
+.sidebar .menu .nav-link:last-child {
+    margin-bottom: 10px;
+}
+
+/* ==================================================
+   CONSISTÊNCIA ENTRE BARRAS DE PROGRESSO E VOLUME
+   ================================================== */
+
+#global-player .player-progress input[type="range"],
+#global-player .player-right input[type="range"] {
+    height: 4px !important;
+    background: var(--text-muted);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    transition: height 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#global-player .player-progress input[type="range"]::-webkit-slider-thumb,
+#global-player .player-right input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #8B5CF6;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.3);
+}
+
+#global-player .player-progress input[type="range"]::-webkit-slider-thumb:hover,
+#global-player .player-right input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 24px rgba(139, 92, 246, 0.5);
+}
+
+#global-player .player-progress input[type="range"]::-moz-range-thumb,
+#global-player .player-right input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #8B5CF6;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.3);
+}
+
+/* ==================================================
+   TEMA CLARO - PERFIL DO USUÁRIO
+   ================================================== */
+
 [data-theme="light"] .user-profile {
     border-bottom-color: var(--border-color, #dddddd);
 }
@@ -567,27 +531,43 @@ body {
     border-color: var(--border-color, #dddddd);
 }
 
-/* Responsividade */
+/* ==================================================
+   CORREÇÃO: Menu hambúrguer no mobile
+   ================================================== */
+
+.hamburger-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary, #fff);
+    font-size: 1.8rem;
+    padding: 8px 12px;
+    cursor: pointer;
+    z-index: 1050;
+    position: fixed;
+    top: 10px;
+    right: 10px; /* MUDOU: left → right */
+    background: rgba(0,0,0,0.6);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.hamburger-btn:hover {
+    background: rgba(139, 92, 246, 0.3);
+}
+
 @media (max-width: 768px) {
-    .user-profile a {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 8px;
+    .hamburger-btn {
+        display: block;
     }
+}
 
-    .user-profile .user-info {
-        text-align: center;
-    }
-
-    .user-profile .user-email {
-        display: none;
-    }
-
-    .user-profile .avatar-img,
-    .user-profile .avatar-placeholder {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
+@media (max-width: 576px) {
+    .hamburger-btn {
+        font-size: 1.5rem;
+        padding: 6px 10px;
+        top: 8px;
+        right: 8px; /* MUDOU: left → right */
     }
 }

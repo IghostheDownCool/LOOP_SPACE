@@ -216,10 +216,7 @@
     <div class="sobre-info">
         <h2><i class="bi bi-info-circle"></i> Sobre o Projeto</h2>
         <p>
-            O <strong>...</strong> é um projeto de estudo desenvolvido em <strong>PHP puro</strong> 
-            com arquitetura <strong>MVC</strong>, que simula um serviço de streaming de música. 
-            O projeto foi criado com o objetivo de praticar conceitos de programação web, 
-            banco de dados e boas práticas de desenvolvimento.
+            <strong>...</strong> 
         </p>
     </div>
 

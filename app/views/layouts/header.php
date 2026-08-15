@@ -15,6 +15,7 @@
     rel="stylesheet"
 >
 
+
 <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
@@ -29,6 +30,7 @@
     rel="stylesheet"
     href="<?= BASE_URL ?>/assets/css/layout.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/layout.css') ?>"
 >
+
 
 <link
     rel="stylesheet"
@@ -50,6 +52,8 @@
     href="<?= BASE_URL ?>/assets/css/player.css"
 >
 
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/artist.css?v=<?= time() ?>">
+
 <link
     rel="stylesheet"
     href="<?= BASE_URL ?>/assets/css/admin.css"
@@ -69,6 +73,49 @@
      CSS PARA TEMA ADMIN (VERMELHO)
      ================================================== -->
 <style>
+
+/* 🔥 CORREÇÃO: Evita que o conteúdo fique com altura fixa */
+.container-fluid {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+.row {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+.conteudo {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+main.col-md-9.col-lg-10.conteudo {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* 🔥 CORREÇÃO: Garante que o rodapé não seja empurrado */
+#global-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1035;
+}
+
+/* 🔥 CORREÇÃO: Espaço para o player */
+body {
+    padding-bottom: 80px !important;
+}
+
+/* Ajuste para mobile */
+@media (max-width: 576px) {
+    body {
+        padding-bottom: 70px !important;
+    }
+}
+
     /* ==================================================
        TEMA ADMIN - CORES VERMELHAS
        ================================================== */

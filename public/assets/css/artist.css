@@ -1,0 +1,155 @@
+/* ==================================================
+   ESTILOS PARA ÁREA DO ARTISTA
+   ================================================== */
+
+/* Cards de estatísticas */
+.stat-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    height: 100%;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.stat-card:hover {
+    border-color: #8B5CF6;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.1);
+}
+
+.stat-card .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+.stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.stat-card .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* Responsividade dos cards */
+@media (max-width: 576px) {
+    .stat-card {
+        min-height: 90px;
+        padding: 12px 8px;
+    }
+    
+    .stat-card .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card .stat-icon {
+        font-size: 1.5rem;
+    }
+    
+    .stat-card .stat-label {
+        font-size: 0.7rem;
+    }
+}
+
+/* Cards de listagem na área do artista */
+.artist-list-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    height: 100%;
+}
+
+.artist-list-card .card-header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 16px;
+}
+
+.artist-list-card .card-header h5 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.artist-list-card .card-body {
+    padding: 8px 0;
+}
+
+.artist-list-card .list-group-item {
+    background: transparent;
+    border-color: var(--border-color);
+    padding: 10px 16px;
+    color: var(--text-primary);
+}
+
+.artist-list-card .list-group-item:hover {
+    background: var(--bg-card-hover);
+}
+
+/* Botões de ação na área do artista */
+.artist-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.artist-action-btn:hover {
+    transform: scale(1.02);
+}
+
+/* Grid de estatísticas - força altura igual */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+
+/* Força todos os cards da mesma linha terem a mesma altura */
+.row.g-4 > .col {
+    display: flex;
+}
+
+.row.g-4 > .col > .card,
+.row.g-4 > .col > .stat-card,
+.row.g-4 > .col > .artist-list-card {
+    width: 100%;
+    flex: 1;
+}

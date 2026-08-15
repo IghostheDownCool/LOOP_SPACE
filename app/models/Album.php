@@ -2,7 +2,6 @@
 
 class Album extends Model
 {
-
     public function listar(): array
     {
         $sql = "
@@ -16,56 +15,47 @@ class Album extends Model
         ";
 
         $stmt = $this->pdo->prepare($sql);
-
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function cadastrar(
-    string $titulo,
-    int $artistaId,
-    int $ano,
-    ?string $capa
-): bool
-    {
+        string $titulo,
+        int $artistaId,
+        int $ano,
+        ?string $capa
+    ): bool {
         $sql = "
-    INSERT INTO albuns
-    (
-        titulo,
-        artista_id,
-        ano,
-        capa
-    )
-    VALUES
-    (
-        :titulo,
-        :artista_id,
-        :ano,
-        :capa
-    )
-";
+            INSERT INTO albuns
+            (
+                titulo,
+                artista_id,
+                ano,
+                capa
+            )
+            VALUES
+            (
+                :titulo,
+                :artista_id,
+                :ano,
+                :capa
+            )
+        ";
 
         $stmt = $this->pdo->prepare($sql);
-
         return $stmt->execute([
-    ':titulo' => $titulo,
-    ':artista_id' => $artistaId,
-    ':ano' => $ano,
-    ':capa' => $capa
-]);
+            ':titulo' => $titulo,
+            ':artista_id' => $artistaId,
+            ':ano' => $ano,
+            ':capa' => $capa
+        ]);
     }
 
     public function buscarPorId(int $id): array|false
     {
         $sql = "SELECT * FROM albuns WHERE id = :id";
-
         $stmt = $this->pdo->prepare($sql);
-
-        $stmt->execute([
-            ':id' => $id
-        ]);
-
+        $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -75,7 +65,6 @@ class Album extends Model
         int $artistaId,
         int $ano
     ): bool {
-
         $sql = "
             UPDATE albuns
             SET
@@ -86,7 +75,6 @@ class Album extends Model
         ";
 
         $stmt = $this->pdo->prepare($sql);
-
         return $stmt->execute([
             ':id' => $id,
             ':titulo' => $titulo,
@@ -98,54 +86,101 @@ class Album extends Model
     public function excluir(int $id): bool
     {
         $sql = "DELETE FROM albuns WHERE id = :id";
-
         $stmt = $this->pdo->prepare($sql);
-
-        return $stmt->execute([
-            ':id' => $id
-        ]);
+        return $stmt->execute([':id' => $id]);
     }
 
     public function buscarCompleto(int $id): array|false
-{
-    $sql = "
-        SELECT
-            albuns.*,
-            artistas.nome AS artista
-        FROM albuns
-        INNER JOIN artistas ON artistas.id = albuns.artista_id
-        WHERE albuns.id = :id
-    ";
+    {
+        $sql = "
+            SELECT
+                albuns.*,
+                artistas.nome AS artista
+            FROM albuns
+            INNER JOIN artistas ON artistas.id = albuns.artista_id
+            WHERE albuns.id = :id
+        ";
 
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute([':id' => $id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-public function listarMusicas(int $albumId): array
-{
-    $sql = "
-        SELECT
-            musicas.*,
-            albuns.titulo AS album,
-            albuns.capa,
-            artistas.nome AS artista
-        FROM musicas
-        INNER JOIN albuns ON albuns.id = musicas.album_id
-        INNER JOIN artistas ON artistas.id = albuns.artista_id
-        WHERE albuns.id = :album_id
-        ORDER BY musicas.numero_faixa
-    ";
+    public function listarMusicas(int $albumId): array
+    {
+        $sql = "
+            SELECT
+                musicas.*,
+                albuns.titulo AS album,
+                albuns.capa,
+                artistas.nome AS artista
+            FROM musicas
+            INNER JOIN albuns ON albuns.id = musicas.album_id
+            INNER JOIN artistas ON artistas.id = albuns.artista_id
+            WHERE albuns.id = :album_id
+            ORDER BY musicas.numero_faixa
+        ";
 
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute([':album_id' => $albumId]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':album_id' => $albumId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-public function contar(): int
-{
-    $sql = "SELECT COUNT(*) as total FROM albuns";
-    $stmt = $this->pdo->query($sql);
-    return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
-}
+    public function contar(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM albuns";
+        $stmt = $this->pdo->query($sql);
+        return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    // ============================================
+    // NOVOS MÉTODOS PARA A ÁREA DO ARTISTA
+    // ============================================
+
+    public function listarPorArtista(int $artistaId): array
+    {
+        $sql = "
+            SELECT
+                albuns.*,
+                (
+                    SELECT COUNT(*) 
+                    FROM musicas 
+                    WHERE musicas.album_id = albuns.id
+                ) AS total_musicas
+            FROM albuns
+            WHERE albuns.artista_id = :artista_id
+            ORDER BY albuns.ano DESC, albuns.titulo ASC
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':artista_id' => $artistaId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function contarPorArtista(int $artistaId): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM albuns WHERE artista_id = :artista_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':artista_id' => $artistaId]);
+        return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    public function atualizarCapa(int $id, string $capa): bool
+    {
+        $sql = "UPDATE albuns SET capa = :capa WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':id' => $id,
+            ':capa' => $capa
+        ]);
+    }
+
+    public function getArtistaId(int $albumId): int|false
+    {
+        $sql = "SELECT artista_id FROM albuns WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $albumId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? (int) $result['artista_id'] : false;
+    }
 }

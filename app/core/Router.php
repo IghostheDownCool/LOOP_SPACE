@@ -379,6 +379,75 @@ class Router
         }
 
         // ==================================================
+// ROTAS PARA ÁREA DO ARTISTA
+// ==================================================
+if (isset($segments[0]) && $segments[0] === 'artista') {
+    if (!isset($segments[1]) || $segments[1] === 'dashboard') {
+        $controllerName = 'ArtistaController';
+        $method = 'dashboard';
+        $params = [];
+    } elseif ($segments[1] === 'musicas') {
+        $controllerName = 'ArtistaController';
+        $method = 'musicas';
+        $params = [];
+    } elseif ($segments[1] === 'upload') {
+        $controllerName = 'ArtistaController';
+        $method = 'upload';
+        $params = [];
+    } elseif ($segments[1] === 'salvar-musica') {
+        $controllerName = 'ArtistaController';
+        $method = 'salvarMusica';
+        $params = [];
+    } elseif ($segments[1] === 'toggle-musica' && isset($segments[2])) {
+        $controllerName = 'ArtistaController';
+        $method = 'toggleMusica';
+        $params = [(int) $segments[2]];
+    } elseif ($segments[1] === 'excluir-musica' && isset($segments[2])) {
+        $controllerName = 'ArtistaController';
+        $method = 'excluirMusica';
+        $params = [(int) $segments[2]];
+    } elseif ($segments[1] === 'albuns') {
+        $controllerName = 'ArtistaController';
+        $method = 'albuns';
+        $params = [];
+    } elseif ($segments[1] === 'novo-album') {
+        $controllerName = 'ArtistaController';
+        $method = 'novoAlbum';
+        $params = [];
+    } elseif ($segments[1] === 'salvar-album') {
+        $controllerName = 'ArtistaController';
+        $method = 'salvarAlbum';
+        $params = [];
+    } elseif ($segments[1] === 'seguidores') {
+        $controllerName = 'ArtistaController';
+        $method = 'seguidores';
+        $params = [];
+    } else {
+        $controllerName = 'ArtistaController';
+        $method = 'dashboard';
+        $params = [];
+    }
+
+    $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
+    if (!file_exists($controllerFile)) {
+        die('Controller não encontrado.');
+    }
+    require_once $controllerFile;
+
+    if (!class_exists($controllerName)) {
+        die('Controller não encontrado.');
+    }
+
+    $controller = new $controllerName();
+    if (!method_exists($controller, $method)) {
+        die('Método não encontrado.');
+    }
+
+    call_user_func_array([$controller, $method], $params);
+    return;
+}
+
+        // ==================================================
         // ÁREA PÚBLICA (FALLBACK)
         // ==================================================
         $controllerName = ucfirst($segments[0] ?? 'Home') . 'Controller';

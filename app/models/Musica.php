@@ -329,4 +329,100 @@ public function listarGeneros(): array
     $stmt = $this->pdo->query($sql);
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
+
+    /**
+     * Lista músicas de um artista específico
+     */
+    public function listarPorArtista(int $artistaId): array
+    {
+        $sql = "
+            SELECT
+                musicas.*,
+                albuns.titulo AS album,
+                albuns.capa,
+                albuns.id AS album_id,
+                artistas.nome AS artista,
+                artistas.id AS artista_id
+            FROM musicas
+            INNER JOIN albuns ON albuns.id = musicas.album_id
+            INNER JOIN artistas ON artistas.id = albuns.artista_id
+            WHERE artistas.id = :artista_id
+            ORDER BY albuns.titulo ASC, musicas.numero_faixa ASC
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':artista_id' => $artistaId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Conta quantas músicas um artista tem
+     */
+    public function contarPorArtista(int $artistaId): int
+    {
+        $sql = "
+            SELECT COUNT(*) as total
+            FROM musicas
+            INNER JOIN albuns ON albuns.id = musicas.album_id
+            WHERE albuns.artista_id = :artista_id
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':artista_id' => $artistaId]);
+        return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
+
+    /**
+     * Total de reproduções de um artista
+     */
+    public function totalReproducoesPorArtista(int $artistaId): int
+    {
+        $sql = "
+            SELECT SUM(musicas.reproducoes) as total
+            FROM musicas
+            INNER JOIN albuns ON albuns.id = musicas.album_id
+            WHERE albuns.artista_id = :artista_id
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':artista_id' => $artistaId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int) ($result['total'] ?? 0);
+    }
+
+    /**
+     * Atualiza o arquivo de uma música
+     */
+    public function atualizarArquivo(int $id, string $arquivo): bool
+    {
+        $sql = "UPDATE musicas SET arquivo = :arquivo WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':id' => $id,
+            ':arquivo' => $arquivo
+        ]);
+    }
+
+    /**
+     * Atualiza a capa de uma música
+     */
+    public function atualizarCapa(int $id, string $capa): bool
+    {
+        $sql = "UPDATE musicas SET capa = :capa WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':id' => $id,
+            ':capa' => $capa
+        ]);
+    }
+
+    /**
+     * Toggle ativa/desativa música
+     */
+    public function toggleAtiva(int $id): bool
+    {
+        $sql = "UPDATE musicas SET ativa = NOT ativa WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([':id' => $id]);
+    }
 }

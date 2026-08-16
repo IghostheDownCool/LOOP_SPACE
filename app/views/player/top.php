@@ -312,9 +312,9 @@
 
             <div class="top-info">
                 <p class="titulo">
-    <?= htmlspecialchars($musica['titulo']) ?>
-    <span class="tocando-indicador">▶</span>
-</p>
+                    <?= htmlspecialchars($musica['titulo']) ?>
+                    <span class="tocando-indicador">▶</span>
+                </p>
                 <p class="artista"><?= htmlspecialchars($musica['artista']) ?></p>
                 <p class="album"><?= htmlspecialchars($musica['album']) ?></p>
             </div>
@@ -326,14 +326,9 @@
 
                 <button
                     class="btn-play-small"
-                    onclick="event.stopPropagation(); tocarMusica(
-                        this,
+                    onclick="event.stopPropagation(); tocarMusicaComFila(
                         <?= $musica['id'] ?>,
-                        '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo'], ENT_QUOTES) ?>',
-                        '<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>',
-                        '<?= htmlspecialchars($musica['artista'], ENT_QUOTES) ?>',
-                        '<?= htmlspecialchars($musica['album'], ENT_QUOTES) ?>',
-                        '<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa'], ENT_QUOTES) ?>'
+                        <?= isset($filaMusicas) ? json_encode($filaMusicas) : '[]' ?>
                     )"
                 >
                     <i class="bi bi-play-fill"></i>
@@ -344,11 +339,5 @@
 </div>
 
 <?php endif; ?>
-
-<script>
-    // Define a fila para o player
-    const idsMusicas = <?= json_encode(array_column($musicas, 'id')) ?>;
-    definirFila(idsMusicas);
-</script>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

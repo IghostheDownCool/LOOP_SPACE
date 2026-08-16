@@ -3,72 +3,76 @@
 class PlayerController extends Controller
 {
     public function index(?string $genero = null): void
-{
-    $this->requireLogin();
+    {
+        $this->requireLogin();
 
-    $musicaModel = new Musica();
+        $musicaModel = new Musica();
 
-    if ($genero) {
-        $musicas = $musicaModel->listarPorGenero($genero);
-    } else {
-        $musicas = $musicaModel->listar();
+        if ($genero) {
+            $musicas = $musicaModel->listarPorGenero($genero);
+        } else {
+            $musicas = $musicaModel->listar();
+        }
+
+        $generos = $musicaModel->listarGeneros();
+        
+        // 🔥 ADICIONA A FILA
+        $filaMusicas = array_column($musicas, 'id');
+
+        $this->view('player/index', [
+            'musicas' => $musicas,
+            'generos' => $generos,
+            'generoAtual' => $genero,
+            'filaMusicas' => $filaMusicas // 🔥 ADICIONADO
+        ]);
     }
 
-    $generos = $musicaModel->listarGeneros();
+    public function reproduzir(int $id)
+    {
+        $this->requireLogin();
 
-    $this->view('player/index', [
-        'musicas' => $musicas,
-        'generos' => $generos,
-        'generoAtual' => $genero
-    ]);
-}
+        $musica = new Musica();
+        $musica->incrementarReproducoes($id);
 
-public function reproduzir(int $id)
-{
-    $this->requireLogin();
+        $historico = new Historico();
+        $historico->registrar(
+            $_SESSION['usuario_id'],
+            $id
+        );
 
-    $musica = new Musica();
-
-    $musica->incrementarReproducoes($id);
-
-    $historico = new Historico();
-
-    $historico->registrar(
-        $_SESSION['usuario_id'],
-        $id
-    );
-
-    http_response_code(200);
-
-    echo json_encode([
-        'success' => true
-    ]);
-}
-
-public function top()
-{
-    $musica = new Musica();
-
-    $musicas = $musica->topMusicas();
-
-    $this->view('player/top', [
-        'musicas' => $musicas
-    ]);
-}
-
-public function dados(int $id): void
-{
-    $this->requireLogin();
-
-    $musica = new Musica();
-    $dados = $musica->buscarPorId($id);
-
-    if (!$dados) {
-        http_response_code(404);
-        echo json_encode(['error' => 'Música não encontrada']);
-        return;
+        http_response_code(200);
+        echo json_encode([
+            'success' => true
+        ]);
     }
 
-    echo json_encode($dados);
-}
+    public function top()
+    {
+        $musica = new Musica();
+        $musicas = $musica->topMusicas();
+        
+        // 🔥 ADICIONA A FILA
+        $filaMusicas = array_column($musicas, 'id');
+
+        $this->view('player/top', [
+            'musicas' => $musicas,
+            'filaMusicas' => $filaMusicas // 🔥 ADICIONADO
+        ]);
+    }
+
+    public function dados(int $id): void
+    {
+        $this->requireLogin();
+
+        $musica = new Musica();
+        $dados = $musica->buscarPorId($id);
+
+        if (!$dados) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Música não encontrada']);
+            return;
+        }
+
+        echo json_encode($dados);
+    }
 }

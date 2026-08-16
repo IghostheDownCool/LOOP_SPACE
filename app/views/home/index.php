@@ -60,7 +60,11 @@
         <?php foreach ($recomendacoes as $musica): ?>
             <div class="col">
                 <div class="card bg-card h-100">
-                    <?php require __DIR__ . '/../components/music-card.php'; ?>
+                    <?php 
+                    // 🔥 PASSA A FILA DE RECOMENDAÇÕES
+                    $filaMusicas = $filaRecomendacoes;
+                    require __DIR__ . '/../components/music-card.php'; 
+                    ?>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -72,9 +76,6 @@
 <?php endif; ?>
 
 <!-- Seção de Artistas Seguidos -->
-<?php
-?>
-
 <?php if (!empty($seguidos)): ?>
     <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-people" style="color: #1db954;"></i>
@@ -109,7 +110,11 @@
             <?php foreach ($musicasSeguidos as $musica): ?>
                 <div class="col">
                     <div class="card bg-card h-auto">
-                        <?php require __DIR__ . '/../components/music-card.php'; ?>
+                        <?php 
+                        // 🔥 PASSA A FILA DE MÚSICAS DOS SEGUIDOS
+                        $filaMusicas = $filaSeguidos;
+                        require __DIR__ . '/../components/music-card.php'; 
+                        ?>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -132,7 +137,11 @@
         <?php foreach ($topMusicas as $musica): ?>
             <div class="col">
                 <div class="card bg-card h-100">
-                    <?php require __DIR__ . '/../components/music-card.php'; ?>
+                    <?php 
+                    // 🔥 PASSA A FILA DE TOP MÚSICAS
+                    $filaMusicas = $filaTop;
+                    require __DIR__ . '/../components/music-card.php'; 
+                    ?>
                 </div>
             </div>
         <?php endforeach; ?>

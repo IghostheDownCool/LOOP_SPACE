@@ -51,14 +51,24 @@ class HomeController extends Controller
         $musicasSeguidos = $artistaModel->getMusicasDosSeguidos($usuarioId, 10);
 
         // ============================================
-        // 5. Enviar TODOS os dados para a view
+        // 5. 🔥 DEFINIR FILAS PARA O PLAYER
+        // ============================================
+        $filaRecomendacoes = array_column($recomendacoes, 'id');
+        $filaTop = array_column($topMusicas, 'id');
+        $filaSeguidos = array_column($musicasSeguidos, 'id');
+
+        // ============================================
+        // 6. Enviar TODOS os dados para a view
         // ============================================
         $this->view('home/index', [
             'historicoNavegacao' => $historicoNavegacao,
             'recomendacoes' => $recomendacoes,
             'topMusicas' => $topMusicas,
             'seguidos' => $seguidos,
-            'musicasSeguidos' => $musicasSeguidos
+            'musicasSeguidos' => $musicasSeguidos,
+            'filaRecomendacoes' => $filaRecomendacoes,
+            'filaTop' => $filaTop,
+            'filaSeguidos' => $filaSeguidos
         ]);
     }
 }

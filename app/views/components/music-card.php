@@ -3,14 +3,9 @@
     <div class="music-play">
         <button
             class="btn-play-card"
-            onclick="event.stopPropagation(); tocarMusica(
-                this,
+            onclick="event.stopPropagation(); tocarMusicaComFila(
                 <?= $musica['id'] ?>,
-                '<?= BASE_URL ?>/uploads/musicas/<?= htmlspecialchars($musica['arquivo'], ENT_QUOTES) ?>',
-                '<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>',
-                '<?= htmlspecialchars($musica['artista'], ENT_QUOTES) ?>',
-                '<?= htmlspecialchars($musica['album'], ENT_QUOTES) ?>',
-                '<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($musica['capa'], ENT_QUOTES) ?>'
+                <?= isset($filaMusicas) ? json_encode($filaMusicas) : '[]' ?>
             )"
         >
             <i class="bi bi-play-fill"></i>
@@ -25,10 +20,10 @@
     </div>
 
     <div class="music-info">
-        <<h6>
-    <?= htmlspecialchars($musica['titulo']) ?>
-    <span class="tocando-indicador">▶</span>
-</h6>
+        <h6>
+            <?= htmlspecialchars($musica['titulo']) ?>
+            <span class="tocando-indicador">▶</span>
+        </h6>
         <small>
             <a href="<?= BASE_URL ?>/artista/ver/<?= $musica['artista_id'] ?? 0 ?>" class="music-link">
                 <?= htmlspecialchars($musica['artista']) ?>
@@ -43,26 +38,24 @@
     <!-- Botão para abrir o modal de adicionar à playlist -->
     <div class="music-actions">
         <button
-    class="btn-add-playlist"
-    data-musica-id="<?= $musica['id'] ?>"
-    data-musica-titulo="<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>"
-    data-bs-toggle="modal"
-    data-bs-target="#modalPlaylists"
-    onclick="event.stopPropagation();"
-    style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; background: var(--bg-card-hover); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; padding: 0; flex-shrink: 0;"
->
-    <i class="bi bi-plus-circle" style="font-size: 1rem;"></i>
-</button>
+            class="btn-add-playlist"
+            data-musica-id="<?= $musica['id'] ?>"
+            data-musica-titulo="<?= htmlspecialchars($musica['titulo'], ENT_QUOTES) ?>"
+            data-bs-toggle="modal"
+            data-bs-target="#modalPlaylists"
+            onclick="event.stopPropagation();"
+            style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; background: var(--bg-card-hover); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; padding: 0; flex-shrink: 0;"
+        >
+            <i class="bi bi-plus-circle" style="font-size: 1rem;"></i>
+        </button>
     </div>
 
 </div>
 
 <?php if (!empty($musica['genero'])): ?>
-    <?php if (!empty($musica['genero'])): ?>
     <p class="genero">
         <i class="bi bi-tag"></i> <?= htmlspecialchars($musica['genero']) ?>
     </p>
-<?php endif; ?>
 <?php endif; ?>
 
 <!-- MODAL - Lista de Playlists -->
@@ -82,4 +75,3 @@
         </div>
     </div>
 </div>
-

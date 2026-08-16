@@ -587,3 +587,28 @@ if (btnRepeat) {
 document.addEventListener('DOMContentLoaded', function() {
     carregarEstadoPlayer();
 });
+
+/**
+ * Toca uma música com uma fila de reprodução
+ */
+function tocarMusicaComFila(musicaId, listaIds) {
+    console.log('🎵 tocarMusicaComFila - ID:', musicaId, 'Lista:', listaIds);
+    
+    if (!listaIds || listaIds.length === 0) {
+        // Se não tiver fila, toca só a música
+        tocarMusicaPorId(musicaId);
+        return;
+    }
+    
+    // Define a fila
+    definirFila(listaIds);
+    
+    // Encontra o índice da música
+    indiceAtual = listaIds.indexOf(musicaId);
+    if (indiceAtual === -1) indiceAtual = 0;
+    
+    console.log('🎵 Índice atual:', indiceAtual, 'Fila:', fila);
+    
+    // Toca a música
+    tocarMusicaPorId(listaIds[indiceAtual]);
+}

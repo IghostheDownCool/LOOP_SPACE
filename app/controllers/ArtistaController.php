@@ -7,53 +7,55 @@ class ArtistaController extends Controller
     // ============================================
 
     public function ver(int $id): void
-    {
-        // Verifica se está logado
-        if (!isset($_SESSION['usuario_id'])) {
-            header('Location: ' . BASE_URL . '/login');
-            exit;
-        }
-
-        $artistaModel = new Artista();
-        $artista = $artistaModel->buscarCompleto($id);
-
-        if (!$artista) {
-            die('Artista não encontrado.');
-        }
-
-        // Diagnóstico
-        error_log("ArtistaController::ver() - Artista ID: " . $id . " - Nome: " . $artista['nome']);
-        error_log("Usuário logado: " . $_SESSION['usuario_nome'] . " (Role: " . ($_SESSION['usuario_role'] ?? 'user') . ")");
-
-        // Salvar no histórico de navegação (apenas para usuários comuns)
-        $isAdmin = false;
-
-        if (isset($_SESSION['usuario_role']) && $_SESSION['usuario_role'] === 'admin') {
-            $isAdmin = true;
-        }
-
-        if (!$isAdmin) {
-            $historicoNav = new HistoricoNavegacao();
-
-            $historicoNav->salvar(
-                $_SESSION['usuario_id'],
-                'artista',
-                $artista['id'],
-                $artista['nome'],
-                '/artista/ver/' . $artista['id'],
-                $artista['foto'] ?? null
-            );
-        }
-
-        $musicas = $artistaModel->listarMusicas($id);
-        $albuns = $artistaModel->listarAlbuns($id);
-
-        $this->view('artistas/ver', [
-            'artista' => $artista,
-            'musicas' => $musicas,
-            'albuns' => $albuns
-        ]);
+{
+    // Verifica se está logado
+    if (!isset($_SESSION['usuario_id'])) {
+        header('Location: ' . BASE_URL . '/login');
+        exit;
     }
+
+    $artistaModel = new Artista();
+    $artista = $artistaModel->buscarCompleto($id);
+
+    if (!$artista) {
+        die('Artista não encontrado.');
+    }
+
+    // Diagnóstico
+    error_log("ArtistaController::ver() - Artista ID: " . $id . " - Nome: " . $artista['nome']);
+    error_log("Usuário logado: " . $_SESSION['usuario_nome'] . " (Role: " . ($_SESSION['usuario_role'] ?? 'user') . ")");
+
+    // Salvar no histórico de navegação (apenas para usuários comuns)
+    $isAdmin = false;
+    if (isset($_SESSION['usuario_role']) && $_SESSION['usuario_role'] === 'admin') {
+        $isAdmin = true;
+    }
+
+    if (!$isAdmin) {
+        $historicoNav = new HistoricoNavegacao();
+        $historicoNav->salvar(
+            $_SESSION['usuario_id'],
+            'artista',
+            $artista['id'],
+            $artista['nome'],
+            '/artista/ver/' . $artista['id'],
+            $artista['foto'] ?? null
+        );
+    }
+
+    $musicas = $artistaModel->listarMusicas($id);
+    $albuns = $artistaModel->listarAlbuns($id);
+
+    // 🔥 DEFINE A FILA DE MÚSICAS
+    $filaMusicas = array_column($musicas, 'id');
+
+    $this->view('artistas/ver', [
+        'artista' => $artista,
+        'musicas' => $musicas,
+        'albuns' => $albuns,
+        'filaMusicas' => $filaMusicas // 🔥 ADICIONADO
+    ]);
+}
 
     public function seguir(int $id): void
     {

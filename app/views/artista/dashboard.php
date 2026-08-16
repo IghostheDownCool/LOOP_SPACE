@@ -5,6 +5,16 @@
     <p class="text-muted">Bem-vindo, <?= htmlspecialchars($artista['nome']) ?>!</p>
 </div>
 
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Dashboard do Artista</h1>
+        <p class="text-muted">Bem-vindo, <?= htmlspecialchars($artista['nome']) ?>!</p>
+    </div>
+    <a href="<?= BASE_URL ?>/artista/editar-perfil" class="btn btn-primary">
+        <i class="bi bi-pencil"></i> Editar Perfil
+    </a>
+</div>
+
 <!-- Estatísticas -->
 <div class="row g-3 mb-3">
     <div class="col-6 col-md-3">

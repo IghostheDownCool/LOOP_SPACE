@@ -6,11 +6,11 @@ error_log("View artistas/ver.php carregada para artista ID: " . ($artista['id'] 
 <div class="row">
     <div class="col-md-3 text-center">
         <img
-            src="<?= BASE_URL ?>/uploads/artistas/<?= htmlspecialchars($artista['foto'] ?? 'default-artist.png') ?>"
-            alt="<?= htmlspecialchars($artista['nome']) ?>"
-            class="img-fluid rounded-circle"
-            style="max-width: 200px;"
-        >
+    src="<?= BASE_URL ?>/uploads/artistas/<?= htmlspecialchars($artista['foto'] ?? 'default-artist.png') ?>"
+    alt="<?= htmlspecialchars($artista['nome']) ?>"
+    class="img-fluid"
+    style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 4px solid #8B5CF6;"
+>
         <h1 class="mt-3"><?= htmlspecialchars($artista['nome']) ?></h1>
         <p>
             <?= $artista['total_albuns'] ?? 0 ?> álbuns •

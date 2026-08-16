@@ -490,11 +490,20 @@ class Router
                 $controllerName = 'ArtistaController';
                 $method = 'seguidores';
                 $params = [];
+            } elseif ($segments[1] === 'editar-perfil') {    // 🔥 NOVO
+                $controllerName = 'ArtistaController';
+                $method = 'editarPerfil';
+                $params = [];
+            } elseif ($segments[1] === 'atualizar-perfil') { // 🔥 NOVO
+                $controllerName = 'ArtistaController';
+                $method = 'atualizarPerfil';
+                $params = [];
             } else {
                 $controllerName = 'ArtistaController';
                 $method = 'dashboard';
                 $params = [];
             }
+            
 
             $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
             if (!file_exists($controllerFile)) {

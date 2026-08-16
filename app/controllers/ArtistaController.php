@@ -7,51 +7,53 @@ class ArtistaController extends Controller
     // ============================================
 
     public function ver(int $id): void
-{
-    // Verifica se está logado
-    if (!isset($_SESSION['usuario_id'])) {
-        header('Location: ' . BASE_URL . '/login');
-        exit;
+    {
+        // Verifica se está logado
+        if (!isset($_SESSION['usuario_id'])) {
+            header('Location: ' . BASE_URL . '/login');
+            exit;
+        }
+
+        $artistaModel = new Artista();
+        $artista = $artistaModel->buscarCompleto($id);
+
+        if (!$artista) {
+            die('Artista não encontrado.');
+        }
+
+        // Diagnóstico
+        error_log("ArtistaController::ver() - Artista ID: " . $id . " - Nome: " . $artista['nome']);
+        error_log("Usuário logado: " . $_SESSION['usuario_nome'] . " (Role: " . ($_SESSION['usuario_role'] ?? 'user') . ")");
+
+        // Salvar no histórico de navegação (apenas para usuários comuns)
+        $isAdmin = false;
+
+        if (isset($_SESSION['usuario_role']) && $_SESSION['usuario_role'] === 'admin') {
+            $isAdmin = true;
+        }
+
+        if (!$isAdmin) {
+            $historicoNav = new HistoricoNavegacao();
+
+            $historicoNav->salvar(
+                $_SESSION['usuario_id'],
+                'artista',
+                $artista['id'],
+                $artista['nome'],
+                '/artista/ver/' . $artista['id'],
+                $artista['foto'] ?? null
+            );
+        }
+
+        $musicas = $artistaModel->listarMusicas($id);
+        $albuns = $artistaModel->listarAlbuns($id);
+
+        $this->view('artistas/ver', [
+            'artista' => $artista,
+            'musicas' => $musicas,
+            'albuns' => $albuns
+        ]);
     }
-
-    $artistaModel = new Artista();
-    $artista = $artistaModel->buscarCompleto($id);
-
-    if (!$artista) {
-        die('Artista não encontrado.');
-    }
-
-    // 🔥 DIAGNÓSTICO - REMOVA DEPOIS
-    error_log("ArtistaController::ver() - Artista ID: " . $id . " - Nome: " . $artista['nome']);
-    error_log("Usuário logado: " . $_SESSION['usuario_nome'] . " (Role: " . ($_SESSION['usuario_role'] ?? 'user') . ")");
-
-    // Salvar no histórico de navegação (apenas para usuários comuns)
-    $isAdmin = false;
-    if (isset($_SESSION['usuario_role']) && $_SESSION['usuario_role'] === 'admin') {
-        $isAdmin = true;
-    }
-
-    if (!$isAdmin) {
-        $historicoNav = new HistoricoNavegacao();
-        $historicoNav->salvar(
-            $_SESSION['usuario_id'],
-            'artista',
-            $artista['id'],
-            $artista['nome'],
-            '/artista/ver/' . $artista['id'],
-            $artista['foto'] ?? null
-        );
-    }
-
-    $musicas = $artistaModel->listarMusicas($id);
-    $albuns = $artistaModel->listarAlbuns($id);
-
-    $this->view('artistas/ver', [
-        'artista' => $artista,
-        'musicas' => $musicas,
-        'albuns' => $albuns
-    ]);
-}
 
     public function seguir(int $id): void
     {
@@ -61,6 +63,7 @@ class ArtistaController extends Controller
         $artistaModel->seguir($_SESSION['usuario_id'], $id);
 
         Flash::set('success', 'Você agora segue este artista!');
+
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
@@ -73,6 +76,7 @@ class ArtistaController extends Controller
         $artistaModel->deixarSeguir($_SESSION['usuario_id'], $id);
 
         Flash::set('success', 'Você deixou de seguir este artista.');
+
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
@@ -94,6 +98,7 @@ class ArtistaController extends Controller
 
         // Verifica se o usuário é artista
         $usuarioModel = new Usuario();
+
         if (!$usuarioModel->isArtista($_SESSION['usuario_id'])) {
             Flash::set('danger', 'Você não tem permissão para acessar esta área.');
             header('Location: ' . BASE_URL);
@@ -102,6 +107,7 @@ class ArtistaController extends Controller
 
         // Busca o artista do usuário
         $artista = $usuarioModel->getArtistaDoUsuario($_SESSION['usuario_id']);
+
         if (!$artista) {
             Flash::set('danger', 'Perfil de artista não encontrado.');
             header('Location: ' . BASE_URL);
@@ -135,9 +141,11 @@ class ArtistaController extends Controller
 
         // Top músicas do artista
         $topMusicas = $musicaModel->listarPorArtista($artistaId);
-        usort($topMusicas, function($a, $b) {
+
+        usort($topMusicas, function ($a, $b) {
             return $b['reproducoes'] - $a['reproducoes'];
         });
+
         $topMusicas = array_slice($topMusicas, 0, 5);
 
         $this->view('artista/dashboard', [
@@ -172,120 +180,132 @@ class ArtistaController extends Controller
      * Formulário de upload de música
      */
     public function upload()
-{
-    $artista = $this->verificarArtista();
-    $artistaId = $artista['id'];
+    {
+        $artista = $this->verificarArtista();
+        $artistaId = $artista['id'];
 
-    $albumModel = new Album();
-    $albuns = $albumModel->listarPorArtista($artistaId);
+        $albumModel = new Album();
+        $albuns = $albumModel->listarPorArtista($artistaId);
 
-    // 🔥 Busca todos os gêneros
-    $generoModel = new Genero();
-    $generos = $generoModel->listar();
+        // Busca todos os gêneros
+        $generoModel = new Genero();
+        $generos = $generoModel->listar();
 
-    $this->view('artista/upload', [
-        'artista' => $artista,
-        'albuns' => $albuns,
-        'generos' => $generos
-    ]);
-}
+        $this->view('artista/upload', [
+            'artista' => $artista,
+            'albuns' => $albuns,
+            'generos' => $generos
+        ]);
+    }
 
     /**
      * Salvar nova música
      */
     public function salvarMusica()
-{
-    $artista = $this->verificarArtista();
-    $artistaId = $artista['id'];
+    {
+        $artista = $this->verificarArtista();
+        $artistaId = $artista['id'];
 
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        header('Location: ' . BASE_URL . '/artista/upload');
-        exit;
-    }
-
-    $titulo = trim($_POST['titulo'] ?? '');
-    $albumId = (int) ($_POST['album_id'] ?? 0);
-    $numeroFaixa = (int) ($_POST['numero_faixa'] ?? 0);
-    $generoId = (int) ($_POST['genero_id'] ?? 0);
-
-    // Validações
-    if (empty($titulo) || $albumId <= 0 || $numeroFaixa <= 0) {
-        Flash::set('danger', 'Preencha todos os campos obrigatórios.');
-        header('Location: ' . BASE_URL . '/artista/upload');
-        exit;
-    }
-
-    // Verifica se o álbum pertence ao artista
-    $albumModel = new Album();
-    $albumArtistaId = $albumModel->getArtistaId($albumId);
-    if ($albumArtistaId != $artistaId) {
-        Flash::set('danger', 'Álbum inválido.');
-        header('Location: ' . BASE_URL . '/artista/upload');
-        exit;
-    }
-
-    // Upload do arquivo de áudio
-    $arquivo = null;
-    if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
-        $uploadHelper = new UploadHelper();
-        $arquivo = $uploadHelper->uploadMusica($_FILES['arquivo']);
-        if (!$arquivo) {
-            Flash::set('danger', 'Erro ao enviar o arquivo de áudio.');
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: ' . BASE_URL . '/artista/upload');
             exit;
         }
-    } else {
-        Flash::set('danger', 'Selecione um arquivo de áudio.');
-        header('Location: ' . BASE_URL . '/artista/upload');
+
+        $titulo = trim($_POST['titulo'] ?? '');
+        $albumId = (int) ($_POST['album_id'] ?? 0);
+        $numeroFaixa = (int) ($_POST['numero_faixa'] ?? 0);
+        $generoId = (int) ($_POST['genero_id'] ?? 0);
+
+        // Validações
+        if (empty($titulo) || $albumId <= 0 || $numeroFaixa <= 0) {
+            Flash::set('danger', 'Preencha todos os campos obrigatórios.');
+            header('Location: ' . BASE_URL . '/artista/upload');
+            exit;
+        }
+
+        // Verifica se o álbum pertence ao artista
+        $albumModel = new Album();
+        $albumArtistaId = $albumModel->getArtistaId($albumId);
+
+        if ($albumArtistaId != $artistaId) {
+            Flash::set('danger', 'Álbum inválido.');
+            header('Location: ' . BASE_URL . '/artista/upload');
+            exit;
+        }
+
+        // Upload do arquivo de áudio
+        $arquivo = null;
+
+        if (
+            isset($_FILES['arquivo']) &&
+            $_FILES['arquivo']['error'] === UPLOAD_ERR_OK
+        ) {
+            $uploadHelper = new UploadHelper();
+            $arquivo = $uploadHelper->uploadMusica($_FILES['arquivo']);
+
+            if (!$arquivo) {
+                Flash::set('danger', 'Erro ao enviar o arquivo de áudio.');
+                header('Location: ' . BASE_URL . '/artista/upload');
+                exit;
+            }
+        } else {
+            Flash::set('danger', 'Selecione um arquivo de áudio.');
+            header('Location: ' . BASE_URL . '/artista/upload');
+            exit;
+        }
+
+        // Calcular duração automaticamente
+        $caminhoArquivo = __DIR__ . '/../../public/uploads/musicas/' . $arquivo;
+
+        $musicaModel = new Musica();
+        $duracao = $musicaModel->getDuracao($caminhoArquivo);
+
+        if ($duracao <= 0) {
+            $duracao = 0;
+        }
+
+        // Busca o nome do gênero
+        $genero = null;
+
+        if ($generoId > 0) {
+            $generoModel = new Genero();
+            $generoData = $generoModel->buscarPorId($generoId);
+
+            if ($generoData) {
+                $genero = $generoData['nome'];
+            }
+        }
+
+        // Upload da capa (opcional)
+        $capa = null;
+
+        if (
+            isset($_FILES['capa']) &&
+            $_FILES['capa']['error'] === UPLOAD_ERR_OK
+        ) {
+            $uploadHelper = new UploadHelper();
+            $capa = $uploadHelper->uploadCapa($_FILES['capa']);
+        }
+
+        // Salva a música
+        $result = $musicaModel->cadastrar(
+            $titulo,
+            $albumId,
+            $numeroFaixa,
+            $duracao,
+            $arquivo,
+            $genero
+        );
+
+        if ($result) {
+            Flash::set('success', 'Música cadastrada com sucesso!');
+        } else {
+            Flash::set('danger', 'Erro ao cadastrar música. Tente novamente.');
+        }
+
+        header('Location: ' . BASE_URL . '/artista/musicas');
         exit;
     }
-
-    // 🔥 Calcular duração automaticamente
-    $caminhoArquivo = __DIR__ . '/../../public/uploads/musicas/' . $arquivo;
-    $musicaModel = new Musica();
-    $duracao = $musicaModel->getDuracao($caminhoArquivo);
-
-    if ($duracao <= 0) {
-        // Fallback: se não conseguir calcular, usar 0 (será atualizado depois)
-        $duracao = 0;
-    }
-
-    // Busca o nome do gênero
-    $genero = null;
-    if ($generoId > 0) {
-        $generoModel = new Genero();
-        $generoData = $generoModel->buscarPorId($generoId);
-        if ($generoData) {
-            $genero = $generoData['nome'];
-        }
-    }
-
-    // Upload da capa (opcional)
-    $capa = null;
-    if (isset($_FILES['capa']) && $_FILES['capa']['error'] === UPLOAD_ERR_OK) {
-        $uploadHelper = new UploadHelper();
-        $capa = $uploadHelper->uploadCapa($_FILES['capa']);
-    }
-
-    // Salva a música
-    $result = $musicaModel->cadastrar(
-        $titulo,
-        $albumId,
-        $numeroFaixa,
-        $duracao,
-        $arquivo,
-        $genero
-    );
-
-    if ($result) {
-        Flash::set('success', 'Música cadastrada com sucesso!');
-    } else {
-        Flash::set('danger', 'Erro ao cadastrar música. Tente novamente.');
-    }
-
-    header('Location: ' . BASE_URL . '/artista/musicas');
-    exit;
-}
 
     /**
      * Ativar/Desativar música
@@ -298,6 +318,7 @@ class ArtistaController extends Controller
         // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
+
         if (!$musica || $musica['artista_id'] != $artistaId) {
             Flash::set('danger', 'Música não encontrada.');
             header('Location: ' . BASE_URL . '/artista/musicas');
@@ -305,7 +326,9 @@ class ArtistaController extends Controller
         }
 
         $musicaModel->toggleAtiva($id);
+
         Flash::set('success', 'Status da música atualizado.');
+
         header('Location: ' . BASE_URL . '/artista/musicas');
         exit;
     }
@@ -321,6 +344,7 @@ class ArtistaController extends Controller
         // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
+
         if (!$musica || $musica['artista_id'] != $artistaId) {
             Flash::set('danger', 'Música não encontrada.');
             header('Location: ' . BASE_URL . '/artista/musicas');
@@ -330,13 +354,16 @@ class ArtistaController extends Controller
         // Remove o arquivo
         if (!empty($musica['arquivo'])) {
             $arquivoPath = __DIR__ . '/../../public/uploads/musicas/' . $musica['arquivo'];
+
             if (file_exists($arquivoPath)) {
                 unlink($arquivoPath);
             }
         }
 
         $musicaModel->excluir($id);
+
         Flash::set('success', 'Música excluída com sucesso.');
+
         header('Location: ' . BASE_URL . '/artista/musicas');
         exit;
     }
@@ -394,13 +421,22 @@ class ArtistaController extends Controller
 
         // Upload da capa
         $capa = null;
-        if (isset($_FILES['capa']) && $_FILES['capa']['error'] === UPLOAD_ERR_OK) {
+
+        if (
+            isset($_FILES['capa']) &&
+            $_FILES['capa']['error'] === UPLOAD_ERR_OK
+        ) {
             $uploadHelper = new UploadHelper();
             $capa = $uploadHelper->uploadCapa($_FILES['capa']);
         }
 
         $albumModel = new Album();
-        $result = $albumModel->cadastrar($titulo, $artistaId, $ano, $capa);
+        $result = $albumModel->cadastrar(
+            $titulo,
+            $artistaId,
+            $ano,
+            $capa
+        );
 
         if ($result) {
             Flash::set('success', 'Álbum criado com sucesso!');
@@ -426,8 +462,10 @@ class ArtistaController extends Controller
         // Busca dados dos usuários
         $usuarioModel = new Usuario();
         $seguidoresData = [];
+
         foreach ($seguidores as $seguidor) {
             $usuario = $usuarioModel->buscarPorId($seguidor['usuario_id']);
+
             if ($usuario) {
                 $seguidoresData[] = $usuario;
             }
@@ -439,7 +477,7 @@ class ArtistaController extends Controller
         ]);
     }
 
-        /**
+    /**
      * Formulário de edição de música
      */
     public function editarMusica($id)
@@ -450,6 +488,7 @@ class ArtistaController extends Controller
         // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
+
         if (!$musica || $musica['artista_id'] != $artistaId) {
             Flash::set('danger', 'Música não encontrada.');
             header('Location: ' . BASE_URL . '/artista/musicas');
@@ -478,6 +517,7 @@ class ArtistaController extends Controller
         // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
+
         if (!$musica || $musica['artista_id'] != $artistaId) {
             Flash::set('danger', 'Música não encontrada.');
             header('Location: ' . BASE_URL . '/artista/musicas');
@@ -496,7 +536,12 @@ class ArtistaController extends Controller
         $genero = trim($_POST['genero'] ?? '');
 
         // Validações
-        if (empty($titulo) || $albumId <= 0 || $numeroFaixa <= 0 || $duracao <= 0) {
+        if (
+            empty($titulo) ||
+            $albumId <= 0 ||
+            $numeroFaixa <= 0 ||
+            $duracao <= 0
+        ) {
             Flash::set('danger', 'Preencha todos os campos obrigatórios.');
             header('Location: ' . BASE_URL . '/artista/editar-musica/' . $id);
             exit;
@@ -505,6 +550,7 @@ class ArtistaController extends Controller
         // Verifica se o álbum pertence ao artista
         $albumModel = new Album();
         $albumArtistaId = $albumModel->getArtistaId($albumId);
+
         if ($albumArtistaId != $artistaId) {
             Flash::set('danger', 'Álbum inválido.');
             header('Location: ' . BASE_URL . '/artista/editar-musica/' . $id);
@@ -512,42 +558,168 @@ class ArtistaController extends Controller
         }
 
         // Atualiza os dados básicos
-        $musicaModel->atualizar($id, $titulo, $albumId, $numeroFaixa, $duracao, $genero);
+        $musicaModel->atualizar(
+            $id,
+            $titulo,
+            $albumId,
+            $numeroFaixa,
+            $duracao,
+            $genero
+        );
 
         // Upload do arquivo de áudio (opcional)
-        if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
+        if (
+            isset($_FILES['arquivo']) &&
+            $_FILES['arquivo']['error'] === UPLOAD_ERR_OK
+        ) {
             $uploadHelper = new UploadHelper();
             $arquivo = $uploadHelper->uploadMusica($_FILES['arquivo']);
+
             if ($arquivo) {
                 // Remove o arquivo antigo
                 if (!empty($musica['arquivo'])) {
                     $arquivoPath = __DIR__ . '/../../public/uploads/musicas/' . $musica['arquivo'];
+
                     if (file_exists($arquivoPath)) {
                         unlink($arquivoPath);
                     }
                 }
+
                 $musicaModel->atualizarArquivo($id, $arquivo);
             }
         }
 
         // Upload da capa (opcional)
-        if (isset($_FILES['capa']) && $_FILES['capa']['error'] === UPLOAD_ERR_OK) {
+        if (
+            isset($_FILES['capa']) &&
+            $_FILES['capa']['error'] === UPLOAD_ERR_OK
+        ) {
             $uploadHelper = new UploadHelper();
             $capa = $uploadHelper->uploadCapa($_FILES['capa']);
+
             if ($capa) {
                 // Remove a capa antiga
                 if (!empty($musica['capa'])) {
                     $capaPath = __DIR__ . '/../../public/uploads/capas/' . $musica['capa'];
+
                     if (file_exists($capaPath)) {
                         unlink($capaPath);
                     }
                 }
+
                 $musicaModel->atualizarCapa($id, $capa);
             }
         }
 
         Flash::set('success', 'Música atualizada com sucesso!');
+
         header('Location: ' . BASE_URL . '/artista/musicas');
+        exit;
+    }
+
+    // ============================================
+    // PERFIL DO ARTISTA
+    // ============================================
+
+    /**
+     * Formulário de edição do perfil do artista
+     */
+    public function editarPerfil()
+    {
+        $artista = $this->verificarArtista();
+
+        $this->view('artista/editar-perfil', [
+            'artista' => $artista
+        ]);
+    }
+
+    /**
+     * Atualizar perfil do artista
+     */
+    public function atualizarPerfil()
+    {
+        $artista = $this->verificarArtista();
+        $artistaId = $artista['id'];
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . '/artista/editar-perfil');
+            exit;
+        }
+
+        $nome = trim($_POST['nome'] ?? '');
+
+        if (empty($nome)) {
+            Flash::set('danger', 'O nome artístico é obrigatório.');
+            header('Location: ' . BASE_URL . '/artista/editar-perfil');
+            exit;
+        }
+
+        // ============================================
+        // UPLOAD DA FOTO DO ARTISTA
+        // ============================================
+
+        $foto = $artista['foto'];
+
+        if (
+            isset($_FILES['foto']) &&
+            $_FILES['foto']['error'] === UPLOAD_ERR_OK
+        ) {
+            $uploadHelper = new UploadHelper();
+
+            // Usa o método correto para foto do artista
+            $novaFoto = $uploadHelper->uploadArtistaFoto($_FILES['foto']);
+
+            if ($novaFoto) {
+
+                // Remove a foto antiga
+                if (!empty($artista['foto'])) {
+                    $fotoPath = __DIR__ . '/../../public/uploads/artistas/' . $artista['foto'];
+
+                    if (file_exists($fotoPath)) {
+                        unlink($fotoPath);
+                    }
+                }
+
+                // Define a nova foto
+                $foto = $novaFoto;
+
+            } else {
+
+                Flash::set(
+                    'warning',
+                    'Erro ao enviar foto. Verifique o formato e tamanho.'
+                );
+
+                header('Location: ' . BASE_URL . '/artista/editar-perfil');
+                exit;
+            }
+        }
+
+        // ============================================
+        // SALVA NO BANCO
+        // ============================================
+
+        $artistaModel = new Artista();
+
+        $result = $artistaModel->atualizar(
+            $artistaId,
+            $nome,
+            $foto
+        );
+
+        if ($result) {
+            Flash::set(
+                'success',
+                'Perfil atualizado com sucesso!'
+            );
+        } else {
+            Flash::set(
+                'danger',
+                'Erro ao atualizar perfil.'
+            );
+        }
+
+        header('Location: ' . BASE_URL . '/artista/dashboard');
         exit;
     }
 }

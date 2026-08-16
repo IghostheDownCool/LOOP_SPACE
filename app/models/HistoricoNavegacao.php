@@ -2,6 +2,9 @@
 
 class HistoricoNavegacao extends Model
 {
+
+    use SoftDelete;
+
     public function salvar(int $usuarioId, string $tipo, int $itemId, string $titulo, string $link, ?string $imagem = null): bool
     {
         // Verifica se já existe um registro igual

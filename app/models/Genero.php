@@ -2,6 +2,9 @@
 
 class Genero extends Model
 {
+
+    use SoftDelete;
+
     /**
      * Lista todos os gêneros
      */

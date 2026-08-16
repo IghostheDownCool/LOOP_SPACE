@@ -45,22 +45,56 @@ class UsuariosController extends Controller
         exit;
     }
 
-    public function excluir(int $id): void
-    {
-        AdminMiddleware::verificar();
-
-        // Não permite excluir o próprio admin
-        if ($id == $_SESSION['usuario_id']) {
-            Flash::set('danger', 'Você não pode excluir sua própria conta.');
-            header('Location: ' . BASE_URL . '/admin/usuarios');
-            exit;
-        }
-
-        $usuarioModel = new Usuario();
-        $usuarioModel->excluir($id);
-
-        Flash::set('success', 'Usuário excluído com sucesso!');
+    public function excluir(int $id)
+{
+    AdminMiddleware::verificar();
+    
+    $usuarioModel = new Usuario();
+    $usuario = $usuarioModel->buscarPorId($id);
+    
+    if (!$usuario) {
+        Flash::set('danger', 'Usuário não encontrado.');
         header('Location: ' . BASE_URL . '/admin/usuarios');
         exit;
     }
+    
+    // 🔥 Soft Delete
+    if ($usuarioModel->excluir($id)) {
+        Flash::set('success', 'Usuário excluído com sucesso!');
+    } else {
+        Flash::set('danger', 'Erro ao excluir usuário.');
+    }
+    
+    header('Location: ' . BASE_URL . '/admin/usuarios');
+    exit;
+}
+
+// 🔥 NOVO: Listar usuários excluídos (lixeira)
+public function lixeira()
+{
+    AdminMiddleware::verificar();
+    
+    $usuarioModel = new Usuario();
+    $usuarios = $usuarioModel->listDeleted('usuarios');
+    
+    $this->view('admin/usuarios/lixeira', [
+        'usuarios' => $usuarios
+    ]);
+}
+
+// 🔥 NOVO: Restaurar usuário
+public function restaurar(int $id)
+{
+    AdminMiddleware::verificar();
+    
+    $usuarioModel = new Usuario();
+    if ($usuarioModel->restore($id, 'usuarios')) {
+        Flash::set('success', 'Usuário restaurado com sucesso!');
+    } else {
+        Flash::set('danger', 'Erro ao restaurar usuário.');
+    }
+    
+    header('Location: ' . BASE_URL . '/admin/usuarios/lixeira');
+    exit;
+}
 }

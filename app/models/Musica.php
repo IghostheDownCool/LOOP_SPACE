@@ -2,6 +2,9 @@
 
 class Musica
 {
+
+    use SoftDelete;
+
     private PDO $pdo;
 
     public function __construct()

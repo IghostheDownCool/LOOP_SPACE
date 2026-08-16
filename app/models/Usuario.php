@@ -2,6 +2,8 @@
 
 class Usuario
 {
+    use SoftDelete;
+
     private PDO $pdo;
 
     public function __construct()
@@ -11,8 +13,6 @@ class Usuario
 
     public function cadastrar(string $nome, string $email, string $senha): int|false
 {
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-    
     $sql = "
         INSERT INTO usuarios (nome, email, senha)
         VALUES (:nome, :email, :senha)
@@ -22,7 +22,7 @@ class Usuario
     $stmt->execute([
         ':nome' => $nome,
         ':email' => $email,
-        ':senha' => $senha
+        ':senha' => $senha  // ✅ Agora a senha já vem hashed do Controller
     ]);
 
     return $this->pdo->lastInsertId();
@@ -90,7 +90,7 @@ public function atualizarAvatar(int $usuarioId, ?string $avatar): bool
 public function buscarPorId(int $id): array|false
 {
     $sql = "
-        SELECT id, nome, email, avatar, senha, data_cadastro
+        SELECT id, nome, email, avatar, senha, data_cadastro, role, artista_id  -- 🔥 ADICIONEI artista_id
         FROM usuarios
         WHERE id = :id
     ";

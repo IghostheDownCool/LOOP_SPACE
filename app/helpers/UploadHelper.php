@@ -159,4 +159,39 @@ class UploadHelper
 
         return null;
     }
+    /**
+ * Upload de foto do artista
+ */
+public function uploadArtistaFoto(array $file): ?string
+{
+    $destino = __DIR__ . '/../../public/uploads/artistas/';
+    
+    if (!is_dir($destino)) {
+        mkdir($destino, 0777, true);
+    }
+
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+
+    $extensao = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $extensoesPermitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    if (!in_array($extensao, $extensoesPermitidas)) {
+        return null;
+    }
+
+    $maxSize = 5 * 1024 * 1024; // 5MB (artistas podem ter fotos maiores)
+    if ($file['size'] > $maxSize) {
+        return null;
+    }
+
+    $novoNome = uniqid('artista_') . '.' . $extensao;
+    $caminho = rtrim($destino, '/') . '/' . $novoNome;
+
+    if (move_uploaded_file($file['tmp_name'], $caminho)) {
+        return $novoNome;
+    }
+
+    return null;
+}
 }

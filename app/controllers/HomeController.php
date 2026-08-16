@@ -14,10 +14,19 @@ class HomeController extends Controller
         $usuarioId = $_SESSION['usuario_id'];
 
         // ============================================
-        // 1. Buscar histórico de navegação
+        // VERIFICA SE É ADMIN
         // ============================================
-        $historicoNavegacaoModel = new HistoricoNavegacao();
-        $historicoNavegacao = $historicoNavegacaoModel->listar($usuarioId, 10);
+        $usuarioModel = new Usuario();
+        $isAdmin = $usuarioModel->isAdmin($usuarioId);
+
+        // ============================================
+        // 1. Buscar histórico de navegação (APENAS SE NÃO FOR ADMIN)
+        // ============================================
+        $historicoNavegacao = [];
+        if (!$isAdmin) {
+            $historicoNavegacaoModel = new HistoricoNavegacao();
+            $historicoNavegacao = $historicoNavegacaoModel->listar($usuarioId, 10);
+        }
 
         // ============================================
         // 2. Buscar recomendações baseadas no histórico

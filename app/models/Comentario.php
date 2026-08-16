@@ -2,6 +2,9 @@
 
 class Comentario extends Model
 {
+
+    use SoftDelete;
+
     public function criar(int $usuarioId, int $musicaId, string $comentario): bool
     {
         $sql = "

@@ -2,6 +2,9 @@
 
 class Artista extends Model
 {
+
+    use SoftDelete;
+
     public function listar(): array
 {
     $sql = "

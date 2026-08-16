@@ -2,6 +2,9 @@
 
 class Playlist extends Model
 {
+    use SoftDelete;
+
+
     public function listar(int $usuarioId): array
     {
         $sql = "

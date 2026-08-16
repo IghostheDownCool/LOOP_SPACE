@@ -180,7 +180,8 @@ class Router
             call_user_func_array([$controller, $method], $params);
             return;
         }
-
+        
+        
         // ==================================================
         // ROTA PARA ARTISTAS SEGUIDOS
         // ==================================================
@@ -234,6 +235,8 @@ class Router
             call_user_func_array([$controller, $method], $params);
             return;
         }
+
+        
 
         // ==================================================
         // ROTA PARA GÊNEROS
@@ -398,6 +401,15 @@ if (isset($segments[0]) && $segments[0] === 'artista') {
         $controllerName = 'ArtistaController';
         $method = 'salvarMusica';
         $params = [];
+        // Dentro da área do artista, adicione:
+} elseif ($segments[1] === 'editar-musica' && isset($segments[2])) {
+    $controllerName = 'ArtistaController';
+    $method = 'editarMusica';
+    $params = [(int) $segments[2]];
+} elseif ($segments[1] === 'atualizar-musica' && isset($segments[2])) {
+    $controllerName = 'ArtistaController';
+    $method = 'atualizarMusica';
+    $params = [(int) $segments[2]];
     } elseif ($segments[1] === 'toggle-musica' && isset($segments[2])) {
         $controllerName = 'ArtistaController';
         $method = 'toggleMusica';

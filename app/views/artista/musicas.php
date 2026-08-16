@@ -43,12 +43,17 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="<?= BASE_URL ?>/artista/toggle-musica/<?= $musica['id'] ?>" class="btn btn-sm btn-warning" title="Ativar/Desativar">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </a>
-                            <a href="<?= BASE_URL ?>/artista/excluir-musica/<?= $musica['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta música?')" title="Excluir">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                            <div class="d-flex gap-1 flex-wrap">
+                                <a href="<?= BASE_URL ?>/artista/editar-musica/<?= $musica['id'] ?>" class="btn btn-sm btn-primary" title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="<?= BASE_URL ?>/artista/toggle-musica/<?= $musica['id'] ?>" class="btn btn-sm btn-warning" title="Ativar/Desativar">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </a>
+                                <a href="<?= BASE_URL ?>/artista/excluir-musica/<?= $musica['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta música?')" title="Excluir">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>

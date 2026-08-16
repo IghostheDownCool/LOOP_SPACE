@@ -400,4 +400,116 @@ class ArtistaController extends Controller
             'seguidores' => $seguidoresData
         ]);
     }
+
+        /**
+     * Formulário de edição de música
+     */
+    public function editarMusica($id)
+    {
+        $artista = $this->verificarArtista();
+        $artistaId = $artista['id'];
+
+        // Verifica se a música pertence ao artista
+        $musicaModel = new Musica();
+        $musica = $musicaModel->buscarPorId($id);
+        if (!$musica || $musica['artista_id'] != $artistaId) {
+            Flash::set('danger', 'Música não encontrada.');
+            header('Location: ' . BASE_URL . '/artista/musicas');
+            exit;
+        }
+
+        // Busca os álbuns do artista
+        $albumModel = new Album();
+        $albuns = $albumModel->listarPorArtista($artistaId);
+
+        $this->view('artista/editar-musica', [
+            'artista' => $artista,
+            'musica' => $musica,
+            'albuns' => $albuns
+        ]);
+    }
+
+    /**
+     * Atualizar música
+     */
+    public function atualizarMusica($id)
+    {
+        $artista = $this->verificarArtista();
+        $artistaId = $artista['id'];
+
+        // Verifica se a música pertence ao artista
+        $musicaModel = new Musica();
+        $musica = $musicaModel->buscarPorId($id);
+        if (!$musica || $musica['artista_id'] != $artistaId) {
+            Flash::set('danger', 'Música não encontrada.');
+            header('Location: ' . BASE_URL . '/artista/musicas');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . '/artista/musicas');
+            exit;
+        }
+
+        $titulo = trim($_POST['titulo'] ?? '');
+        $albumId = (int) ($_POST['album_id'] ?? 0);
+        $numeroFaixa = (int) ($_POST['numero_faixa'] ?? 0);
+        $duracao = (int) ($_POST['duracao'] ?? 0);
+        $genero = trim($_POST['genero'] ?? '');
+
+        // Validações
+        if (empty($titulo) || $albumId <= 0 || $numeroFaixa <= 0 || $duracao <= 0) {
+            Flash::set('danger', 'Preencha todos os campos obrigatórios.');
+            header('Location: ' . BASE_URL . '/artista/editar-musica/' . $id);
+            exit;
+        }
+
+        // Verifica se o álbum pertence ao artista
+        $albumModel = new Album();
+        $albumArtistaId = $albumModel->getArtistaId($albumId);
+        if ($albumArtistaId != $artistaId) {
+            Flash::set('danger', 'Álbum inválido.');
+            header('Location: ' . BASE_URL . '/artista/editar-musica/' . $id);
+            exit;
+        }
+
+        // Atualiza os dados básicos
+        $musicaModel->atualizar($id, $titulo, $albumId, $numeroFaixa, $duracao, $genero);
+
+        // Upload do arquivo de áudio (opcional)
+        if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
+            $uploadHelper = new UploadHelper();
+            $arquivo = $uploadHelper->uploadMusica($_FILES['arquivo']);
+            if ($arquivo) {
+                // Remove o arquivo antigo
+                if (!empty($musica['arquivo'])) {
+                    $arquivoPath = __DIR__ . '/../../public/uploads/musicas/' . $musica['arquivo'];
+                    if (file_exists($arquivoPath)) {
+                        unlink($arquivoPath);
+                    }
+                }
+                $musicaModel->atualizarArquivo($id, $arquivo);
+            }
+        }
+
+        // Upload da capa (opcional)
+        if (isset($_FILES['capa']) && $_FILES['capa']['error'] === UPLOAD_ERR_OK) {
+            $uploadHelper = new UploadHelper();
+            $capa = $uploadHelper->uploadCapa($_FILES['capa']);
+            if ($capa) {
+                // Remove a capa antiga
+                if (!empty($musica['capa'])) {
+                    $capaPath = __DIR__ . '/../../public/uploads/capas/' . $musica['capa'];
+                    if (file_exists($capaPath)) {
+                        unlink($capaPath);
+                    }
+                }
+                $musicaModel->atualizarCapa($id, $capa);
+            }
+        }
+
+        Flash::set('success', 'Música atualizada com sucesso!');
+        header('Location: ' . BASE_URL . '/artista/musicas');
+        exit;
+    }
 }

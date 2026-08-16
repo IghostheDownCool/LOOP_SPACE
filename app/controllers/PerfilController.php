@@ -144,4 +144,53 @@ public function atualizarSenha(): void
         header('Location: ' . BASE_URL . '/perfil');
         exit;
     }
+
+    public function atualizarAvatar(): void
+{
+    $this->requireLogin();
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    // Verifica se o arquivo foi enviado
+    if (!isset($_FILES['avatar']) || $_FILES['avatar']['error'] !== UPLOAD_ERR_OK) {
+        Flash::set('danger', 'Nenhum arquivo selecionado ou erro no upload.');
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    $usuarioId = $_SESSION['usuario_id'];
+    $usuarioModel = new Usuario();
+    $usuario = $usuarioModel->buscarPorId($usuarioId);
+
+    // Upload do avatar
+    $uploadHelper = new UploadHelper();
+    $avatar = $uploadHelper->uploadAvatar($_FILES['avatar']);
+
+    if (!$avatar) {
+        Flash::set('danger', 'Erro ao enviar avatar. Verifique o formato (JPG, PNG, GIF, WEBP) e tamanho (máx 2MB).');
+        header('Location: ' . BASE_URL . '/perfil');
+        exit;
+    }
+
+    // Remove o avatar antigo
+    if (!empty($usuario['avatar'])) {
+        $avatarPath = __DIR__ . '/../../public/uploads/avatars/' . $usuario['avatar'];
+        if (file_exists($avatarPath)) {
+            unlink($avatarPath);
+        }
+    }
+
+    // Salva o novo avatar
+    if ($usuarioModel->atualizarAvatar($usuarioId, $avatar)) {
+        Flash::set('success', 'Avatar atualizado com sucesso!');
+    } else {
+        Flash::set('danger', 'Erro ao atualizar avatar.');
+    }
+
+    header('Location: ' . BASE_URL . '/perfil');
+    exit;
+}
 }

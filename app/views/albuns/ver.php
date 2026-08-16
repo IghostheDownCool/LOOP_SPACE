@@ -1,32 +1,36 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
+<div class="page-header">
+    <h1><?= htmlspecialchars($album['titulo']) ?></h1>
+    <p class="text-muted">
+        <?= htmlspecialchars($album['artista']) ?> • <?= $album['ano'] ?? 'Ano desconhecido' ?>
+    </p>
+</div>
+
 <div class="row">
-    <div class="col-md-3 text-center">
+    <div class="col-md-3">
         <img
             src="<?= BASE_URL ?>/uploads/capas/<?= htmlspecialchars($album['capa'] ?? 'default-album.png') ?>"
             alt="<?= htmlspecialchars($album['titulo']) ?>"
-            class="img-fluid"
-            style="max-width: 200px; border-radius: 8px;"
+            class="img-fluid rounded"
         >
-        <h1 class="mt-3"><?= htmlspecialchars($album['titulo']) ?></h1>
-        <p>
-            <a href="<?= BASE_URL ?>/artista/ver/<?= $album['artista_id'] ?>" class="text-light">
-                <?= htmlspecialchars($album['artista'] ?? 'Artista desconhecido') ?>
-            </a>
-            <?php if (!empty($album['ano'])): ?>
-                • <?= $album['ano'] ?>
-            <?php endif; ?>
-        </p>
     </div>
-
     <div class="col-md-9">
         <h2>Músicas</h2>
         <?php if (empty($musicas)): ?>
-            <p class="text-muted">Nenhuma música encontrada.</p>
+            <p class="text-muted">Nenhuma música encontrada neste álbum.</p>
         <?php else: ?>
-            <div class="list-group">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($musicas as $musica): ?>
-                    <?php require __DIR__ . '/../components/music-card.php'; ?>
+                    <div class="col">
+                        <div class="card bg-card h-100">
+                            <?php 
+                            // 🔥 PASSA A FILA PARA O COMPONENTE
+                            $filaMusicas = $filaMusicas;
+                            require __DIR__ . '/../components/music-card.php'; 
+                            ?>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>

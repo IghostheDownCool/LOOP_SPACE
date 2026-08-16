@@ -110,24 +110,26 @@ class Album extends Model
     }
 
     public function listarMusicas(int $albumId): array
-    {
-        $sql = "
-            SELECT
-                musicas.*,
-                albuns.titulo AS album,
-                albuns.capa,
-                artistas.nome AS artista
-            FROM musicas
-            INNER JOIN albuns ON albuns.id = musicas.album_id
-            INNER JOIN artistas ON artistas.id = albuns.artista_id
-            WHERE albuns.id = :album_id
-            ORDER BY musicas.numero_faixa
-        ";
+{
+    $sql = "
+        SELECT
+            musicas.*,
+            albuns.titulo AS album,
+            albuns.capa,
+            artistas.nome AS artista,
+            artistas.id AS artista_id,  -- 🔥 ADICIONADO
+            albuns.id AS album_id
+        FROM musicas
+        INNER JOIN albuns ON albuns.id = musicas.album_id
+        INNER JOIN artistas ON artistas.id = albuns.artista_id
+        WHERE albuns.id = :album_id
+        ORDER BY musicas.numero_faixa
+    ";
 
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':album_id' => $albumId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':album_id' => $albumId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public function contar(): int
     {

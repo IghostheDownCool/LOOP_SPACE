@@ -4,8 +4,7 @@ class ArtistasController extends Controller
 {
     public function index()
     {
-
-    AdminMiddleware::verificar();
+        AdminMiddleware::verificar();
         $this->requireLogin();
 
         $artista = new Artista();
@@ -20,12 +19,9 @@ class ArtistasController extends Controller
     {
         $this->requireLogin();
 
-
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nome = trim($_POST['nome']);
 
-            // Validação: nome é obrigatório
             if (empty($nome)) {
                 Flash::set('danger', 'O nome do artista é obrigatório.');
                 header('Location: ' . BASE_URL . '/admin/artistas/cadastrar');
@@ -35,15 +31,11 @@ class ArtistasController extends Controller
             // Upload da foto (opcional)
             $foto = null;
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-                $foto = UploadHelper::upload(
-                    $_FILES['foto'],
-                    __DIR__ . '/../../public/uploads/artistas/',
-                    ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-                    5242880 // 5MB
-                );
-
+                $uploadHelper = new UploadHelper();
+                $foto = $uploadHelper->uploadAvatar($_FILES['foto']);
+                
                 if (!$foto) {
-                    Flash::set('warning', 'A foto não foi enviada.');
+                    Flash::set('warning', 'A foto não foi enviada. Verifique o formato (JPG, PNG, GIF, WEBP) e tamanho (máx 5MB).');
                 }
             }
 
@@ -84,14 +76,11 @@ class ArtistasController extends Controller
             }
 
             // Upload da nova foto (opcional)
-            $foto = $artista['foto']; // Mantém a foto atual
+            $foto = $artista['foto'];
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-                $novaFoto = UploadHelper::upload(
-                    $_FILES['foto'],
-                    __DIR__ . '/../../public/uploads/artistas/',
-                    ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-                    5242880 // 5MB
-                );
+                $uploadHelper = new UploadHelper();
+                $novaFoto = $uploadHelper->uploadAvatar($_FILES['foto']);
+                
                 if ($novaFoto) {
                     // Remove a foto antiga se existir
                     if ($foto && file_exists(__DIR__ . '/../../public/uploads/artistas/' . $foto)) {
@@ -146,4 +135,12 @@ class ArtistasController extends Controller
         exit;
     }
 
+    /**
+     * Redireciona para uma URL (mantendo compatibilidade)
+     */
+    protected function redirect(string $path)
+    {
+        header('Location: ' . BASE_URL . $path);
+        exit;
+    }
 }

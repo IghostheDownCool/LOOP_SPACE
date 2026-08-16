@@ -1,0 +1,32 @@
+<?php
+session_start();
+require_once '../config/config.php';
+require_once '../app/core/Autoload.php';
+
+echo "<h2>🔍 Teste Direto - Ver Artista</h2>";
+
+// Força o login como admin
+$_SESSION['usuario_id'] = 6;
+$_SESSION['usuario_nome'] = 'ADM';
+$_SESSION['usuario_role'] = 'admin';
+
+echo "Usuário forçado: " . $_SESSION['usuario_nome'] . " (ID: " . $_SESSION['usuario_id'] . ")<br>";
+echo "Role: " . $_SESSION['usuario_role'] . "<br><br>";
+
+// Instancia o controller
+$artistaController = new ArtistaController();
+
+// Tenta acessar o método ver diretamente
+$artistaId = 17; // ID do artista que existe
+
+echo "Tentando ver artista ID: " . $artistaId . "<br><br>";
+
+// Simula a execução do método ver
+try {
+    // Chamando diretamente o método ver
+    echo "Chamando ArtistaController->ver($artistaId)<br>";
+    $artistaController->ver($artistaId);
+} catch (Exception $e) {
+    echo "❌ Erro: " . $e->getMessage() . "<br>";
+}
+?>

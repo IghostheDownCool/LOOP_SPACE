@@ -7,13 +7,31 @@ class ArtistaController extends Controller
     // ============================================
 
     public function ver(int $id): void
-    {
-        $this->requireLogin();
+{
+    // Verifica se está logado
+    if (!isset($_SESSION['usuario_id'])) {
+        header('Location: ' . BASE_URL . '/login');
+        exit;
+    }
 
-        $artistaModel = new Artista();
-        $artista = $artistaModel->buscarCompleto($id);
+    $artistaModel = new Artista();
+    $artista = $artistaModel->buscarCompleto($id);
 
-        // Salvar no histórico de navegação
+    if (!$artista) {
+        die('Artista não encontrado.');
+    }
+
+    // 🔥 DIAGNÓSTICO - REMOVA DEPOIS
+    error_log("ArtistaController::ver() - Artista ID: " . $id . " - Nome: " . $artista['nome']);
+    error_log("Usuário logado: " . $_SESSION['usuario_nome'] . " (Role: " . ($_SESSION['usuario_role'] ?? 'user') . ")");
+
+    // Salvar no histórico de navegação (apenas para usuários comuns)
+    $isAdmin = false;
+    if (isset($_SESSION['usuario_role']) && $_SESSION['usuario_role'] === 'admin') {
+        $isAdmin = true;
+    }
+
+    if (!$isAdmin) {
         $historicoNav = new HistoricoNavegacao();
         $historicoNav->salvar(
             $_SESSION['usuario_id'],
@@ -23,20 +41,17 @@ class ArtistaController extends Controller
             '/artista/ver/' . $artista['id'],
             $artista['foto'] ?? null
         );
-
-        if (!$artista) {
-            die('Artista não encontrado.');
-        }
-
-        $musicas = $artistaModel->listarMusicas($id);
-        $albuns = $artistaModel->listarAlbuns($id);
-
-        $this->view('artistas/ver', [
-            'artista' => $artista,
-            'musicas' => $musicas,
-            'albuns' => $albuns
-        ]);
     }
+
+    $musicas = $artistaModel->listarMusicas($id);
+    $albuns = $artistaModel->listarAlbuns($id);
+
+    $this->view('artistas/ver', [
+        'artista' => $artista,
+        'musicas' => $musicas,
+        'albuns' => $albuns
+    ]);
+}
 
     public function seguir(int $id): void
     {

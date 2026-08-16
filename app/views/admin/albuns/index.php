@@ -3,11 +3,8 @@
 <div class="page-header d-flex justify-content-between align-items-center">
     <div>
         <h1>Álbuns</h1>
-        <p class="text-muted">Gerencie os álbuns cadastrados</p>
+        <p class="text-muted">Visualize e gerencie os álbuns cadastrados</p>
     </div>
-    <a href="<?= BASE_URL ?>/admin/albuns/cadastrar" class="btn btn-verde">
-        <i class="bi bi-plus-circle"></i> Novo Álbum
-    </a>
 </div>
 
 <?php if (empty($albuns)): ?>
@@ -24,6 +21,7 @@
                     <th>Título</th>
                     <th>Artista</th>
                     <th>Ano</th>
+                    <th>Músicas</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -39,21 +37,41 @@
                                     style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;"
                                 >
                             <?php else: ?>
-                                <span class="text-muted">Sem capa</span>
+                                <div style="width: 40px; height: 40px; border-radius: 4px; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center;">
+                                    <i class="bi bi-collection-play" style="color: var(--text-muted);"></i>
+                                </div>
                             <?php endif; ?>
                         </td>
-                        <td><?= htmlspecialchars($album['titulo']) ?></td>
-                        <td><?= htmlspecialchars($album['artista_nome'] ?? '') ?></td>
-                        <td><?= $album['ano'] ?? '' ?></td>
                         <td>
-                            <div class="btn-group">
-                                <a href="<?= BASE_URL ?>/admin/albuns/editar/<?= $album['id'] ?>" class="btn btn-sm btn-secondary">
-                                    <i class="bi bi-pencil"></i>
+                            <a href="<?= BASE_URL ?>/album/ver/<?= $album['id'] ?>" class="text-decoration-none" target="_blank">
+                                <?= htmlspecialchars($album['titulo']) ?>
+                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="<?= BASE_URL ?>/artista/ver/<?= $album['artista_id'] ?>" class="text-decoration-none" target="_blank">
+                                <?= htmlspecialchars($album['artista'] ?? '') ?>
+                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i>
+                            </a>
+                        </td>
+                        <td><?= $album['ano'] ?? '-' ?></td>
+                        <td>
+                            <?php
+                            $albumModel = new Album();
+                            $musicas = $albumModel->listarMusicas($album['id']);
+                            echo count($musicas);
+                            ?>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1">
+                                <a href="<?= BASE_URL ?>/album/ver/<?= $album['id'] ?>" class="btn btn-sm btn-info" target="_blank" title="Ver álbum">
+                                    <i class="bi bi-eye"></i>
                                 </a>
                                 <a
                                     href="<?= BASE_URL ?>/admin/albuns/excluir/<?= $album['id'] ?>"
                                     class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Deseja realmente excluir este álbum?')"
+                                    onclick="return confirm('Deseja realmente excluir este álbum? Todas as músicas também serão excluídas.')"
+                                    title="Excluir"
                                 >
                                     <i class="bi bi-trash"></i>
                                 </a>

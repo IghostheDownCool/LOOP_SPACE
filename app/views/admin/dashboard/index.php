@@ -53,19 +53,53 @@
 
 .admin-dashboard .admin-actions .btn-admin:hover {
     background: var(--bg-card-hover);
-    border-color: #1db954;
+    border-color: #8B5CF6;
     transform: translateY(-2px);
 }
 
 .admin-dashboard .admin-actions .btn-admin.primary {
-    background: #1db954;
-    color: #fff;
-    border-color: #1db954;
+    background: #8B5CF6;
+    color: #121212;
+    border-color: #8B5CF6;
 }
 
 .admin-dashboard .admin-actions .btn-admin.primary:hover {
-    background: #1ed760;
-    border-color: #1ed760;
+    background: #A78BFA;
+    border-color: #A78BFA;
+}
+
+/* ==================================================
+   TEMA ADMIN - DASHBOARD
+================================================== */
+[data-user-role="admin"] .admin-dashboard .admin-actions .btn-admin.primary {
+    background: #DC3545;
+    color: #ffffff;
+    border-color: #DC3545;
+}
+
+[data-user-role="admin"] .admin-dashboard .admin-actions .btn-admin.primary:hover {
+    background: #FF4757;
+    border-color: #FF4757;
+}
+
+[data-user-role="admin"] .admin-dashboard .stat-card:hover {
+    border-color: #DC3545;
+}
+
+[data-user-role="admin"] .admin-dashboard .stat-card .stat-icon {
+    color: #DC3545;
+}
+
+[data-user-role="admin"] .admin-dashboard .quick-action:hover {
+    border-color: #DC3545;
+}
+
+[data-user-role="admin"] .admin-dashboard .quick-action .qa-icon {
+    color: #DC3545;
+}
+
+[data-user-role="admin"] .admin-dashboard .admin-header h1 i {
+    color: #DC3545 !important;
 }
 
 /* Cards de estatísticas */
@@ -86,13 +120,13 @@
 }
 
 .admin-dashboard .stat-card:hover {
-    border-color: #1db954;
+    border-color: #8B5CF6;
     transform: translateY(-2px);
 }
 
 .admin-dashboard .stat-card .stat-icon {
     font-size: 1.5rem;
-    color: #1db954;
+    color: #8B5CF6;
     margin-bottom: 4px;
 }
 
@@ -129,14 +163,14 @@
 }
 
 .admin-dashboard .quick-action:hover {
-    border-color: #1db954;
+    border-color: #8B5CF6;
     transform: translateY(-4px);
     box-shadow: 0 8px 24px var(--shadow-color);
 }
 
 .admin-dashboard .quick-action .qa-icon {
     font-size: 2rem;
-    color: #1db954;
+    color: #8B5CF6;
     margin-bottom: 8px;
 }
 
@@ -179,6 +213,39 @@
     color: var(--text-primary, #121212);
 }
 
+[data-theme="light"] .admin-dashboard .admin-actions .btn-admin.primary {
+    background: #7C3AED;
+    color: #ffffff;
+    border-color: #7C3AED;
+}
+
+[data-theme="light"] .admin-dashboard .admin-actions .btn-admin.primary:hover {
+    background: #8B5CF6;
+    color: #121212;
+    border-color: #8B5CF6;
+}
+
+/* Admin + Tema Claro */
+[data-user-role="admin"][data-theme="light"] .admin-dashboard .admin-actions .btn-admin.primary {
+    background: #DC3545;
+    color: #ffffff;
+    border-color: #DC3545;
+}
+
+[data-user-role="admin"][data-theme="light"] .admin-dashboard .admin-actions .btn-admin.primary:hover {
+    background: #FF4757;
+    color: #ffffff;
+    border-color: #FF4757;
+}
+
+[data-user-role="admin"][data-theme="light"] .admin-dashboard .stat-card .stat-icon {
+    color: #DC3545;
+}
+
+[data-user-role="admin"][data-theme="light"] .admin-dashboard .quick-action .qa-icon {
+    color: #DC3545;
+}
+
 /* Responsividade */
 @media (max-width: 576px) {
     .admin-dashboard .stats-grid {
@@ -203,18 +270,21 @@
 <div class="admin-dashboard">
     <div class="admin-header">
         <div>
-            <h1><i class="bi bi-speedometer2" style="color: #1db954;"></i> Dashboard</h1>
+            <h1><i class="bi bi-speedometer2" style="color: #8B5CF6;"></i> Dashboard</h1>
             <p class="subtitle">Gerencie todo o conteúdo do Sonora</p>
         </div>
         <div class="admin-actions">
-            <a href="<?= BASE_URL ?>/admin/artistas/cadastrar" class="btn-admin primary">
-                <i class="bi bi-plus-circle"></i> Novo Artista
+            <a href="<?= BASE_URL ?>/admin/artistas" class="btn-admin primary">
+                <i class="bi bi-person"></i> Gerenciar Artistas
             </a>
-            <a href="<?= BASE_URL ?>/admin/albuns/cadastrar" class="btn-admin primary">
-                <i class="bi bi-plus-circle"></i> Novo Álbum
+            <a href="<?= BASE_URL ?>/admin/albuns" class="btn-admin primary">
+                <i class="bi bi-collection"></i> Gerenciar Álbuns
             </a>
-            <a href="<?= BASE_URL ?>/admin/musicas/cadastrar" class="btn-admin primary">
-                <i class="bi bi-plus-circle"></i> Nova Música
+            <a href="<?= BASE_URL ?>/admin/musicas" class="btn-admin primary">
+                <i class="bi bi-music-note"></i> Gerenciar Músicas
+            </a>
+            <a href="<?= BASE_URL ?>/admin/usuarios" class="btn-admin primary">
+                <i class="bi bi-people"></i> Gerenciar Usuários
             </a>
         </div>
     </div>
@@ -261,19 +331,19 @@
         <a href="<?= BASE_URL ?>/admin/artistas" class="quick-action">
             <div class="qa-icon"><i class="bi bi-person"></i></div>
             <p class="qa-title">Artistas</p>
-            <p class="qa-desc">Gerenciar artistas</p>
+            <p class="qa-desc">Visualizar e excluir artistas</p>
             <span class="qa-badge"><?= $totalArtistas ?? 0 ?> cadastrados</span>
         </a>
         <a href="<?= BASE_URL ?>/admin/albuns" class="quick-action">
             <div class="qa-icon"><i class="bi bi-collection"></i></div>
             <p class="qa-title">Álbuns</p>
-            <p class="qa-desc">Gerenciar álbuns</p>
+            <p class="qa-desc">Visualizar e excluir álbuns</p>
             <span class="qa-badge"><?= $totalAlbuns ?? 0 ?> cadastrados</span>
         </a>
         <a href="<?= BASE_URL ?>/admin/musicas" class="quick-action">
             <div class="qa-icon"><i class="bi bi-music-note"></i></div>
             <p class="qa-title">Músicas</p>
-            <p class="qa-desc">Gerenciar músicas</p>
+            <p class="qa-desc">Ativar, desativar e excluir</p>
             <span class="qa-badge"><?= $totalMusicas ?? 0 ?> cadastradas</span>
         </a>
         <a href="<?= BASE_URL ?>/admin/usuarios" class="quick-action">

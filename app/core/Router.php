@@ -347,117 +347,173 @@ class Router
         // ==================================================
         // ÁREA ADMINISTRATIVA
         // ==================================================
+
         if (isset($segments[0]) && $segments[0] === 'admin') {
+
             if (!isset($segments[1]) || $segments[1] === '') {
+
                 $controllerName = 'DashboardController';
                 $method = 'index';
                 $params = [];
+
             } elseif (isset($segments[1]) && $segments[1] === 'usuarios') {
+
                 $controllerName = 'UsuariosController';
                 $method = $segments[2] ?? 'index';
                 $params = array_slice($segments, 3);
+
+            // ==================================================
+            // ROTAS ADMINISTRATIVAS PARA MÚSICAS
+            // ==================================================
+            } elseif ($segments[1] === 'musicas' && isset($segments[2]) && $segments[2] === 'ativar' && isset($segments[3])) {
+
+                $controllerName = 'MusicasController';
+                $method = 'ativar';
+                $params = [(int) $segments[3]];
+
+            } elseif ($segments[1] === 'musicas' && isset($segments[2]) && $segments[2] === 'desativar' && isset($segments[3])) {
+
+                $controllerName = 'MusicasController';
+                $method = 'desativar';
+                $params = [(int) $segments[3]];
+
+            } elseif ($segments[1] === 'musicas' && isset($segments[2]) && $segments[2] === 'excluir' && isset($segments[3])) {
+
+                $controllerName = 'MusicasController';
+                $method = 'excluir';
+                $params = [(int) $segments[3]];
+
             } else {
+
                 $controllerName = ucfirst($segments[1]) . 'Controller';
                 $method = $segments[2] ?? 'index';
                 $params = array_slice($segments, 3);
             }
-            
+
             $controllerFile = __DIR__ . '/../controllers/admin/' . $controllerName . '.php';
+
             if (!file_exists($controllerFile)) {
                 die('Controller administrativo não encontrado: ' . $controllerName);
             }
+
             require_once $controllerFile;
-            
+
             if (!class_exists($controllerName)) {
                 die('Classe não encontrada: ' . $controllerName);
             }
-            
+
             $controller = new $controllerName();
+
             if (!method_exists($controller, $method)) {
                 die('Método não encontrado: ' . $method);
             }
-            
+
             call_user_func_array([$controller, $method], $params);
             return;
         }
 
         // ==================================================
-// ROTAS PARA ÁREA DO ARTISTA
-// ==================================================
-if (isset($segments[0]) && $segments[0] === 'artista') {
-    if (!isset($segments[1]) || $segments[1] === 'dashboard') {
-        $controllerName = 'ArtistaController';
-        $method = 'dashboard';
-        $params = [];
-    } elseif ($segments[1] === 'musicas') {
-        $controllerName = 'ArtistaController';
-        $method = 'musicas';
-        $params = [];
-    } elseif ($segments[1] === 'upload') {
-        $controllerName = 'ArtistaController';
-        $method = 'upload';
-        $params = [];
-    } elseif ($segments[1] === 'salvar-musica') {
-        $controllerName = 'ArtistaController';
-        $method = 'salvarMusica';
-        $params = [];
-        // Dentro da área do artista, adicione:
-} elseif ($segments[1] === 'editar-musica' && isset($segments[2])) {
-    $controllerName = 'ArtistaController';
-    $method = 'editarMusica';
-    $params = [(int) $segments[2]];
-} elseif ($segments[1] === 'atualizar-musica' && isset($segments[2])) {
-    $controllerName = 'ArtistaController';
-    $method = 'atualizarMusica';
-    $params = [(int) $segments[2]];
-    } elseif ($segments[1] === 'toggle-musica' && isset($segments[2])) {
-        $controllerName = 'ArtistaController';
-        $method = 'toggleMusica';
-        $params = [(int) $segments[2]];
-    } elseif ($segments[1] === 'excluir-musica' && isset($segments[2])) {
-        $controllerName = 'ArtistaController';
-        $method = 'excluirMusica';
-        $params = [(int) $segments[2]];
-    } elseif ($segments[1] === 'albuns') {
-        $controllerName = 'ArtistaController';
-        $method = 'albuns';
-        $params = [];
-    } elseif ($segments[1] === 'novo-album') {
-        $controllerName = 'ArtistaController';
-        $method = 'novoAlbum';
-        $params = [];
-    } elseif ($segments[1] === 'salvar-album') {
-        $controllerName = 'ArtistaController';
-        $method = 'salvarAlbum';
-        $params = [];
-    } elseif ($segments[1] === 'seguidores') {
-        $controllerName = 'ArtistaController';
-        $method = 'seguidores';
-        $params = [];
-    } else {
-        $controllerName = 'ArtistaController';
-        $method = 'dashboard';
-        $params = [];
-    }
+        // ROTAS PARA ÁREA DO ARTISTA
+        // ==================================================
+        if (isset($segments[0]) && $segments[0] === 'artista') {
+            
+            // 🔥 NOVA ROTA: /artista/ver/{id}
+            if (isset($segments[1]) && $segments[1] === 'ver' && isset($segments[2])) {
+                $controllerName = 'ArtistaController';
+                $method = 'ver';
+                $params = [(int) $segments[2]];
+                
+                $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
+                if (!file_exists($controllerFile)) {
+                    die('Controller não encontrado.');
+                }
+                require_once $controllerFile;
+                
+                if (!class_exists($controllerName)) {
+                    die('Controller não encontrado.');
+                }
+                
+                $controller = new $controllerName();
+                if (!method_exists($controller, $method)) {
+                    die('Método não encontrado.');
+                }
+                
+                call_user_func_array([$controller, $method], $params);
+                return;
+            }
+            
+            if (!isset($segments[1]) || $segments[1] === 'dashboard') {
+                $controllerName = 'ArtistaController';
+                $method = 'dashboard';
+                $params = [];
+            } elseif ($segments[1] === 'musicas') {
+                $controllerName = 'ArtistaController';
+                $method = 'musicas';
+                $params = [];
+            } elseif ($segments[1] === 'upload') {
+                $controllerName = 'ArtistaController';
+                $method = 'upload';
+                $params = [];
+            } elseif ($segments[1] === 'salvar-musica') {
+                $controllerName = 'ArtistaController';
+                $method = 'salvarMusica';
+                $params = [];
+            } elseif ($segments[1] === 'editar-musica' && isset($segments[2])) {
+                $controllerName = 'ArtistaController';
+                $method = 'editarMusica';
+                $params = [(int) $segments[2]];
+            } elseif ($segments[1] === 'atualizar-musica' && isset($segments[2])) {
+                $controllerName = 'ArtistaController';
+                $method = 'atualizarMusica';
+                $params = [(int) $segments[2]];
+            } elseif ($segments[1] === 'toggle-musica' && isset($segments[2])) {
+                $controllerName = 'ArtistaController';
+                $method = 'toggleMusica';
+                $params = [(int) $segments[2]];
+            } elseif ($segments[1] === 'excluir-musica' && isset($segments[2])) {
+                $controllerName = 'ArtistaController';
+                $method = 'excluirMusica';
+                $params = [(int) $segments[2]];
+            } elseif ($segments[1] === 'albuns') {
+                $controllerName = 'ArtistaController';
+                $method = 'albuns';
+                $params = [];
+            } elseif ($segments[1] === 'novo-album') {
+                $controllerName = 'ArtistaController';
+                $method = 'novoAlbum';
+                $params = [];
+            } elseif ($segments[1] === 'salvar-album') {
+                $controllerName = 'ArtistaController';
+                $method = 'salvarAlbum';
+                $params = [];
+            } elseif ($segments[1] === 'seguidores') {
+                $controllerName = 'ArtistaController';
+                $method = 'seguidores';
+                $params = [];
+            } else {
+                $controllerName = 'ArtistaController';
+                $method = 'dashboard';
+                $params = [];
+            }
 
-    $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
-    if (!file_exists($controllerFile)) {
-        die('Controller não encontrado.');
-    }
-    require_once $controllerFile;
+            $controllerFile = __DIR__ . '/../controllers/' . $controllerName . '.php';
+            if (!file_exists($controllerFile)) {
+                die('Controller não encontrado.');
+            }
+            require_once $controllerFile;
 
-    if (!class_exists($controllerName)) {
-        die('Controller não encontrado.');
-    }
+            if (!class_exists($controllerName)) {
+                die('Controller não encontrado.');
+            }
 
-    $controller = new $controllerName();
-    if (!method_exists($controller, $method)) {
-        die('Método não encontrado.');
-    }
+            $controller = new $controllerName();
+            if (!method_exists($controller, $method)) {
+                die('Método não encontrado.');
+            }
 
-    call_user_func_array([$controller, $method], $params);
-    return;
-}
+            call_user_func_array([$controller, $method], $params);
+            return;
+        }
 
         // ==================================================
         // ÁREA PÚBLICA (FALLBACK)

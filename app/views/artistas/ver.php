@@ -1,4 +1,7 @@
-<?php require_once __DIR__ . '/../layouts/header.php'; ?>
+<?php require_once __DIR__ . '/../layouts/header.php'; 
+
+// 🔥 DIAGNÓSTICO - REMOVA DEPOIS
+error_log("View artistas/ver.php carregada para artista ID: " . ($artista['id'] ?? 'N/A'));?>
 
 <div class="row">
     <div class="col-md-3 text-center">

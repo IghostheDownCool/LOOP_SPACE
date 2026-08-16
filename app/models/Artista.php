@@ -282,5 +282,16 @@ public function contarSeguidos(int $usuarioId): int
     return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
-
+/**
+ * Atualiza a foto do artista
+ */
+public function atualizarFoto(int $id, ?string $foto): bool
+{
+    $sql = "UPDATE artistas SET foto = :foto WHERE id = :id";
+    $stmt = $this->pdo->prepare($sql);
+    return $stmt->execute([
+        ':id' => $id,
+        ':foto' => $foto
+    ]);
+}
 }

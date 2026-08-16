@@ -157,97 +157,120 @@ class ArtistaController extends Controller
      * Formulário de upload de música
      */
     public function upload()
-    {
-        $artista = $this->verificarArtista();
-        $artistaId = $artista['id'];
+{
+    $artista = $this->verificarArtista();
+    $artistaId = $artista['id'];
 
-        $albumModel = new Album();
-        $albuns = $albumModel->listarPorArtista($artistaId);
+    $albumModel = new Album();
+    $albuns = $albumModel->listarPorArtista($artistaId);
 
-        $this->view('artista/upload', [
-            'artista' => $artista,
-            'albuns' => $albuns
-        ]);
-    }
+    // 🔥 Busca todos os gêneros
+    $generoModel = new Genero();
+    $generos = $generoModel->listar();
+
+    $this->view('artista/upload', [
+        'artista' => $artista,
+        'albuns' => $albuns,
+        'generos' => $generos
+    ]);
+}
 
     /**
      * Salvar nova música
      */
     public function salvarMusica()
-    {
-        $artista = $this->verificarArtista();
-        $artistaId = $artista['id'];
+{
+    $artista = $this->verificarArtista();
+    $artistaId = $artista['id'];
 
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header('Location: ' . BASE_URL . '/artista/upload');
-            exit;
-        }
-
-        $titulo = trim($_POST['titulo'] ?? '');
-        $albumId = (int) ($_POST['album_id'] ?? 0);
-        $numeroFaixa = (int) ($_POST['numero_faixa'] ?? 0);
-        $duracao = (int) ($_POST['duracao'] ?? 0);
-        $genero = trim($_POST['genero'] ?? '');
-
-        // Validações
-        if (empty($titulo) || $albumId <= 0 || $numeroFaixa <= 0 || $duracao <= 0) {
-            Flash::set('danger', 'Preencha todos os campos obrigatórios.');
-            header('Location: ' . BASE_URL . '/artista/upload');
-            exit;
-        }
-
-        // Verifica se o álbum pertence ao artista
-        $albumModel = new Album();
-        $albumArtistaId = $albumModel->getArtistaId($albumId);
-        if ($albumArtistaId != $artistaId) {
-            Flash::set('danger', 'Álbum inválido.');
-            header('Location: ' . BASE_URL . '/artista/upload');
-            exit;
-        }
-
-        // Upload do arquivo de áudio
-        $arquivo = null;
-        if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
-            $uploadHelper = new UploadHelper();
-            $arquivo = $uploadHelper->uploadMusica($_FILES['arquivo']);
-            if (!$arquivo) {
-                Flash::set('danger', 'Erro ao enviar o arquivo de áudio.');
-                header('Location: ' . BASE_URL . '/artista/upload');
-                exit;
-            }
-        } else {
-            Flash::set('danger', 'Selecione um arquivo de áudio.');
-            header('Location: ' . BASE_URL . '/artista/upload');
-            exit;
-        }
-
-        // Upload da capa (opcional)
-        $capa = null;
-        if (isset($_FILES['capa']) && $_FILES['capa']['error'] === UPLOAD_ERR_OK) {
-            $uploadHelper = new UploadHelper();
-            $capa = $uploadHelper->uploadCapa($_FILES['capa']);
-        }
-
-        // Salva a música
-        $musicaModel = new Musica();
-        $result = $musicaModel->cadastrar(
-            $titulo,
-            $albumId,
-            $numeroFaixa,
-            $duracao,
-            $arquivo,
-            $genero
-        );
-
-        if ($result) {
-            Flash::set('success', 'Música cadastrada com sucesso!');
-        } else {
-            Flash::set('danger', 'Erro ao cadastrar música. Tente novamente.');
-        }
-
-        header('Location: ' . BASE_URL . '/artista/musicas');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ' . BASE_URL . '/artista/upload');
         exit;
     }
+
+    $titulo = trim($_POST['titulo'] ?? '');
+    $albumId = (int) ($_POST['album_id'] ?? 0);
+    $numeroFaixa = (int) ($_POST['numero_faixa'] ?? 0);
+    $generoId = (int) ($_POST['genero_id'] ?? 0);
+
+    // Validações
+    if (empty($titulo) || $albumId <= 0 || $numeroFaixa <= 0) {
+        Flash::set('danger', 'Preencha todos os campos obrigatórios.');
+        header('Location: ' . BASE_URL . '/artista/upload');
+        exit;
+    }
+
+    // Verifica se o álbum pertence ao artista
+    $albumModel = new Album();
+    $albumArtistaId = $albumModel->getArtistaId($albumId);
+    if ($albumArtistaId != $artistaId) {
+        Flash::set('danger', 'Álbum inválido.');
+        header('Location: ' . BASE_URL . '/artista/upload');
+        exit;
+    }
+
+    // Upload do arquivo de áudio
+    $arquivo = null;
+    if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
+        $uploadHelper = new UploadHelper();
+        $arquivo = $uploadHelper->uploadMusica($_FILES['arquivo']);
+        if (!$arquivo) {
+            Flash::set('danger', 'Erro ao enviar o arquivo de áudio.');
+            header('Location: ' . BASE_URL . '/artista/upload');
+            exit;
+        }
+    } else {
+        Flash::set('danger', 'Selecione um arquivo de áudio.');
+        header('Location: ' . BASE_URL . '/artista/upload');
+        exit;
+    }
+
+    // 🔥 Calcular duração automaticamente
+    $caminhoArquivo = __DIR__ . '/../../public/uploads/musicas/' . $arquivo;
+    $musicaModel = new Musica();
+    $duracao = $musicaModel->getDuracao($caminhoArquivo);
+
+    if ($duracao <= 0) {
+        // Fallback: se não conseguir calcular, usar 0 (será atualizado depois)
+        $duracao = 0;
+    }
+
+    // Busca o nome do gênero
+    $genero = null;
+    if ($generoId > 0) {
+        $generoModel = new Genero();
+        $generoData = $generoModel->buscarPorId($generoId);
+        if ($generoData) {
+            $genero = $generoData['nome'];
+        }
+    }
+
+    // Upload da capa (opcional)
+    $capa = null;
+    if (isset($_FILES['capa']) && $_FILES['capa']['error'] === UPLOAD_ERR_OK) {
+        $uploadHelper = new UploadHelper();
+        $capa = $uploadHelper->uploadCapa($_FILES['capa']);
+    }
+
+    // Salva a música
+    $result = $musicaModel->cadastrar(
+        $titulo,
+        $albumId,
+        $numeroFaixa,
+        $duracao,
+        $arquivo,
+        $genero
+    );
+
+    if ($result) {
+        Flash::set('success', 'Música cadastrada com sucesso!');
+    } else {
+        Flash::set('danger', 'Erro ao cadastrar música. Tente novamente.');
+    }
+
+    header('Location: ' . BASE_URL . '/artista/musicas');
+    exit;
+}
 
     /**
      * Ativar/Desativar música

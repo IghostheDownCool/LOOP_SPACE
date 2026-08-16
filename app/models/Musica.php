@@ -425,4 +425,45 @@ public function listarGeneros(): array
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([':id' => $id]);
     }
+    /**
+ * Extrai a duração de um arquivo de áudio (em segundos)
+ */
+public function getDuracao(string $caminhoArquivo): int
+{
+    if (!file_exists($caminhoArquivo)) {
+        return 0;
+    }
+
+    // Tenta usar getID3 se disponível
+    if (function_exists('exec')) {
+        // Tenta usar ffmpeg
+        $cmd = "ffmpeg -i " . escapeshellarg($caminhoArquivo) . " 2>&1 | grep -oP 'Duration: \K\d{2}:\d{2}:\d{2}'";
+        $output = shell_exec($cmd);
+        if ($output) {
+            $parts = explode(':', trim($output));
+            if (count($parts) === 3) {
+                return (int) $parts[0] * 3600 + (int) $parts[1] * 60 + (int) $parts[2];
+            }
+        }
+    }
+
+    // Fallback: usa getID3 se estiver disponível
+    if (class_exists('getID3')) {
+        $getID3 = new \getID3();
+        $fileInfo = $getID3->analyze($caminhoArquivo);
+        if (isset($fileInfo['playtime_seconds'])) {
+            return (int) $fileInfo['playtime_seconds'];
+        }
+    }
+
+    // Fallback: tenta ler usando a função getid3 nativa se disponível
+    if (function_exists('getid3')) {
+        $info = getid3($caminhoArquivo);
+        if (isset($info['playtime_seconds'])) {
+            return (int) $info['playtime_seconds'];
+        }
+    }
+
+    return 0;
+}
 }

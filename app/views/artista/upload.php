@@ -35,22 +35,22 @@
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="duracao" class="form-label">Duração (segundos) *</label>
-                        <input type="number" name="duracao" id="duracao" class="form-control" placeholder="180" min="1" required>
-                        <small class="text-muted">Ex: 180 = 3 minutos</small>
+                        <label for="genero_id" class="form-label">Gênero</label>
+                        <select name="genero_id" id="genero_id" class="form-select">
+                            <option value="">Selecione um gênero</option>
+                            <?php foreach ($generos as $genero): ?>
+                                <option value="<?= $genero['id'] ?>"><?= htmlspecialchars($genero['nome']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <small class="text-muted">Selecione um gênero existente.</small>
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="genero" class="form-label">Gênero</label>
-                <input type="text" name="genero" id="genero" class="form-control" placeholder="Ex: Rock, Pop, Eletrônica">
-            </div>
-
-            <div class="mb-3">
                 <label for="arquivo" class="form-label">Arquivo de Áudio (MP3) *</label>
                 <input type="file" name="arquivo" id="arquivo" class="form-control" accept=".mp3,.wav,.ogg,.m4a" required>
-                <small class="text-muted">Formatos permitidos: MP3, WAV, OGG, M4A. Máximo 20MB.</small>
+                <small class="text-muted">Formatos permitidos: MP3, WAV, OGG, M4A. Máximo 20MB. A duração será calculada automaticamente.</small>
             </div>
 
             <div class="mb-3">
@@ -70,7 +70,7 @@
             <h5 class="mb-3"><i class="bi bi-info-circle"></i> Dicas</h5>
             <ul class="list-unstyled">
                 <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Use um título claro e descritivo</li>
-                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> A duração deve ser em segundos</li>
+                <li class="mb-2"><i class="bi bi-check-circle text-success"></i> A duração é calculada automaticamente</li>
                 <li class="mb-2"><i class="bi bi-check-circle text-success"></i> O arquivo de áudio deve ser MP3</li>
                 <li class="mb-2"><i class="bi bi-check-circle text-success"></i> A capa ajuda a destacar sua música</li>
                 <li><i class="bi bi-check-circle text-success"></i> Músicas inativas não aparecem para o público</li>

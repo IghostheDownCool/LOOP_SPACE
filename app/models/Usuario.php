@@ -22,7 +22,7 @@ class Usuario
     $stmt->execute([
         ':nome' => $nome,
         ':email' => $email,
-        ':senha' => $senha  // ✅ Agora a senha já vem hashed do Controller
+        ':senha' => $senha
     ]);
 
     return $this->pdo->lastInsertId();
@@ -160,13 +160,9 @@ public function excluir(int $usuarioId): bool
     $stmt = $this->pdo->prepare($sql);
     return $stmt->execute([':id' => $usuarioId]);
 }
-    /**
-     * Vincula um usuário a um artista (cria o perfil de artista)
-     */
     public function vincularArtista(int $usuarioId, string $nomeArtista, ?string $foto = null): bool
     {
         try {
-            // Primeiro verifica se o usuário já é artista
             $sqlCheck = "
                 SELECT artista_id 
                 FROM usuarios 
@@ -177,11 +173,9 @@ public function excluir(int $usuarioId): bool
             $result = $stmtCheck->fetch(PDO::FETCH_ASSOC);
             
             if ($result && !empty($result['artista_id'])) {
-                // Já é artista
                 return true;
             }
             
-            // Cria o artista
             $sql = "
                 INSERT INTO artistas (nome, foto)
                 VALUES (:nome, :foto)
@@ -199,7 +193,6 @@ public function excluir(int $usuarioId): bool
             
             $artistaId = $this->pdo->lastInsertId();
             
-            // Atualiza o usuário com o ID do artista
             $sqlUpdate = "
                 UPDATE usuarios
                 SET artista_id = :artista_id
@@ -218,9 +211,6 @@ public function excluir(int $usuarioId): bool
         }
     }
 
-    /**
-     * Verifica se um usuário é artista
-     */
     public function isArtista(int $usuarioId): bool
     {
         $sql = "
@@ -234,9 +224,6 @@ public function excluir(int $usuarioId): bool
         return $stmt->fetch() !== false;
     }
 
-    /**
-     * Busca o artista de um usuário
-     */
     public function getArtistaDoUsuario(int $usuarioId): array|false
     {
         $sql = "

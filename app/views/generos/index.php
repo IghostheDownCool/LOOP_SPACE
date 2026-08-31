@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   PÁGINA DE GÊNEROS - CORRIGIDA
-   ================================================== */
 
 .generos-header {
     display: flex;
@@ -97,7 +94,6 @@
     color: var(--text-muted);
 }
 
-/* Tema claro */
 [data-theme="light"] .genero-card {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -112,7 +108,6 @@
     border-color: var(--border-color, #dddddd);
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .generos-grid {
         grid-template-columns: repeat(2, 1fr);

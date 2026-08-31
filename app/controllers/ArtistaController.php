@@ -2,13 +2,9 @@
 
 class ArtistaController extends Controller
 {
-    // ============================================
-    // MÉTODOS PÚBLICOS (VISUALIZAÇÃO)
-    // ============================================
 
     public function ver(int $id): void
 {
-    // Verifica se está logado
     if (!isset($_SESSION['usuario_id'])) {
         header('Location: ' . BASE_URL . '/login');
         exit;
@@ -21,11 +17,9 @@ class ArtistaController extends Controller
         die('Artista não encontrado.');
     }
 
-    // Diagnóstico
     error_log("ArtistaController::ver() - Artista ID: " . $id . " - Nome: " . $artista['nome']);
     error_log("Usuário logado: " . $_SESSION['usuario_nome'] . " (Role: " . ($_SESSION['usuario_role'] ?? 'user') . ")");
 
-    // Salvar no histórico de navegação (apenas para usuários comuns)
     $isAdmin = false;
     if (isset($_SESSION['usuario_role']) && $_SESSION['usuario_role'] === 'admin') {
         $isAdmin = true;
@@ -46,14 +40,13 @@ class ArtistaController extends Controller
     $musicas = $artistaModel->listarMusicas($id);
     $albuns = $artistaModel->listarAlbuns($id);
 
-    // 🔥 DEFINE A FILA DE MÚSICAS
     $filaMusicas = array_column($musicas, 'id');
 
     $this->view('artistas/ver', [
         'artista' => $artista,
         'musicas' => $musicas,
         'albuns' => $albuns,
-        'filaMusicas' => $filaMusicas // 🔥 ADICIONADO
+        'filaMusicas' => $filaMusicas
     ]);
 }
 
@@ -83,22 +76,14 @@ class ArtistaController extends Controller
         exit;
     }
 
-    // ============================================
-    // ÁREA DO ARTISTA (DASHBOARD E GERENCIAMENTO)
-    // ============================================
-
-    /**
-     * Verifica se o usuário logado é artista
-     */
     private function verificarArtista()
     {
-        // Verifica se está logado
+
         if (!isset($_SESSION['usuario_id'])) {
             header('Location: ' . BASE_URL . '/login');
             exit;
         }
 
-        // Verifica se o usuário é artista
         $usuarioModel = new Usuario();
 
         if (!$usuarioModel->isArtista($_SESSION['usuario_id'])) {
@@ -107,7 +92,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Busca o artista do usuário
         $artista = $usuarioModel->getArtistaDoUsuario($_SESSION['usuario_id']);
 
         if (!$artista) {
@@ -119,9 +103,6 @@ class ArtistaController extends Controller
         return $artista;
     }
 
-    /**
-     * Dashboard do Artista
-     */
     public function dashboard()
     {
         $artista = $this->verificarArtista();
@@ -131,17 +112,14 @@ class ArtistaController extends Controller
         $albumModel = new Album();
         $artistaModel = new Artista();
 
-        // Estatísticas
         $totalMusicas = $musicaModel->contarPorArtista($artistaId);
         $totalAlbuns = $albumModel->contarPorArtista($artistaId);
         $totalReproducoes = $musicaModel->totalReproducoesPorArtista($artistaId);
         $totalSeguidores = $artistaModel->contarSeguidos($_SESSION['usuario_id']);
 
-        // Últimas músicas adicionadas
         $ultimasMusicas = $musicaModel->listarPorArtista($artistaId);
         $ultimasMusicas = array_slice($ultimasMusicas, 0, 5);
 
-        // Top músicas do artista
         $topMusicas = $musicaModel->listarPorArtista($artistaId);
 
         usort($topMusicas, function ($a, $b) {
@@ -161,9 +139,6 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Lista de músicas do artista
-     */
     public function musicas()
     {
         $artista = $this->verificarArtista();
@@ -178,9 +153,6 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Formulário de upload de música
-     */
     public function upload()
     {
         $artista = $this->verificarArtista();
@@ -189,7 +161,6 @@ class ArtistaController extends Controller
         $albumModel = new Album();
         $albuns = $albumModel->listarPorArtista($artistaId);
 
-        // Busca todos os gêneros
         $generoModel = new Genero();
         $generos = $generoModel->listar();
 
@@ -200,9 +171,6 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Salvar nova música
-     */
     public function salvarMusica()
     {
         $artista = $this->verificarArtista();
@@ -218,14 +186,12 @@ class ArtistaController extends Controller
         $numeroFaixa = (int) ($_POST['numero_faixa'] ?? 0);
         $generoId = (int) ($_POST['genero_id'] ?? 0);
 
-        // Validações
         if (empty($titulo) || $albumId <= 0 || $numeroFaixa <= 0) {
             Flash::set('danger', 'Preencha todos os campos obrigatórios.');
             header('Location: ' . BASE_URL . '/artista/upload');
             exit;
         }
 
-        // Verifica se o álbum pertence ao artista
         $albumModel = new Album();
         $albumArtistaId = $albumModel->getArtistaId($albumId);
 
@@ -235,7 +201,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Upload do arquivo de áudio
         $arquivo = null;
 
         if (
@@ -256,7 +221,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Calcular duração automaticamente
         $caminhoArquivo = __DIR__ . '/../../public/uploads/musicas/' . $arquivo;
 
         $musicaModel = new Musica();
@@ -266,7 +230,6 @@ class ArtistaController extends Controller
             $duracao = 0;
         }
 
-        // Busca o nome do gênero
         $genero = null;
 
         if ($generoId > 0) {
@@ -278,7 +241,6 @@ class ArtistaController extends Controller
             }
         }
 
-        // Upload da capa (opcional)
         $capa = null;
 
         if (
@@ -289,7 +251,6 @@ class ArtistaController extends Controller
             $capa = $uploadHelper->uploadCapa($_FILES['capa']);
         }
 
-        // Salva a música
         $result = $musicaModel->cadastrar(
             $titulo,
             $albumId,
@@ -309,15 +270,11 @@ class ArtistaController extends Controller
         exit;
     }
 
-    /**
-     * Ativar/Desativar música
-     */
     public function toggleMusica($id)
     {
         $artista = $this->verificarArtista();
         $artistaId = $artista['id'];
 
-        // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
 
@@ -335,15 +292,11 @@ class ArtistaController extends Controller
         exit;
     }
 
-    /**
-     * Excluir música
-     */
     public function excluirMusica($id)
     {
         $artista = $this->verificarArtista();
         $artistaId = $artista['id'];
 
-        // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
 
@@ -353,7 +306,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Remove o arquivo
         if (!empty($musica['arquivo'])) {
             $arquivoPath = __DIR__ . '/../../public/uploads/musicas/' . $musica['arquivo'];
 
@@ -370,9 +322,6 @@ class ArtistaController extends Controller
         exit;
     }
 
-    /**
-     * Lista de álbuns do artista
-     */
     public function albuns()
     {
         $artista = $this->verificarArtista();
@@ -387,9 +336,6 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Formulário para criar novo álbum
-     */
     public function novoAlbum()
     {
         $artista = $this->verificarArtista();
@@ -399,9 +345,6 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Salvar novo álbum
-     */
     public function salvarAlbum()
     {
         $artista = $this->verificarArtista();
@@ -421,7 +364,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Upload da capa
         $capa = null;
 
         if (
@@ -450,9 +392,6 @@ class ArtistaController extends Controller
         exit;
     }
 
-    /**
-     * Lista de seguidores do artista
-     */
     public function seguidores()
     {
         $artista = $this->verificarArtista();
@@ -461,7 +400,6 @@ class ArtistaController extends Controller
         $artistaModel = new Artista();
         $seguidores = $artistaModel->listarSeguidores($artistaId);
 
-        // Busca dados dos usuários
         $usuarioModel = new Usuario();
         $seguidoresData = [];
 
@@ -479,15 +417,11 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Formulário de edição de música
-     */
     public function editarMusica($id)
     {
         $artista = $this->verificarArtista();
         $artistaId = $artista['id'];
 
-        // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
 
@@ -497,7 +431,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Busca os álbuns do artista
         $albumModel = new Album();
         $albuns = $albumModel->listarPorArtista($artistaId);
 
@@ -508,15 +441,11 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Atualizar música
-     */
     public function atualizarMusica($id)
     {
         $artista = $this->verificarArtista();
         $artistaId = $artista['id'];
 
-        // Verifica se a música pertence ao artista
         $musicaModel = new Musica();
         $musica = $musicaModel->buscarPorId($id);
 
@@ -537,7 +466,6 @@ class ArtistaController extends Controller
         $duracao = (int) ($_POST['duracao'] ?? 0);
         $genero = trim($_POST['genero'] ?? '');
 
-        // Validações
         if (
             empty($titulo) ||
             $albumId <= 0 ||
@@ -549,7 +477,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Verifica se o álbum pertence ao artista
         $albumModel = new Album();
         $albumArtistaId = $albumModel->getArtistaId($albumId);
 
@@ -559,7 +486,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // Atualiza os dados básicos
         $musicaModel->atualizar(
             $id,
             $titulo,
@@ -569,7 +495,6 @@ class ArtistaController extends Controller
             $genero
         );
 
-        // Upload do arquivo de áudio (opcional)
         if (
             isset($_FILES['arquivo']) &&
             $_FILES['arquivo']['error'] === UPLOAD_ERR_OK
@@ -578,7 +503,6 @@ class ArtistaController extends Controller
             $arquivo = $uploadHelper->uploadMusica($_FILES['arquivo']);
 
             if ($arquivo) {
-                // Remove o arquivo antigo
                 if (!empty($musica['arquivo'])) {
                     $arquivoPath = __DIR__ . '/../../public/uploads/musicas/' . $musica['arquivo'];
 
@@ -591,7 +515,6 @@ class ArtistaController extends Controller
             }
         }
 
-        // Upload da capa (opcional)
         if (
             isset($_FILES['capa']) &&
             $_FILES['capa']['error'] === UPLOAD_ERR_OK
@@ -600,7 +523,6 @@ class ArtistaController extends Controller
             $capa = $uploadHelper->uploadCapa($_FILES['capa']);
 
             if ($capa) {
-                // Remove a capa antiga
                 if (!empty($musica['capa'])) {
                     $capaPath = __DIR__ . '/../../public/uploads/capas/' . $musica['capa'];
 
@@ -619,13 +541,6 @@ class ArtistaController extends Controller
         exit;
     }
 
-    // ============================================
-    // PERFIL DO ARTISTA
-    // ============================================
-
-    /**
-     * Formulário de edição do perfil do artista
-     */
     public function editarPerfil()
     {
         $artista = $this->verificarArtista();
@@ -635,9 +550,6 @@ class ArtistaController extends Controller
         ]);
     }
 
-    /**
-     * Atualizar perfil do artista
-     */
     public function atualizarPerfil()
     {
         $artista = $this->verificarArtista();
@@ -656,10 +568,6 @@ class ArtistaController extends Controller
             exit;
         }
 
-        // ============================================
-        // UPLOAD DA FOTO DO ARTISTA
-        // ============================================
-
         $foto = $artista['foto'];
 
         if (
@@ -668,12 +576,10 @@ class ArtistaController extends Controller
         ) {
             $uploadHelper = new UploadHelper();
 
-            // Usa o método correto para foto do artista
             $novaFoto = $uploadHelper->uploadArtistaFoto($_FILES['foto']);
 
             if ($novaFoto) {
 
-                // Remove a foto antiga
                 if (!empty($artista['foto'])) {
                     $fotoPath = __DIR__ . '/../../public/uploads/artistas/' . $artista['foto'];
 
@@ -682,7 +588,6 @@ class ArtistaController extends Controller
                     }
                 }
 
-                // Define a nova foto
                 $foto = $novaFoto;
 
             } else {
@@ -696,10 +601,6 @@ class ArtistaController extends Controller
                 exit;
             }
         }
-
-        // ============================================
-        // SALVA NO BANCO
-        // ============================================
 
         $artistaModel = new Artista();
 

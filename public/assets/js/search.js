@@ -1,7 +1,3 @@
-// ==================================================
-// BARRA DE PESQUISA GLOBAL
-// ==================================================
-
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
     const resultsContainer = document.getElementById('search-results');

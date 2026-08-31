@@ -7,7 +7,6 @@ class HistoricoNavegacao extends Model
 
     public function salvar(int $usuarioId, string $tipo, int $itemId, string $titulo, string $link, ?string $imagem = null): bool
     {
-        // Verifica se já existe um registro igual
         $sqlCheck = "
             SELECT id FROM historico_navegacao
             WHERE usuario_id = :usuario_id 
@@ -23,7 +22,6 @@ class HistoricoNavegacao extends Model
         $exists = $stmtCheck->fetch();
 
         if ($exists) {
-            // Atualiza a data
             $sql = "
                 UPDATE historico_navegacao
                 SET criado_em = NOW()
@@ -32,7 +30,6 @@ class HistoricoNavegacao extends Model
             $stmt = $this->pdo->prepare($sql);
             return $stmt->execute([':id' => $exists['id']]);
         } else {
-            // Insere novo
             $sql = "
                 INSERT INTO historico_navegacao 
                 (usuario_id, tipo, item_id, titulo, link, imagem)

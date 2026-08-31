@@ -80,9 +80,6 @@
             border: none;
         }
 
-        /* ==================================================
-           ESTILOS PARA A OPÇÃO DE ESCOLHA
-           ================================================== */
         .tipo-conta {
             display: flex;
             gap: 12px;
@@ -142,7 +139,6 @@
         <small>Crie sua conta e comece a ouvir</small>
     </div>
 
-    <!-- Mensagens Flash -->
     <?php if (Flash::has()): ?>
         <?php $flash = Flash::get(); ?>
         <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
@@ -162,9 +158,6 @@
             <input type="password" name="senha" class="form-control" placeholder="Senha (mín. 6 caracteres)" required minlength="6">
         </div>
 
-        <!-- ==================================================
-             OPÇÃO DE ESCOLHA: OUVINTE OU ARTISTA
-             ================================================== -->
         <div class="mb-3">
             <label style="color: var(--text-secondary, #b3b3b3); font-size: 0.85rem; margin-bottom: 6px; display: block;">
                 <i class="bi bi-person"></i> Como você quer usar o SONORA?
@@ -194,23 +187,17 @@
 </div>
 
 <script>
-    // ==================================================
-    // FUNCIONALIDADE DE SELEÇÃO DOS CARDS
-    // ==================================================
     document.addEventListener('DOMContentLoaded', function() {
         const options = document.querySelectorAll('.tipo-option');
 
         options.forEach(function(option) {
             option.addEventListener('click', function() {
-                // Remove a seleção de todos
                 options.forEach(function(opt) {
                     opt.classList.remove('selected');
                 });
 
-                // Adiciona seleção no clicado
                 this.classList.add('selected');
 
-                // Marca o radio correspondente
                 const radio = this.querySelector('input[type="radio"]');
                 if (radio) {
                     radio.checked = true;

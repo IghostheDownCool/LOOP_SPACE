@@ -21,7 +21,6 @@ class GeneroController extends Controller
         $musicaModel = new Musica();
         $musicas = $musicaModel->listarPorGenero($genero);
 
-            // 🔥 SALVAR NO HISTÓRICO DE NAVEGAÇÃO
     $historicoNav = new HistoricoNavegacao();
     $historicoNav->salvar(
         $_SESSION['usuario_id'],

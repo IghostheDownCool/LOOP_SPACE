@@ -51,7 +51,6 @@ public function ver(int $id)
 
     $dadosPlaylist = $playlist->buscarPorId($id);
 
-        // 🔥 SALVAR NO HISTÓRICO DE NAVEGAÇÃO
     $historicoNav = new HistoricoNavegacao();
     $historicoNav->salvar(
         $_SESSION['usuario_id'],
@@ -203,7 +202,6 @@ public function publica(string $token): void
         die('Playlist não encontrada.');
     }
 
-    // Se a playlist não for pública, redireciona para login
     if (!$playlist['publica']) {
         Flash::set('warning', 'Esta playlist é privada.');
         header('Location: ' . BASE_URL . '/login');

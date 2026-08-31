@@ -1,6 +1,3 @@
-/* ==========================
-    PLAYER CONTAINER (LAYOUT)
-========================== */
 .player-container {
     display: flex;
     gap: 24px;
@@ -10,9 +7,6 @@
     border-radius: 16px;
 }
 
-/* ==========================
-    PLAYLIST LATERAL
-========================== */
 .player-playlist {
     width: 320px;
     background: #121212;
@@ -61,9 +55,6 @@
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
 }
 
-/* ==========================
-    ITENS DA PLAYLIST (MÚSICAS)
-========================== */
 .musica-item {
     width: 100%;
     background: transparent;
@@ -119,9 +110,6 @@
     color: #b3b3b3;
 }
 
-/* ==========================
-    ÁREA DO PLAYER ATIVO
-========================== */
 .player-info {
     flex: 1;
     background: #181818;
@@ -170,10 +158,6 @@ audio, .player-info audio {
     outline: none;
     border-radius: 500px;
 }
-
-/* ==========================
-   PLAYER GLOBAL
-========================== */
 
 .global-player {
     position: fixed;
@@ -240,10 +224,6 @@ audio, .player-info audio {
     max-width: 600px;
 }
 
-/* ==========================
-   CONTROLES
-========================== */
-
 .player-center {
     flex: 1;
     display: flex;
@@ -304,10 +284,6 @@ audio, .player-info audio {
     color: #b3b3b3;
 }
 
-/* ==========================
-   PROGRESSO
-========================== */
-
 .player-progress {
     width: 100%;
     max-width: 650px;
@@ -323,10 +299,6 @@ audio, .player-info audio {
     color: #b3b3b3;
     font-weight: 500;
 }
-
-/* ==================================================
-   BARRA DE PROGRESSO - CORREÇÃO DO ALINHAMENTO
-   ================================================== */
 
 #barra-progresso {
     -webkit-appearance: none !important;
@@ -419,10 +391,6 @@ audio, .player-info audio {
     opacity: 1;
     transform: scale(1);
 }
-
-/* ==================================================
-   CONTROLE DE VOLUME
-   ================================================== */
 
 #volume {
     -webkit-appearance: none !important;
@@ -519,10 +487,6 @@ audio, .player-info audio {
     transform: scale(1);
 }
 
-/* ==================================================
-   PLAYER GLOBAL - ANIMAÇÃO DE APARECER/SUMIR
-   ================================================== */
-
 #global-player {
     position: fixed;
     bottom: 0;
@@ -544,7 +508,6 @@ audio, .player-info audio {
     pointer-events: auto;
 }
 
-/* Botões de shuffle e repeat - ROXO #8B5CF6 */
 .btn-shuffle-active {
     color: #8B5CF6 !important;
 }
@@ -596,7 +559,6 @@ audio, .player-info audio {
     transform: scale(1.08);
 }
 
-/* Botão play - ROXO #8B5CF6 */
 .player-controls .btn-verde {
     background: #8B5CF6;
     color: #121212;
@@ -617,10 +579,6 @@ audio, .player-info audio {
 .player-controls .btn-cinza:hover {
     color: #ffffff;
 }
-
-/* ==================================================
-   RESPONSIVIDADE DO PLAYER
-   ================================================== */
 
 @media (max-width: 768px) {
     #global-player {
@@ -744,10 +702,6 @@ audio, .player-info audio {
     }
 }
 
-/* ==================================================
-   PLAYER - TEMA CLARO
-   ================================================== */
-
 [data-theme="light"] #global-player .btn-cinza {
     color: var(--text-secondary);
 }
@@ -780,10 +734,6 @@ audio, .player-info audio {
     background: #7C3AED;
     color: #ffffff;
 }
-
-/* ==================================================
-   TEXTOS DO PLAYER
-   ================================================== */
 
 #global-player .player-left h6 {
     color: var(--player-text-primary, #ffffff);
@@ -832,10 +782,6 @@ audio, .player-info audio {
 [data-theme="light"] .player-right input[type="range"]::-webkit-slider-thumb {
     background: #7C3AED;
 }
-
-/* ==================================================
-   TEMA CLARO - AJUSTES THUMBS
-   ================================================== */
 
 [data-theme="light"] #barra-progresso::-webkit-slider-thumb,
 [data-theme="light"] #volume::-webkit-slider-thumb {

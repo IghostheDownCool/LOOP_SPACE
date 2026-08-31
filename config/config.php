@@ -1,7 +1,4 @@
 <?php
-/**
-    Constantes do sistema.
-*/
 
 define('APP_NAME', 'Sonora');
 

@@ -50,7 +50,6 @@ class Artista extends Model
         ':foto' => $foto
     ]);
 
-    // 🔍 DIAGNÓSTICO (SEM EXIT)
     var_dump([
         'sql' => $sql,
         'nome' => $nome,
@@ -58,7 +57,6 @@ class Artista extends Model
         'result' => $result,
         'error' => $stmt->errorInfo()
     ]);
-    // NÃO USE exit AQUI!
 
     return $result;
 }
@@ -285,9 +283,7 @@ public function contarSeguidos(int $usuarioId): int
     return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
-/**
- * Atualiza a foto do artista
- */
+
 public function atualizarFoto(int $id, ?string $foto): bool
 {
     $sql = "UPDATE artistas SET foto = :foto WHERE id = :id";

@@ -35,7 +35,6 @@
         </small>
     </div>
 
-    <!-- Botão para abrir o modal de adicionar à playlist -->
     <div class="music-actions">
         <button
             class="btn-add-playlist"
@@ -58,7 +57,6 @@
     </p>
 <?php endif; ?>
 
-<!-- MODAL - Lista de Playlists -->
 <div class="modal fade" id="modalPlaylists" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-card text-light">

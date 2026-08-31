@@ -1,9 +1,5 @@
 const barraProgresso = document.getElementById('barra-progresso');
 
-//const tempoAtual = document.getElementById('tempo-atual');
-
-//const tempoTotal = document.getElementById('tempo-total');
-
 audioPlayer.addEventListener('timeupdate', function () {
 
     if (!audioPlayer.duration) {

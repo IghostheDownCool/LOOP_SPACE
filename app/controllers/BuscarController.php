@@ -2,7 +2,7 @@
 
 class BuscarController extends Controller
 {
-    public function index(): void  // <-- agora é index
+    public function index(): void
     {
         $this->requireLogin();
 

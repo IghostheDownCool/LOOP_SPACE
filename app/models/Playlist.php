@@ -28,7 +28,6 @@ class Playlist extends Model
     string $nome,
     int $publica = 0
 ): bool {
-    // Gera um token único para compartilhamento
     $token = bin2hex(random_bytes(16));
 
     $sql = "

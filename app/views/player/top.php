@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   TOP MÚSICAS - ESTILOS
-   ================================================== */
 
 .top-header {
     display: flex;
@@ -161,7 +158,6 @@
     font-size: 0.9rem;
 }
 
-/* Tema claro */
 [data-theme="light"] .top-item {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -188,7 +184,6 @@
     color: var(--text-secondary, #666666);
 }
 
-/* Vazio */
 .top-empty {
     text-align: center;
     padding: 60px 20px;
@@ -212,7 +207,6 @@
     color: var(--text-muted);
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .top-item {
         padding: 10px 12px;
@@ -280,7 +274,6 @@
 <div class="top-grid">
     <?php foreach ($musicas as $index => $musica): ?>
         <?php
-        // Define a badge de posição
         $posicao = $index + 1;
         $badge = '';
         $badgeClass = '';

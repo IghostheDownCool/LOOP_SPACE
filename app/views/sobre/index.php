@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   PÁGINA SOBRE
-   ================================================== */
 
 .sobre-container {
     max-width: 900px;
@@ -38,7 +35,6 @@
     margin-top: 8px;
 }
 
-/* Cards de estatísticas */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -79,7 +75,6 @@
     color: var(--text-muted);
 }
 
-/* Seção de informações */
 .sobre-info {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -131,7 +126,6 @@
     width: 20px;
 }
 
-/* Tema claro */
 [data-theme="light"] .stat-card {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -150,7 +144,6 @@
     border-bottom-color: #eeeeee;
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .sobre-header h1 {
         font-size: 1.8rem;
@@ -176,14 +169,11 @@
 </style>
 
 <div class="sobre-container">
-    <!-- Cabeçalho -->
     <div class="sobre-header">
         <h1>SONORA</h1>
         <p class="subtitle">...</p>
-        <span class="version">📌 Versão 2.0</span>
     </div>
 
-    <!-- Estatísticas -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-icon"><i class="bi bi-music-note"></i></div>
@@ -212,7 +202,6 @@
         </div>
     </div>
 
-    <!-- Sobre o projeto -->
     <div class="sobre-info">
         <h2><i class="bi bi-info-circle"></i> Sobre o Projeto</h2>
         <p>
@@ -222,7 +211,6 @@
 
     
 
-    <!-- Créditos -->
     <div class="sobre-info">
         <h2><i class="bi bi-heart-fill" style="color: #ff6b6b;"></i> Créditos</h2>
         <p>
@@ -231,7 +219,7 @@
             <strong>Inspirado em:</strong> ...
         </p>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 12px;">
-            📅 Última atualização: <?= date('d/m/Y') ?>
+             Última atualização: <?= date('d/m/Y') ?>
         </p>
     </div>
 </div>

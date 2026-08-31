@@ -5,11 +5,7 @@ $curtidaModel = new Curtida();
 ?>
 
 <style>
-/* ==================================================
-   PLAYER - LAYOUT MODERNO CORRIGIDO (COM TEMA CLARO)
-   ================================================== */
 
-/* 1. CORREÇÃO DA SCROLLBAR - ESCURA E DISCRETA */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -30,13 +26,11 @@ $curtidaModel = new Curtida();
     background: var(--text-secondary, #555555);
 }
 
-/* Firefox scrollbar */
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--border-color, #333333) var(--bg-primary, #0a0a0a);
 }
 
-/* 2. CORREÇÃO DE CONTRASTE - TEXTOS MAIS CLAROS */
 .menu .nav-link {
     color: var(--text-secondary, #b3b3b3) !important;
 }
@@ -54,7 +48,6 @@ $curtidaModel = new Curtida();
     color: var(--text-muted, #888888) !important;
 }
 
-/* 3. IDENTIDADE VISUAL - SEPARAÇÃO DE CAMADAS */
 .sidebar {
     background: var(--bg-sidebar, #0a0a0a) !important;
     border-right: 1px solid var(--border-color, #1a1a1a) !important;
@@ -64,7 +57,6 @@ $curtidaModel = new Curtida();
     background: var(--bg-primary, #121212) !important;
 }
 
-/* 4. LAYOUT EXPANDIDO */
 .player-page {
     padding-top: 20px;
     width: 100%;
@@ -91,16 +83,12 @@ $curtidaModel = new Curtida();
     font-size: 1.8rem;
 }
 
-/* 5. CORREÇÃO DO ALERT (tema claro) */
 .alert-secondary {
     background: var(--bg-card, #181818) !important;
     color: var(--text-primary, #ffffff) !important;
     border-color: var(--border-color, #2a2a2a) !important;
 }
 
-/* ==================================================
-   GRID DE MÚSICAS EXPANDIDO
-   ================================================== */
 
 .musicas-grid {
     display: grid;
@@ -115,9 +103,6 @@ $curtidaModel = new Curtida();
     }
 }
 
-/* ==================================================
-   CARD DE MÚSICA MODERNO
-   ================================================== */
 
 .musica-card-modern {
     display: flex;
@@ -237,9 +222,6 @@ $curtidaModel = new Curtida();
     color: #ff6b6b;
 }
 
-/* ==================================================
-   COMENTÁRIOS - ESTILOS
-   ================================================== */
 
 .comentarios-section {
     margin-top: 40px;
@@ -270,7 +252,6 @@ $curtidaModel = new Curtida();
     color: var(--text-primary) !important;
 }
 
-/* Tema claro */
 [data-theme="light"] .comentario-item {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -288,9 +269,6 @@ $curtidaModel = new Curtida();
     color: #8B5CF6 !important;
 }
 
-/* ==================================================
-   TEMA CLARO - AJUSTES ESPECÍFICOS
-   ================================================== */
 
 [data-theme="light"] .sidebar {
     background: var(--bg-sidebar, #ffffff) !important;
@@ -337,7 +315,6 @@ $curtidaModel = new Curtida();
     border-color: var(--border-color, #dddddd) !important;
 }
 
-/* Scrollbar para tema claro */
 [data-theme="light"] ::-webkit-scrollbar-track {
     background: var(--bg-primary, #f5f5f5) !important;
 }
@@ -354,9 +331,6 @@ $curtidaModel = new Curtida();
     scrollbar-color: var(--border-color, #dddddd) var(--bg-primary, #f5f5f5) !important;
 }
 
-/* ==================================================
-   RESPONSIVIDADE
-   ================================================== */
 
 @media (max-width: 768px) {
     .player-page {
@@ -426,10 +400,6 @@ $curtidaModel = new Curtida();
     }
 }
 
-/* ==================================================
-   FILTRO POR GÊNERO
-   ================================================== */
-
 .genero-filtro .btn {
     padding: 6px 16px;
     border-radius: 50px;
@@ -478,7 +448,6 @@ $curtidaModel = new Curtida();
             </div>
         <?php else: ?>
 
-            <!-- Filtro por Gênero -->
 <?php if (!empty($generos)): ?>
     <div class="genero-filtro mb-4 d-flex flex-wrap gap-2">
         <a href="<?= BASE_URL ?>/player" class="btn <?= empty($generoAtual) ? 'btn-verde' : 'btn-cinza' ?>">
@@ -543,9 +512,6 @@ $curtidaModel = new Curtida();
             <?php endforeach; ?>
         </div>
 
-        <!-- ==================================================
-             SEÇÃO DE COMENTÁRIOS (ABAIXO DA LISTA DE MÚSICAS)
-             ================================================== -->
         <div class="comentarios-section mt-5 pt-4">
             <h3 class="mb-3">
                 <i class="bi bi-chat-dots" style="color: #8B5CF6;"></i> 
@@ -553,7 +519,6 @@ $curtidaModel = new Curtida();
             </h3>
 
             <?php
-            // Busca comentários para a primeira música da lista
             $musicaId = $musicas[0]['id'] ?? 0;
             $comentarioModel = new Comentario();
             $comentarios = $comentarioModel->listarPorMusica($musicaId);
@@ -564,7 +529,6 @@ $curtidaModel = new Curtida();
                 <?= $totalComentarios ?> comentários
             </p>
 
-            <!-- Formulário para adicionar comentário -->
             <form method="POST" action="<?= BASE_URL ?>/comentarios/adicionar" class="mb-4">
                 <input type="hidden" name="musica_id" value="<?= $musicaId ?>">
                 <div class="d-flex gap-2">
@@ -583,7 +547,6 @@ $curtidaModel = new Curtida();
                 <small class="text-muted">Máximo 500 caracteres</small>
             </form>
 
-            <!-- Lista de comentários -->
             <?php if (empty($comentarios)): ?>
                 <div class="alert alert-secondary">
                     Nenhum comentário ainda. Seja o primeiro a comentar!
@@ -640,7 +603,6 @@ $curtidaModel = new Curtida();
 </div>
 
 <script>
-    // 🔍 Usa a barra de pesquisa principal do header para filtrar
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         searchInput.addEventListener('keyup', function() {
@@ -657,7 +619,6 @@ $curtidaModel = new Curtida();
         });
     }
 
-    // Define a fila para o player
     const idsMusicas = <?= json_encode(array_column($musicas, 'id')) ?>;
     definirFila(idsMusicas);
 </script>

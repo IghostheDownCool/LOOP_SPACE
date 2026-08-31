@@ -1,7 +1,4 @@
 <?php
-/**
-  conexão com sql
- */
 class Database
 {
     private static ?PDO $connection = null;

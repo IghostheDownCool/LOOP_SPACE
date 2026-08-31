@@ -1,10 +1,5 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
-<div class="page-header">
-    <h1>Dashboard do Artista</h1>
-    <p class="text-muted">Bem-vindo, <?= htmlspecialchars($artista['nome']) ?>!</p>
-</div>
-
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1>Dashboard do Artista</h1>
@@ -15,7 +10,7 @@
     </a>
 </div>
 
-<!-- Estatísticas -->
+
 <div class="row g-3 mb-3">
     <div class="col-6 col-md-3">
         <div class="card bg-card p-3 text-center" style="height: auto; min-height: 100px;">
@@ -55,9 +50,7 @@
     </div>
 </div>
 
-<!-- Conteúdo principal - Últimas e Top Músicas -->
 <div class="row g-3 mb-3">
-    <!-- Últimas músicas -->
     <div class="col-md-6">
         <div class="card bg-card" style="height: auto !important; min-height: auto !important;">
             <div class="card-header d-flex justify-content-between align-items-center" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 10px 16px;">
@@ -83,7 +76,6 @@
         </div>
     </div>
 
-    <!-- Top músicas -->
     <div class="col-md-6">
         <div class="card bg-card" style="height: auto !important; min-height: auto !important;">
             <div class="card-header" style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 10px 16px;">
@@ -108,7 +100,6 @@
     </div>
 </div>
 
-<!-- Botões rápidos -->
 <div class="row g-2">
     <div class="col-6 col-md-3">
         <a href="<?= BASE_URL ?>/artista/upload" class="btn btn-primary w-100" style="font-size: 0.9rem; padding: 10px;">

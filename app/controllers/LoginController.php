@@ -4,7 +4,6 @@ class LoginController extends Controller
 {
     public function index(): void
     {
-        // Se já estiver logado, redireciona para a home
         if (isset($_SESSION['usuario_id'])) {
             header('Location: ' . BASE_URL);
             exit;
@@ -26,7 +25,7 @@ class LoginController extends Controller
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
                 $_SESSION['usuario_email'] = $usuario['email'];
-                $_SESSION['usuario_role'] = $usuario['role'] ?? 'user'; // 🔥 ADICIONADO
+                $_SESSION['usuario_role'] = $usuario['role'] ?? 'user';
 
                 header('Location: ' . BASE_URL);
                 exit;

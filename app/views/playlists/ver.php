@@ -83,17 +83,13 @@
 
 <script>
     function copiarLink() {
-        // Usa a variável global BASE_URL (definida no footer)
         const link = '<?= BASE_URL ?>/playlists/publica/<?= $playlist['token'] ?>';
         
-        // 🔥 CORREÇÃO: Remove o "http://" se já estiver incluído no BASE_URL
-        // Se BASE_URL já tiver http://, usa direto
         const linkCompleto = link.startsWith('http') ? link : window.location.origin + link;
         
         navigator.clipboard.writeText(linkCompleto).then(() => {
             alert('Link copiado para a área de transferência!');
         }).catch(() => {
-            // Fallback para navegadores mais antigos
             const textarea = document.createElement('textarea');
             textarea.value = linkCompleto;
             document.body.appendChild(textarea);

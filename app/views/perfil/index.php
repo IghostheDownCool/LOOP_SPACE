@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   PERFIL - MINHA CONTA
-   ================================================== */
 
 .profile-container {
     max-width: 700px;
@@ -42,7 +39,6 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Avatar */
 .profile-avatar-wrapper {
     display: flex;
     flex-direction: column;
@@ -107,7 +103,6 @@
     color: #dc3545;
 }
 
-/* Formulários */
 .profile-form .form-group {
     margin-bottom: 16px;
 }
@@ -178,7 +173,6 @@
     font-weight: 500;
 }
 
-/* Estatísticas */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -216,7 +210,6 @@
     color: var(--text-muted);
 }
 
-/* Modal Avatar */
 .modal-content.bg-card {
     background: var(--bg-card) !important;
     border: 1px solid var(--border-color) !important;
@@ -249,7 +242,6 @@
     filter: invert(0);
 }
 
-/* Tema claro */
 [data-theme="light"] .profile-card {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -300,9 +292,6 @@
     border-color: #7C3AED;
 }
 
-/* ==================================================
-   TEMA ADMIN - PERFIL
-================================================== */
 [data-user-role="admin"] .profile-avatar-wrapper .avatar-large {
     border-color: #DC3545 !important;
 }
@@ -349,7 +338,6 @@
     color: #DC3545 !important;
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .profile-card {
         padding: 20px;
@@ -392,9 +380,6 @@
         <p>Gerencie suas informações pessoais</p>
     </div>
 
-    <!-- =============================================
-         INFORMAÇÕES DO USUÁRIO
-         ============================================= -->
     <div class="profile-card">
         <h3><i class="bi bi-person"></i> Informações Pessoais</h3>
 
@@ -447,9 +432,6 @@
         </div>
     </div>
 
-    <!-- =============================================
-         ESTATÍSTICAS DO USUÁRIO
-         ============================================= -->
     <div class="profile-card">
         <h3><i class="bi bi-graph-up"></i> Estatísticas</h3>
         
@@ -482,9 +464,6 @@
         </div>
     </div>
 
-    <!-- =============================================
-         ALTERAR NOME
-         ============================================= -->
     <div class="profile-card">
         <h3><i class="bi bi-pencil"></i> Alterar Nome</h3>
         <form method="POST" action="<?= BASE_URL ?>/perfil/atualizarNome" class="profile-form">
@@ -503,9 +482,6 @@
         </form>
     </div>
 
-    <!-- =============================================
-         ALTERAR SENHA
-         ============================================= -->
     <div class="profile-card">
         <h3><i class="bi bi-lock"></i> Alterar Senha</h3>
         <form method="POST" action="<?= BASE_URL ?>/perfil/atualizarSenha" class="profile-form">
@@ -549,9 +525,6 @@
     </div>
 </div>
 
-<!-- =============================================
-     MODAL PARA UPLOAD DO AVATAR
-     ============================================= -->
 <div class="modal fade" id="modalAvatar" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-card">

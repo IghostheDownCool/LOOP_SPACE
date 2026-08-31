@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   LISTA DE ARTISTAS
-   ================================================== */
 
 .artistas-header {
     display: flex;

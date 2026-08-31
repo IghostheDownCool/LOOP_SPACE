@@ -1,14 +1,10 @@
-// ==================================================
-// MODAL DE ADICIONAR À PLAYLIST
-// ==================================================
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM carregado - playlist-modal.js executado');
 
     const modalPlaylists = document.getElementById('modalPlaylists');
     if (!modalPlaylists) {
         console.warn('Modal com ID "modalPlaylists" não encontrado. O modal não será inicializado.');
-        return; // Sai da função se o modal não existir
+        return;
     }
 
     console.log('Modal encontrado com ID:', modalPlaylists.id);

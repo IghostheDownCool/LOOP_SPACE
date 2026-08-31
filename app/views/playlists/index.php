@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   PLAYLISTS - LAYOUT MODERNO (CIANO #00C2A0)
-   ================================================== */
 
 .playlists-header {
     display: flex;
@@ -41,14 +38,12 @@
     color: #121212;
 }
 
-/* Grid de playlists */
 .playlists-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
-/* Card de playlist */
 .playlist-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -165,7 +160,6 @@
     background: rgba(220, 53, 69, 0.25);
 }
 
-/* Tema claro */
 [data-theme="light"] .playlist-card {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -213,7 +207,6 @@
     color: #00A88A;
 }
 
-/* Vazio */
 .playlists-empty {
     grid-column: 1 / -1;
     text-align: center;
@@ -239,7 +232,6 @@
     margin-bottom: 20px;
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .playlists-grid {
         grid-template-columns: 1fr 1fr;
@@ -274,7 +266,7 @@
 </style>
 
 <div class="playlists-header">
-    <h1>📂 Minhas Playlists</h1>
+    <h1> Minhas Playlists</h1>
     <a href="<?= BASE_URL ?>/playlists/cadastrar" class="btn-criar">
         <i class="bi bi-plus-circle"></i> Nova Playlist
     </a>
@@ -305,7 +297,7 @@
             </h4>
 
             <p class="playlist-info">
-                <?= $playlist['publica'] ? '🌍 Pública' : '🔒 Privada' ?>
+                <?= $playlist['publica'] ? ' Pública' : ' Privada' ?>
             </p>
 
             <span class="playlist-badge <?= $playlist['publica'] ? 'publica' : 'privada' ?>">

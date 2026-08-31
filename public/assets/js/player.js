@@ -1,8 +1,3 @@
-// ==================================================
-// PLAYER GLOBAL - LOOP SPACE
-// ==================================================
-
-// Elementos do DOM
 const audio = document.getElementById('player');
 const btnPlay = document.getElementById('btn-play');
 const btnPrev = document.getElementById('btn-prev');
@@ -16,23 +11,16 @@ const artistaEl = document.getElementById('gp-artista');
 const volumeSlider = document.getElementById('volume');
 const playerElement = document.getElementById('global-player');
 
-// Estado do player
 let fila = [];
 let indiceAtual = 0;
 let musicaAtual = null;
 let isPlaying = false;
 
-// ==================================================
-// ESTADOS DO PLAYER AVANÇADO
-// ==================================================
 
 let shuffle = false;
-let repeatMode = 'none'; // 'none', 'one', 'all'
+let repeatMode = 'none';
 let filaOriginal = [];
 
-// ==================================================
-// FUNÇÕES DE VISIBILIDADE DO PLAYER
-// ==================================================
 
 function mostrarPlayer() {
     playerElement.classList.add('active');
@@ -42,17 +30,12 @@ function esconderPlayer() {
     playerElement.classList.remove('active');
 }
 
-// ==================================================
-// FUNÇÕES DE SHUFFLE E REPETIÇÃO
-// ==================================================
-
 function toggleShuffle() {
     shuffle = !shuffle;
     const btn = document.getElementById('btn-shuffle');
     btn.classList.toggle('btn-shuffle-active', shuffle);
     
     if (shuffle) {
-        // Embaralha a fila
         if (filaOriginal.length === 0) {
             filaOriginal = [...fila];
         }
@@ -63,12 +46,10 @@ function toggleShuffle() {
         }
         fila = shuffled;
     } else {
-        // Restaura a fila original
         if (filaOriginal.length > 0) {
             fila = [...filaOriginal];
             filaOriginal = [];
         }
-        // Encontra o índice da música atual na fila restaurada
         if (musicaAtual) {
             indiceAtual = fila.indexOf(musicaAtual.id);
             if (indiceAtual === -1) indiceAtual = 0;
@@ -110,7 +91,6 @@ function getProximoIndice() {
         return (indiceAtual + 1) % fila.length;
     }
     
-    // none
     if (indiceAtual < fila.length - 1) {
         return indiceAtual + 1;
     }
@@ -130,12 +110,7 @@ function getAnteriorIndice() {
     return -1;
 }
 
-// ==================================================
-// FUNÇÕES DE CONTROLE
-// ==================================================
-
 function atualizarDuracao() {
-    // 🔥 VERIFICAÇÕES DE SEGURANÇA
     if (!audio || !audio.duration || isNaN(audio.duration) || audio.duration === 0) {
         tempoTotal.textContent = '0:00';
         progressBar.max = 100;
@@ -147,14 +122,12 @@ function atualizarDuracao() {
     progressBar.max = audio.duration;
     progressBar.value = 0;
     
-    // 🔥 RESETA A BARRA DE PROGRESSO CORRETAMENTE
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     const bgColor = isLight ? '#d0d0d0' : '#4d4d4d';
     progressBar.style.background = `linear-gradient(to right, #1db954 0%, #1db954 0%, ${bgColor} 0%, ${bgColor} 100%)`;
 }
 
 function atualizarProgresso() {
-    // 🔥 VERIFICAÇÕES DE SEGURANÇA
     if (!audio || !audio.duration || isNaN(audio.duration) || audio.duration === 0) {
         return;
     }
@@ -165,13 +138,10 @@ function atualizarProgresso() {
     
     const percentual = Math.min((audio.currentTime / audio.duration) * 100, 100);
     
-    // Atualiza o valor do input
     progressBar.value = audio.currentTime;
     
-    // Atualiza o texto do tempo
     tempoAtual.textContent = formatarTempo(audio.currentTime);
     
-    // 🔥 APLICA O GRADIENTE CORRETAMENTE
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     const bgColor = isLight ? '#d0d0d0' : '#4d4d4d';
     progressBar.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${percentual}%, ${bgColor} ${percentual}%, ${bgColor} 100%)`;
@@ -188,11 +158,9 @@ async function carregarMusica(musica) {
     }
 });
 
-    // Atualiza título e artista
     tituloEl.textContent = musica.titulo || 'Sem título';
     artistaEl.textContent = musica.artista || 'Artista desconhecido';
 
-    // Verifica a capa
     if (musica.capa) {
         let caminhoCapa = BASE_URL + '/uploads/capas/' + musica.capa;
         console.log('Caminho da capa:', caminhoCapa);
@@ -204,16 +172,13 @@ async function carregarMusica(musica) {
         capaImg.alt = 'Capa padrão';
     }
 
-    // Pausa a música atual antes de trocar
     if (!audio.paused) {
         await audio.pause();
     }
 
-    // Define a nova fonte
     audio.src = BASE_URL + '/uploads/musicas/' + musica.arquivo;
     audio.load();
 
-    // Espera o carregamento terminar
     await new Promise((resolve) => {
         if (audio.readyState >= 2) {
             resolve();
@@ -222,12 +187,10 @@ async function carregarMusica(musica) {
         }
     });
 
-    // Remove event listeners antigos para evitar duplicação
     audio.removeEventListener('loadedmetadata', atualizarDuracao);
     audio.removeEventListener('timeupdate', atualizarProgresso);
     audio.removeEventListener('ended', tocarProxima);
 
-    // Adiciona os listeners
     audio.addEventListener('loadedmetadata', atualizarDuracao);
     audio.addEventListener('timeupdate', atualizarProgresso);
     audio.addEventListener('ended', tocarProxima);
@@ -236,7 +199,6 @@ async function carregarMusica(musica) {
     isPlaying = false;
     btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
 
-    // Mostra o player
     mostrarPlayer();
 
     async function carregarMusica(musica) {
@@ -244,42 +206,35 @@ async function carregarMusica(musica) {
 
     console.log('Dados recebidos em carregarMusica:', musica);
 
-    // 🔥 REGISTRA NO HISTÓRICO QUANDO A MÚSICA É CARREGADA
     if (musica.id) {
         registrarHistorico(musica.id);
     }
 
-    // Atualiza título e artista
     tituloEl.textContent = musica.titulo || 'Sem título';
     artistaEl.textContent = musica.artista || 'Artista desconhecido';
 
-    // ... resto do código existente ...
 }
 }
 
 function tocarMusicaPorId(id) {
     console.log('tocarMusica chamada com ID:', id);
     
-    // 🔥 MOSTRA LOADING NO BOTÃO PLAY
     btnPlay.innerHTML = '<div class="spinner-border spinner-border-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>';
     btnPlay.disabled = true;
 
     fetch(BASE_URL + '/player/dados/' + id)
         .then(response => {
-            console.log('Resposta da API:', response.status); // 🔍 LOG
+            console.log('Resposta da API:', response.status); 
             if (!response.ok) {
-                // 🔥 Se for 404 ou erro do servidor, joga o erro para o catch
                 throw new Error('Erro ao carregar música: ' + response.status);
             }
             return response.json();
         })
         .then(async (musica) => {
-            // Verifica se a resposta contém erro
             if (musica.error) {
                 throw new Error(musica.error);
             }
             
-            // Incrementa reprodução no backend
             fetch(BASE_URL + '/player/reproduzir/' + id, { method: 'POST' })
                 .catch(err => console.warn('Não foi possível registrar reprodução'));
 
@@ -288,14 +243,11 @@ function tocarMusicaPorId(id) {
         })
         .catch(error => {
             console.error('Erro:', error);
-            // 🔥 MENSAGEM AMIGÁVEL ESTILIZADA
             mostrarMensagemErro('Não foi possível carregar a música. Tente novamente.');
             esconderPlayer();
         })
         .finally(() => {
-            // 🔥 RESTAURA O BOTÃO PLAY
             btnPlay.disabled = false;
-            // Se não tiver música carregada, volta ao ícone de play
             if (!musicaAtual) {
                 btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
             }
@@ -306,10 +258,8 @@ async function play() {
     if (!musicaAtual) return;
     try {
         await audio.play();
-        // O evento 'play' vai atualizar o ícone e isPlaying
     } catch (error) {
         console.warn('Erro ao reproduzir:', error);
-        // Tenta novamente após um pequeno delay
         setTimeout(async () => {
             try {
                 await audio.play();
@@ -322,7 +272,7 @@ async function play() {
 
 
 function pause() {
-    audio.pause(); // O evento 'pause' vai atualizar o ícone e isPlaying
+    audio.pause();
 }
 
 function togglePlay() {
@@ -356,7 +306,6 @@ function tocarAnterior() {
         audio.currentTime = 0;
         return;
     }
-    // Se já passou mais de 3 segundos, volta ao início da música atual
     if (audio.currentTime > 3 && repeatMode !== 'one') {
         audio.currentTime = 0;
         return;
@@ -372,17 +321,9 @@ function definirFila(listaIds) {
     salvarEstadoPlayer();
 }
 
-// ==================================================
-// FUNÇÃO PÚBLICA PARA SER CHAMADA PELOS BOTÕES DE PLAY
-// ==================================================
-
 function tocarMusica(botao, id, arquivo, titulo, artista, album, capa) {
     tocarMusicaPorId(id);
 }
-
-// ==================================================
-// FUNÇÃO DE FORMATAÇÃO DE TEMPO
-// ==================================================
 
 function formatarTempo(segundos) {
     if (isNaN(segundos) || segundos === Infinity) {
@@ -393,10 +334,6 @@ function formatarTempo(segundos) {
     return min + ':' + String(sec).padStart(2, '0');
 }
 
-// ==================================================
-// PERSISTÊNCIA DO ESTADO
-// ==================================================
-
 function salvarEstadoPlayer() {
     const estado = {
         shuffle: shuffle,
@@ -405,12 +342,12 @@ function salvarEstadoPlayer() {
         volume: audio.volume
     };
     sessionStorage.setItem('playerEstado', JSON.stringify(estado));
-    console.log('Estado salvo:', estado); // 🔍 LOG para debug
+    console.log('Estado salvo:', estado); 
 }
 
 function carregarEstadoPlayer() {
     const saved = sessionStorage.getItem('playerEstado');
-    console.log('Estado carregado:', saved); // 🔍 LOG para debug
+    console.log('Estado carregado:', saved); 
     if (saved) {
         try {
             const estado = JSON.parse(saved);
@@ -418,14 +355,12 @@ function carregarEstadoPlayer() {
             repeatMode = estado.repeatMode || 'none';
             filaOriginal = estado.filaOriginal || [];
             
-            // 🔥 CORREÇÃO: Restaura volume imediatamente (sem setTimeout)
             if (estado.volume !== undefined && !isNaN(estado.volume)) {
                 audio.volume = estado.volume;
                 volumeSlider.value = estado.volume * 100;
                 console.log('Volume restaurado para:', estado.volume);
             }
             
-            // Atualiza UI dos botões
             const btnShuffle = document.getElementById('btn-shuffle');
             if (btnShuffle && shuffle) {
                 btnShuffle.classList.add('btn-shuffle-active');
@@ -445,12 +380,7 @@ function carregarEstadoPlayer() {
     }
 }
 
-// ==================================================
-// FUNÇÃO PARA EXIBIR MENSAGENS DE ERRO ESTILIZADAS
-// ==================================================
-
 function mostrarMensagemErro(mensagem) {
-    // Remove alertas antigos
     const alertasAntigos = document.querySelectorAll('.alerta-flutuante');
     alertasAntigos.forEach(el => el.remove());
     
@@ -467,7 +397,6 @@ function mostrarMensagemErro(mensagem) {
     `;
     document.body.appendChild(msg);
     
-    // Remove automaticamente após 5 segundos
     setTimeout(() => {
         if (msg.parentNode) {
             msg.classList.remove('show');
@@ -476,12 +405,8 @@ function mostrarMensagemErro(mensagem) {
     }, 5000);
 }
 
-// ==================================================
-// FUNÇÃO PARA REGISTRAR HISTÓRICO
-// ==================================================
-
 function registrarHistorico(musicaId) {
-    console.log('📝 Registrando histórico para música:', musicaId);
+    console.log('Registrando histórico para música:', musicaId);
     
     fetch(BASE_URL + '/historico/registrar/' + musicaId, {
         method: 'POST',
@@ -490,23 +415,18 @@ function registrarHistorico(musicaId) {
         }
     })
     .then(response => {
-        console.log('📝 Resposta do histórico:', response.status);
+        console.log('Resposta do histórico:', response.status);
         if (!response.ok) {
             console.warn('Erro ao registrar histórico:', response.status);
         }
         return response.json();
     })
     .then(data => {
-        console.log('📝 Dados retornados:', data);
+        console.log('Dados retornados:', data);
     })
     .catch(err => console.warn('Erro ao registrar histórico:', err));
 }
 
-// ==================================================
-// INICIALIZAÇÃO DOS EVENTOS (APENAS UMA VEZ)
-// ==================================================
-
-// Sincroniza o estado com os eventos do áudio
 audio.addEventListener('play', function() {
     isPlaying = true;
     btnPlay.innerHTML = '<i class="bi bi-pause-fill"></i>';
@@ -517,16 +437,16 @@ audio.addEventListener('pause', function() {
     btnPlay.innerHTML = '<i class="bi bi-play-fill"></i>';
 });
 
-// Botão Play/Pause
+
 btnPlay.addEventListener('click', togglePlay);
 
-// Botão Próximo
+
 btnNext.addEventListener('click', tocarProxima);
 
-// Botão Anterior
+
 btnPrev.addEventListener('click', tocarAnterior);
 
-// Barra de progresso
+
 progressBar.addEventListener('input', function() {
     if (!audio || !audio.duration || isNaN(audio.duration) || audio.duration === 0) {
         return;
@@ -536,42 +456,38 @@ progressBar.addEventListener('input', function() {
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
     const bgColor = isLight ? '#d0d0d0' : '#4d4d4d';
     
-    // Atualiza a posição da música
+
     audio.currentTime = parseFloat(this.value);
     
-    // Atualiza a cor da barra enquanto arrasta
+
     this.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${percentual}%, ${bgColor} ${percentual}%, ${bgColor} 100%)`;
 });
 
-// Volume
+
 volumeSlider.addEventListener('input', function() {
     const volumeValue = this.value / 100;
     audio.volume = volumeValue;
     salvarEstadoPlayer();
     
-    // 🔥 ATUALIZA A COR DA BARRA DE VOLUME
+
     const percentual = this.value;
     const bgColor = document.documentElement.getAttribute('data-theme') === 'light' ? '#d0d0d0' : '#4d4d4d';
     this.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${percentual}%, ${bgColor} ${percentual}%, ${bgColor} 100%)`;
 });
 
-// Inicializa a cor do volume ao carregar
+
 document.addEventListener('DOMContentLoaded', function() {
     const volumeValue = volumeSlider.value;
     const bgColor = document.documentElement.getAttribute('data-theme') === 'light' ? '#d0d0d0' : '#4d4d4d';
     volumeSlider.style.background = `linear-gradient(to right, #1db954 0%, #1db954 ${volumeValue}%, ${bgColor} ${volumeValue}%, ${bgColor} 100%)`;
 });
 
-// ==================================================
-// EVENT LISTENERS PARA SHUFFLE E REPETIÇÃO
-// ==================================================
-
 const btnShuffle = document.getElementById('btn-shuffle');
 const btnRepeat = document.getElementById('btn-repeat');
 
 volumeSlider.addEventListener('input', function() {
     audio.volume = this.value / 100;
-    console.log('Volume alterado para:', audio.volume); // 🔍 LOG
+    console.log('Volume alterado para:', audio.volume);
     salvarEstadoPlayer();
 });
 
@@ -583,32 +499,25 @@ if (btnRepeat) {
     btnRepeat.addEventListener('click', toggleRepeat);
 }
 
-// Carrega o estado salvo ao iniciar
 document.addEventListener('DOMContentLoaded', function() {
     carregarEstadoPlayer();
 });
 
-/**
- * Toca uma música com uma fila de reprodução
- */
+
 function tocarMusicaComFila(musicaId, listaIds) {
-    console.log('🎵 tocarMusicaComFila - ID:', musicaId, 'Lista:', listaIds);
+    console.log('tocarMusicaComFila - ID:', musicaId, 'Lista:', listaIds);
     
     if (!listaIds || listaIds.length === 0) {
-        // Se não tiver fila, toca só a música
         tocarMusicaPorId(musicaId);
         return;
     }
     
-    // Define a fila
     definirFila(listaIds);
-    
-    // Encontra o índice da música
+
     indiceAtual = listaIds.indexOf(musicaId);
     if (indiceAtual === -1) indiceAtual = 0;
     
-    console.log('🎵 Índice atual:', indiceAtual, 'Fila:', fila);
+    console.log('Índice atual:', indiceAtual, 'Fila:', fila);
     
-    // Toca a música
     tocarMusicaPorId(listaIds[indiceAtual]);
 }

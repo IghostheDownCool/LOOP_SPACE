@@ -9,7 +9,7 @@ class HistoricoController extends Controller
     $historico = new Historico();
     $historicoData = $historico->listar($_SESSION['usuario_id']);
     
-    error_log("📝 Controller: " . count($historicoData) . " registros encontrados");
+    error_log(" Controller: " . count($historicoData) . " registros encontrados");
 
     $this->view('historico/index', [
         'historico' => $historicoData
@@ -20,7 +20,7 @@ public function registrar(int $musicaId): void
 {
     $this->requireLogin();
 
-    error_log("📝 Controller registrar: usuario_id={$_SESSION['usuario_id']}, musica_id={$musicaId}");
+    error_log(" Controller registrar: usuario_id={$_SESSION['usuario_id']}, musica_id={$musicaId}");
 
     $historico = new Historico();
     $result = $historico->registrar($_SESSION['usuario_id'], $musicaId);

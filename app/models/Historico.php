@@ -11,7 +11,6 @@ class Historico
 
 public function registrar(int $usuarioId, int $musicaId): bool
 {
-    // 🔥 SQL com ON DUPLICATE KEY UPDATE (mais eficiente)
     $sql = "
         INSERT INTO historico (usuario_id, musica_id, data_reproducao)
         VALUES (:usuario_id, :musica_id, NOW())
@@ -48,7 +47,7 @@ public function listar(int $usuarioId): array
     $stmt->execute([':usuario_id' => $usuarioId]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    error_log("📝 Histórico encontrado: " . count($result) . " registros");
+    error_log(" Histórico encontrado: " . count($result) . " registros");
     
     return $result;
 }
@@ -72,7 +71,7 @@ public function listar(int $usuarioId): array
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->bindValue(':usuario_id', $usuarioId, PDO::PARAM_INT);
-    $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);  // 🔥 FORÇA COMO INTEIRO
+    $stmt->bindValue(':limite', $limite, PDO::PARAM_INT); 
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

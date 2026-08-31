@@ -13,13 +13,10 @@ class AlbumController extends Controller
             die('Álbum não encontrado.');
         }
 
-        // Busca as músicas do álbum
         $musicas = $albumModel->listarMusicas($id);
 
-        // 🔥 DEFINE A FILA DE MÚSICAS
         $filaMusicas = array_column($musicas, 'id');
 
-        // Salvar no histórico de navegação
         $historicoNav = new HistoricoNavegacao();
         $historicoNav->salvar(
             $_SESSION['usuario_id'],
@@ -33,7 +30,7 @@ class AlbumController extends Controller
         $this->view('albuns/ver', [
             'album' => $album,
             'musicas' => $musicas,
-            'filaMusicas' => $filaMusicas // 🔥 ADICIONADO
+            'filaMusicas' => $filaMusicas
         ]);
     }
 }

@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   PÁGINA SEGUINDO - ARTISTAS SEGUIDOS
-   ================================================== */
 
 .seguindo-header {
     display: flex;
@@ -156,7 +153,6 @@
     transform: scale(1.02);
 }
 
-/* Tema claro */
 [data-theme="light"] .seguindo-card {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -175,7 +171,6 @@
     border-color: var(--border-color, #dddddd);
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .seguindo-grid {
         grid-template-columns: repeat(2, 1fr);

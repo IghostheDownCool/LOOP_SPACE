@@ -4,7 +4,6 @@ class SobreController extends Controller
 {
     public function index(): void
     {
-        // Busca estatísticas do sistema
         $musicaModel = new Musica();
         $artistaModel = new Artista();
         $albumModel = new Album();

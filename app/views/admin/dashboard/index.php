@@ -1,10 +1,6 @@
 <?php require_once __DIR__ . '/../../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   DASHBOARD ADMIN - ESTILOS
-   ================================================== */
-
 .admin-dashboard {
     max-width: 1200px;
     margin: 0 auto;
@@ -68,9 +64,6 @@
     border-color: #A78BFA;
 }
 
-/* ==================================================
-   TEMA ADMIN - DASHBOARD
-================================================== */
 [data-user-role="admin"] .admin-dashboard .admin-actions .btn-admin.primary {
     background: #DC3545;
     color: #ffffff;
@@ -102,7 +95,6 @@
     color: #DC3545 !important;
 }
 
-/* Cards de estatísticas */
 .admin-dashboard .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -142,7 +134,6 @@
     color: var(--text-muted);
 }
 
-/* Seções de ação rápida */
 .admin-dashboard .quick-actions {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -196,7 +187,6 @@
     margin-top: 8px;
 }
 
-/* Tema claro */
 [data-theme="light"] .admin-dashboard .stat-card {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -225,7 +215,6 @@
     border-color: #8B5CF6;
 }
 
-/* Admin + Tema Claro */
 [data-user-role="admin"][data-theme="light"] .admin-dashboard .admin-actions .btn-admin.primary {
     background: #DC3545;
     color: #ffffff;
@@ -246,7 +235,6 @@
     color: #DC3545;
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .admin-dashboard .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -289,7 +277,6 @@
         </div>
     </div>
 
-    <!-- Cards de Estatísticas -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-icon"><i class="bi bi-music-note"></i></div>
@@ -323,7 +310,6 @@
         </div>
     </div>
 
-    <!-- Ações Rápidas -->
     <h3 style="color: var(--text-primary); margin-bottom: 16px;">
         <i class="bi bi-lightning-fill" style="color: #ffd700;"></i> Ações Rápidas
     </h3>

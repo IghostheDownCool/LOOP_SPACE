@@ -30,7 +30,6 @@ class UsuariosController extends Controller
     {
         AdminMiddleware::verificar();
 
-        // Não permite remover o próprio admin
         if ($id == $_SESSION['usuario_id']) {
             Flash::set('danger', 'Você não pode remover seu próprio status de admin.');
             header('Location: ' . BASE_URL . '/admin/usuarios');
@@ -58,7 +57,6 @@ class UsuariosController extends Controller
         exit;
     }
     
-    // 🔥 Soft Delete
     if ($usuarioModel->excluir($id)) {
         Flash::set('success', 'Usuário excluído com sucesso!');
     } else {
@@ -69,7 +67,6 @@ class UsuariosController extends Controller
     exit;
 }
 
-// 🔥 NOVO: Listar usuários excluídos (lixeira)
 public function lixeira()
 {
     AdminMiddleware::verificar();
@@ -82,7 +79,6 @@ public function lixeira()
     ]);
 }
 
-// 🔥 NOVO: Restaurar usuário
 public function restaurar(int $id)
 {
     AdminMiddleware::verificar();

@@ -90,7 +90,6 @@
         <small>Entre e ouça suas músicas</small>
     </div>
 
-    <!-- Mensagens Flash -->
     <?php if (Flash::has()): ?>
         <?php $flash = Flash::get(); ?>
         <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
@@ -99,7 +98,6 @@
         </div>
     <?php endif; ?>
 
-    <!-- CORREÇÃO: Adicionei o action apontando para /login/logar -->
     <form method="POST" action="<?= BASE_URL ?>/login/logar">
         <div class="mb-3">
             <input type="email" name="email" class="form-control" placeholder="E-mail" required>

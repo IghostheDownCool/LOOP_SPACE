@@ -1,18 +1,13 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   CURTIDAS - LAYOUT DE LISTA
-   ================================================== */
 
-/* Container da lista */
 .curtidas-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-/* Card de música no estilo lista (horizontal) */
 .curtida-item {
     display: flex;
     align-items: center;
@@ -33,7 +28,6 @@
     transform: translateX(4px);
 }
 
-/* Capa pequena (horizontal) */
 .curtida-item .curtida-cover {
     width: 56px;
     height: 56px;
@@ -43,7 +37,6 @@
     background: var(--bg-secondary);
 }
 
-/* Informações da música */
 .curtida-item .curtida-info {
     flex: 1;
     min-width: 0;
@@ -77,7 +70,6 @@
     text-overflow: ellipsis;
 }
 
-/* Ações (botões) */
 .curtida-item .curtida-actions {
     display: flex;
     align-items: center;
@@ -86,7 +78,6 @@
     margin-left: auto;
 }
 
-/* Botão de play pequeno */
 .curtida-item .btn-play-small {
     width: 36px;
     height: 36px;
@@ -117,7 +108,6 @@
     font-size: 0.9rem;
 }
 
-/* Botão de descurtir */
 .curtida-item .descurtir-btn {
     background: transparent;
     border: none;
@@ -133,7 +123,6 @@
     transform: scale(1.2);
 }
 
-/* Tema claro */
 [data-theme="light"] .curtida-item {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -155,7 +144,6 @@
     color: var(--text-muted, #999999);
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .curtida-item {
         padding: 8px 12px;
@@ -197,7 +185,7 @@
 
 <div class="page-header">
     <h2 class="mb-4">
-        ❤️ Músicas Curtidas
+         Músicas Curtidas
     </h2>
 </div>
 
@@ -220,7 +208,7 @@
             <div class="curtida-info">
                 <p class="titulo">
     <?= htmlspecialchars($musica['titulo']) ?>
-    <span class="tocando-indicador">▶</span>
+    <span class="tocando-indicador"></span>
 </p>
                 <p class="artista"><?= htmlspecialchars($musica['artista']) ?></p>
                 <p class="album"><?= htmlspecialchars($musica['album']) ?></p>

@@ -8,9 +8,7 @@ class Router
         $url = trim($url, '/');
         $segments = $url === '' ? [] : explode('/', $url);
 
-        // ==================================================
-        // ROTA PARA LOGIN
-        // ==================================================
+
         if (isset($segments[0]) && $segments[0] === 'login') {
             if (isset($segments[1]) && $segments[1] === 'logar') {
                 $controllerName = 'LoginController';
@@ -41,9 +39,6 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTA PARA CADASTRO
-        // ==================================================
         if (isset($segments[0]) && $segments[0] === 'cadastro') {
             if (isset($segments[1]) && $segments[1] === 'cadastrar') {
                 $controllerName = 'CadastroController';
@@ -74,9 +69,6 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTA PARA REGISTRAR HISTÓRICO
-        // ==================================================
         if (isset($segments[0]) && $segments[0] === 'historico' && isset($segments[1]) && $segments[1] === 'registrar') {
             $controllerName = 'HistoricoController';
             $method = 'registrar';
@@ -101,9 +93,7 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTAS PARA COMENTÁRIOS
-        // ==================================================
+
         if (isset($segments[0]) && $segments[0] === 'comentarios') {
             if (isset($segments[1]) && $segments[1] === 'adicionar') {
                 $controllerName = 'ComentariosController';
@@ -136,9 +126,7 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTAS PARA PERFIL
-        // ==================================================
+
         if (isset($segments[0]) && $segments[0] === 'perfil') {
             if (isset($segments[1]) && $segments[1] === 'atualizarNome') {
                 $controllerName = 'PerfilController';
@@ -182,9 +170,7 @@ class Router
         }
         
         
-        // ==================================================
-        // ROTA PARA ARTISTAS SEGUIDOS
-        // ==================================================
+
         if (isset($segments[0]) && $segments[0] === 'seguindo') {
             $controllerName = 'SeguindoController';
             $method = $segments[1] ?? 'index';
@@ -209,9 +195,7 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTA PARA LISTA DE ARTISTAS
-        // ==================================================
+
         if (isset($segments[0]) && $segments[0] === 'artistas' && !isset($segments[1])) {
             $controllerName = 'ArtistasController';
             $method = 'index';
@@ -236,11 +220,6 @@ class Router
             return;
         }
 
-        
-
-        // ==================================================
-        // ROTA PARA GÊNEROS
-        // ==================================================
         if (isset($segments[0]) && $segments[0] === 'generos') {
             $controllerName = 'GeneroController';
             $method = 'index';
@@ -265,7 +244,6 @@ class Router
             return;
         }
 
-        // Rota para gênero específico
         if (isset($segments[0]) && $segments[0] === 'genero' && isset($segments[1])) {
             $controllerName = 'GeneroController';
             $method = 'ver';
@@ -290,9 +268,6 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTA PARA PLAYLIST PÚBLICA
-        // ==================================================
         if (isset($segments[0]) && $segments[0] === 'playlists' && isset($segments[1]) && $segments[1] === 'publica') {
             $controllerName = 'PlaylistsController';
             $method = 'publica';
@@ -317,9 +292,6 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTA PARA PLAYER COM FILTRO POR GÊNERO
-        // ==================================================
         if (isset($segments[0]) && $segments[0] === 'player' && isset($segments[1]) && $segments[1] === 'genero' && isset($segments[2])) {
             $controllerName = 'PlayerController';
             $method = 'index';
@@ -344,9 +316,6 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ÁREA ADMINISTRATIVA
-        // ==================================================
 
         if (isset($segments[0]) && $segments[0] === 'admin') {
 
@@ -362,9 +331,6 @@ class Router
                 $method = $segments[2] ?? 'index';
                 $params = array_slice($segments, 3);
 
-            // ==================================================
-            // ROTAS ADMINISTRATIVAS PARA MÚSICAS
-            // ==================================================
             } elseif ($segments[1] === 'musicas' && isset($segments[2]) && $segments[2] === 'ativar' && isset($segments[3])) {
 
                 $controllerName = 'MusicasController';
@@ -412,12 +378,8 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ROTAS PARA ÁREA DO ARTISTA
-        // ==================================================
         if (isset($segments[0]) && $segments[0] === 'artista') {
             
-            // 🔥 NOVA ROTA: /artista/ver/{id}
             if (isset($segments[1]) && $segments[1] === 'ver' && isset($segments[2])) {
                 $controllerName = 'ArtistaController';
                 $method = 'ver';
@@ -490,11 +452,11 @@ class Router
                 $controllerName = 'ArtistaController';
                 $method = 'seguidores';
                 $params = [];
-            } elseif ($segments[1] === 'editar-perfil') {    // 🔥 NOVO
+            } elseif ($segments[1] === 'editar-perfil') {
                 $controllerName = 'ArtistaController';
                 $method = 'editarPerfil';
                 $params = [];
-            } elseif ($segments[1] === 'atualizar-perfil') { // 🔥 NOVO
+            } elseif ($segments[1] === 'atualizar-perfil') {
                 $controllerName = 'ArtistaController';
                 $method = 'atualizarPerfil';
                 $params = [];
@@ -524,9 +486,6 @@ class Router
             return;
         }
 
-        // ==================================================
-        // ÁREA PÚBLICA (FALLBACK)
-        // ==================================================
         $controllerName = ucfirst($segments[0] ?? 'Home') . 'Controller';
         $method = $segments[1] ?? 'index';
         $params = array_slice($segments, 2);

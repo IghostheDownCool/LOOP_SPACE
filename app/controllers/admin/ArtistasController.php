@@ -28,7 +28,6 @@ class ArtistasController extends Controller
                 exit;
             }
 
-            // Upload da foto (opcional)
             $foto = null;
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
                 $uploadHelper = new UploadHelper();
@@ -75,14 +74,12 @@ class ArtistasController extends Controller
                 exit;
             }
 
-            // Upload da nova foto (opcional)
             $foto = $artista['foto'];
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
                 $uploadHelper = new UploadHelper();
                 $novaFoto = $uploadHelper->uploadAvatar($_FILES['foto']);
                 
                 if ($novaFoto) {
-                    // Remove a foto antiga se existir
                     if ($foto && file_exists(__DIR__ . '/../../public/uploads/artistas/' . $foto)) {
                         unlink(__DIR__ . '/../../public/uploads/artistas/' . $foto);
                     }
@@ -120,7 +117,6 @@ class ArtistasController extends Controller
             exit;
         }
 
-        // Remove a foto se existir
         if ($artista['foto'] && file_exists(__DIR__ . '/../../public/uploads/artistas/' . $artista['foto'])) {
             unlink(__DIR__ . '/../../public/uploads/artistas/' . $artista['foto']);
         }
@@ -134,10 +130,6 @@ class ArtistasController extends Controller
         header('Location: ' . BASE_URL . '/admin/artistas');
         exit;
     }
-
-    /**
-     * Redireciona para uma URL (mantendo compatibilidade)
-     */
     protected function redirect(string $path)
     {
         header('Location: ' . BASE_URL . $path);

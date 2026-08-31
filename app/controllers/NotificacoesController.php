@@ -9,7 +9,6 @@ class NotificacoesController extends Controller
         $notificacaoModel = new Notificacao();
         $notificacoes = $notificacaoModel->listar($_SESSION['usuario_id']);
 
-        // Marca todas como lidas ao visualizar a página
         $notificacaoModel->marcarTodasComoLidas($_SESSION['usuario_id']);
 
         $this->view('notificacoes/index', [

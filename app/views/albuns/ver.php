@@ -25,7 +25,6 @@
                     <div class="col">
                         <div class="card bg-card h-100">
                             <?php 
-                            // 🔥 PASSA A FILA PARA O COMPONENTE
                             $filaMusicas = $filaMusicas;
                             require __DIR__ . '/../components/music-card.php'; 
                             ?>

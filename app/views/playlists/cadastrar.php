@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   CRIAÇÃO DE PLAYLIST - ESTILOS
-   ================================================== */
 
 .playlist-form-container {
     max-width: 600px;
@@ -135,7 +132,6 @@
     color: var(--text-primary);
 }
 
-/* Tema claro */
 [data-theme="light"] .playlist-form-card {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -151,7 +147,6 @@
     color: var(--text-secondary, #666666);
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .playlist-form-card {
         padding: 20px;

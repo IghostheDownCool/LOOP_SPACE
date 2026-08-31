@@ -1,4 +1,4 @@
--- insere dados iniciais
+
 
 INSERT INTO artistas (nome) VALUES
 ('Imagine Dragons'),

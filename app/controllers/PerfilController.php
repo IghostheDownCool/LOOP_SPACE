@@ -11,7 +11,6 @@ class PerfilController extends Controller
     $usuarioModel = new Usuario();
     $usuario = $usuarioModel->buscarPorId($usuarioId);
 
-    // 🔥 Busca todas as estatísticas
     $historicoModel = new Historico();
     $curtidaModel = new Curtida();
     $playlistModel = new Playlist();
@@ -23,7 +22,6 @@ class PerfilController extends Controller
     $totalPlaylists = $playlistModel->contarPorUsuario($usuarioId);
     $totalArtistasSeguidos = $artistaModel->contarSeguidos($usuarioId);
 
-    // Formata o tempo
     $horas = floor($totalSegundos / 3600);
     $minutos = floor(($totalSegundos % 3600) / 60);
     $tempoFormatado = '';
@@ -154,7 +152,6 @@ public function atualizarSenha(): void
         exit;
     }
 
-    // Verifica se o arquivo foi enviado
     if (!isset($_FILES['avatar']) || $_FILES['avatar']['error'] !== UPLOAD_ERR_OK) {
         Flash::set('danger', 'Nenhum arquivo selecionado ou erro no upload.');
         header('Location: ' . BASE_URL . '/perfil');
@@ -165,7 +162,6 @@ public function atualizarSenha(): void
     $usuarioModel = new Usuario();
     $usuario = $usuarioModel->buscarPorId($usuarioId);
 
-    // Upload do avatar
     $uploadHelper = new UploadHelper();
     $avatar = $uploadHelper->uploadAvatar($_FILES['avatar']);
 
@@ -175,7 +171,6 @@ public function atualizarSenha(): void
         exit;
     }
 
-    // Remove o avatar antigo
     if (!empty($usuario['avatar'])) {
         $avatarPath = __DIR__ . '/../../public/uploads/avatars/' . $usuario['avatar'];
         if (file_exists($avatarPath)) {
@@ -183,7 +178,6 @@ public function atualizarSenha(): void
         }
     }
 
-    // Salva o novo avatar
     if ($usuarioModel->atualizarAvatar($usuarioId, $avatar)) {
         Flash::set('success', 'Avatar atualizado com sucesso!');
     } else {

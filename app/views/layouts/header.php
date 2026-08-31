@@ -8,7 +8,7 @@
 
     <title>SONORA</title>
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩻</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/music-card.css?v=<?= filemtime(__DIR__ . '/../../../public/assets/css/music-card.css') ?>">
 
 <style>
-/* ==================================================
-   CORES E TEMAS
-================================================== */
 :root {
     --bg-primary: #0a0a0a;
     --bg-secondary: #1a1a2e;
@@ -51,9 +48,6 @@
     --border-color: #dddddd;
 }
 
-/* ==================================================
-   LAYOUT BASE
-================================================== */
 html, body {
     height: 100%;
     margin: 0;
@@ -66,9 +60,6 @@ body {
     padding-bottom: 80px !important;
 }
 
-/* ==================================================
-   LAYOUT - SIDEBAR DIREITA COM BOOTSTRAP
-================================================== */
 .container-fluid {
     min-height: auto !important;
     background: var(--bg-primary) !important;
@@ -81,9 +72,6 @@ body {
     display: flex !important;
 }
 
-/* ==================================================
-   SIDEBAR - DIREITA
-================================================== */
 .sidebar {
     background: var(--bg-sidebar) !important;
     border-left: 1px solid var(--border-color) !important;
@@ -145,18 +133,12 @@ body {
     font-size: 12px !important;
 }
 
-/* ==================================================
-   CONTEÚDO - ESQUERDA
-================================================== */
 .conteudo {
     padding: 30px 40px !important;
     background: var(--bg-primary) !important;
     min-height: auto !important;
 }
 
-/* ==================================================
-   PERFIL DO USUÁRIO
-================================================== */
 .user-profile {
     padding: 12px 8px 16px 8px !important;
     border-bottom: 1px solid var(--border-color) !important;
@@ -202,9 +184,6 @@ body {
     display: block !important;
 }
 
-/* ==================================================
-   MENU HAMBÚRGUER
-================================================== */
 .hamburger-btn {
     display: none !important;
     position: fixed !important;
@@ -235,9 +214,6 @@ body {
     display: block !important;
 }
 
-/* ==================================================
-   TEMA ADMIN
-================================================== */
 [data-user-role="admin"] .sidebar .menu .nav-link.active {
     background: #DC3545 !important;
     color: #ffffff !important;
@@ -264,9 +240,6 @@ body {
     color: #ffffff !important;
 }
 
-/* ==================================================
-   RESPONSIVIDADE
-================================================== */
 @media (max-width: 992px) {
     .conteudo {
         padding: 20px 24px !important;
@@ -336,7 +309,6 @@ body {
 </style>
 
 <script>
-    // MENU HAMBÚRGUER
     document.addEventListener('DOMContentLoaded', function() {
         var hamburger = document.createElement('button');
         hamburger.className = 'hamburger-btn';
@@ -378,7 +350,6 @@ body {
         });
     });
 
-    // NOTIFICAÇÕES
     function atualizarNotificacoes() {
         fetch('<?= BASE_URL ?>/notificacoes/contar')
             .then(response => response.json())
@@ -409,18 +380,11 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 ?>
 
-<!-- ==================================================
-     LAYOUT PRINCIPAL
-     ================================================== -->
 <div class="container-fluid">
     <div class="row">
 
-        <!-- ==========================================
-             CONTEÚDO PRINCIPAL - ESQUERDA (9/12)
-             ========================================== -->
         <div class="col-12 col-md-9 col-lg-10 conteudo">
 
-            <!-- Mensagens Flash -->
             <?php if (Flash::has()): ?>
                 <?php $flash = Flash::get(); ?>
                 <div class="alert alert-<?= $flash['type'] ?> alert-dismissible fade show" role="alert">
@@ -429,7 +393,6 @@ if (!isset($_SESSION['usuario_id'])) {
                 </div>
             <?php endif; ?>
 
-            <!-- BARRA DE PESQUISA -->
             <div class="search-bar-container mb-4">
                 <div class="search-bar">
                     <i class="bi bi-search"></i>
@@ -437,7 +400,3 @@ if (!isset($_SESSION['usuario_id'])) {
                 </div>
                 <div id="search-results" class="search-results"></div>
             </div>
-
-            <!-- ==========================================
-                 O CONTEÚDO DA PÁGINA VEM AQUI
-                 ========================================== -->

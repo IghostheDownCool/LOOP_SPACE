@@ -1,8 +1,3 @@
-/* ==================================================
-   ESTILOS PARA ÁREA DO ARTISTA
-   ================================================== */
-
-/* Cards de estatísticas */
 .stat-card {
     background: var(--bg-card);
     border-radius: 12px;
@@ -43,7 +38,6 @@
     margin-top: 2px;
 }
 
-/* Responsividade dos cards */
 @media (max-width: 576px) {
     .stat-card {
         min-height: 90px;
@@ -63,7 +57,6 @@
     }
 }
 
-/* Cards de listagem na área do artista */
 .artist-list-card {
     background: var(--bg-card);
     border-radius: 12px;
@@ -100,7 +93,6 @@
     background: var(--bg-card-hover);
 }
 
-/* Botões de ação na área do artista */
 .artist-action-btn {
     display: inline-flex;
     align-items: center;
@@ -120,7 +112,6 @@
     transform: scale(1.02);
 }
 
-/* Grid de estatísticas - força altura igual */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -142,7 +133,6 @@
     }
 }
 
-/* Força todos os cards da mesma linha terem a mesma altura */
 .row.g-4 > .col {
     display: flex;
 }

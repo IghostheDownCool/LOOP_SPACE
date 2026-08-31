@@ -13,9 +13,6 @@ class Musica
         $this->pdo = $database->connect();
     }
 
-    /**
-     * Lista todas as músicas ATIVAS (público)
-     */
     public function listar(): array
     {
         $sql = "
@@ -146,9 +143,6 @@ class Musica
         return $stmt->execute([':id' => $id]);
     }
 
-    /**
-     * Top músicas (apenas ATIVAS)
-     */
     public function topMusicas(): array
     {
         $sql = "
@@ -173,9 +167,6 @@ class Musica
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Busca por termo (apenas ATIVAS)
-     */
     public function buscar(string $termo): array
     {
         $sql = "
@@ -207,9 +198,6 @@ class Musica
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Recomendações por artistas (apenas ATIVAS)
-     */
     public function recomendarPorArtistas(array $artistasIds, int $limite = 10): array
     {
         if (empty($artistasIds)) {
@@ -252,9 +240,6 @@ class Musica
         return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
-    /**
-     * Últimas músicas (apenas ATIVAS)
-     */
     public function ultimas(int $limite = 5): array
     {
         $sql = "
@@ -275,9 +260,6 @@ class Musica
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Top músicas limitado (apenas ATIVAS)
-     */
     public function topMusicasLimitado(int $limite = 5): array
     {
         $sql = "
@@ -298,9 +280,6 @@ class Musica
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Lista músicas por gênero (apenas ATIVAS)
-     */
     public function listarPorGenero(string $genero): array
     {
         $sql = "
@@ -339,9 +318,6 @@ class Musica
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    /**
-     * Lista músicas de um artista específico (TODAS, inclusive inativas - para o artista)
-     */
     public function listarPorArtista(int $artistaId): array
     {
         $sql = "
@@ -364,9 +340,6 @@ class Musica
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Conta quantas músicas um artista tem (TODAS)
-     */
     public function contarPorArtista(int $artistaId): int
     {
         $sql = "
@@ -381,9 +354,6 @@ class Musica
         return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
-    /**
-     * Total de reproduções de um artista (TODAS)
-     */
     public function totalReproducoesPorArtista(int $artistaId): int
     {
         $sql = "
@@ -399,9 +369,6 @@ class Musica
         return (int) ($result['total'] ?? 0);
     }
 
-    /**
-     * Atualiza o arquivo de uma música
-     */
     public function atualizarArquivo(int $id, string $arquivo): bool
     {
         $sql = "UPDATE musicas SET arquivo = :arquivo WHERE id = :id";
@@ -412,9 +379,6 @@ class Musica
         ]);
     }
 
-    /**
-     * Atualiza a capa de uma música
-     */
     public function atualizarCapa(int $id, string $capa): bool
     {
         $sql = "UPDATE musicas SET capa = :capa WHERE id = :id";
@@ -425,9 +389,6 @@ class Musica
         ]);
     }
 
-    /**
-     * Toggle ativa/desativa música
-     */
     public function toggleAtiva(int $id): bool
     {
         $sql = "UPDATE musicas SET ativa = NOT ativa WHERE id = :id";
@@ -435,9 +396,6 @@ class Musica
         return $stmt->execute([':id' => $id]);
     }
 
-    /**
-     * Extrai a duração de um arquivo de áudio (em segundos)
-     */
     public function getDuracao(string $caminhoArquivo): int
     {
         if (!file_exists($caminhoArquivo)) {
@@ -472,9 +430,7 @@ class Musica
 
         return 0;
     }
-    /**
- * Lista TODAS as músicas (para admin)
- */
+
 public function listarTodas(): array
 {
     $sql = "

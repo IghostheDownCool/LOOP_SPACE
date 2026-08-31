@@ -1,9 +1,6 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 
 <style>
-/* ==================================================
-   HISTÓRICO - LAYOUT DE LISTA
-   ================================================== */
 
 .historico-list {
     display: flex;
@@ -117,7 +114,6 @@
     font-size: 0.9rem;
 }
 
-/* Tema claro */
 [data-theme="light"] .historico-item {
     background: var(--bg-card, #ffffff);
     border-color: var(--border-color, #dddddd);
@@ -143,7 +139,6 @@
     color: var(--text-muted, #999999);
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
     .historico-item {
         padding: 8px 12px;
@@ -192,7 +187,7 @@
 
 <div class="page-header">
     <h2 class="mb-4">
-        🕐 Histórico de Reprodução
+        Histórico de Reprodução
     </h2>
 </div>
 
@@ -215,7 +210,7 @@
             <div class="historico-info">
                 <p class="titulo">
     <?= htmlspecialchars($musica['titulo']) ?>
-    <span class="tocando-indicador">▶</span>
+    <span class="tocando-indicador"></span>
 </p>
                 <p class="artista"><?= htmlspecialchars($musica['artista']) ?></p>
                 <p class="album"><?= htmlspecialchars($musica['album']) ?></p>

@@ -16,14 +16,13 @@ class PlayerController extends Controller
 
         $generos = $musicaModel->listarGeneros();
         
-        // 🔥 ADICIONA A FILA
         $filaMusicas = array_column($musicas, 'id');
 
         $this->view('player/index', [
             'musicas' => $musicas,
             'generos' => $generos,
             'generoAtual' => $genero,
-            'filaMusicas' => $filaMusicas // 🔥 ADICIONADO
+            'filaMusicas' => $filaMusicas 
         ]);
     }
 
@@ -51,12 +50,11 @@ class PlayerController extends Controller
         $musica = new Musica();
         $musicas = $musica->topMusicas();
         
-        // 🔥 ADICIONA A FILA
         $filaMusicas = array_column($musicas, 'id');
 
         $this->view('player/top', [
             'musicas' => $musicas,
-            'filaMusicas' => $filaMusicas // 🔥 ADICIONADO
+            'filaMusicas' => $filaMusicas 
         ]);
     }
 

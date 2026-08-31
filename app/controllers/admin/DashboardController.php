@@ -6,7 +6,6 @@ class DashboardController extends Controller
     {
         AdminMiddleware::verificar();
 
-        // Instancia os models
         $usuarioModel = new Usuario();
         $musicaModel = new Musica();
         $artistaModel = new Artista();
@@ -14,7 +13,6 @@ class DashboardController extends Controller
         $playlistModel = new Playlist();
         $curtidaModel = new Curtida();
 
-        // Estatísticas gerais
         $totalUsuarios = $usuarioModel->contar();
         $totalMusicas = $musicaModel->contar();
         $totalArtistas = $artistaModel->contar();
@@ -22,14 +20,11 @@ class DashboardController extends Controller
         $totalPlaylists = $playlistModel->contar();
         $totalCurtidas = $curtidaModel->contar();
 
-        // Últimos registros
         $ultimosUsuarios = $usuarioModel->ultimos(5);
         $ultimasMusicas = $musicaModel->ultimas(5);
 
-        // Músicas mais ouvidas (top 5)
         $topMusicas = $musicaModel->topMusicasLimitado(5);
 
-        // Artistas mais seguidos
         $topArtistas = $artistaModel->maisSeguidos(5);
 
         $this->view('admin/dashboard/index', [

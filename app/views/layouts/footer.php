@@ -1,11 +1,8 @@
-        </div><!-- FIM DO CONTEUDO (col-12 col-md-9 col-lg-10) -->
+        </div>
 
-        <!-- ==========================================
-             SIDEBAR - DIREITA (3/12)
-             ========================================== -->
+
         <aside class="col-12 col-md-3 col-lg-2 sidebar">
 
-            <!-- PERFIL DO USUÁRIO -->
             <?php
             $usuarioModel = new Usuario();
             if (isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id'])) {
@@ -77,12 +74,9 @@
 
         </aside>
 
-    </div><!-- FIM DO ROW -->
-</div><!-- FIM DO CONTAINER -->
+    </div>
+</div>
 
-<!-- ==================================================
-     PLAYER GLOBAL - RESPONSIVO
-     ================================================== -->
 <div id="global-player" class="global-player">
 
     <div class="player-left">
@@ -111,7 +105,6 @@
 
         <audio id="player"></audio>
 
-        <!-- Controles do player -->
         <div class="player-controls">
             <button id="btn-shuffle" class="btn btn-cinza" title="Aleatório">
                 <i class="bi bi-shuffle"></i>
@@ -172,11 +165,7 @@
 
 </div>
 
-<!-- ==================================================
-     CSS RESPONSIVO PARA O PLAYER GLOBAL
-     ================================================== -->
 <style>
-    /* 🔥 PLAYER GLOBAL - RESPONSIVO */
     .global-player {
         position: fixed;
         bottom: 0;
@@ -194,7 +183,6 @@
         transition: all 0.3s ease;
     }
 
-    /* Lado esquerdo - informação da música */
     .player-left {
         display: flex;
         align-items: center;
@@ -232,7 +220,6 @@
         max-width: 150px;
     }
 
-    /* Lado central - controles e progresso */
     .player-center {
         display: flex;
         flex-direction: column;
@@ -350,7 +337,6 @@
         border: none;
     }
 
-    /* Lado direito - volume */
     .player-right {
         display: flex;
         align-items: center;
@@ -401,9 +387,6 @@
         border: none;
     }
 
-    /* ==================================================
-       TEMA ADMIN - PLAYER
-    ================================================== */
     [data-user-role="admin"] .player-controls .btn-verde {
         background: #DC3545 !important;
         color: #ffffff !important;
@@ -422,11 +405,6 @@
         background: #DC3545 !important;
     }
 
-    /* ==================================================
-       RESPONSIVIDADE DO PLAYER
-    ================================================== */
-
-    /* Tablet - até 768px */
     @media (max-width: 768px) {
         .global-player {
             padding: 10px 16px;
@@ -482,7 +460,6 @@
         }
     }
 
-    /* Mobile - até 576px */
     @media (max-width: 576px) {
         .global-player {
             padding: 8px 10px;
@@ -552,7 +529,6 @@
         }
     }
 
-    /* Mobile muito pequeno - até 400px */
     @media (max-width: 400px) {
         .global-player {
             padding: 6px 8px;

@@ -5,9 +5,6 @@ class Genero extends Model
 
     use SoftDelete;
 
-    /**
-     * Lista todos os gêneros
-     */
     public function listar(): array
     {
         $sql = "SELECT * FROM generos ORDER BY nome ASC";
@@ -15,9 +12,6 @@ class Genero extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Busca um gênero por ID
-     */
     public function buscarPorId(int $id): array|false
     {
         $sql = "SELECT * FROM generos WHERE id = :id";
@@ -26,9 +20,6 @@ class Genero extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Busca um gênero por nome
-     */
     public function buscarPorNome(string $nome): array|false
     {
         $sql = "SELECT * FROM generos WHERE nome = :nome";
@@ -37,9 +28,6 @@ class Genero extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Cria um novo gênero (apenas admin)
-     */
     public function criar(string $nome): bool
     {
         $sql = "INSERT INTO generos (nome) VALUES (:nome)";
@@ -47,9 +35,6 @@ class Genero extends Model
         return $stmt->execute([':nome' => $nome]);
     }
 
-    /**
-     * Atualiza um gênero (apenas admin)
-     */
     public function atualizar(int $id, string $nome): bool
     {
         $sql = "UPDATE generos SET nome = :nome WHERE id = :id";
@@ -60,9 +45,6 @@ class Genero extends Model
         ]);
     }
 
-    /**
-     * Exclui um gênero (apenas admin)
-     */
     public function excluir(int $id): bool
     {
         $sql = "DELETE FROM generos WHERE id = :id";
@@ -70,9 +52,6 @@ class Genero extends Model
         return $stmt->execute([':id' => $id]);
     }
 
-    /**
-     * Conta quantos gêneros existem
-     */
     public function contar(): int
     {
         $sql = "SELECT COUNT(*) as total FROM generos";

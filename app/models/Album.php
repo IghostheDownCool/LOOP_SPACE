@@ -117,7 +117,7 @@ class Album extends Model
             albuns.titulo AS album,
             albuns.capa,
             artistas.nome AS artista,
-            artistas.id AS artista_id,  -- 🔥 ADICIONADO
+            artistas.id AS artista_id,
             albuns.id AS album_id
         FROM musicas
         INNER JOIN albuns ON albuns.id = musicas.album_id
@@ -137,10 +137,6 @@ class Album extends Model
         $stmt = $this->pdo->query($sql);
         return (int) $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
-
-    // ============================================
-    // NOVOS MÉTODOS PARA A ÁREA DO ARTISTA
-    // ============================================
 
     public function listarPorArtista(int $artistaId): array
     {

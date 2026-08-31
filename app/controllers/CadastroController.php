@@ -18,9 +18,8 @@ class CadastroController extends Controller
             $nome = trim($_POST['nome'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $senha = $_POST['senha'] ?? '';
-            $tipo = $_POST['tipo'] ?? 'ouvinte'; // 'ouvinte' ou 'artista'
+            $tipo = $_POST['tipo'] ?? 'ouvinte'; 
 
-            // Validações
             if (empty($nome) || empty($email) || empty($senha)) {
                 Flash::set('danger', 'Preencha todos os campos.');
                 header('Location: ' . BASE_URL . '/cadastro');
@@ -41,17 +40,14 @@ class CadastroController extends Controller
 
             $usuarioModel = new Usuario();
 
-            // Verifica se email já existe
             if ($usuarioModel->buscarPorEmail($email)) {
                 Flash::set('danger', 'Este e-mail já está cadastrado.');
                 header('Location: ' . BASE_URL . '/cadastro');
                 exit;
             }
 
-            // Hash da senha
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
             
-            // Cadastra o usuário
             $usuarioId = $usuarioModel->cadastrar($nome, $email, $senhaHash);
 
             if (!$usuarioId) {
@@ -60,14 +56,9 @@ class CadastroController extends Controller
                 exit;
             }
 
-            // ============================================
-            // SE ESCOLHEU SER ARTISTA, VINCULA
-            // ============================================
             if ($tipo === 'artista') {
-                // Usa o próprio nome como nome artístico
                 $nomeArtista = $nome;
                 
-                // Cria o perfil de artista
                 $artistaCriado = $usuarioModel->vincularArtista($usuarioId, $nomeArtista);
                 
                 if ($artistaCriado) {

@@ -5,7 +5,6 @@
     <p class="text-muted">Aqui estão algumas sugestões para você.</p>
 </div>
 
-<!-- Seção: Continuar Navegando -->
 <?php if (!empty($historicoNavegacao)): ?>
     <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-clock-history" style="color: #1db954;"></i>
@@ -50,7 +49,6 @@
     </div>
 <?php endif; ?>
 
-<!-- Seção de Recomendações -->
 <?php if (!empty($recomendacoes)): ?>
     <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-stars" style="color: #1db954;"></i>
@@ -61,7 +59,6 @@
             <div class="col">
                 <div class="card bg-card h-100">
                     <?php 
-                    // 🔥 PASSA A FILA DE RECOMENDAÇÕES
                     $filaMusicas = $filaRecomendacoes;
                     require __DIR__ . '/../components/music-card.php'; 
                     ?>
@@ -75,7 +72,6 @@
     </div>
 <?php endif; ?>
 
-<!-- Seção de Artistas Seguidos -->
 <?php if (!empty($seguidos)): ?>
     <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-people" style="color: #1db954;"></i>
@@ -111,7 +107,6 @@
                 <div class="col">
                     <div class="card bg-card h-auto">
                         <?php 
-                        // 🔥 PASSA A FILA DE MÚSICAS DOS SEGUIDOS
                         $filaMusicas = $filaSeguidos;
                         require __DIR__ . '/../components/music-card.php'; 
                         ?>
@@ -127,7 +122,6 @@
     </div>
 <?php endif; ?>
 
-<!-- Seção de Top Músicas -->
 <?php if (!empty($topMusicas)): ?>
     <h2 class="mb-3" style="margin-top: 24px !important;">
         <i class="bi bi-fire" style="color: #ff6b6b;"></i>
@@ -138,7 +132,6 @@
             <div class="col">
                 <div class="card bg-card h-100">
                     <?php 
-                    // 🔥 PASSA A FILA DE TOP MÚSICAS
                     $filaMusicas = $filaTop;
                     require __DIR__ . '/../components/music-card.php'; 
                     ?>
